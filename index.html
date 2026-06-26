@@ -1424,7 +1424,7 @@ function eval90text(v,base,inverted){
    5. 광고 유형별 카드
    ============================================================ */
 function renderAdTypes(){
-  const types = MAIN_CHANNEL==='DA' ? ['advoost'] : MAIN_CHANNEL==='META' ? ['meta'] : ['shop','powerlink','brand'];
+  const types = MAIN_CHANNEL==='DA' ? ['advoost'] : MAIN_CHANNEL==='META' ? ['meta'] : (ACT||['shop','powerlink','brand']);
   const html = types.map(t=>{
     const cur  = sumRange(currentStart,currentEnd,t);
     const base = sumRange(addDays(TODAY,-89),TODAY,t);
@@ -1479,7 +1479,7 @@ function renderAdTypes(){
       </h3>
       <div class="mini">
         <div class="mi"><div class="l">광고비</div><div class="v">${fmtWon(cur.cost)}</div></div>
-        <div class="mi"><div class="l">전환</div><div class="v">${fmtInt(cur.conv)}</div></div>
+        <div class="mi ttp" data-tip="전환 = 광고 클릭 후 실제 <b>구매·가입 등 목표를 완료</b>한 횟수예요. 클릭수와는 달라요. 스마트스토어 전환추적(전환스크립트)이 연동돼 있어야 집계됩니다." style="cursor:help"><div class="l">전환 ⓘ</div><div class="v">${fmtInt(cur.conv)}</div></div>
         <div class="mi"><div class="l">ROAS</div><div class="v">${fmtPct(cur.roas,0)}</div></div>
       </div>
       <div style="margin-top:10px;font-size:12px">
@@ -1615,7 +1615,7 @@ function renderChart(){
 function renderKwTables(){
   const kws = kwRange(currentStart,currentEnd);
   // 최소 노출·클릭 기준 필터로 노이즈 제거
-  const sig = kws.filter(k=>k.imp>=200 && k.clk>=5);
+  const sig = kws.filter(k=>k.imp>=30 && k.clk>=1);
   const top = [...sig].sort((a,b)=>b.roas-a.roas).slice(0,10);
   const bot = [...sig].sort((a,b)=>a.roas-b.roas).slice(0,10);
 
@@ -1633,7 +1633,7 @@ function renderKwTables(){
       <td>${fmtWon(k.rev)}</td>
       <td><b style="color:#027a38">${fmtPct(k.roas,0)}</b></td>
     </tr>
-  `).join('') || `<tr><td colspan="10" style="text-align:center;color:var(--muted)">해당 기간에 유의미한 키워드가 없습니다.</td></tr>`;
+  `).join('') || `<tr><td colspan="10" style="text-align:center;color:var(--muted);line-height:1.7;padding:18px">표시할 키워드가 없어요.<br>이 표는 <b>파워링크·브랜드검색</b>의 키워드 성과만 보여줘요 — <b>쇼핑검색광고는 상품 기준</b>이라 키워드로 안 잡혀요.<br>파워링크 키워드가 적거나 클릭이 거의 없으면 비어 있을 수 있어요.</td></tr>`;
 
   const tbody2 = document.querySelector('#botTable tbody');
   tbody2.innerHTML = bot.map(k=>{
@@ -1650,7 +1650,7 @@ function renderKwTables(){
       <td><b style="color:#b91c3c">${fmtPct(k.roas,0)}</b></td>
       <td style="text-align:left;font-size:12px">${tip}</td>
     </tr>`;
-  }).join('') || `<tr><td colspan="6" style="text-align:center;color:var(--muted)">해당 기간에 유의미한 키워드가 없습니다.</td></tr>`;
+  }).join('') || `<tr><td colspan="6" style="text-align:center;color:var(--muted);line-height:1.7;padding:18px">표시할 키워드가 없어요. (파워링크·브랜드검색 키워드 기준)</td></tr>`;
 }
 
 /* ============================================================
@@ -1659,7 +1659,12 @@ function renderKwTables(){
        - 문장 내 숫자는 ev 클래스로 원본 수치 근거 툴팁 바인딩
    ============================================================ */
 function renderOpinions(ctx){
-  const {cur,prev,base,len,prevStart,prevEnd} = ctx;
+  let {cur,prev,base,len,prevStart,prevEnd} = ctx;
+  const ACT=(MAIN_CHANNEL==='SA' && typeof SA_ACTIVE!=='undefined')?['shop','powerlink','brand'].filter(t=>SA_ACTIVE[t]):null;
+  if(ACT){
+    const _sa=(s,e)=>{const a={imp:0,clk:0,cost:0,conv:0,rev:0};ACT.forEach(t=>{const r=sumRange(s,e,t);a.imp+=r.imp;a.clk+=r.clk;a.cost+=r.cost;a.conv+=r.conv;a.rev+=r.rev;});a.ctr=a.imp?a.clk/a.imp*100:0;a.cpc=a.clk?a.cost/a.clk:0;a.cvr=a.clk?a.conv/a.clk*100:0;a.roas=a.cost?a.rev/a.cost*100:0;return a;};
+    cur=_sa(currentStart,currentEnd); prev=_sa(prevStart,prevEnd); base=_sa(addDays(TODAY,-89),TODAY);
+  }
   if((cur.imp||0)<=0 && (cur.cost||0)<=0){
     const oe=document.getElementById('opinions'); if(oe) oe.innerHTML='<div style="font-size:13px;color:var(--muted);line-height:1.7">선택한 기간에 데이터가 없어요. 기간을 바꾸거나 CSV를 업로드해 주세요.</div>';
     const vt=document.getElementById('verifyText'); if(vt) vt.textContent='—';
@@ -1841,6 +1846,7 @@ function renderOpinions(ctx){
   }
 
   // 렌더
+  if(ACT && ACT.length<3){ ops.unshift({ic:'🎯',icbg:'#2563eb',title:'선택한 광고유형 기준',sev:'필터',sevBg:'#2563eb',lines:[{tag:'fact',html:`지금 추이·의견은 <b>${ACT.map(t=>AD_LABEL[t]).join(' · ')}</b> 만 기준이에요. (상단 카드 클릭으로 변경 · 위 KPI는 전체 계정 기준)`}]}); }
   document.getElementById('opinions').innerHTML = ops.map(o=>`
     <div class="op">
       <div class="head">
