@@ -719,6 +719,12 @@
     <div class="inv-tabs">
       <button class="inv-tab active" data-tab="ads">소재 <span id="invAdsCount">(0)</span></button>
       <button class="inv-tab" data-tab="kws">키워드 <span id="invKwsCount">(0)</span></button>
+      <select id="invFilter" style="margin-left:auto;font-size:12px;padding:6px 9px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink-2);font-family:inherit;cursor:pointer">
+        <option value="activeFirst">게재중 우선</option>
+        <option value="active">게재중만</option>
+        <option value="paused">일시중지만</option>
+        <option value="all">전체(등록순)</option>
+      </select>
     </div>
     <input type="text" class="inv-search" id="invSearch" placeholder="소재 텍스트·키워드·광고그룹명으로 검색…" />
     <div class="inv-stats" id="invStats">—</div>
@@ -1449,11 +1455,12 @@ function renderAdTypes(){
       const fmtR = metric==='CPC' ? `${fmtWon(lo)} ~ ${fmtWon(hi)}` : `${lo}${unit} ~ ${hi}${unit}`;
       const loStr = metric==='CPC' ? fmtWon(lo) : `${lo}${unit}`;
       const hiStr = metric==='CPC' ? fmtWon(hi) : `${hi}${unit}`;
-      if(ev.hide) return `${metric} ${fmtV} — 해당 기간 노출·지출이 0이라 판정할 수 없어요.`;
-      const _dir = inverted ? (ev.tone==='good'?'낮아서(저렴)':ev.tone==='bad'?'높아서(비쌈)':'') : (ev.tone==='good'?'높아서':ev.tone==='bad'?'낮아서':'');
-      if(ev.tone==='good') return `${metric} ${fmtV} 는 업계 참고치 ${fmtR}보다 ${_dir} <b>양호</b>예요.`;
-      if(ev.tone==='bad')  return `${metric} ${fmtV} 는 업계 참고치 ${fmtR}보다 ${_dir} <b>주의</b>예요.`;
-      return `${metric} ${fmtV} 는 업계 참고치 ${fmtR} 범위 안이라 <b>평균권</b>이에요.`;
+      if(ev.hide) return `<b>${metric} ${fmtV}</b> · 업계 참고치 ${fmtR}<br>노출·지출 0 → 판정 불가`;
+      let _v;
+      if(ev.tone==='good') _v = inverted ? '참고치보다 낮음 (저렴) → 양호' : '참고치보다 높음 → 양호';
+      else if(ev.tone==='bad') _v = inverted ? '참고치보다 높음 (비쌈) → 주의' : '참고치보다 낮음 → 주의';
+      else _v = '참고치 범위 내 → 평균권';
+      return `<b>${metric} ${fmtV}</b> · 업계 참고치 ${fmtR}<br>${_v}`;
     }
     // 평가 뱃지: 값 0이거나 없으면 회색 "—"만, 의미있는 값이면 색상 판정 + 호버 툴팁
     function evalChip(ev, metric, value, lo, hi, unit, inverted){
@@ -1921,6 +1928,14 @@ function bindEvidenceTooltip(){
    ============================================================ */
 let INV_TAB = 'ads';
 let INV_QUERY = '';
+let INV_FILTER = 'activeFirst';
+function _invArrange(list){
+  const act=l=>{const k=_statusKor(l.status); return k==='게재 중'||k==='정상';};
+  if(INV_FILTER==='active') return list.filter(act);
+  if(INV_FILTER==='paused') return list.filter(l=>!act(l));
+  if(INV_FILTER==='activeFirst') return [...list].sort((a,b)=>(act(b)?1:0)-(act(a)?1:0));
+  return list;
+}
 
 function _statusCls(s){
   const k = (s||'').toString().toUpperCase().replace(/\s/g,'_');
@@ -1959,10 +1974,10 @@ function renderInventory(){
       <th>등록일<i class="info-ic" data-gloss="colRegDate">ⓘ</i></th>
       <th>최종 수정<i class="info-ic" data-gloss="colEditDate">ⓘ</i></th>
     </tr>`;
-    const filtered = ADS_LIST.filter(a=>{
+    const filtered = _invArrange(ADS_LIST.filter(a=>{
       if(!q) return true;
       return [a.headline, a.description, a.adgroupName, a.adgroup].some(x => String(x||'').toLowerCase().includes(q));
-    });
+    }));
     document.getElementById('invStats').textContent = `전체 ${fmtInt(ADS_LIST.length)}개 · 검색 결과 ${fmtInt(filtered.length)}개`;
     tbody.innerHTML = filtered.map(a => `<tr>
       <td><span class="badge ${AD_BADGE[a.ad]||'b-pl'}">${AD_LABEL[a.ad]||a.ad||'—'}</span></td>
@@ -1982,10 +1997,10 @@ function renderInventory(){
       <th>개별 입찰<i class="info-ic" data-gloss="colCustomBid">ⓘ</i></th>
       <th>상태<i class="info-ic" data-gloss="colStatus">ⓘ</i></th>
     </tr>`;
-    const filtered = KW_LIST.filter(k=>{
+    const filtered = _invArrange(KW_LIST.filter(k=>{
       if(!q) return true;
       return [k.keyword, k.adgroupName, k.adgroup].some(x => String(x||'').toLowerCase().includes(q));
-    });
+    }));
     document.getElementById('invStats').textContent = `전체 ${fmtInt(KW_LIST.length)}개 · 검색 결과 ${fmtInt(filtered.length)}개`;
     tbody.innerHTML = filtered.map(k => `<tr>
       <td><span class="badge ${AD_BADGE[k.ad]||'b-pl'}">${AD_LABEL[k.ad]||k.ad||'—'}</span></td>
@@ -2005,6 +2020,10 @@ document.querySelectorAll('.inv-tab').forEach(b=>{
 });
 document.getElementById('invSearch').addEventListener('input', e=>{
   INV_QUERY = e.target.value || '';
+  renderInventory();
+});
+document.getElementById('invFilter').addEventListener('change', e=>{
+  INV_FILTER = e.target.value || 'activeFirst';
   renderInventory();
 });
 
