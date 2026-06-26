@@ -1700,10 +1700,12 @@ function renderKwInsight(){
   el.innerHTML = html;
   renderKwOpp();
 }
-const _BID_TIP='추정 입찰가는 네이버 예상치예요(실시간 경매라 변동). 노출=노출 시작에 필요한 최소가, 3위=평균 3위 목표가.<br>넣을만/비추는 내 <b>수익성 상한 CPC</b>(객단가×전환율÷목표ROAS)와 비교한 판정이에요. 추천가는 상한을 넘지 않는 선이에요.';
-const _CEIL_TIP='수익성 상한 CPC = 객단가 × 전환율 ÷ 목표ROAS.<br>이 금액보다 비싸게 클릭을 사면 목표 수익률이 깨져요. 목표 ROAS를 바꾸면 상한·추천이 다시 계산돼요.<br>(신규 연관 키워드는 내 계정 평균 전환율로 추정한 값이라 실제와 다를 수 있어요.)';
+const _BID_TIP='<b>추정 입찰가</b> · 네이버 예상치 (경매라 변동)<br>· 노출 = 노출이 시작되는 최소가<br>· 3위 = 평균 3위에 필요한 값<br><br><b>넣을만 / 비추</b> · 수익성 상한과 비교한 판정<br>추천가는 상한을 넘지 않는 선이에요.';
+const _CEIL_TIP='<b>수익성 상한 CPC</b><br>= 객단가 × 전환율 ÷ 목표ROAS<br><br>이보다 비싸게 클릭을 사면<br>목표 수익률이 깨져요.<br>값을 바꾸면 추천이 다시 계산돼요.';
+function _bidAov(){ return (USER_AOV!=null?USER_AOV:Number(ACCT_META.acctAov||0)); }
+function _bidCvr(){ return (USER_CVR!=null?USER_CVR:Number(ACCT_META.acctCvr||0)); }
 function _bidCeiling(){
-  const aov=Number(ACCT_META.acctAov||0), cvr=Number(ACCT_META.acctCvr||0);
+  const aov=_bidAov(), cvr=_bidCvr();
   if(!aov||!cvr||!TARGET_ROAS) return 0;
   return aov*(cvr/100)/(TARGET_ROAS/100);
 }
@@ -1741,10 +1743,16 @@ function renderKwOpp(){
   }).join('');
   // 수익성 상한 + 목표ROAS 컨트롤
   const ceil=_bidCeiling();
+  const ist=`width:78px;padding:3px 6px;border:1px solid var(--line);border-radius:6px;font-family:inherit;font-size:12px;background:var(--card);color:var(--ink)`;
+  const ist2=`width:58px;padding:3px 6px;border:1px solid var(--line);border-radius:6px;font-family:inherit;font-size:12px;background:var(--card);color:var(--ink)`;
   const ceilHTML = ceil>0
-    ? `수익성 상한 CPC ≈ <b style="color:${AC}">${fmtWon(Math.round(ceil))}</b> <span style="color:var(--muted)">(객단가 ${fmtWon(ACCT_META.acctAov)} × 전환율 ${ACCT_META.acctCvr}% ÷ 목표ROAS ${TARGET_ROAS}%)</span>`
-    : `<span style="color:var(--muted)">전환 데이터가 없어 수익성 상한은 계산 불가 — 네이버 추정가만 참고</span>`;
-  const ctrl=`<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:12px;margin:2px 0 10px"><label style="white-space:nowrap">목표 ROAS <input id="tgtRoas" type="number" min="50" step="50" value="${TARGET_ROAS}" style="width:62px;padding:3px 6px;border:1px solid var(--line);border-radius:6px;font-family:inherit;font-size:12px;background:var(--card);color:var(--ink)">%</label><span class="ttp" data-tip="${_CEIL_TIP}" style="cursor:help">${ceilHTML}</span></div>`;
+    ? `→ 수익성 상한 CPC ≈ <b style="color:${AC}">${fmtWon(Math.round(ceil))}</b>`
+    : `<span style="color:var(--muted)">→ 객단가·전환율을 채우면 추천 입찰가가 계산돼요</span>`;
+  const ctrl=`<div style="display:flex;align-items:center;gap:8px 12px;flex-wrap:wrap;font-size:12px;margin:2px 0 10px;padding:8px 10px;background:#f6faf9;border:1px solid var(--line);border-radius:8px">`
+    +`<label style="white-space:nowrap">목표 ROAS <input id="tgtRoas" type="number" min="50" step="50" value="${TARGET_ROAS}" style="${ist2}">%</label>`
+    +`<label style="white-space:nowrap">객단가 <input id="inAov" type="number" min="0" step="1000" value="${_bidAov()||''}" placeholder="원" style="${ist}">원</label>`
+    +`<label style="white-space:nowrap">전환율 <input id="inCvr" type="number" min="0" step="0.1" value="${_bidCvr()||''}" placeholder="%" style="${ist2}">%</label>`
+    +`<span class="ttp" data-tip="${_CEIL_TIP}" style="cursor:help;font-weight:600">${ceilHTML}</span></div>`;
   const g=groups[KW_SEED_SEL];
   const all=g.items||[];
   if(typeof KW_OPP_LIMIT==='undefined') KW_OPP_LIMIT=10;
@@ -2147,7 +2155,12 @@ document.addEventListener('click', e=>{
   const m=e.target.closest('.kwmore'); if(m){ KW_OPP_LIMIT+=10; renderKwOpp(); return; }
   const l=e.target.closest('.kwless'); if(l){ KW_OPP_LIMIT=10; renderKwOpp(); }
 });
-document.addEventListener('change', e=>{ if(e.target && e.target.id==='tgtRoas'){ const v=parseInt(e.target.value,10); TARGET_ROAS=(v>0?v:400); renderKwOpp(); } });
+document.addEventListener('change', e=>{
+  const t=e.target; if(!t||!t.id) return;
+  if(t.id==='tgtRoas'){ const v=parseInt(t.value,10); TARGET_ROAS=(v>0?v:400); renderKwOpp(); }
+  else if(t.id==='inAov'){ const v=parseFloat(t.value); USER_AOV=(v>0?v:null); renderKwOpp(); }
+  else if(t.id==='inCvr'){ const v=parseFloat(t.value); USER_CVR=(v>0?v:null); renderKwOpp(); }
+});
 
 /* ============================================================
    10. 메인 렌더
@@ -2606,6 +2619,8 @@ let KW_LIST  = [];
 let KW_OPPS  = [];
 let ACCT_META = {};
 let TARGET_ROAS = 400;
+let USER_AOV = null;   // 수동 객단가
+let USER_CVR = null;   // 수동 전환율(%)
 
 function applyDataset(src){
   if(!src){
