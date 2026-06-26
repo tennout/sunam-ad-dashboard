@@ -2,12 +2,13 @@
   "meta": {
     "account": "선암파머스",
     "customerId": "1872388",
-    "fetchedAt": "2026-06-26 01:42:00",
+    "fetchedAt": "2026-06-26 02:51:16",
     "rangeStart": "2026-03-29",
     "rangeEnd": "2026-06-26",
     "campaignCount": 9,
     "keywordCount": 79,
-    "creativeCount": 114
+    "creativeCount": 114,
+    "hasKeywordTool": true
   },
   "daily": [
     {
@@ -1804,7 +1805,7 @@
       "date": "2026-06-26",
       "ad": "powerlink",
       "campaign": "cmp-a001-01-000000010084907",
-      "imp": 24,
+      "imp": 73,
       "clk": 0,
       "cost": 0,
       "conv": 1,
@@ -8104,9 +8105,9 @@
       "date": "2026-06-26",
       "ad": "shop",
       "campaign": "cmp-a001-02-000000010110962",
-      "imp": 762,
-      "clk": 5,
-      "cost": 2744,
+      "imp": 1527,
+      "clk": 12,
+      "cost": 7958,
       "conv": 1,
       "rev": 100000
     }
@@ -33248,7 +33249,12 @@
       "ad": "powerlink",
       "bidAmt": 500,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 1210,
+      "monthlyMobile": 7350,
+      "monthlyTotal": 8560,
+      "compIdx": "중간",
+      "plAvgDepth": 8.0
     },
     {
       "id": "nkw-a001-01-000005927139834",
@@ -33258,7 +33264,12 @@
       "ad": "powerlink",
       "bidAmt": 500,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 650,
+      "monthlyMobile": 2850,
+      "monthlyTotal": 3500,
+      "compIdx": "중간",
+      "plAvgDepth": 8.0
     },
     {
       "id": "nkw-a001-01-000005927139835",
@@ -33268,7 +33279,12 @@
       "ad": "powerlink",
       "bidAmt": 500,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 190,
+      "monthlyMobile": 1300,
+      "monthlyTotal": 1490,
+      "compIdx": "높음",
+      "plAvgDepth": 8.0
     },
     {
       "id": "nkw-a001-01-000005927139836",
@@ -33278,7 +33294,12 @@
       "ad": "powerlink",
       "bidAmt": 500,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 1120,
+      "monthlyMobile": 3750,
+      "monthlyTotal": 4870,
+      "compIdx": "중간",
+      "plAvgDepth": 8.0
     },
     {
       "id": "nkw-a001-01-000005927139837",
@@ -33288,7 +33309,12 @@
       "ad": "powerlink",
       "bidAmt": 500,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 440,
+      "monthlyMobile": 1880,
+      "monthlyTotal": 2320,
+      "compIdx": "중간",
+      "plAvgDepth": 8.0
     },
     {
       "id": "nkw-a001-01-000005927139838",
@@ -33298,7 +33324,12 @@
       "ad": "powerlink",
       "bidAmt": 500,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 70,
+      "monthlyMobile": 550,
+      "monthlyTotal": 620,
+      "compIdx": "높음",
+      "plAvgDepth": 8.0
     },
     {
       "id": "nkw-a001-01-000005927139839",
@@ -33308,7 +33339,12 @@
       "ad": "powerlink",
       "bidAmt": 500,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 50,
+      "monthlyMobile": 340,
+      "monthlyTotal": 390,
+      "compIdx": "높음",
+      "plAvgDepth": 8.0
     },
     {
       "id": "nkw-a001-01-000005927139840",
@@ -33318,7 +33354,12 @@
       "ad": "powerlink",
       "bidAmt": 500,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 40,
+      "monthlyMobile": 180,
+      "monthlyTotal": 220,
+      "compIdx": "중간",
+      "plAvgDepth": 8.0
     },
     {
       "id": "nkw-a001-01-000005927139841",
@@ -33328,7 +33369,12 @@
       "ad": "powerlink",
       "bidAmt": 500,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 5,
+      "monthlyMobile": 40,
+      "monthlyTotal": 45,
+      "compIdx": "높음",
+      "plAvgDepth": 7.0
     },
     {
       "id": "nkw-a001-01-000005927139842",
@@ -33338,7 +33384,12 @@
       "ad": "powerlink",
       "bidAmt": 500,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 130,
+      "monthlyMobile": 510,
+      "monthlyTotal": 640,
+      "compIdx": "높음",
+      "plAvgDepth": 8.0
     },
     {
       "id": "nkw-a001-01-000005927139843",
@@ -33348,7 +33399,12 @@
       "ad": "powerlink",
       "bidAmt": 500,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 20,
+      "monthlyMobile": 100,
+      "monthlyTotal": 120,
+      "compIdx": "높음",
+      "plAvgDepth": 8.0
     },
     {
       "id": "nkw-a001-01-000005927139844",
@@ -33358,7 +33414,12 @@
       "ad": "powerlink",
       "bidAmt": 500,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 90,
+      "monthlyMobile": 210,
+      "monthlyTotal": 300,
+      "compIdx": "높음",
+      "plAvgDepth": 8.0
     },
     {
       "id": "nkw-a001-01-000005927139845",
@@ -33368,7 +33429,12 @@
       "ad": "powerlink",
       "bidAmt": 500,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 3740,
+      "monthlyMobile": 3190,
+      "monthlyTotal": 6930,
+      "compIdx": "중간",
+      "plAvgDepth": 8.0
     },
     {
       "id": "nkw-a001-01-000005927139846",
@@ -33378,7 +33444,12 @@
       "ad": "powerlink",
       "bidAmt": 500,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 110,
+      "monthlyMobile": 800,
+      "monthlyTotal": 910,
+      "compIdx": "높음",
+      "plAvgDepth": 10.0
     },
     {
       "id": "nkw-a001-01-000005927139847",
@@ -33388,7 +33459,12 @@
       "ad": "powerlink",
       "bidAmt": 500,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 170,
+      "monthlyMobile": 850,
+      "monthlyTotal": 1020,
+      "compIdx": "높음",
+      "plAvgDepth": 7.0
     },
     {
       "id": "nkw-a001-01-000005927139848",
@@ -33398,7 +33474,12 @@
       "ad": "powerlink",
       "bidAmt": 500,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 40,
+      "monthlyMobile": 210,
+      "monthlyTotal": 250,
+      "compIdx": "높음",
+      "plAvgDepth": 8.0
     },
     {
       "id": "nkw-a001-01-000005927139849",
@@ -33408,7 +33489,12 @@
       "ad": "powerlink",
       "bidAmt": 500,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 5,
+      "monthlyMobile": 60,
+      "monthlyTotal": 65,
+      "compIdx": "높음",
+      "plAvgDepth": 8.0
     },
     {
       "id": "nkw-a001-01-000005927139850",
@@ -33418,7 +33504,12 @@
       "ad": "powerlink",
       "bidAmt": 500,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 450,
+      "monthlyMobile": 2160,
+      "monthlyTotal": 2610,
+      "compIdx": "높음",
+      "plAvgDepth": 8.0
     },
     {
       "id": "nkw-a001-01-000005927139851",
@@ -33428,7 +33519,12 @@
       "ad": "powerlink",
       "bidAmt": 500,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 5,
+      "monthlyMobile": 50,
+      "monthlyTotal": 55,
+      "compIdx": "높음",
+      "plAvgDepth": 3.0
     },
     {
       "id": "nkw-a001-01-000005927139852",
@@ -33438,7 +33534,12 @@
       "ad": "powerlink",
       "bidAmt": 500,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 90,
+      "monthlyMobile": 240,
+      "monthlyTotal": 330,
+      "compIdx": "높음",
+      "plAvgDepth": 8.0
     },
     {
       "id": "nkw-a001-01-000005927139853",
@@ -33448,7 +33549,12 @@
       "ad": "powerlink",
       "bidAmt": 500,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 280,
+      "monthlyMobile": 3510,
+      "monthlyTotal": 3790,
+      "compIdx": "높음",
+      "plAvgDepth": 8.0
     },
     {
       "id": "nkw-a001-01-000005927139854",
@@ -33458,7 +33564,12 @@
       "ad": "powerlink",
       "bidAmt": 500,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 160,
+      "monthlyMobile": 1340,
+      "monthlyTotal": 1500,
+      "compIdx": "높음",
+      "plAvgDepth": 10.0
     },
     {
       "id": "nkw-a001-01-000005927139855",
@@ -33468,7 +33579,12 @@
       "ad": "powerlink",
       "bidAmt": 500,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 190,
+      "monthlyMobile": 760,
+      "monthlyTotal": 950,
+      "compIdx": "중간",
+      "plAvgDepth": 8.0
     },
     {
       "id": "nkw-a001-01-000005927139856",
@@ -33478,7 +33594,12 @@
       "ad": "powerlink",
       "bidAmt": 500,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 80,
+      "monthlyMobile": 810,
+      "monthlyTotal": 890,
+      "compIdx": "높음",
+      "plAvgDepth": 8.0
     },
     {
       "id": "nkw-a001-01-000005927139857",
@@ -33488,7 +33609,12 @@
       "ad": "powerlink",
       "bidAmt": 500,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 150,
+      "monthlyMobile": 880,
+      "monthlyTotal": 1030,
+      "compIdx": "높음",
+      "plAvgDepth": 8.0
     },
     {
       "id": "nkw-a001-01-000005927139858",
@@ -33498,7 +33624,12 @@
       "ad": "powerlink",
       "bidAmt": 500,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 10,
+      "monthlyMobile": 30,
+      "monthlyTotal": 40,
+      "compIdx": "높음",
+      "plAvgDepth": 8.0
     },
     {
       "id": "nkw-a001-01-000005927139859",
@@ -33508,7 +33639,12 @@
       "ad": "powerlink",
       "bidAmt": 500,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 90,
+      "monthlyMobile": 410,
+      "monthlyTotal": 500,
+      "compIdx": "중간",
+      "plAvgDepth": 8.0
     },
     {
       "id": "nkw-a001-01-000005927139860",
@@ -33518,7 +33654,12 @@
       "ad": "powerlink",
       "bidAmt": 500,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 20,
+      "monthlyMobile": 350,
+      "monthlyTotal": 370,
+      "compIdx": "높음",
+      "plAvgDepth": 8.0
     },
     {
       "id": "nkw-a001-01-000005927139861",
@@ -33528,7 +33669,12 @@
       "ad": "powerlink",
       "bidAmt": 500,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 5,
+      "monthlyMobile": 150,
+      "monthlyTotal": 155,
+      "compIdx": "높음",
+      "plAvgDepth": 8.0
     },
     {
       "id": "nkw-a001-01-000005927139862",
@@ -33538,7 +33684,12 @@
       "ad": "powerlink",
       "bidAmt": 500,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 1630,
+      "monthlyMobile": 9530,
+      "monthlyTotal": 11160,
+      "compIdx": "높음",
+      "plAvgDepth": 8.0
     },
     {
       "id": "nkw-a001-01-000005927140624",
@@ -33548,7 +33699,12 @@
       "ad": "powerlink",
       "bidAmt": 500,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 130,
+      "monthlyMobile": 700,
+      "monthlyTotal": 830,
+      "compIdx": "높음",
+      "plAvgDepth": 8.0
     },
     {
       "id": "nkw-a001-01-000005927140625",
@@ -33558,7 +33714,12 @@
       "ad": "powerlink",
       "bidAmt": 500,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 4710,
+      "monthlyMobile": 18700,
+      "monthlyTotal": 23410,
+      "compIdx": "높음",
+      "plAvgDepth": 10.0
     },
     {
       "id": "nkw-a001-01-000005927140626",
@@ -33568,7 +33729,12 @@
       "ad": "powerlink",
       "bidAmt": 500,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 550,
+      "monthlyMobile": 1690,
+      "monthlyTotal": 2240,
+      "compIdx": "높음",
+      "plAvgDepth": 10.0
     },
     {
       "id": "nkw-a001-01-000005927140627",
@@ -33578,7 +33744,12 @@
       "ad": "powerlink",
       "bidAmt": 500,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 120,
+      "monthlyMobile": 240,
+      "monthlyTotal": 360,
+      "compIdx": "낮음",
+      "plAvgDepth": 0.0
     },
     {
       "id": "nkw-a001-01-000005927140628",
@@ -33588,7 +33759,12 @@
       "ad": "powerlink",
       "bidAmt": 500,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 30,
+      "monthlyMobile": 130,
+      "monthlyTotal": 160,
+      "compIdx": "높음",
+      "plAvgDepth": 3.0
     },
     {
       "id": "nkw-a001-01-000005927140629",
@@ -33598,7 +33774,12 @@
       "ad": "powerlink",
       "bidAmt": 500,
       "useCustomBid": true,
-      "status": "PAUSED"
+      "status": "PAUSED",
+      "monthlyPc": 1070,
+      "monthlyMobile": 1880,
+      "monthlyTotal": 2950,
+      "compIdx": "높음",
+      "plAvgDepth": 10.0
     },
     {
       "id": "nkw-a001-01-000005927233830",
@@ -33608,7 +33789,12 @@
       "ad": "powerlink",
       "bidAmt": 500,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 840,
+      "monthlyMobile": 3330,
+      "monthlyTotal": 4170,
+      "compIdx": "중간",
+      "plAvgDepth": 8.0
     },
     {
       "id": "nkw-a001-01-000005927233831",
@@ -33618,7 +33804,12 @@
       "ad": "powerlink",
       "bidAmt": 500,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 280,
+      "monthlyMobile": 1310,
+      "monthlyTotal": 1590,
+      "compIdx": "중간",
+      "plAvgDepth": 8.0
     },
     {
       "id": "nkw-a001-01-000005927233832",
@@ -33628,7 +33819,12 @@
       "ad": "powerlink",
       "bidAmt": 500,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 10,
+      "monthlyMobile": 40,
+      "monthlyTotal": 50,
+      "compIdx": "높음",
+      "plAvgDepth": 7.0
     },
     {
       "id": "nkw-a001-01-000005927235664",
@@ -33638,7 +33834,12 @@
       "ad": "powerlink",
       "bidAmt": 200,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 1210,
+      "monthlyMobile": 7350,
+      "monthlyTotal": 8560,
+      "compIdx": "중간",
+      "plAvgDepth": 8.0
     },
     {
       "id": "nkw-a001-01-000005927235665",
@@ -33648,7 +33849,12 @@
       "ad": "powerlink",
       "bidAmt": 200,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 650,
+      "monthlyMobile": 2850,
+      "monthlyTotal": 3500,
+      "compIdx": "중간",
+      "plAvgDepth": 8.0
     },
     {
       "id": "nkw-a001-01-000005927235666",
@@ -33658,7 +33864,12 @@
       "ad": "powerlink",
       "bidAmt": 200,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 190,
+      "monthlyMobile": 1300,
+      "monthlyTotal": 1490,
+      "compIdx": "높음",
+      "plAvgDepth": 8.0
     },
     {
       "id": "nkw-a001-01-000005927235667",
@@ -33668,7 +33879,12 @@
       "ad": "powerlink",
       "bidAmt": 200,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 1120,
+      "monthlyMobile": 3750,
+      "monthlyTotal": 4870,
+      "compIdx": "중간",
+      "plAvgDepth": 8.0
     },
     {
       "id": "nkw-a001-01-000005927235668",
@@ -33678,7 +33894,12 @@
       "ad": "powerlink",
       "bidAmt": 200,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 440,
+      "monthlyMobile": 1880,
+      "monthlyTotal": 2320,
+      "compIdx": "중간",
+      "plAvgDepth": 8.0
     },
     {
       "id": "nkw-a001-01-000005927235669",
@@ -33688,7 +33909,12 @@
       "ad": "powerlink",
       "bidAmt": 200,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 70,
+      "monthlyMobile": 550,
+      "monthlyTotal": 620,
+      "compIdx": "높음",
+      "plAvgDepth": 8.0
     },
     {
       "id": "nkw-a001-01-000005927235670",
@@ -33698,7 +33924,12 @@
       "ad": "powerlink",
       "bidAmt": 200,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 50,
+      "monthlyMobile": 340,
+      "monthlyTotal": 390,
+      "compIdx": "높음",
+      "plAvgDepth": 8.0
     },
     {
       "id": "nkw-a001-01-000005927235671",
@@ -33708,7 +33939,12 @@
       "ad": "powerlink",
       "bidAmt": 200,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 40,
+      "monthlyMobile": 180,
+      "monthlyTotal": 220,
+      "compIdx": "중간",
+      "plAvgDepth": 8.0
     },
     {
       "id": "nkw-a001-01-000005927235672",
@@ -33718,7 +33954,12 @@
       "ad": "powerlink",
       "bidAmt": 200,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 5,
+      "monthlyMobile": 40,
+      "monthlyTotal": 45,
+      "compIdx": "높음",
+      "plAvgDepth": 7.0
     },
     {
       "id": "nkw-a001-01-000005927235673",
@@ -33728,7 +33969,12 @@
       "ad": "powerlink",
       "bidAmt": 200,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 130,
+      "monthlyMobile": 510,
+      "monthlyTotal": 640,
+      "compIdx": "높음",
+      "plAvgDepth": 8.0
     },
     {
       "id": "nkw-a001-01-000005927235674",
@@ -33738,7 +33984,12 @@
       "ad": "powerlink",
       "bidAmt": 200,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 20,
+      "monthlyMobile": 100,
+      "monthlyTotal": 120,
+      "compIdx": "높음",
+      "plAvgDepth": 8.0
     },
     {
       "id": "nkw-a001-01-000005927235675",
@@ -33748,7 +33999,12 @@
       "ad": "powerlink",
       "bidAmt": 200,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 90,
+      "monthlyMobile": 210,
+      "monthlyTotal": 300,
+      "compIdx": "높음",
+      "plAvgDepth": 8.0
     },
     {
       "id": "nkw-a001-01-000005927235676",
@@ -33758,7 +34014,12 @@
       "ad": "powerlink",
       "bidAmt": 200,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 3740,
+      "monthlyMobile": 3190,
+      "monthlyTotal": 6930,
+      "compIdx": "중간",
+      "plAvgDepth": 8.0
     },
     {
       "id": "nkw-a001-01-000005927235677",
@@ -33768,7 +34029,12 @@
       "ad": "powerlink",
       "bidAmt": 200,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 110,
+      "monthlyMobile": 800,
+      "monthlyTotal": 910,
+      "compIdx": "높음",
+      "plAvgDepth": 10.0
     },
     {
       "id": "nkw-a001-01-000005927235678",
@@ -33778,7 +34044,12 @@
       "ad": "powerlink",
       "bidAmt": 200,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 170,
+      "monthlyMobile": 850,
+      "monthlyTotal": 1020,
+      "compIdx": "높음",
+      "plAvgDepth": 7.0
     },
     {
       "id": "nkw-a001-01-000005927235679",
@@ -33788,7 +34059,12 @@
       "ad": "powerlink",
       "bidAmt": 200,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 40,
+      "monthlyMobile": 210,
+      "monthlyTotal": 250,
+      "compIdx": "높음",
+      "plAvgDepth": 8.0
     },
     {
       "id": "nkw-a001-01-000005927235680",
@@ -33798,7 +34074,12 @@
       "ad": "powerlink",
       "bidAmt": 200,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 5,
+      "monthlyMobile": 60,
+      "monthlyTotal": 65,
+      "compIdx": "높음",
+      "plAvgDepth": 8.0
     },
     {
       "id": "nkw-a001-01-000005927235681",
@@ -33808,7 +34089,12 @@
       "ad": "powerlink",
       "bidAmt": 200,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 450,
+      "monthlyMobile": 2160,
+      "monthlyTotal": 2610,
+      "compIdx": "높음",
+      "plAvgDepth": 8.0
     },
     {
       "id": "nkw-a001-01-000005927235682",
@@ -33818,7 +34104,12 @@
       "ad": "powerlink",
       "bidAmt": 200,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 5,
+      "monthlyMobile": 50,
+      "monthlyTotal": 55,
+      "compIdx": "높음",
+      "plAvgDepth": 3.0
     },
     {
       "id": "nkw-a001-01-000005927235683",
@@ -33828,7 +34119,12 @@
       "ad": "powerlink",
       "bidAmt": 200,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 90,
+      "monthlyMobile": 240,
+      "monthlyTotal": 330,
+      "compIdx": "높음",
+      "plAvgDepth": 8.0
     },
     {
       "id": "nkw-a001-01-000005927235684",
@@ -33838,7 +34134,12 @@
       "ad": "powerlink",
       "bidAmt": 200,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 280,
+      "monthlyMobile": 3510,
+      "monthlyTotal": 3790,
+      "compIdx": "높음",
+      "plAvgDepth": 8.0
     },
     {
       "id": "nkw-a001-01-000005927235685",
@@ -33848,7 +34149,12 @@
       "ad": "powerlink",
       "bidAmt": 200,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 160,
+      "monthlyMobile": 1340,
+      "monthlyTotal": 1500,
+      "compIdx": "높음",
+      "plAvgDepth": 10.0
     },
     {
       "id": "nkw-a001-01-000005927235686",
@@ -33858,7 +34164,12 @@
       "ad": "powerlink",
       "bidAmt": 200,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 190,
+      "monthlyMobile": 760,
+      "monthlyTotal": 950,
+      "compIdx": "중간",
+      "plAvgDepth": 8.0
     },
     {
       "id": "nkw-a001-01-000005927235687",
@@ -33868,7 +34179,12 @@
       "ad": "powerlink",
       "bidAmt": 200,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 80,
+      "monthlyMobile": 810,
+      "monthlyTotal": 890,
+      "compIdx": "높음",
+      "plAvgDepth": 8.0
     },
     {
       "id": "nkw-a001-01-000005927235688",
@@ -33878,7 +34194,12 @@
       "ad": "powerlink",
       "bidAmt": 200,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 150,
+      "monthlyMobile": 880,
+      "monthlyTotal": 1030,
+      "compIdx": "높음",
+      "plAvgDepth": 8.0
     },
     {
       "id": "nkw-a001-01-000005927235689",
@@ -33888,7 +34209,12 @@
       "ad": "powerlink",
       "bidAmt": 200,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 10,
+      "monthlyMobile": 30,
+      "monthlyTotal": 40,
+      "compIdx": "높음",
+      "plAvgDepth": 8.0
     },
     {
       "id": "nkw-a001-01-000005927235690",
@@ -33898,7 +34224,12 @@
       "ad": "powerlink",
       "bidAmt": 200,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 90,
+      "monthlyMobile": 410,
+      "monthlyTotal": 500,
+      "compIdx": "중간",
+      "plAvgDepth": 8.0
     },
     {
       "id": "nkw-a001-01-000005927235691",
@@ -33908,7 +34239,12 @@
       "ad": "powerlink",
       "bidAmt": 200,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 20,
+      "monthlyMobile": 350,
+      "monthlyTotal": 370,
+      "compIdx": "높음",
+      "plAvgDepth": 8.0
     },
     {
       "id": "nkw-a001-01-000005927235692",
@@ -33918,7 +34254,12 @@
       "ad": "powerlink",
       "bidAmt": 200,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 5,
+      "monthlyMobile": 150,
+      "monthlyTotal": 155,
+      "compIdx": "높음",
+      "plAvgDepth": 8.0
     },
     {
       "id": "nkw-a001-01-000005927235693",
@@ -33928,7 +34269,12 @@
       "ad": "powerlink",
       "bidAmt": 200,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 1630,
+      "monthlyMobile": 9530,
+      "monthlyTotal": 11160,
+      "compIdx": "높음",
+      "plAvgDepth": 8.0
     },
     {
       "id": "nkw-a001-01-000005927235694",
@@ -33938,7 +34284,12 @@
       "ad": "powerlink",
       "bidAmt": 200,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 130,
+      "monthlyMobile": 700,
+      "monthlyTotal": 830,
+      "compIdx": "높음",
+      "plAvgDepth": 8.0
     },
     {
       "id": "nkw-a001-01-000005927235695",
@@ -33948,7 +34299,12 @@
       "ad": "powerlink",
       "bidAmt": 200,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 4710,
+      "monthlyMobile": 18700,
+      "monthlyTotal": 23410,
+      "compIdx": "높음",
+      "plAvgDepth": 10.0
     },
     {
       "id": "nkw-a001-01-000005927235696",
@@ -33958,7 +34314,12 @@
       "ad": "powerlink",
       "bidAmt": 200,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 550,
+      "monthlyMobile": 1690,
+      "monthlyTotal": 2240,
+      "compIdx": "높음",
+      "plAvgDepth": 10.0
     },
     {
       "id": "nkw-a001-01-000005927235697",
@@ -33968,7 +34329,12 @@
       "ad": "powerlink",
       "bidAmt": 200,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 120,
+      "monthlyMobile": 240,
+      "monthlyTotal": 360,
+      "compIdx": "낮음",
+      "plAvgDepth": 0.0
     },
     {
       "id": "nkw-a001-01-000005927235698",
@@ -33978,7 +34344,12 @@
       "ad": "powerlink",
       "bidAmt": 200,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 30,
+      "monthlyMobile": 130,
+      "monthlyTotal": 160,
+      "compIdx": "높음",
+      "plAvgDepth": 3.0
     },
     {
       "id": "nkw-a001-01-000005927235699",
@@ -33988,7 +34359,12 @@
       "ad": "powerlink",
       "bidAmt": 200,
       "useCustomBid": true,
-      "status": "PAUSED"
+      "status": "PAUSED",
+      "monthlyPc": 1070,
+      "monthlyMobile": 1880,
+      "monthlyTotal": 2950,
+      "compIdx": "높음",
+      "plAvgDepth": 10.0
     },
     {
       "id": "nkw-a001-01-000005927235700",
@@ -33998,7 +34374,12 @@
       "ad": "powerlink",
       "bidAmt": 200,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 840,
+      "monthlyMobile": 3330,
+      "monthlyTotal": 4170,
+      "compIdx": "중간",
+      "plAvgDepth": 8.0
     },
     {
       "id": "nkw-a001-01-000005927235701",
@@ -34008,7 +34389,12 @@
       "ad": "powerlink",
       "bidAmt": 200,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 280,
+      "monthlyMobile": 1310,
+      "monthlyTotal": 1590,
+      "compIdx": "중간",
+      "plAvgDepth": 8.0
     },
     {
       "id": "nkw-a001-01-000005927235702",
@@ -34018,7 +34404,12 @@
       "ad": "powerlink",
       "bidAmt": 200,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 10,
+      "monthlyMobile": 40,
+      "monthlyTotal": 50,
+      "compIdx": "높음",
+      "plAvgDepth": 7.0
     },
     {
       "id": "nkw-a001-01-000007743943776",
@@ -34028,7 +34419,335 @@
       "ad": "powerlink",
       "bidAmt": 200,
       "useCustomBid": true,
-      "status": "ELIGIBLE"
+      "status": "ELIGIBLE",
+      "monthlyPc": 120,
+      "monthlyMobile": 310,
+      "monthlyTotal": 430,
+      "compIdx": "중간",
+      "plAvgDepth": 5.0,
+      "avgRnk": 2.3
+    }
+  ],
+  "kwOpportunities": [
+    {
+      "pc": 273900,
+      "mobile": 478900,
+      "total": 752800,
+      "comp": "높음",
+      "depth": 9.0,
+      "keyword": "멜론"
+    },
+    {
+      "pc": 16300,
+      "mobile": 130000,
+      "total": 146300,
+      "comp": "중간",
+      "depth": 8.0,
+      "keyword": "매실"
+    },
+    {
+      "pc": 14000,
+      "mobile": 97900,
+      "total": 111900,
+      "comp": "높음",
+      "depth": 10.0,
+      "keyword": "서울가볼만한곳"
+    },
+    {
+      "pc": 11600,
+      "mobile": 87600,
+      "total": 99200,
+      "comp": "높음",
+      "depth": 10.0,
+      "keyword": "대전가볼만한곳"
+    },
+    {
+      "pc": 38700,
+      "mobile": 38900,
+      "total": 77600,
+      "comp": "높음",
+      "depth": 3.0,
+      "keyword": "추석"
+    },
+    {
+      "pc": 6460,
+      "mobile": 70600,
+      "total": 77060,
+      "comp": "중간",
+      "depth": 8.0,
+      "keyword": "갈비탕"
+    },
+    {
+      "pc": 19700,
+      "mobile": 57000,
+      "total": 76700,
+      "comp": "중간",
+      "depth": 8.0,
+      "keyword": "사과"
+    },
+    {
+      "pc": 2270,
+      "mobile": 59800,
+      "total": 62070,
+      "comp": "높음",
+      "depth": 7.0,
+      "keyword": "빙수"
+    },
+    {
+      "pc": 15400,
+      "mobile": 44400,
+      "total": 59800,
+      "comp": "높음",
+      "depth": 8.0,
+      "keyword": "치약"
+    },
+    {
+      "pc": 7570,
+      "mobile": 50600,
+      "total": 58170,
+      "comp": "중간",
+      "depth": 6.0,
+      "keyword": "코스트코추천상품"
+    },
+    {
+      "pc": 12800,
+      "mobile": 43600,
+      "total": 56400,
+      "comp": "높음",
+      "depth": 10.0,
+      "keyword": "다이어트식단"
+    },
+    {
+      "pc": 3980,
+      "mobile": 49000,
+      "total": 52980,
+      "comp": "높음",
+      "depth": 10.0,
+      "keyword": "토마토효능"
+    },
+    {
+      "pc": 4000,
+      "mobile": 48700,
+      "total": 52700,
+      "comp": "높음",
+      "depth": 10.0,
+      "keyword": "식자재마트"
+    },
+    {
+      "pc": 12900,
+      "mobile": 38000,
+      "total": 50900,
+      "comp": "높음",
+      "depth": 10.0,
+      "keyword": "집들이선물"
+    },
+    {
+      "pc": 6210,
+      "mobile": 39900,
+      "total": 46110,
+      "comp": "중간",
+      "depth": 8.0,
+      "keyword": "아몬드브리즈"
+    },
+    {
+      "pc": 3380,
+      "mobile": 38500,
+      "total": 41880,
+      "comp": "높음",
+      "depth": 7.0,
+      "keyword": "팥빙수"
+    },
+    {
+      "pc": 4550,
+      "mobile": 35700,
+      "total": 40250,
+      "comp": "중간",
+      "depth": 8.0,
+      "keyword": "바질페스토"
+    },
+    {
+      "pc": 6290,
+      "mobile": 32500,
+      "total": 38790,
+      "comp": "높음",
+      "depth": 9.0,
+      "keyword": "과일"
+    },
+    {
+      "pc": 2620,
+      "mobile": 32400,
+      "total": 35020,
+      "comp": "높음",
+      "depth": 7.0,
+      "keyword": "매실10KG"
+    },
+    {
+      "pc": 5140,
+      "mobile": 29100,
+      "total": 34240,
+      "comp": "높음",
+      "depth": 10.0,
+      "keyword": "집들이선물추천"
+    },
+    {
+      "pc": 10500,
+      "mobile": 23300,
+      "total": 33800,
+      "comp": "중간",
+      "depth": 8.0,
+      "keyword": "밀키트"
+    },
+    {
+      "pc": 3830,
+      "mobile": 29600,
+      "total": 33430,
+      "comp": "중간",
+      "depth": 8.0,
+      "keyword": "빵"
+    },
+    {
+      "pc": 3490,
+      "mobile": 28500,
+      "total": 31990,
+      "comp": "높음",
+      "depth": 8.0,
+      "keyword": "황매실"
+    },
+    {
+      "pc": 5370,
+      "mobile": 25800,
+      "total": 31170,
+      "comp": "중간",
+      "depth": 8.0,
+      "keyword": "양배추"
+    },
+    {
+      "pc": 5400,
+      "mobile": 25300,
+      "total": 30700,
+      "comp": "중간",
+      "depth": 8.0,
+      "keyword": "단백질음료"
+    },
+    {
+      "pc": 4590,
+      "mobile": 26000,
+      "total": 30590,
+      "comp": "높음",
+      "depth": 10.0,
+      "keyword": "마녀스프"
+    },
+    {
+      "pc": 5610,
+      "mobile": 24800,
+      "total": 30410,
+      "comp": "높음",
+      "depth": 8.0,
+      "keyword": "멸균우유"
+    },
+    {
+      "pc": 1440,
+      "mobile": 27400,
+      "total": 28840,
+      "comp": "중간",
+      "depth": 8.0,
+      "keyword": "빼빼주스"
+    },
+    {
+      "pc": 5430,
+      "mobile": 23000,
+      "total": 28430,
+      "comp": "높음",
+      "depth": 10.0,
+      "keyword": "상견례선물"
+    },
+    {
+      "pc": 4060,
+      "mobile": 23900,
+      "total": 27960,
+      "comp": "중간",
+      "depth": 8.0,
+      "keyword": "양배추즙"
+    },
+    {
+      "pc": 2730,
+      "mobile": 24000,
+      "total": 26730,
+      "comp": "중간",
+      "depth": 8.0,
+      "keyword": "발사믹식초"
+    },
+    {
+      "pc": 4940,
+      "mobile": 21000,
+      "total": 25940,
+      "comp": "높음",
+      "depth": 7.0,
+      "keyword": "6월제철과일"
+    },
+    {
+      "pc": 2400,
+      "mobile": 23400,
+      "total": 25800,
+      "comp": "중간",
+      "depth": 7.0,
+      "keyword": "쥬씨"
+    },
+    {
+      "pc": 2300,
+      "mobile": 23300,
+      "total": 25600,
+      "comp": "높음",
+      "depth": 10.0,
+      "keyword": "홍매실"
+    },
+    {
+      "pc": 4880,
+      "mobile": 20200,
+      "total": 25080,
+      "comp": "높음",
+      "depth": 8.0,
+      "keyword": "결혼식답례품"
+    },
+    {
+      "pc": 2210,
+      "mobile": 22600,
+      "total": 24810,
+      "comp": "높음",
+      "depth": 10.0,
+      "keyword": "토마토주스"
+    },
+    {
+      "pc": 2250,
+      "mobile": 21300,
+      "total": 23550,
+      "comp": "높음",
+      "depth": 9.0,
+      "keyword": "브라운물티슈"
+    },
+    {
+      "pc": 2760,
+      "mobile": 20700,
+      "total": 23460,
+      "comp": "높음",
+      "depth": 10.0,
+      "keyword": "대전카페"
+    },
+    {
+      "pc": 4110,
+      "mobile": 19000,
+      "total": 23110,
+      "comp": "높음",
+      "depth": 8.0,
+      "keyword": "구연산"
+    },
+    {
+      "pc": 5700,
+      "mobile": 17400,
+      "total": 23100,
+      "comp": "중간",
+      "depth": 8.0,
+      "keyword": "다이어트도시락"
     }
   ]
 }
