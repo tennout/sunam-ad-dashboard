@@ -1,0 +1,58 @@
+name: 네이버 검색광고 데이터 자동 동기화
+
+# 이 파일은 저장소의 .github/workflows/ 폴더 안에 두세요.
+# (예: .github/workflows/naver-ads-sync.yml)
+
+on:
+  schedule:
+    # 매일 04:00 KST 에 실행 (GitHub Actions는 UTC 기준 → 전날 19:00 UTC)
+    - cron: '0 19 * * *'
+  workflow_dispatch: {}   # Actions 탭에서 "Run workflow" 수동 실행 버튼
+
+permissions:
+  contents: write          # 갱신된 data/ 를 저장소에 커밋·푸시하기 위해 필요
+
+concurrency:
+  group: naver-ads-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 코드 체크아웃
+        uses: actions/checkout@v4
+
+      - name: 파이썬 준비
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: accounts.json 생성 (GitHub Secrets에서)
+        env:
+          NAVER_ACCOUNTS_JSON: ${{ secrets.NAVER_ACCOUNTS_JSON }}
+        run: |
+          if [ -z "$NAVER_ACCOUNTS_JSON" ]; then
+            echo "::error::NAVER_ACCOUNTS_JSON 시크릿이 비어 있어요. 저장소 Settings → Secrets and variables → Actions 에 등록하세요."
+            exit 1
+          fi
+          printf '%s' "$NAVER_ACCOUNTS_JSON" > accounts.json
+          echo "accounts.json 생성 완료 (이 파일은 커밋되지 않습니다)"
+
+      - name: 네이버 검색광고 데이터 수집
+        run: python fetch_naver_ads.py --days 90
+
+      - name: 비밀 파일 정리 (커밋 방지)
+        run: rm -f accounts.json
+
+      - name: 변경분 커밋 & 푸시 (→ Netlify 자동 재배포)
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/
+          if git diff --staged --quiet; then
+            echo "변경 사항 없음 — 커밋 생략"
+          else
+            git commit -m "chore: 네이버 광고 데이터 자동 갱신 ($(date -u +%Y-%m-%d))"
+            git push
+          fi
