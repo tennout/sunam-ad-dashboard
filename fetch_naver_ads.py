@@ -103,6 +103,69 @@ def _map_ad_type(campaign_tp: str) -> str:
 
 
 # ────────────────────────────────────────────────
+#  키워드도구(keywordstool): 월검색량 · 경쟁정도 · 연관키워드
+# ────────────────────────────────────────────────
+_COMP_KOR = {
+    "낮음": "낮음", "중간": "중간", "높음": "높음",
+    "LOW": "낮음", "MID": "중간", "MIDDLE": "중간", "HIGH": "높음",
+}
+
+
+def _kw_int(v):
+    """keywordstool은 검색량이 적으면 '< 10' 같은 문자열을 준다."""
+    try:
+        t = str(v).replace(",", "").strip()
+        if t.startswith("<"):
+            return 5
+        return int(float(t))
+    except Exception:
+        return 0
+
+
+def _nospace(s: str) -> str:
+    return "".join((s or "").split()).lower()
+
+
+def fetch_keyword_tool(acct: dict, kw_strings: list) -> tuple:
+    """등록 키워드 문자열들로 keywordstool 조회.
+    반환: (vol_map, opportunities)
+      vol_map[nospace(키워드)] = {pc, mobile, total, comp, depth}
+      opportunities = [{keyword, pc, mobile, total, comp, depth}, ...]  (미등록 연관키워드)
+    """
+    vol_map, opp_map = {}, {}
+    registered = {_nospace(s) for s in kw_strings if s and s.strip()}
+    uniq = [s.strip() for s in dict.fromkeys(kw_strings) if s and s.strip()]
+    for i in range(0, len(uniq), 5):  # hintKeywords는 최대 5개
+        batch = uniq[i:i + 5]
+        hint = ",".join(k.replace(" ", "") for k in batch)
+        try:
+            res = _get("/keywordstool", acct, {"hintKeywords": hint, "showDetail": 1})
+        except Exception as e:
+            print(f"    ! 키워드도구 조회 실패({hint}): {e}")
+            continue
+        for r in (res or {}).get("keywordList") or []:
+            kw = (r.get("relKeyword") or "").strip()
+            if not kw:
+                continue
+            pc = _kw_int(r.get("monthlyPcQcCnt"))
+            mo = _kw_int(r.get("monthlyMobileQcCnt"))
+            comp = _COMP_KOR.get(str(r.get("compIdx") or "").upper(), str(r.get("compIdx") or ""))
+            try:
+                depth = round(float(r.get("plAvgDepth") or 0), 1)
+            except Exception:
+                depth = 0
+            rec = {"pc": pc, "mobile": mo, "total": pc + mo, "comp": comp, "depth": depth}
+            key = _nospace(kw)
+            if key in registered:
+                vol_map[key] = rec
+            elif key not in opp_map:
+                opp_map[key] = dict(rec, keyword=kw)
+        time.sleep(0.2)  # rate-limit 완화
+    opportunities = sorted(opp_map.values(), key=lambda x: x["total"], reverse=True)[:40]
+    return vol_map, opportunities
+
+
+# ────────────────────────────────────────────────
 #  /stats 응답 파서: Naver API의 다양한 응답 형식을 모두 흡수
 #   - {"data": [{"date":"YYYYMMDD","impCnt":..}]}   (가장 흔함)
 #   - [{"id":..,"fields":[..],"datasets":[{"date":..,"values":[..]}]}]
@@ -291,6 +354,11 @@ def fetch_account(acct: dict, days: int = 365) -> dict:
     kw_daily = []
     kw_since = (end - timedelta(days=29)).isoformat()
     kw_time_range = json.dumps({"since": kw_since, "until": str(end)}, ensure_ascii=False)
+    kw_fields = json.dumps(
+        ["impCnt", "clkCnt", "salesAmt", "ccnt", "convAmt", "ctr", "cpc", "avgRnk"],
+        ensure_ascii=False,
+    )
+    rank_acc = {}  # kwid -> [sum(avgRnk*imp), sum(imp)]
     # 키워드는 광고그룹별로 묶어서 조회 (/stats?ids=[...])
     ag_to_ad = {a["nccAdgroupId"]: _map_ad_type(cmp_lookup.get(a.get("nccCampaignId"), {}).get("campaignTp")) for a in adgroups}
     # 키워드 id → (keyword string, ad type)
@@ -311,13 +379,19 @@ def fetch_account(acct: dict, days: int = 365) -> dict:
                 acct,
                 {
                     "id": kwid,
-                    "fields": fields,
+                    "fields": kw_fields,
                     "timeRange": kw_time_range,
                     "breakdown": "day",
                 },
             )
             for r in _parse_stats(stat):
                 kw_str, ad_type = kw_lookup[kwid]
+                _imp = int(float(r.get("impCnt", 0) or 0))
+                _rnk = float(r.get("avgRnk", 0) or 0)
+                if _imp > 0 and _rnk > 0:
+                    acc = rank_acc.setdefault(kwid, [0.0, 0])
+                    acc[0] += _rnk * _imp
+                    acc[1] += _imp
                 kw_daily.append(
                     {
                         "date": r.get("date", ""),
@@ -411,6 +485,33 @@ def fetch_account(acct: dict, days: int = 365) -> dict:
             }
         )
 
+    # 4-5) 키워드도구(검색량·경쟁도·연관키워드) + 평균노출순위 결합
+    print(f"  · [{name}] 키워드도구(검색량·경쟁도) 수집...")
+    try:
+        vol_map, kw_opps = fetch_keyword_tool(acct, [k.get("keyword", "") for k in keywords])
+    except Exception as e:
+        print(f"    ! 키워드도구 전체 실패: {e}")
+        vol_map, kw_opps = {}, []
+    print(f"    검색량 매칭 {len(vol_map)}개 · 연관키워드 후보 {len(kw_opps)}개")
+
+    # 키워드별 평균노출순위(노출가중)
+    kw_rank = {}
+    for kwid, (rsum, isum) in rank_acc.items():
+        if isum > 0:
+            kw_rank[kwid] = round(rsum / isum, 1)
+
+    for item in kw_list:
+        v = vol_map.get(_nospace(item.get("keyword", "")))
+        if v:
+            item["monthlyPc"] = v["pc"]
+            item["monthlyMobile"] = v["mobile"]
+            item["monthlyTotal"] = v["total"]
+            item["compIdx"] = v["comp"]
+            item["plAvgDepth"] = v["depth"]
+        r = kw_rank.get(item.get("id"))
+        if r:
+            item["avgRnk"] = r
+
     return {
         "meta": {
             "account": name,
@@ -421,12 +522,14 @@ def fetch_account(acct: dict, days: int = 365) -> dict:
             "campaignCount": len(campaigns),
             "keywordCount":  len(keywords),
             "creativeCount": len(ads),
+            "hasKeywordTool": bool(vol_map or kw_opps),
         },
         "daily": daily,
         "kwDaily": kw_daily,
         "events": events,
         "adsList": ads_list,
         "keywordsList": kw_list,
+        "kwOpportunities": kw_opps,
     }
 
 
