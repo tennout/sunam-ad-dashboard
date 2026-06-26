@@ -2,7 +2,7 @@
   "meta": {
     "account": "선암파머스",
     "customerId": "1872388",
-    "fetchedAt": "2026-06-26 02:51:16",
+    "fetchedAt": "2026-06-26 03:08:48",
     "rangeStart": "2026-03-29",
     "rangeEnd": "2026-06-26",
     "campaignCount": 9,
@@ -34430,324 +34430,3064 @@
   ],
   "kwOpportunities": [
     {
-      "pc": 273900,
-      "mobile": 478900,
-      "total": 752800,
-      "comp": "높음",
-      "depth": 9.0,
-      "keyword": "멜론"
+      "seed": "선물",
+      "items": [
+        {
+          "pc": 12900,
+          "mobile": 38000,
+          "total": 50900,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "집들이선물"
+        },
+        {
+          "pc": 5140,
+          "mobile": 29100,
+          "total": 34240,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "집들이선물추천"
+        },
+        {
+          "pc": 5430,
+          "mobile": 23000,
+          "total": 28430,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "상견례선물"
+        },
+        {
+          "pc": 2580,
+          "mobile": 12500,
+          "total": 15080,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "생일선물"
+        },
+        {
+          "pc": 2690,
+          "mobile": 8900,
+          "total": 11590,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "퇴사선물"
+        },
+        {
+          "pc": 1300,
+          "mobile": 8360,
+          "total": 9660,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "남자친구생일선물"
+        },
+        {
+          "pc": 1450,
+          "mobile": 5850,
+          "total": 7300,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "돌선물"
+        },
+        {
+          "pc": 690,
+          "mobile": 6150,
+          "total": 6840,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "엄마생일선물"
+        },
+        {
+          "pc": 1140,
+          "mobile": 5140,
+          "total": 6280,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "생일선물추천"
+        },
+        {
+          "pc": 1180,
+          "mobile": 5100,
+          "total": 6280,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "돌잔치선물"
+        }
+      ]
     },
     {
-      "pc": 16300,
-      "mobile": 130000,
-      "total": 146300,
-      "comp": "중간",
-      "depth": 8.0,
-      "keyword": "매실"
+      "seed": "주스",
+      "items": [
+        {
+          "pc": 2590,
+          "mobile": 19100,
+          "total": 21690,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "ABC주스"
+        },
+        {
+          "pc": 1500,
+          "mobile": 9770,
+          "total": 11270,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "해독주스"
+        },
+        {
+          "pc": 1090,
+          "mobile": 3860,
+          "total": 4950,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "오렌지주스"
+        },
+        {
+          "pc": 400,
+          "mobile": 2840,
+          "total": 3240,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "ABC주스효능"
+        },
+        {
+          "pc": 370,
+          "mobile": 2060,
+          "total": 2430,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "델몬트오렌지주스"
+        },
+        {
+          "pc": 120,
+          "mobile": 850,
+          "total": 970,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "해독주스효과"
+        },
+        {
+          "pc": 70,
+          "mobile": 360,
+          "total": 430,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "델몬트망고주스"
+        },
+        {
+          "pc": 140,
+          "mobile": 280,
+          "total": 420,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "팩주스"
+        },
+        {
+          "pc": 50,
+          "mobile": 310,
+          "total": 360,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "오렌지착즙주스"
+        },
+        {
+          "pc": 40,
+          "mobile": 270,
+          "total": 310,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "샐러드주스"
+        }
+      ]
     },
     {
-      "pc": 14000,
-      "mobile": 97900,
-      "total": 111900,
-      "comp": "높음",
-      "depth": 10.0,
-      "keyword": "서울가볼만한곳"
+      "seed": "잼",
+      "items": [
+        {
+          "pc": 1490,
+          "mobile": 7210,
+          "total": 8700,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "딸기잼"
+        },
+        {
+          "pc": 680,
+          "mobile": 7150,
+          "total": 7830,
+          "comp": "중간",
+          "depth": 4.0,
+          "keyword": "트라피스트딸기잼"
+        },
+        {
+          "pc": 520,
+          "mobile": 3650,
+          "total": 4170,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "블루베리잼"
+        },
+        {
+          "pc": 370,
+          "mobile": 1850,
+          "total": 2220,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "무화과잼"
+        },
+        {
+          "pc": 190,
+          "mobile": 1450,
+          "total": 1640,
+          "comp": "중간",
+          "depth": 4.0,
+          "keyword": "트라피스트잼"
+        },
+        {
+          "pc": 230,
+          "mobile": 1320,
+          "total": 1550,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "저당딸기잼"
+        },
+        {
+          "pc": 190,
+          "mobile": 1080,
+          "total": 1270,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "라즈베리잼"
+        },
+        {
+          "pc": 200,
+          "mobile": 1000,
+          "total": 1200,
+          "comp": "중간",
+          "depth": 3.0,
+          "keyword": "트라피스트수녀원잼"
+        },
+        {
+          "pc": 240,
+          "mobile": 870,
+          "total": 1110,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "저당잼"
+        },
+        {
+          "pc": 170,
+          "mobile": 750,
+          "total": 920,
+          "comp": "중간",
+          "depth": 6.0,
+          "keyword": "안단잼"
+        }
+      ]
     },
     {
-      "pc": 11600,
-      "mobile": 87600,
-      "total": 99200,
-      "comp": "높음",
-      "depth": 10.0,
-      "keyword": "대전가볼만한곳"
+      "seed": "착즙주스",
+      "items": [
+        {
+          "pc": 90,
+          "mobile": 1490,
+          "total": 1580,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "당근착즙주스"
+        },
+        {
+          "pc": 70,
+          "mobile": 550,
+          "total": 620,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "토마토착즙주스"
+        },
+        {
+          "pc": 40,
+          "mobile": 350,
+          "total": 390,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "NFC착즙주스"
+        },
+        {
+          "pc": 30,
+          "mobile": 200,
+          "total": 230,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "ABC착즙주스"
+        },
+        {
+          "pc": 20,
+          "mobile": 60,
+          "total": 80,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "CCA착즙주스"
+        },
+        {
+          "pc": 5,
+          "mobile": 30,
+          "total": 35,
+          "comp": "높음",
+          "depth": 7.0,
+          "keyword": "유기농착즙주스"
+        },
+        {
+          "pc": 5,
+          "mobile": 20,
+          "total": 25,
+          "comp": "높음",
+          "depth": 7.0,
+          "keyword": "케일착즙주스"
+        },
+        {
+          "pc": 5,
+          "mobile": 10,
+          "total": 15,
+          "comp": "높음",
+          "depth": 7.0,
+          "keyword": "과일착즙주스"
+        },
+        {
+          "pc": 5,
+          "mobile": 10,
+          "total": 15,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "착즙주스배달"
+        },
+        {
+          "pc": 5,
+          "mobile": 10,
+          "total": 15,
+          "comp": "높음",
+          "depth": 7.0,
+          "keyword": "착즙주스브랜드"
+        }
+      ]
     },
     {
-      "pc": 38700,
-      "mobile": 38900,
-      "total": 77600,
-      "comp": "높음",
-      "depth": 3.0,
-      "keyword": "추석"
+      "seed": "선물박스",
+      "items": [
+        {
+          "pc": 240,
+          "mobile": 270,
+          "total": 510,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "선물박스제작"
+        },
+        {
+          "pc": 40,
+          "mobile": 120,
+          "total": 160,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "고급선물박스"
+        },
+        {
+          "pc": 60,
+          "mobile": 80,
+          "total": 140,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "대형선물박스"
+        },
+        {
+          "pc": 20,
+          "mobile": 70,
+          "total": 90,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "큰선물박스"
+        },
+        {
+          "pc": 10,
+          "mobile": 70,
+          "total": 80,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "종이선물박스"
+        },
+        {
+          "pc": 20,
+          "mobile": 60,
+          "total": 80,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "핸드메이드선물박스"
+        },
+        {
+          "pc": 20,
+          "mobile": 60,
+          "total": 80,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "크라프트선물박스"
+        },
+        {
+          "pc": 20,
+          "mobile": 50,
+          "total": 70,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "선물박스포장"
+        },
+        {
+          "pc": 10,
+          "mobile": 60,
+          "total": 70,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "선물박스파는곳"
+        },
+        {
+          "pc": 10,
+          "mobile": 50,
+          "total": 60,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "미니선물박스"
+        }
+      ]
     },
     {
-      "pc": 6460,
-      "mobile": 70600,
-      "total": 77060,
-      "comp": "중간",
-      "depth": 8.0,
-      "keyword": "갈비탕"
+      "seed": "클렌즈주스",
+      "items": [
+        {
+          "pc": 70,
+          "mobile": 340,
+          "total": 410,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "클렌즈주스효과"
+        },
+        {
+          "pc": 40,
+          "mobile": 220,
+          "total": 260,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "클렌즈주스다이어트"
+        },
+        {
+          "pc": 40,
+          "mobile": 210,
+          "total": 250,
+          "comp": "중간",
+          "depth": 6.0,
+          "keyword": "올리브영클렌즈주스"
+        },
+        {
+          "pc": 20,
+          "mobile": 190,
+          "total": 210,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "클렌즈주스레시피"
+        },
+        {
+          "pc": 30,
+          "mobile": 150,
+          "total": 180,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "클렌즈주스추천"
+        },
+        {
+          "pc": 10,
+          "mobile": 90,
+          "total": 100,
+          "comp": "중간",
+          "depth": 5.0,
+          "keyword": "퓨어로즈힙클렌즈주스"
+        },
+        {
+          "pc": 10,
+          "mobile": 50,
+          "total": 60,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "ABC클렌즈주스"
+        },
+        {
+          "pc": 5,
+          "mobile": 20,
+          "total": 25,
+          "comp": "높음",
+          "depth": 7.0,
+          "keyword": "다이어트클렌즈주스"
+        },
+        {
+          "pc": 5,
+          "mobile": 20,
+          "total": 25,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "3일클렌즈주스"
+        },
+        {
+          "pc": 5,
+          "mobile": 20,
+          "total": 25,
+          "comp": "높음",
+          "depth": 7.0,
+          "keyword": "클렌즈주스3일"
+        }
+      ]
     },
     {
-      "pc": 19700,
-      "mobile": 57000,
-      "total": 76700,
-      "comp": "중간",
-      "depth": 8.0,
-      "keyword": "사과"
+      "seed": "사과즙",
+      "items": [
+        {
+          "pc": 10,
+          "mobile": 360,
+          "total": 370,
+          "comp": "높음",
+          "depth": 7.0,
+          "keyword": "착즙사과즙"
+        },
+        {
+          "pc": 20,
+          "mobile": 340,
+          "total": 360,
+          "comp": "중간",
+          "depth": 7.0,
+          "keyword": "산지애사과즙"
+        },
+        {
+          "pc": 20,
+          "mobile": 330,
+          "total": 350,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "아기사과즙"
+        },
+        {
+          "pc": 20,
+          "mobile": 320,
+          "total": 340,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "영주사과즙"
+        },
+        {
+          "pc": 10,
+          "mobile": 190,
+          "total": 200,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "무농약사과즙"
+        },
+        {
+          "pc": 20,
+          "mobile": 140,
+          "total": 160,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "생사과즙"
+        },
+        {
+          "pc": 10,
+          "mobile": 150,
+          "total": 160,
+          "comp": "높음",
+          "depth": 3.0,
+          "keyword": "아임사과즙"
+        },
+        {
+          "pc": 10,
+          "mobile": 100,
+          "total": 110,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "당근사과즙"
+        },
+        {
+          "pc": 10,
+          "mobile": 90,
+          "total": 100,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "사과즙추천"
+        },
+        {
+          "pc": 10,
+          "mobile": 80,
+          "total": 90,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "사과즙100%"
+        }
+      ]
     },
     {
-      "pc": 2270,
-      "mobile": 59800,
-      "total": 62070,
-      "comp": "높음",
-      "depth": 7.0,
-      "keyword": "빙수"
+      "seed": "사과주스",
+      "items": [
+        {
+          "pc": 10,
+          "mobile": 170,
+          "total": 180,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "아기사과주스"
+        },
+        {
+          "pc": 20,
+          "mobile": 90,
+          "total": 110,
+          "comp": "높음",
+          "depth": 3.0,
+          "keyword": "양배추사과주스"
+        },
+        {
+          "pc": 20,
+          "mobile": 60,
+          "total": 80,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "100%사과주스"
+        },
+        {
+          "pc": 5,
+          "mobile": 60,
+          "total": 65,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "어린이사과주스"
+        },
+        {
+          "pc": 5,
+          "mobile": 40,
+          "total": 45,
+          "comp": "높음",
+          "depth": 7.0,
+          "keyword": "사과주스100%"
+        },
+        {
+          "pc": 5,
+          "mobile": 30,
+          "total": 35,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "양배추당근사과주스"
+        },
+        {
+          "pc": 38700,
+          "mobile": 38900,
+          "total": 77600,
+          "comp": "높음",
+          "depth": 3.0,
+          "keyword": "추석"
+        },
+        {
+          "pc": 1540,
+          "mobile": 11900,
+          "total": 13440,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "마시는샐러드"
+        },
+        {
+          "pc": 2070,
+          "mobile": 10800,
+          "total": 12870,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "CCA주스"
+        },
+        {
+          "pc": 1500,
+          "mobile": 9770,
+          "total": 11270,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "해독주스"
+        }
+      ]
     },
     {
-      "pc": 15400,
-      "mobile": 44400,
-      "total": 59800,
-      "comp": "높음",
-      "depth": 8.0,
-      "keyword": "치약"
+      "seed": "과일주스",
+      "items": [
+        {
+          "pc": 30,
+          "mobile": 360,
+          "total": 390,
+          "comp": "높음",
+          "depth": 3.0,
+          "keyword": "생과일주스카페"
+        },
+        {
+          "pc": 10,
+          "mobile": 50,
+          "total": 60,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "야채과일주스"
+        },
+        {
+          "pc": 10,
+          "mobile": 40,
+          "total": 50,
+          "comp": "높음",
+          "depth": 7.0,
+          "keyword": "과일주스추천"
+        },
+        {
+          "pc": 5,
+          "mobile": 5,
+          "total": 10,
+          "comp": "높음",
+          "depth": 3.0,
+          "keyword": "과일주스프랜차이즈"
+        },
+        {
+          "pc": 273900,
+          "mobile": 478900,
+          "total": 752800,
+          "comp": "높음",
+          "depth": 9.0,
+          "keyword": "멜론"
+        },
+        {
+          "pc": 3980,
+          "mobile": 49000,
+          "total": 52980,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "토마토효능"
+        },
+        {
+          "pc": 6210,
+          "mobile": 39900,
+          "total": 46110,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "아몬드브리즈"
+        },
+        {
+          "pc": 6290,
+          "mobile": 32500,
+          "total": 38790,
+          "comp": "높음",
+          "depth": 9.0,
+          "keyword": "과일"
+        },
+        {
+          "pc": 5370,
+          "mobile": 25800,
+          "total": 31170,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "양배추"
+        },
+        {
+          "pc": 5400,
+          "mobile": 25300,
+          "total": 30700,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "단백질음료"
+        }
+      ]
     },
     {
-      "pc": 7570,
-      "mobile": 50600,
-      "total": 58170,
-      "comp": "중간",
-      "depth": 6.0,
-      "keyword": "코스트코추천상품"
+      "seed": "건강주스",
+      "items": [
+        {
+          "pc": 30,
+          "mobile": 290,
+          "total": 320,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "아침건강주스"
+        },
+        {
+          "pc": 5,
+          "mobile": 30,
+          "total": 35,
+          "comp": "높음",
+          "depth": 7.0,
+          "keyword": "건강주스추천"
+        },
+        {
+          "pc": 5,
+          "mobile": 30,
+          "total": 35,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "건강주스배달"
+        },
+        {
+          "pc": 12800,
+          "mobile": 43600,
+          "total": 56400,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "다이어트식단"
+        },
+        {
+          "pc": 3980,
+          "mobile": 49000,
+          "total": 52980,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "토마토효능"
+        },
+        {
+          "pc": 5370,
+          "mobile": 25800,
+          "total": 31170,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "양배추"
+        },
+        {
+          "pc": 4060,
+          "mobile": 23900,
+          "total": 27960,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "양배추즙"
+        },
+        {
+          "pc": 2210,
+          "mobile": 22600,
+          "total": 24810,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "토마토주스"
+        },
+        {
+          "pc": 1510,
+          "mobile": 20800,
+          "total": 22310,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "당근효능"
+        },
+        {
+          "pc": 1660,
+          "mobile": 20100,
+          "total": 21760,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "변비에좋은음식"
+        }
+      ]
     },
     {
-      "pc": 12800,
-      "mobile": 43600,
-      "total": 56400,
-      "comp": "높음",
-      "depth": 10.0,
-      "keyword": "다이어트식단"
+      "seed": "생과일주스",
+      "items": [
+        {
+          "pc": 30,
+          "mobile": 360,
+          "total": 390,
+          "comp": "높음",
+          "depth": 3.0,
+          "keyword": "생과일주스카페"
+        },
+        {
+          "pc": 273900,
+          "mobile": 478900,
+          "total": 752800,
+          "comp": "높음",
+          "depth": 9.0,
+          "keyword": "멜론"
+        },
+        {
+          "pc": 16300,
+          "mobile": 130000,
+          "total": 146300,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "매실"
+        },
+        {
+          "pc": 2270,
+          "mobile": 59800,
+          "total": 62070,
+          "comp": "높음",
+          "depth": 7.0,
+          "keyword": "빙수"
+        },
+        {
+          "pc": 3380,
+          "mobile": 38500,
+          "total": 41880,
+          "comp": "높음",
+          "depth": 7.0,
+          "keyword": "팥빙수"
+        },
+        {
+          "pc": 6290,
+          "mobile": 32500,
+          "total": 38790,
+          "comp": "높음",
+          "depth": 9.0,
+          "keyword": "과일"
+        },
+        {
+          "pc": 2620,
+          "mobile": 32400,
+          "total": 35020,
+          "comp": "높음",
+          "depth": 7.0,
+          "keyword": "매실10KG"
+        },
+        {
+          "pc": 3490,
+          "mobile": 28500,
+          "total": 31990,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "황매실"
+        },
+        {
+          "pc": 5610,
+          "mobile": 24800,
+          "total": 30410,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "멸균우유"
+        },
+        {
+          "pc": 4940,
+          "mobile": 21000,
+          "total": 25940,
+          "comp": "높음",
+          "depth": 7.0,
+          "keyword": "6월제철과일"
+        }
+      ]
     },
     {
-      "pc": 3980,
-      "mobile": 49000,
-      "total": 52980,
-      "comp": "높음",
-      "depth": 10.0,
-      "keyword": "토마토효능"
+      "seed": "가공식품",
+      "items": [
+        {
+          "pc": 5,
+          "mobile": 5,
+          "total": 10,
+          "comp": "낮음",
+          "depth": 0.0,
+          "keyword": "가공식품B2B"
+        },
+        {
+          "pc": 7880,
+          "mobile": 45800,
+          "total": 53680,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "참치"
+        },
+        {
+          "pc": 4000,
+          "mobile": 48700,
+          "total": 52700,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "식자재마트"
+        },
+        {
+          "pc": 2060,
+          "mobile": 45600,
+          "total": 47660,
+          "comp": "높음",
+          "depth": 9.0,
+          "keyword": "참치김치찌개"
+        },
+        {
+          "pc": 4550,
+          "mobile": 35700,
+          "total": 40250,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "바질페스토"
+        },
+        {
+          "pc": 10500,
+          "mobile": 23300,
+          "total": 33800,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "밀키트"
+        },
+        {
+          "pc": 2730,
+          "mobile": 24000,
+          "total": 26730,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "발사믹식초"
+        },
+        {
+          "pc": 910,
+          "mobile": 19100,
+          "total": 20010,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "시금치된장국"
+        },
+        {
+          "pc": 510,
+          "mobile": 15800,
+          "total": 16310,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "호프집"
+        },
+        {
+          "pc": 1790,
+          "mobile": 14000,
+          "total": 15790,
+          "comp": "높음",
+          "depth": 7.0,
+          "keyword": "치아바타샌드위치"
+        }
+      ]
     },
     {
-      "pc": 4000,
-      "mobile": 48700,
-      "total": 52700,
-      "comp": "높음",
-      "depth": 10.0,
-      "keyword": "식자재마트"
+      "seed": "과채주스",
+      "items": [
+        {
+          "pc": 10,
+          "mobile": 40,
+          "total": 50,
+          "comp": "높음",
+          "depth": 3.0,
+          "keyword": "유기농과채주스"
+        },
+        {
+          "pc": 3980,
+          "mobile": 49000,
+          "total": 52980,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "토마토효능"
+        },
+        {
+          "pc": 5370,
+          "mobile": 25800,
+          "total": 31170,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "양배추"
+        },
+        {
+          "pc": 1440,
+          "mobile": 27400,
+          "total": 28840,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "빼빼주스"
+        },
+        {
+          "pc": 4060,
+          "mobile": 23900,
+          "total": 27960,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "양배추즙"
+        },
+        {
+          "pc": 2210,
+          "mobile": 22600,
+          "total": 24810,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "토마토주스"
+        },
+        {
+          "pc": 1510,
+          "mobile": 20800,
+          "total": 22310,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "당근효능"
+        },
+        {
+          "pc": 1660,
+          "mobile": 20100,
+          "total": 21760,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "변비에좋은음식"
+        },
+        {
+          "pc": 2590,
+          "mobile": 19100,
+          "total": 21690,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "ABC주스"
+        },
+        {
+          "pc": 880,
+          "mobile": 17500,
+          "total": 18380,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "아침식사"
+        }
+      ]
     },
     {
-      "pc": 12900,
-      "mobile": 38000,
-      "total": 50900,
-      "comp": "높음",
-      "depth": 10.0,
-      "keyword": "집들이선물"
+      "seed": "사과쥬스",
+      "items": [
+        {
+          "pc": 5,
+          "mobile": 5,
+          "total": 10,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "당근사과쥬스"
+        },
+        {
+          "pc": 5370,
+          "mobile": 25800,
+          "total": 31170,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "양배추"
+        },
+        {
+          "pc": 4060,
+          "mobile": 23900,
+          "total": 27960,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "양배추즙"
+        },
+        {
+          "pc": 2590,
+          "mobile": 19100,
+          "total": 21690,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "ABC주스"
+        },
+        {
+          "pc": 2070,
+          "mobile": 10800,
+          "total": 12870,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "CCA주스"
+        },
+        {
+          "pc": 1500,
+          "mobile": 9770,
+          "total": 11270,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "해독주스"
+        },
+        {
+          "pc": 2660,
+          "mobile": 7710,
+          "total": 10370,
+          "comp": "높음",
+          "depth": 9.0,
+          "keyword": "아이스티"
+        },
+        {
+          "pc": 1530,
+          "mobile": 8140,
+          "total": 9670,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "스승의날"
+        },
+        {
+          "pc": 1220,
+          "mobile": 8370,
+          "total": 9590,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "디톡스주스"
+        },
+        {
+          "pc": 3140,
+          "mobile": 5000,
+          "total": 8140,
+          "comp": "높음",
+          "depth": 9.0,
+          "keyword": "딸기청"
+        }
+      ]
     },
     {
-      "pc": 6210,
-      "mobile": 39900,
-      "total": 46110,
-      "comp": "중간",
-      "depth": 8.0,
-      "keyword": "아몬드브리즈"
+      "seed": "NFC착즙",
+      "items": [
+        {
+          "pc": 40,
+          "mobile": 350,
+          "total": 390,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "NFC착즙주스"
+        },
+        {
+          "pc": 5370,
+          "mobile": 25800,
+          "total": 31170,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "양배추"
+        },
+        {
+          "pc": 4060,
+          "mobile": 23900,
+          "total": 27960,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "양배추즙"
+        },
+        {
+          "pc": 2590,
+          "mobile": 19100,
+          "total": 21690,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "ABC주스"
+        },
+        {
+          "pc": 2070,
+          "mobile": 10800,
+          "total": 12870,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "CCA주스"
+        },
+        {
+          "pc": 1500,
+          "mobile": 9770,
+          "total": 11270,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "해독주스"
+        },
+        {
+          "pc": 1530,
+          "mobile": 8140,
+          "total": 9670,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "스승의날"
+        },
+        {
+          "pc": 1220,
+          "mobile": 8370,
+          "total": 9590,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "디톡스주스"
+        },
+        {
+          "pc": 580,
+          "mobile": 6040,
+          "total": 6620,
+          "comp": "높음",
+          "depth": 9.0,
+          "keyword": "양배추즙효능"
+        },
+        {
+          "pc": 1000,
+          "mobile": 4870,
+          "total": 5870,
+          "comp": "중간",
+          "depth": 7.0,
+          "keyword": "하루야채"
+        }
+      ]
     },
     {
-      "pc": 3380,
-      "mobile": 38500,
-      "total": 41880,
-      "comp": "높음",
-      "depth": 7.0,
-      "keyword": "팥빙수"
+      "seed": "사과칩",
+      "items": [
+        {
+          "pc": 10,
+          "mobile": 10,
+          "total": 20,
+          "comp": "높음",
+          "depth": 3.0,
+          "keyword": "건조사과칩"
+        },
+        {
+          "pc": 860,
+          "mobile": 5460,
+          "total": 6320,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "동결건조딸기"
+        },
+        {
+          "pc": 630,
+          "mobile": 3350,
+          "total": 3980,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "건망고"
+        },
+        {
+          "pc": 350,
+          "mobile": 1990,
+          "total": 2340,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "동결건조과일"
+        },
+        {
+          "pc": 460,
+          "mobile": 1740,
+          "total": 2200,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "레몬물"
+        },
+        {
+          "pc": 340,
+          "mobile": 1840,
+          "total": 2180,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "건무화과"
+        },
+        {
+          "pc": 280,
+          "mobile": 1510,
+          "total": 1790,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "반건조무화과"
+        },
+        {
+          "pc": 390,
+          "mobile": 1270,
+          "total": 1660,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "야채스틱"
+        },
+        {
+          "pc": 270,
+          "mobile": 1320,
+          "total": 1590,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "건살구"
+        },
+        {
+          "pc": 240,
+          "mobile": 1240,
+          "total": 1480,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "야채과자"
+        }
+      ]
     },
     {
-      "pc": 4550,
-      "mobile": 35700,
-      "total": 40250,
-      "comp": "중간",
-      "depth": 8.0,
-      "keyword": "바질페스토"
+      "seed": "생과일쥬스",
+      "items": [
+        {
+          "pc": 273900,
+          "mobile": 478900,
+          "total": 752800,
+          "comp": "높음",
+          "depth": 9.0,
+          "keyword": "멜론"
+        },
+        {
+          "pc": 3980,
+          "mobile": 49000,
+          "total": 52980,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "토마토효능"
+        },
+        {
+          "pc": 6290,
+          "mobile": 32500,
+          "total": 38790,
+          "comp": "높음",
+          "depth": 9.0,
+          "keyword": "과일"
+        },
+        {
+          "pc": 4940,
+          "mobile": 21000,
+          "total": 25940,
+          "comp": "높음",
+          "depth": 7.0,
+          "keyword": "6월제철과일"
+        },
+        {
+          "pc": 2400,
+          "mobile": 23400,
+          "total": 25800,
+          "comp": "중간",
+          "depth": 7.0,
+          "keyword": "쥬씨"
+        },
+        {
+          "pc": 2210,
+          "mobile": 22600,
+          "total": 24810,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "토마토주스"
+        },
+        {
+          "pc": 1640,
+          "mobile": 20300,
+          "total": 21940,
+          "comp": "높음",
+          "depth": 7.0,
+          "keyword": "망고빙수"
+        },
+        {
+          "pc": 1660,
+          "mobile": 20100,
+          "total": 21760,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "변비에좋은음식"
+        },
+        {
+          "pc": 2590,
+          "mobile": 19100,
+          "total": 21690,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "ABC주스"
+        },
+        {
+          "pc": 1210,
+          "mobile": 13100,
+          "total": 14310,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "단호박샐러드"
+        }
+      ]
     },
     {
-      "pc": 6290,
-      "mobile": 32500,
-      "total": 38790,
-      "comp": "높음",
-      "depth": 9.0,
-      "keyword": "과일"
+      "seed": "유기농사과즙",
+      "items": [
+        {
+          "pc": 38700,
+          "mobile": 38900,
+          "total": 77600,
+          "comp": "높음",
+          "depth": 3.0,
+          "keyword": "추석"
+        },
+        {
+          "pc": 19700,
+          "mobile": 57000,
+          "total": 76700,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "사과"
+        },
+        {
+          "pc": 1530,
+          "mobile": 8140,
+          "total": 9670,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "스승의날"
+        },
+        {
+          "pc": 1240,
+          "mobile": 8400,
+          "total": 9640,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "청송사과"
+        },
+        {
+          "pc": 1000,
+          "mobile": 4870,
+          "total": 5870,
+          "comp": "중간",
+          "depth": 7.0,
+          "keyword": "하루야채"
+        },
+        {
+          "pc": 710,
+          "mobile": 3220,
+          "total": 3930,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "쥬스"
+        },
+        {
+          "pc": 520,
+          "mobile": 2970,
+          "total": 3490,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "못난이사과"
+        },
+        {
+          "pc": 600,
+          "mobile": 2370,
+          "total": 2970,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "부사사과"
+        },
+        {
+          "pc": 330,
+          "mobile": 2440,
+          "total": 2770,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "꿀사과"
+        },
+        {
+          "pc": 400,
+          "mobile": 1980,
+          "total": 2380,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "야채주스"
+        }
+      ]
     },
     {
-      "pc": 2620,
-      "mobile": 32400,
-      "total": 35020,
-      "comp": "높음",
-      "depth": 7.0,
-      "keyword": "매실10KG"
+      "seed": "사과착즙주스",
+      "items": [
+        {
+          "pc": 38700,
+          "mobile": 38900,
+          "total": 77600,
+          "comp": "높음",
+          "depth": 3.0,
+          "keyword": "추석"
+        },
+        {
+          "pc": 1500,
+          "mobile": 9770,
+          "total": 11270,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "해독주스"
+        },
+        {
+          "pc": 1530,
+          "mobile": 8140,
+          "total": 9670,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "스승의날"
+        },
+        {
+          "pc": 1000,
+          "mobile": 4870,
+          "total": 5870,
+          "comp": "중간",
+          "depth": 7.0,
+          "keyword": "하루야채"
+        },
+        {
+          "pc": 710,
+          "mobile": 3220,
+          "total": 3930,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "쥬스"
+        },
+        {
+          "pc": 280,
+          "mobile": 3420,
+          "total": 3700,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "섬유질많은음식"
+        },
+        {
+          "pc": 400,
+          "mobile": 1980,
+          "total": 2380,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "야채주스"
+        },
+        {
+          "pc": 170,
+          "mobile": 1820,
+          "total": 1990,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "사과당근주스"
+        },
+        {
+          "pc": 180,
+          "mobile": 1550,
+          "total": 1730,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "독소배출주스"
+        },
+        {
+          "pc": 90,
+          "mobile": 1490,
+          "total": 1580,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "당근착즙주스"
+        }
+      ]
     },
     {
-      "pc": 5140,
-      "mobile": 29100,
-      "total": 34240,
-      "comp": "높음",
-      "depth": 10.0,
-      "keyword": "집들이선물추천"
+      "seed": "아침사과",
+      "items": [
+        {
+          "pc": 19700,
+          "mobile": 57000,
+          "total": 76700,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "사과"
+        },
+        {
+          "pc": 2520,
+          "mobile": 9440,
+          "total": 11960,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "부사"
+        },
+        {
+          "pc": 1240,
+          "mobile": 8400,
+          "total": 9640,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "청송사과"
+        },
+        {
+          "pc": 520,
+          "mobile": 2970,
+          "total": 3490,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "못난이사과"
+        },
+        {
+          "pc": 600,
+          "mobile": 2370,
+          "total": 2970,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "부사사과"
+        },
+        {
+          "pc": 330,
+          "mobile": 2440,
+          "total": 2770,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "꿀사과"
+        },
+        {
+          "pc": 500,
+          "mobile": 1440,
+          "total": 1940,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "사과10KG"
+        },
+        {
+          "pc": 150,
+          "mobile": 1340,
+          "total": 1490,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "사과유명한곳"
+        },
+        {
+          "pc": 280,
+          "mobile": 900,
+          "total": 1180,
+          "comp": "중간",
+          "depth": 6.0,
+          "keyword": "청송사과축제"
+        },
+        {
+          "pc": 100,
+          "mobile": 730,
+          "total": 830,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "맛있는사과"
+        }
+      ]
     },
     {
-      "pc": 10500,
-      "mobile": 23300,
-      "total": 33800,
-      "comp": "중간",
-      "depth": 8.0,
-      "keyword": "밀키트"
+      "seed": "명품사과즙",
+      "items": [
+        {
+          "pc": 19700,
+          "mobile": 57000,
+          "total": 76700,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "사과"
+        },
+        {
+          "pc": 2520,
+          "mobile": 9440,
+          "total": 11960,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "부사"
+        },
+        {
+          "pc": 1240,
+          "mobile": 8400,
+          "total": 9640,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "청송사과"
+        },
+        {
+          "pc": 710,
+          "mobile": 3220,
+          "total": 3930,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "쥬스"
+        },
+        {
+          "pc": 520,
+          "mobile": 2970,
+          "total": 3490,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "못난이사과"
+        },
+        {
+          "pc": 600,
+          "mobile": 2370,
+          "total": 2970,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "부사사과"
+        },
+        {
+          "pc": 330,
+          "mobile": 2440,
+          "total": 2770,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "꿀사과"
+        },
+        {
+          "pc": 170,
+          "mobile": 1820,
+          "total": 1990,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "사과당근주스"
+        },
+        {
+          "pc": 500,
+          "mobile": 1440,
+          "total": 1940,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "사과10KG"
+        },
+        {
+          "pc": 220,
+          "mobile": 1160,
+          "total": 1380,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "사과5KG"
+        }
+      ]
     },
     {
-      "pc": 3830,
-      "mobile": 29600,
-      "total": 33430,
-      "comp": "중간",
-      "depth": 8.0,
-      "keyword": "빵"
+      "seed": "사과케일주스",
+      "items": [
+        {
+          "pc": 12800,
+          "mobile": 43600,
+          "total": 56400,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "다이어트식단"
+        },
+        {
+          "pc": 2590,
+          "mobile": 19100,
+          "total": 21690,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "ABC주스"
+        },
+        {
+          "pc": 1280,
+          "mobile": 14200,
+          "total": 15480,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "케일효능"
+        },
+        {
+          "pc": 2070,
+          "mobile": 10800,
+          "total": 12870,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "CCA주스"
+        },
+        {
+          "pc": 1500,
+          "mobile": 9770,
+          "total": 11270,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "해독주스"
+        },
+        {
+          "pc": 1220,
+          "mobile": 8370,
+          "total": 9590,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "디톡스주스"
+        },
+        {
+          "pc": 380,
+          "mobile": 8160,
+          "total": 8540,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "케일먹는법"
+        },
+        {
+          "pc": 860,
+          "mobile": 5940,
+          "total": 6800,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "케일주스"
+        },
+        {
+          "pc": 1080,
+          "mobile": 5030,
+          "total": 6110,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "스무디"
+        },
+        {
+          "pc": 170,
+          "mobile": 4550,
+          "total": 4720,
+          "comp": "높음",
+          "depth": 9.0,
+          "keyword": "그린주스"
+        }
+      ]
     },
     {
-      "pc": 3490,
-      "mobile": 28500,
-      "total": 31990,
-      "comp": "높음",
-      "depth": 8.0,
-      "keyword": "황매실"
+      "seed": "착즙쥬스",
+      "items": [
+        {
+          "pc": 12800,
+          "mobile": 43600,
+          "total": 56400,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "다이어트식단"
+        },
+        {
+          "pc": 5370,
+          "mobile": 25800,
+          "total": 31170,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "양배추"
+        },
+        {
+          "pc": 4060,
+          "mobile": 23900,
+          "total": 27960,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "양배추즙"
+        },
+        {
+          "pc": 2210,
+          "mobile": 22600,
+          "total": 24810,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "토마토주스"
+        },
+        {
+          "pc": 5700,
+          "mobile": 17400,
+          "total": 23100,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "다이어트도시락"
+        },
+        {
+          "pc": 1510,
+          "mobile": 20800,
+          "total": 22310,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "당근효능"
+        },
+        {
+          "pc": 2590,
+          "mobile": 19100,
+          "total": 21690,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "ABC주스"
+        },
+        {
+          "pc": 880,
+          "mobile": 17500,
+          "total": 18380,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "아침식사"
+        },
+        {
+          "pc": 1240,
+          "mobile": 14700,
+          "total": 15940,
+          "comp": "중간",
+          "depth": 7.0,
+          "keyword": "칼륨많은음식"
+        },
+        {
+          "pc": 1540,
+          "mobile": 11900,
+          "total": 13440,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "마시는샐러드"
+        }
+      ]
     },
     {
-      "pc": 5370,
-      "mobile": 25800,
-      "total": 31170,
-      "comp": "중간",
-      "depth": 8.0,
-      "keyword": "양배추"
+      "seed": "과일쥬스",
+      "items": [
+        {
+          "pc": 3980,
+          "mobile": 49000,
+          "total": 52980,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "토마토효능"
+        },
+        {
+          "pc": 5370,
+          "mobile": 25800,
+          "total": 31170,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "양배추"
+        },
+        {
+          "pc": 5400,
+          "mobile": 25300,
+          "total": 30700,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "단백질음료"
+        },
+        {
+          "pc": 4060,
+          "mobile": 23900,
+          "total": 27960,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "양배추즙"
+        },
+        {
+          "pc": 2210,
+          "mobile": 22600,
+          "total": 24810,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "토마토주스"
+        },
+        {
+          "pc": 1660,
+          "mobile": 20100,
+          "total": 21760,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "변비에좋은음식"
+        },
+        {
+          "pc": 2590,
+          "mobile": 19100,
+          "total": 21690,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "ABC주스"
+        },
+        {
+          "pc": 1540,
+          "mobile": 11900,
+          "total": 13440,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "마시는샐러드"
+        },
+        {
+          "pc": 2070,
+          "mobile": 10800,
+          "total": 12870,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "CCA주스"
+        },
+        {
+          "pc": 840,
+          "mobile": 10800,
+          "total": 11640,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "토마토쥬스"
+        }
+      ]
     },
     {
-      "pc": 5400,
-      "mobile": 25300,
-      "total": 30700,
-      "comp": "중간",
-      "depth": 8.0,
-      "keyword": "단백질음료"
+      "seed": "과일즙",
+      "items": [
+        {
+          "pc": 5370,
+          "mobile": 25800,
+          "total": 31170,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "양배추"
+        },
+        {
+          "pc": 4060,
+          "mobile": 23900,
+          "total": 27960,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "양배추즙"
+        },
+        {
+          "pc": 2590,
+          "mobile": 19100,
+          "total": 21690,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "ABC주스"
+        },
+        {
+          "pc": 1540,
+          "mobile": 11900,
+          "total": 13440,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "마시는샐러드"
+        },
+        {
+          "pc": 2070,
+          "mobile": 10800,
+          "total": 12870,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "CCA주스"
+        },
+        {
+          "pc": 840,
+          "mobile": 10800,
+          "total": 11640,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "토마토쥬스"
+        },
+        {
+          "pc": 1500,
+          "mobile": 9770,
+          "total": 11270,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "해독주스"
+        },
+        {
+          "pc": 1800,
+          "mobile": 9180,
+          "total": 10980,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "블루베리퓨레"
+        },
+        {
+          "pc": 2660,
+          "mobile": 7710,
+          "total": 10370,
+          "comp": "높음",
+          "depth": 9.0,
+          "keyword": "아이스티"
+        },
+        {
+          "pc": 660,
+          "mobile": 9690,
+          "total": 10350,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "블루베리주스"
+        }
+      ]
     },
     {
-      "pc": 4590,
-      "mobile": 26000,
-      "total": 30590,
-      "comp": "높음",
-      "depth": 10.0,
-      "keyword": "마녀스프"
+      "seed": "얼음골사과즙",
+      "items": [
+        {
+          "pc": 1530,
+          "mobile": 8140,
+          "total": 9670,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "스승의날"
+        },
+        {
+          "pc": 710,
+          "mobile": 3220,
+          "total": 3930,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "쥬스"
+        },
+        {
+          "pc": 170,
+          "mobile": 1220,
+          "total": 1390,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "즙"
+        },
+        {
+          "pc": 230,
+          "mobile": 1070,
+          "total": 1300,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "패션후르츠퓨레"
+        },
+        {
+          "pc": 180,
+          "mobile": 970,
+          "total": 1150,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "착즙"
+        },
+        {
+          "pc": 150,
+          "mobile": 540,
+          "total": 690,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "커피대체"
+        },
+        {
+          "pc": 150,
+          "mobile": 400,
+          "total": 550,
+          "comp": "중간",
+          "depth": 6.0,
+          "keyword": "다농이네"
+        },
+        {
+          "pc": 40,
+          "mobile": 420,
+          "total": 460,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "아빠의주스"
+        },
+        {
+          "pc": 60,
+          "mobile": 390,
+          "total": 450,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "바나나퓨레"
+        },
+        {
+          "pc": 120,
+          "mobile": 280,
+          "total": 400,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "과채음료"
+        }
+      ]
     },
     {
-      "pc": 5610,
-      "mobile": 24800,
-      "total": 30410,
-      "comp": "높음",
-      "depth": 8.0,
-      "keyword": "멸균우유"
+      "seed": "100%사과즙",
+      "items": [
+        {
+          "pc": 1530,
+          "mobile": 8140,
+          "total": 9670,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "스승의날"
+        },
+        {
+          "pc": 710,
+          "mobile": 3220,
+          "total": 3930,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "쥬스"
+        },
+        {
+          "pc": 170,
+          "mobile": 1820,
+          "total": 1990,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "사과당근주스"
+        },
+        {
+          "pc": 180,
+          "mobile": 970,
+          "total": 1150,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "착즙"
+        },
+        {
+          "pc": 150,
+          "mobile": 400,
+          "total": 550,
+          "comp": "중간",
+          "depth": 6.0,
+          "keyword": "다농이네"
+        },
+        {
+          "pc": 40,
+          "mobile": 420,
+          "total": 460,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "아빠의주스"
+        },
+        {
+          "pc": 120,
+          "mobile": 280,
+          "total": 400,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "과채음료"
+        },
+        {
+          "pc": 40,
+          "mobile": 350,
+          "total": 390,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "NFC착즙주스"
+        },
+        {
+          "pc": 10,
+          "mobile": 360,
+          "total": 370,
+          "comp": "높음",
+          "depth": 7.0,
+          "keyword": "착즙사과즙"
+        },
+        {
+          "pc": 60,
+          "mobile": 310,
+          "total": 370,
+          "comp": "중간",
+          "depth": 6.0,
+          "keyword": "TUTTIFRUTTI"
+        }
+      ]
     },
     {
-      "pc": 1440,
-      "mobile": 27400,
-      "total": 28840,
-      "comp": "중간",
-      "depth": 8.0,
-      "keyword": "빼빼주스"
+      "seed": "사과즙100포",
+      "items": [
+        {
+          "pc": 1530,
+          "mobile": 8140,
+          "total": 9670,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "스승의날"
+        },
+        {
+          "pc": 710,
+          "mobile": 3220,
+          "total": 3930,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "쥬스"
+        },
+        {
+          "pc": 170,
+          "mobile": 1820,
+          "total": 1990,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "사과당근주스"
+        },
+        {
+          "pc": 170,
+          "mobile": 1220,
+          "total": 1390,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "즙"
+        },
+        {
+          "pc": 180,
+          "mobile": 970,
+          "total": 1150,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "착즙"
+        },
+        {
+          "pc": 150,
+          "mobile": 400,
+          "total": 550,
+          "comp": "중간",
+          "depth": 6.0,
+          "keyword": "다농이네"
+        },
+        {
+          "pc": 40,
+          "mobile": 420,
+          "total": 460,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "아빠의주스"
+        },
+        {
+          "pc": 120,
+          "mobile": 280,
+          "total": 400,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "과채음료"
+        },
+        {
+          "pc": 40,
+          "mobile": 350,
+          "total": 390,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "NFC착즙주스"
+        },
+        {
+          "pc": 60,
+          "mobile": 310,
+          "total": 370,
+          "comp": "중간",
+          "depth": 6.0,
+          "keyword": "TUTTIFRUTTI"
+        }
+      ]
     },
     {
-      "pc": 5430,
-      "mobile": 23000,
-      "total": 28430,
-      "comp": "높음",
-      "depth": 10.0,
-      "keyword": "상견례선물"
+      "seed": "사과잼",
+      "items": [
+        {
+          "pc": 720,
+          "mobile": 3750,
+          "total": 4470,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "콩포트"
+        },
+        {
+          "pc": 190,
+          "mobile": 1080,
+          "total": 1270,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "라즈베리잼"
+        },
+        {
+          "pc": 240,
+          "mobile": 870,
+          "total": 1110,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "저당잼"
+        },
+        {
+          "pc": 220,
+          "mobile": 200,
+          "total": 420,
+          "comp": "중간",
+          "depth": 7.0,
+          "keyword": "오트리푸드"
+        },
+        {
+          "pc": 60,
+          "mobile": 280,
+          "total": 340,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "애플시나몬잼"
+        },
+        {
+          "pc": 50,
+          "mobile": 260,
+          "total": 310,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "잼종류"
+        },
+        {
+          "pc": 60,
+          "mobile": 240,
+          "total": 300,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "수제잼"
+        },
+        {
+          "pc": 50,
+          "mobile": 200,
+          "total": 250,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "무설탕잼"
+        },
+        {
+          "pc": 70,
+          "mobile": 160,
+          "total": 230,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "과일잼"
+        },
+        {
+          "pc": 50,
+          "mobile": 170,
+          "total": 220,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "에이드원액"
+        }
+      ]
     },
     {
-      "pc": 4060,
-      "mobile": 23900,
-      "total": 27960,
-      "comp": "중간",
-      "depth": 8.0,
-      "keyword": "양배추즙"
+      "seed": "청송사과즙",
+      "items": [
+        {
+          "pc": 710,
+          "mobile": 3220,
+          "total": 3930,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "쥬스"
+        },
+        {
+          "pc": 230,
+          "mobile": 1070,
+          "total": 1300,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "패션후르츠퓨레"
+        },
+        {
+          "pc": 180,
+          "mobile": 970,
+          "total": 1150,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "착즙"
+        },
+        {
+          "pc": 150,
+          "mobile": 400,
+          "total": 550,
+          "comp": "중간",
+          "depth": 6.0,
+          "keyword": "다농이네"
+        },
+        {
+          "pc": 40,
+          "mobile": 420,
+          "total": 460,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "아빠의주스"
+        },
+        {
+          "pc": 60,
+          "mobile": 390,
+          "total": 450,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "바나나퓨레"
+        },
+        {
+          "pc": 120,
+          "mobile": 280,
+          "total": 400,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "과채음료"
+        },
+        {
+          "pc": 40,
+          "mobile": 350,
+          "total": 390,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "NFC착즙주스"
+        },
+        {
+          "pc": 60,
+          "mobile": 310,
+          "total": 370,
+          "comp": "중간",
+          "depth": 6.0,
+          "keyword": "TUTTIFRUTTI"
+        },
+        {
+          "pc": 10,
+          "mobile": 360,
+          "total": 370,
+          "comp": "높음",
+          "depth": 7.0,
+          "keyword": "착즙사과즙"
+        }
+      ]
     },
     {
-      "pc": 2730,
-      "mobile": 24000,
-      "total": 26730,
-      "comp": "중간",
-      "depth": 8.0,
-      "keyword": "발사믹식초"
+      "seed": "유기농사과쥬스",
+      "items": [
+        {
+          "pc": 710,
+          "mobile": 3220,
+          "total": 3930,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "쥬스"
+        },
+        {
+          "pc": 170,
+          "mobile": 1220,
+          "total": 1390,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "즙"
+        },
+        {
+          "pc": 180,
+          "mobile": 970,
+          "total": 1150,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "착즙"
+        },
+        {
+          "pc": 150,
+          "mobile": 400,
+          "total": 550,
+          "comp": "중간",
+          "depth": 6.0,
+          "keyword": "다농이네"
+        },
+        {
+          "pc": 40,
+          "mobile": 420,
+          "total": 460,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "아빠의주스"
+        },
+        {
+          "pc": 120,
+          "mobile": 280,
+          "total": 400,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "과채음료"
+        },
+        {
+          "pc": 60,
+          "mobile": 310,
+          "total": 370,
+          "comp": "중간",
+          "depth": 6.0,
+          "keyword": "TUTTIFRUTTI"
+        },
+        {
+          "pc": 20,
+          "mobile": 330,
+          "total": 350,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "아기사과즙"
+        },
+        {
+          "pc": 20,
+          "mobile": 320,
+          "total": 340,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "영주사과즙"
+        },
+        {
+          "pc": 40,
+          "mobile": 270,
+          "total": 310,
+          "comp": "높음",
+          "depth": 3.0,
+          "keyword": "청송농부"
+        }
+      ]
     },
     {
-      "pc": 4940,
-      "mobile": 21000,
-      "total": 25940,
-      "comp": "높음",
-      "depth": 7.0,
-      "keyword": "6월제철과일"
+      "seed": "사과즙효능",
+      "items": [
+        {
+          "pc": 710,
+          "mobile": 3220,
+          "total": 3930,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "쥬스"
+        },
+        {
+          "pc": 170,
+          "mobile": 1820,
+          "total": 1990,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "사과당근주스"
+        },
+        {
+          "pc": 170,
+          "mobile": 1220,
+          "total": 1390,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "즙"
+        },
+        {
+          "pc": 180,
+          "mobile": 970,
+          "total": 1150,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "착즙"
+        },
+        {
+          "pc": 150,
+          "mobile": 400,
+          "total": 550,
+          "comp": "중간",
+          "depth": 6.0,
+          "keyword": "다농이네"
+        },
+        {
+          "pc": 40,
+          "mobile": 420,
+          "total": 460,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "아빠의주스"
+        },
+        {
+          "pc": 120,
+          "mobile": 280,
+          "total": 400,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "과채음료"
+        },
+        {
+          "pc": 40,
+          "mobile": 350,
+          "total": 390,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "NFC착즙주스"
+        },
+        {
+          "pc": 60,
+          "mobile": 310,
+          "total": 370,
+          "comp": "중간",
+          "depth": 6.0,
+          "keyword": "TUTTIFRUTTI"
+        },
+        {
+          "pc": 10,
+          "mobile": 360,
+          "total": 370,
+          "comp": "높음",
+          "depth": 7.0,
+          "keyword": "착즙사과즙"
+        }
+      ]
     },
     {
-      "pc": 2400,
-      "mobile": 23400,
-      "total": 25800,
-      "comp": "중간",
-      "depth": 7.0,
-      "keyword": "쥬씨"
+      "seed": "문경사과즙",
+      "items": [
+        {
+          "pc": 710,
+          "mobile": 3220,
+          "total": 3930,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "쥬스"
+        },
+        {
+          "pc": 230,
+          "mobile": 1070,
+          "total": 1300,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "패션후르츠퓨레"
+        },
+        {
+          "pc": 180,
+          "mobile": 970,
+          "total": 1150,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "착즙"
+        },
+        {
+          "pc": 150,
+          "mobile": 400,
+          "total": 550,
+          "comp": "중간",
+          "depth": 6.0,
+          "keyword": "다농이네"
+        },
+        {
+          "pc": 40,
+          "mobile": 420,
+          "total": 460,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "아빠의주스"
+        },
+        {
+          "pc": 60,
+          "mobile": 390,
+          "total": 450,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "바나나퓨레"
+        },
+        {
+          "pc": 120,
+          "mobile": 280,
+          "total": 400,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "과채음료"
+        },
+        {
+          "pc": 40,
+          "mobile": 350,
+          "total": 390,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "NFC착즙주스"
+        },
+        {
+          "pc": 60,
+          "mobile": 310,
+          "total": 370,
+          "comp": "중간",
+          "depth": 6.0,
+          "keyword": "TUTTIFRUTTI"
+        },
+        {
+          "pc": 10,
+          "mobile": 360,
+          "total": 370,
+          "comp": "높음",
+          "depth": 7.0,
+          "keyword": "착즙사과즙"
+        }
+      ]
     },
     {
-      "pc": 2300,
-      "mobile": 23300,
-      "total": 25600,
-      "comp": "높음",
-      "depth": 10.0,
-      "keyword": "홍매실"
+      "seed": "애플주스",
+      "items": [
+        {
+          "pc": 710,
+          "mobile": 3220,
+          "total": 3930,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "쥬스"
+        },
+        {
+          "pc": 560,
+          "mobile": 2060,
+          "total": 2620,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "수입과자"
+        },
+        {
+          "pc": 170,
+          "mobile": 1220,
+          "total": 1390,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "즙"
+        },
+        {
+          "pc": 180,
+          "mobile": 970,
+          "total": 1150,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "착즙"
+        },
+        {
+          "pc": 150,
+          "mobile": 400,
+          "total": 550,
+          "comp": "중간",
+          "depth": 6.0,
+          "keyword": "다농이네"
+        },
+        {
+          "pc": 120,
+          "mobile": 400,
+          "total": 520,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "해외과자"
+        },
+        {
+          "pc": 40,
+          "mobile": 420,
+          "total": 460,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "아빠의주스"
+        },
+        {
+          "pc": 120,
+          "mobile": 280,
+          "total": 400,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "과채음료"
+        },
+        {
+          "pc": 60,
+          "mobile": 310,
+          "total": 370,
+          "comp": "중간",
+          "depth": 6.0,
+          "keyword": "TUTTIFRUTTI"
+        },
+        {
+          "pc": 20,
+          "mobile": 320,
+          "total": 340,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "영주사과즙"
+        }
+      ]
     },
     {
-      "pc": 4880,
-      "mobile": 20200,
-      "total": 25080,
-      "comp": "높음",
-      "depth": 8.0,
-      "keyword": "결혼식답례품"
+      "seed": "선암파머스",
+      "items": [
+        {
+          "pc": 710,
+          "mobile": 3220,
+          "total": 3930,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "쥬스"
+        },
+        {
+          "pc": 170,
+          "mobile": 1220,
+          "total": 1390,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "즙"
+        },
+        {
+          "pc": 180,
+          "mobile": 970,
+          "total": 1150,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "착즙"
+        },
+        {
+          "pc": 150,
+          "mobile": 400,
+          "total": 550,
+          "comp": "중간",
+          "depth": 6.0,
+          "keyword": "다농이네"
+        },
+        {
+          "pc": 40,
+          "mobile": 420,
+          "total": 460,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "아빠의주스"
+        },
+        {
+          "pc": 120,
+          "mobile": 280,
+          "total": 400,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "과채음료"
+        },
+        {
+          "pc": 60,
+          "mobile": 310,
+          "total": 370,
+          "comp": "중간",
+          "depth": 6.0,
+          "keyword": "TUTTIFRUTTI"
+        },
+        {
+          "pc": 20,
+          "mobile": 320,
+          "total": 340,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "영주사과즙"
+        },
+        {
+          "pc": 40,
+          "mobile": 270,
+          "total": 310,
+          "comp": "높음",
+          "depth": 3.0,
+          "keyword": "청송농부"
+        },
+        {
+          "pc": 10,
+          "mobile": 210,
+          "total": 220,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "사과착즙"
+        }
+      ]
     },
     {
-      "pc": 2210,
-      "mobile": 22600,
-      "total": 24810,
-      "comp": "높음",
-      "depth": 10.0,
-      "keyword": "토마토주스"
-    },
-    {
-      "pc": 2250,
-      "mobile": 21300,
-      "total": 23550,
-      "comp": "높음",
-      "depth": 9.0,
-      "keyword": "브라운물티슈"
-    },
-    {
-      "pc": 2760,
-      "mobile": 20700,
-      "total": 23460,
-      "comp": "높음",
-      "depth": 10.0,
-      "keyword": "대전카페"
-    },
-    {
-      "pc": 4110,
-      "mobile": 19000,
-      "total": 23110,
-      "comp": "높음",
-      "depth": 8.0,
-      "keyword": "구연산"
-    },
-    {
-      "pc": 5700,
-      "mobile": 17400,
-      "total": 23100,
-      "comp": "중간",
-      "depth": 8.0,
-      "keyword": "다이어트도시락"
+      "seed": "가공품",
+      "items": [
+        {
+          "pc": 800,
+          "mobile": 2950,
+          "total": 3750,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "석영"
+        },
+        {
+          "pc": 750,
+          "mobile": 2130,
+          "total": 2880,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "알곤용접"
+        },
+        {
+          "pc": 650,
+          "mobile": 1630,
+          "total": 2280,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "QUARTZ"
+        },
+        {
+          "pc": 750,
+          "mobile": 1200,
+          "total": 1950,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "MCT가공"
+        },
+        {
+          "pc": 680,
+          "mobile": 1220,
+          "total": 1900,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "CNC선반"
+        },
+        {
+          "pc": 1110,
+          "mobile": 760,
+          "total": 1870,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "임가공"
+        },
+        {
+          "pc": 420,
+          "mobile": 1350,
+          "total": 1770,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "알루미늄용접"
+        },
+        {
+          "pc": 620,
+          "mobile": 880,
+          "total": 1500,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "아크릴가공"
+        },
+        {
+          "pc": 430,
+          "mobile": 660,
+          "total": 1090,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "철골"
+        },
+        {
+          "pc": 310,
+          "mobile": 590,
+          "total": 900,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "선반가공"
+        }
+      ]
     }
   ]
 }
