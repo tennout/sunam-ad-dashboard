@@ -1424,7 +1424,7 @@ function eval90text(v,base,inverted){
    5. 광고 유형별 카드
    ============================================================ */
 function renderAdTypes(){
-  const types = MAIN_CHANNEL==='DA' ? ['advoost'] : MAIN_CHANNEL==='META' ? ['meta'] : (ACT||['shop','powerlink','brand']);
+  const types = MAIN_CHANNEL==='DA' ? ['advoost'] : MAIN_CHANNEL==='META' ? ['meta'] : ['shop','powerlink','brand'];
   const html = types.map(t=>{
     const cur  = sumRange(currentStart,currentEnd,t);
     const base = sumRange(addDays(TODAY,-89),TODAY,t);
@@ -1670,7 +1670,7 @@ function renderOpinions(ctx){
     const vt=document.getElementById('verifyText'); if(vt) vt.textContent='—';
     return;
   }
-  const types = MAIN_CHANNEL==='DA' ? ['advoost'] : MAIN_CHANNEL==='META' ? ['meta'] : ['shop','powerlink','brand'];
+  const types = MAIN_CHANNEL==='DA' ? ['advoost'] : MAIN_CHANNEL==='META' ? ['meta'] : (ACT||['shop','powerlink','brand']);
   const per = {};
   types.forEach(t=>{
     per[t] = {
