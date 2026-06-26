@@ -1,0 +1,8 @@
+[
+  {
+    "name": "선암파머스",
+    "customerId": "여기에_Customer_ID",
+    "apiKey": "여기에_API_Key(Access_License)",
+    "secretKey": "여기에_Secret_Key"
+  }
+]

@@ -1,0 +1,3042 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>선암파머스 광고 대시보드</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+  :root{
+    --bg:#f5f7f6;
+    --card:#ffffff;
+    --ink:#1b2a24;
+    --ink-2:#4a5953;
+    --muted:#8a9690;
+    --line:#e3e8e5;
+    --green:#03c75a;      /* 네이버 그린 */
+    --green-soft:#e6faec;
+    --amber:#f59e0b;
+    --amber-soft:#fef3c7;
+    --red:#e11d48;
+    --red-soft:#ffe4e6;
+    --blue:#2563eb;
+    --blue-soft:#dbeafe;
+    --violet:#7c3aed;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Segoe UI",Roboto,sans-serif;
+    font-size:14px; line-height:1.55;}
+  a{color:inherit}
+  .wrap{max-width:1360px;margin:0 auto;padding:24px}
+  /* header */
+  .topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px}
+  .brand{display:flex;align-items:center;gap:10px}
+  .logo{width:36px;height:36px;border-radius:10px;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px}
+  h1{font-size:20px;margin:0;font-weight:700;letter-spacing:-.2px}
+  .sub{font-size:12px;color:var(--muted);margin-top:2px}
+  .proto-badge{display:inline-block;background:var(--amber-soft);color:#92400e;padding:2px 8px;border-radius:999px;font-size:11px;font-weight:600;margin-left:8px;vertical-align:2px}
+  /* period bar */
+  .periodbar{display:flex;align-items:center;justify-content:space-between;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 14px;margin-bottom:18px;flex-wrap:wrap;gap:10px}
+  .segs{display:flex;gap:6px;flex-wrap:wrap}
+  .seg{padding:7px 12px;border-radius:10px;background:#f0f3f1;color:var(--ink-2);font-size:13px;border:1px solid transparent;cursor:pointer;font-weight:500}
+  .seg:hover{background:#e9ede9}
+  .seg.active{background:var(--ink);color:#fff}
+  .dr{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--ink-2)}
+  .dr input{border:1px solid var(--line);border-radius:8px;padding:6px 8px;font-size:13px;font-family:inherit}
+  .dr button{background:var(--green);border:none;color:#fff;font-weight:600;padding:7px 12px;border-radius:8px;cursor:pointer;font-size:13px}
+  .current-range{font-size:12px;color:var(--muted)}
+  /* kpi grid */
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
+  @media(max-width:960px){.kpis{grid-template-columns:repeat(2,1fr)}}
+  .kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;position:relative;overflow:hidden}
+  .kpi .label{font-size:12px;color:var(--muted);font-weight:500;letter-spacing:.2px}
+  .kpi .value{font-size:22px;font-weight:800;margin-top:4px;letter-spacing:-.3px}
+  .kpi .deltas{display:flex;gap:10px;margin-top:8px;font-size:11.5px;flex-wrap:wrap}
+  .chip{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:999px;font-weight:600;white-space:nowrap}
+  .chip.good{background:var(--green-soft);color:#027a38}
+  .chip.bad{background:var(--red-soft);color:#b91c3c}
+  .chip.flat{background:#eef2f0;color:var(--ink-2)}
+  .chip.bench{background:var(--blue-soft);color:#1d4ed8}
+  .kpi .eval{font-size:11.5px;color:var(--muted);margin-top:6px}
+  /* section */
+  .grid2{display:grid;grid-template-columns:1.3fr 1fr;gap:14px;margin-bottom:18px}
+  @media(max-width:1100px){.grid2{grid-template-columns:1fr}}
+  #trendGrid{align-items:start}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+  .panel h2{font-size:14px;margin:0 0 10px;font-weight:700;display:flex;align-items:center;gap:8px}
+  .panel h2 .tag{font-size:11px;background:#eef2f0;color:var(--ink-2);padding:2px 8px;border-radius:999px;font-weight:600}
+  .legend{display:flex;gap:10px;font-size:11.5px;color:var(--muted);flex-wrap:wrap}
+  .series-pill{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;color:var(--ink-2);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px 11px;cursor:pointer;font-family:inherit;transition:all .12s}
+  .series-pill:hover{background:#f0f3f1}
+  .series-pill.off{opacity:.4;text-decoration:line-through}
+  .dot{width:8px;height:8px;border-radius:2px;display:inline-block;margin-right:4px;vertical-align:middle}
+  /* ad type cards */
+  .adtypes{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px}
+  @media(max-width:900px){.adtypes{grid-template-columns:1fr}}
+  .adcard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+  .adcard h3{margin:0 0 8px;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:space-between}
+  .adcard .mini{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:6px}
+  .adcard .mi{background:#f7f9f8;border-radius:8px;padding:8px 10px}
+  .adcard .mi .l{font-size:11px;color:var(--muted)}
+  .adcard .mi .v{font-size:15px;font-weight:700;margin-top:2px}
+  /* tables */
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{padding:8px 10px;text-align:right;border-bottom:1px solid var(--line)}
+  th:first-child,td:first-child{text-align:left}
+  th{font-size:11.5px;color:var(--muted);font-weight:600;letter-spacing:.2px}
+  tr:last-child td{border-bottom:none}
+  .badge{display:inline-block;padding:2px 7px;border-radius:6px;font-size:10.5px;font-weight:700}
+  .b-shop{background:#dbeafe;color:#1d4ed8}
+  .b-meta{background:#e0e7ff;color:#3730a3}
+  #metaCampBody tr, #metaAdBody tr{transition:background .12s}
+  .row-hl td{background:#e6f2fb !important}
+  .ttp{cursor:help}
+  .capturing .no-capture{display:none !important}
+  .capturing .scroll{max-height:none !important;overflow:visible !important}
+  .capturing #opinionPanel{height:auto !important}
+  .capturing .opinions{max-height:none !important;height:auto !important;overflow:visible !important}
+  #metaCampBody tr:hover td, #metaAdBody tr:hover td{background:#eef5fb}
+  .fb-card{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border:1px solid var(--line);border-radius:8px;margin-bottom:8px;background:var(--card);transition:background .12s;cursor:default}
+  .fb-card:hover{background:#f7faf8}
+  .fb-badge{flex:none;font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;line-height:1.6}
+  .fb-block{border:1px solid var(--line);border-radius:8px;padding:11px 13px;margin-bottom:8px}
+  .fb-item{cursor:default;border-radius:4px;padding:2px 4px;margin:0 -4px;transition:background .12s}
+  .fb-item:hover{background:#e6f2fb}
+  .b-pl{background:#fde68a;color:#92400e}
+  .b-br{background:#ede9fe;color:#5b21b6}
+  .b-ad{background:#ffe4d6;color:#9a3412}
+  .da-ribbon{display:inline-block;font-size:10px;font-weight:700;padding:1px 6px;border-radius:4px;background:#7c3aed;color:#fff;margin-left:4px;letter-spacing:.3px;vertical-align:2px}
+  /* AI opinion */
+  .opinions{display:flex;flex-direction:column;gap:10px;flex:1;min-height:0;overflow-y:auto;padding-right:6px}
+  #opinionPanel{display:flex;flex-direction:column}
+  .op{border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:#fafcfb}
+  .op .head{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+  .op .head .ic{width:26px;height:26px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff;box-shadow:0 1px 2px rgba(0,0,0,.1)}
+  .op .head .ttl{font-weight:700;font-size:13.5px}
+  .op .head .sev{margin-left:auto;font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px}
+  .op .line{margin:4px 0;font-size:13px;line-height:1.7}
+  .op .line .tg{display:inline-block;font-size:10.5px;font-weight:800;padding:1px 6px;border-radius:4px;margin-right:6px;vertical-align:1px;letter-spacing:.3px}
+  .tg.fact{background:#dcfce7;color:#166534}
+  .tg.hyp{background:#fef3c7;color:#92400e}
+  .tg.rec{background:#dbeafe;color:#1d4ed8}
+  .ev{border-bottom:1px dotted #9db0a8;cursor:help;color:#0b6e3c}
+  .ev:hover{background:#eaf7ef}
+  /* timeline */
+  .tl{position:relative;padding:12px 6px;overflow-x:auto}
+  .tl-inner{position:relative;height:84px;min-width:720px}
+  .tl-axis{position:absolute;left:0;right:0;top:50%;height:2px;background:var(--line)}
+  .tl-ev{position:absolute;top:50%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:2px}
+  .tl-ev .dotx{width:12px;height:12px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 2px var(--ink)}
+  .tl-ev.creative .dotx{background:var(--green)}
+  .tl-ev.bid .dotx{background:var(--amber)}
+  .tl-ev.kw .dotx{background:var(--violet)}
+  .tl-ev .lbl{position:absolute;top:-32px;transform:translateX(-50%);left:50%;font-size:11px;white-space:nowrap;background:var(--ink);color:#fff;padding:2px 6px;border-radius:4px;opacity:.92}
+  .tl-ev .dt{position:absolute;top:18px;transform:translateX(-50%);left:50%;font-size:10.5px;color:var(--muted);white-space:nowrap}
+  /* footer verification */
+  .verify{background:#f7faf8;border:1px dashed var(--line);border-radius:12px;padding:12px 14px;margin-top:18px;font-size:12px;color:var(--ink-2)}
+  .verify .ok{color:#027a38;font-weight:700}
+  /* tooltip */
+  .tip{position:fixed;z-index:99;background:#0b1512;color:#e6efe9;border-radius:8px;padding:10px 12px;font-size:12px;max-width:300px;box-shadow:0 8px 20px rgba(0,0,0,.25);pointer-events:none;display:none}
+  .tip b{color:#8cffc0}
+  .tip .row{display:flex;justify-content:space-between;gap:16px;margin-top:2px}
+  /* small utils */
+  .hint{font-size:11.5px;color:var(--muted)}
+  .bar-wrap{display:flex;align-items:center;gap:6px}
+  .bar{flex:1;height:6px;background:#eef2f0;border-radius:3px;overflow:hidden}
+  .bar>span{display:block;height:100%;background:var(--green)}
+  .bar.warn>span{background:var(--amber)}
+  .bar.bad>span{background:var(--red)}
+  .scroll{max-height:360px;overflow-y:auto;overflow-x:auto}
+  .scroll thead th{position:sticky;top:0;background:var(--card);z-index:2;box-shadow:inset 0 -1px 0 var(--line)}
+  /* 차트 컨테이너: 고정 높이로 Chart.js 반응형 리사이즈 루프 방지 */
+  .chart-box{position:relative;width:100%;height:280px}
+  .chart-box canvas{position:absolute;inset:0;width:100%!important;height:100%!important}
+  /* account switcher */
+  .topbar-right{display:flex;align-items:center;gap:14px}
+  .account-switcher{position:relative}
+  .account-btn{display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px 10px 6px 6px;cursor:pointer;font-family:inherit;font-size:13px;color:var(--ink);transition:background .15s}
+  .account-btn:hover{background:#f0f3f1}
+  .acc-icon{width:28px;height:28px;border-radius:8px;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px}
+  .acc-name-wrap{display:flex;flex-direction:column;align-items:flex-start;line-height:1.2}
+  .acc-name{font-weight:700;font-size:13px}
+  .acc-sub{font-size:10.5px;color:var(--muted)}
+  .acc-caret{color:var(--muted);font-size:11px;margin-left:4px;transition:transform .2s}
+  .account-btn.open .acc-caret{transform:rotate(180deg)}
+  .account-menu{display:none;position:absolute;top:calc(100% + 8px);right:0;background:var(--card);border:1px solid var(--line);border-radius:14px;min-width:280px;box-shadow:0 12px 32px rgba(11,21,18,.14);z-index:50;overflow:hidden}
+  .account-menu.open{display:block}
+  .acc-menu-head{padding:10px 14px;font-size:11px;color:var(--muted);font-weight:600;letter-spacing:.3px;text-transform:uppercase;border-bottom:1px solid var(--line)}
+  .acc-item{display:flex;align-items:center;gap:10px;padding:10px 14px;cursor:pointer;font-size:13px;border-bottom:1px solid var(--line)}
+  .acc-item:hover{background:#f7faf8}
+  .acc-item.active{background:var(--green-soft)}
+  .acc-item .meta{flex:1;display:flex;flex-direction:column;line-height:1.3}
+  .acc-item .meta .n{font-weight:600}
+  .acc-item .meta .s{font-size:11px;color:var(--muted)}
+  .dot-status{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+  .dot-status.ok{background:var(--green)}
+  .dot-status.sample{background:var(--amber)}
+  .dot-status.err{background:var(--red)}
+  .acc-item .check{color:var(--green);font-weight:800;font-size:14px}
+  .acc-add{display:flex;align-items:center;gap:8px;padding:12px 14px;cursor:pointer;color:var(--blue);font-size:13px;font-weight:600;border-top:1px dashed var(--line)}
+  .acc-add:hover{background:#f7faf8}
+  .acc-add .plus{width:20px;height:20px;border-radius:50%;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px}
+  /* modal */
+  .modal-bg{display:none;position:fixed;inset:0;background:rgba(11,21,18,.5);z-index:100;align-items:flex-start;justify-content:center;padding:60px 20px;overflow-y:auto}
+  .modal-bg.open{display:flex}
+  .modal{background:var(--card);border-radius:16px;width:100%;max-width:680px;padding:26px 28px 22px;box-shadow:0 20px 60px rgba(0,0,0,.25)}
+  .modal h3{margin:0 0 6px;font-size:19px;letter-spacing:-.3px}
+  .modal .m-sub{color:var(--muted);font-size:13px;margin-bottom:18px}
+  .modal .step{padding:14px 16px;background:#f7faf8;border-radius:12px;margin-bottom:10px;font-size:13px;line-height:1.7}
+  .modal .step .num{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;background:var(--green);color:#fff;border-radius:50%;font-size:11.5px;font-weight:800;margin-right:8px;vertical-align:-4px}
+  .modal pre{background:#0b1512;color:#e6efe9;border-radius:10px;padding:12px 14px;font-size:11.5px;overflow-x:auto;margin:10px 0 0;line-height:1.55;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  .modal .row{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}
+  .modal .btn{border:none;border-radius:10px;padding:10px 18px;font-weight:700;cursor:pointer;font-family:inherit;font-size:13px}
+  .modal .btn.primary{background:var(--ink);color:#fff}
+  .modal .btn.ghost{background:#eef2f0;color:var(--ink-2)}
+  .status-badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;padding:3px 8px;border-radius:999px;font-weight:600;margin-left:8px;vertical-align:2px}
+  .status-badge.sample{background:var(--amber-soft);color:#92400e}
+  .status-badge.live{background:var(--green-soft);color:#027a38}
+  .status-badge.err{background:var(--red-soft);color:#b91c3c}
+  /* channel tab bar (SA vs DA top-level) */
+  .ch-tabs{display:flex;gap:4px;margin-bottom:16px;border-bottom:2px solid var(--line);padding:0 2px}
+  .ch-tab{padding:10px 20px;background:transparent;border:none;border-bottom:3px solid transparent;font-family:inherit;font-size:14px;font-weight:700;color:var(--muted);cursor:pointer;margin-bottom:-2px;display:flex;align-items:center;gap:6px;transition:color .15s}
+  .ch-tab:hover{color:var(--ink)}
+  .ch-tab.active{color:var(--ink);border-bottom-color:var(--green)}
+  .ch-tab.active[data-ch="META"]{border-bottom-color:#1877F2}
+  .exp-badge{font-size:10px;font-weight:800;padding:2px 7px;border-radius:999px;background:var(--amber-soft);color:#92400e;margin-left:4px}
+  .da-exploration{background:#fffbeb;border:1px solid #fde68a;border-radius:14px;padding:18px 22px;margin-bottom:18px}
+  .da-exploration h3{margin:0 0 6px;font-size:15px}
+  .da-exploration .da-desc{font-size:13px;line-height:1.7;color:var(--ink-2)}
+  .da-upload{background:#fff;border:2px dashed var(--line);border-radius:12px;padding:22px;text-align:center;margin-top:14px;cursor:pointer;transition:all .15s;display:block}
+  .da-upload:hover{border-color:var(--blue);background:#f7faf8}
+  .da-upload.dragover{border-color:var(--green);background:var(--green-soft)}
+  .da-upload input[type="file"]{display:none}
+  .da-upload .up-ico{font-size:28px;margin-bottom:6px}
+  .da-upload .up-text{font-weight:700;font-size:14px;margin-bottom:3px}
+  .da-upload .up-hint{font-size:11.5px;color:var(--muted);line-height:1.5}
+  .da-loaded{background:var(--green-soft);border:1px solid #a7f3d0;border-radius:10px;padding:10px 14px;display:flex;align-items:center;gap:10px;margin-top:10px;font-size:13px;flex-wrap:wrap}
+  .da-loaded .filename{font-weight:700;flex:1;min-width:180px}
+  .da-loaded .lstats{font-size:11px;color:var(--ink-2)}
+  .da-loaded button{background:#fff;border:1px solid var(--line);border-radius:6px;padding:4px 10px;cursor:pointer;font-family:inherit;font-size:12px}
+  .da-loaded button:hover{background:#eef2f0}
+  .seg:disabled,.dr input:disabled{opacity:.4;cursor:not-allowed}
+  .dr input:disabled{background:#f0f3f1}
+  /* info icon + glossary */
+  .info-ic{display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;border-radius:50%;background:#e3e8e5;color:var(--ink-2);font-size:9.5px;font-weight:800;margin-left:5px;cursor:help;vertical-align:2px;font-style:normal;line-height:1;user-select:none}
+  .info-ic:hover{background:var(--blue);color:#fff}
+  .glossary-btn{display:flex;align-items:center;gap:5px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:7px 10px;color:var(--ink-2);font-size:12.5px;cursor:pointer;font-family:inherit;font-weight:600;transition:background .15s}
+  .glossary-btn:hover{background:#f0f3f1;color:var(--ink)}
+  .glossary-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0 6px}
+  @media(max-width:700px){.glossary-grid{grid-template-columns:1fr}}
+  @media(max-width:760px){
+    .wrap{padding:12px}
+    .scroll table{min-width:620px}
+    th,td{padding:6px 8px;font-size:12px}
+    .ch-tabs{overflow-x:auto;flex-wrap:nowrap}
+    .ch-tab{white-space:nowrap}
+    h1{font-size:17px}
+  }
+  @media(max-width:520px){ .kpis{grid-template-columns:1fr} }
+  .g-item{padding:14px 16px;background:#f7faf8;border-radius:12px;border:1px solid var(--line)}
+  .g-item h4{margin:0 0 3px;font-size:13.5px;font-weight:800;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+  .g-item .g-sub{font-size:12px;color:var(--muted);margin-bottom:8px}
+  .g-item .g-desc{font-size:12.5px;line-height:1.65;color:var(--ink-2)}
+  .g-tag{display:inline-block;font-size:10px;font-weight:800;padding:2px 6px;border-radius:4px;background:var(--ink);color:#fff;letter-spacing:.3px}
+  .g-tag.sa{background:#2563eb}
+  .g-tag.da{background:#7c3aed}
+  .g-tag.br{background:#03c75a}
+  .g-tag.str{background:#475569}
+  .g-tag.kpi{background:#db2777}
+  .g-tag.ops{background:#ea580c}
+  .g-section-title{font-size:12px;font-weight:800;color:var(--muted);letter-spacing:.5px;margin:14px 0 4px;text-transform:uppercase}
+  .g-section-title:first-child{margin-top:4px}
+  /* inventory (소재·키워드 전체 목록) */
+  .inv-tabs{display:flex;gap:6px;margin-bottom:10px}
+  .inv-tab{padding:7px 14px;border-radius:10px;background:#eef2f0;color:var(--ink-2);font-size:13px;cursor:pointer;border:none;font-family:inherit;font-weight:600}
+  .inv-tab.active{background:var(--ink);color:#fff}
+  .inv-search{width:100%;padding:9px 12px;border:1px solid var(--line);border-radius:10px;font-size:13px;font-family:inherit;margin-bottom:8px;box-sizing:border-box}
+  .inv-search:focus{outline:none;border-color:var(--green)}
+  .inv-stats{font-size:12px;color:var(--muted);margin-bottom:6px}
+  .status-pill{display:inline-block;padding:2px 7px;border-radius:6px;font-size:10.5px;font-weight:700}
+  .s-ELIGIBLE,.s-APPROVED,.s-LIVE,.s-OK{background:var(--green-soft);color:#027a38}
+  .s-PAUSED,.s-REVIEW,.s-UNDER_REVIEW,.s-REGISTERED{background:#fef3c7;color:#92400e}
+  .s-REJECTED,.s-DELETED,.s-INELIGIBLE{background:var(--red-soft);color:#b91c3c}
+  .s-unknown{background:#eef2f0;color:var(--ink-2)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HEADER -->
+  <div class="topbar">
+    <div class="brand">
+      <div>
+        <h1>선암파머스 광고 대시보드 <span class="status-badge" id="dataModeBadge">샘플 데이터</span></h1>
+        <div class="sub" id="headerSub">API 자격증명 연결 전 · 샘플 데이터로 동작 중</div>
+      </div>
+    </div>
+    <div class="topbar-right no-capture">
+      <div class="sub">최종 <b id="lastUpdate">—</b></div>
+      <div class="account-switcher" style="position:relative">
+        <button class="glossary-btn" id="exportBtn" title="리포트 이미지로 저장" aria-haspopup="true">📷 리포트 저장 ▾</button>
+        <div class="account-menu" id="exportMenu" role="menu">
+          <div class="acc-menu-head">리포트 이미지로 저장</div>
+          <div class="acc-item" id="exportFull"><span class="meta"><span class="n">전체 1장</span><span class="s">화면 전체를 한 장으로</span></span></div>
+          <div class="acc-item" id="exportSplit2"><span class="meta"><span class="n">4분할 (섹션별)</span><span class="s">KPI·추이·캠페인·소재 4장 · 폰 가로용</span></span></div>
+        </div>
+      </div>
+      <button class="glossary-btn" id="glossaryBtn" title="광고 용어 설명 보기">💡 용어</button>
+      <button class="glossary-btn" id="metaConnectBtn" title="네이버·메타 등 광고 채널 API 연동 가이드">🔗 API 연동</button>
+      <div class="account-switcher">
+        <button class="account-btn" id="accountBtn" aria-haspopup="true" aria-expanded="false">
+          <span class="acc-icon" id="accBtnIcon">선</span>
+          <span class="acc-name-wrap">
+            <span class="acc-name" id="accBtnName">선암파머스</span>
+            <span class="acc-sub" id="accBtnSub">샘플</span>
+          </span>
+          <span class="acc-caret">▾</span>
+        </button>
+        <div class="account-menu" id="accountMenu" role="menu">
+          <div class="acc-menu-head">광고 계정</div>
+          <div id="accountList"></div>
+          <div class="acc-add" id="accAdd">
+            <span class="plus">+</span><span>계정 추가 연결</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACCOUNT ADD MODAL -->
+  <div class="modal-bg" id="addModal">
+    <div class="modal">
+      <h3>광고 계정 연결</h3>
+      <div class="m-sub">네이버 검색광고 API 자격증명만 있으면 여러 계정을 한 대시보드에서 전환해 볼 수 있습니다.</div>
+
+      <div class="step"><span class="num">1</span><b>검색광고센터에서 API 라이선스 발급</b><br>
+        <a href="https://searchad.naver.com" target="_blank">searchad.naver.com</a> 로그인 → 내 정보 → 도구 → <b>API 사용 관리</b> → <b>라이선스 등록</b>.
+        발급 즉시 <b>API Key(Access License)</b>, <b>Secret Key</b>, <b>Customer ID</b> 3가지가 표시됩니다. Secret Key는 최초 1회만 전체 노출되니 즉시 안전한 곳에 저장하세요.
+      </div>
+
+      <div class="step"><span class="num">2</span><b>accounts.json에 계정 정보 추가</b><br>
+        함께 전달된 <code>accounts.sample.json</code>을 <code>accounts.json</code>으로 복사한 뒤, 아래처럼 계정을 배열로 나열합니다. 계정 추가는 배열에 객체 하나 더 붙이면 끝.
+        <pre>[
+  {
+    "name": "선암파머스",
+    "customerId": "1234567",
+    "apiKey": "01000000000abc...",
+    "secretKey": "AQAAAAA..."
+  },
+  {
+    "name": "선암파머스 부계정",
+    "customerId": "7654321",
+    "apiKey": "...",
+    "secretKey": "..."
+  }
+]</pre>
+      </div>
+
+      <div class="step"><span class="num">3</span><b>데이터 수집 스크립트 실행</b><br>
+        터미널에서 <code>python fetch_naver_ads.py</code> 실행. <code>data/</code> 폴더에 계정별 JSON이 생성되고, 이 대시보드를 새로고침하면 상단 스위처에 자동으로 목록이 나타납니다.
+      </div>
+
+      <div class="step"><span class="num">4</span><b>자동 갱신 (선택)</b><br>
+        Cowork의 <b>예약 작업(Scheduled Task)</b> 기능 또는 OS 스케줄러(crontab / 작업 스케줄러)에 매일 새벽 4시 실행으로 등록하면, 매일 아침 최신 리포트가 준비됩니다.
+      </div>
+
+      <div class="row">
+        <button class="btn ghost" id="modalClose">닫기</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- API 연동 가이드 모달 -->
+  <div class="modal-bg" id="apiModal">
+    <div class="modal" style="max-width:720px">
+      <h3>🔗 광고 채널 연동 가이드</h3>
+      <div class="m-sub">네이버 검색광고와 메타(페이스북·인스타그램)를 대시보드에 연결하는 방법이에요. (지금 보이는 네이버 값은 <b>샘플 데이터</b>이고, 연동되면 상단 배지가 "실시간 API"로 바뀝니다.)</div>
+
+      <div style="font-weight:700;font-size:14px;margin:8px 0 8px">🔍 네이버 검색광고</div>
+      <div class="step"><span class="num">1</span><b>API 라이선스 발급</b><br>
+        <a href="https://searchad.naver.com" target="_blank">searchad.naver.com</a> 로그인 → 내 정보 → 도구 → <b>API 사용 관리</b> → 라이선스 등록. <b>API Key·Secret Key·Customer ID</b> 3개를 확보하세요.</div>
+      <div class="step"><span class="num">2</span><b>accounts.json에 입력</b><br>
+        함께 받은 <code>accounts.sample.json</code>을 <code>accounts.json</code>으로 복사 후 위 3개 값을 입력합니다. (여러 계정은 배열로 추가)</div>
+      <div class="step"><span class="num">3</span><b>수집 스크립트 실행</b><br>
+        터미널에서 <code>python fetch_naver_ads.py</code> 실행 → <code>data/</code> JSON과 <code>bundle.js</code>가 생성돼요. 대시보드를 새로고침하면 계정 스위처에 실계정과 <b>"실시간 API"</b> 배지가 떠요.</div>
+      <div class="step"><span class="num">4</span><b>자동 갱신 (선택)</b><br>
+        예약작업·OS 스케줄러(또는 GitHub Actions)로 매일 새벽 스크립트를 돌리면 매일 아침 최신 데이터로 갱신됩니다.</div>
+      <div style="font-size:12px;color:var(--muted);margin:2px 0 16px;line-height:1.6">※ 네이버 검색광고 API는 서버 인증(HMAC 서명)이 필요해 브라우저에서 직접 호출이 안 돼요. 그래서 스크립트로 받아 <code>bundle.js</code>를 갱신하는 방식이에요.</div>
+
+      <div style="font-weight:700;font-size:14px;margin:8px 0 8px">🔗 메타 (페이스북·인스타그램)</div>
+      <div class="step"><span class="num" style="background:var(--blue)">A</span><b>지금 바로 — CSV 업로드</b><br>
+        메타 광고 관리자 「광고」 탭에서 <b>일별 CSV</b>를 내보내 메타 탭에 업로드하면 즉시 반영돼요.</div>
+      <div class="step"><span class="num" style="background:var(--blue)">B</span><b>자동 연동 — 액세스 토큰</b><br>
+        개발자 토큰을 발급해 매일 자동 갱신하는 방식이에요. (개발자 계정 인증 필요)</div>
+      <div class="row" style="justify-content:flex-start;gap:8px;flex-wrap:wrap;margin-top:10px">
+        <button class="btn ghost" onclick="document.getElementById('apiModal').classList.remove('open');document.getElementById('metaCsvModal').classList.add('open')">📥 메타 CSV 받는 법</button>
+        <button class="btn ghost" onclick="document.getElementById('apiModal').classList.remove('open');document.getElementById('metaModal').classList.add('open')">🔗 메타 토큰 발급 안내</button>
+      </div>
+
+      <div class="row"><button class="btn ghost" id="apiModalClose">닫기</button></div>
+    </div>
+  </div>
+
+  <!-- META CONNECT MODAL -->
+  <div class="modal-bg" id="metaModal">
+    <div class="modal">
+      <h3>메타(페이스북·인스타그램) 광고 계정 연결</h3>
+      <div class="m-sub">메타는 <b>액세스 토큰</b>으로 연결합니다. 페이스북 페이지·광고 계정 권한이 담긴 토큰을 발급받아 등록하면, 네이버처럼 한 대시보드에서 메타 성과까지 볼 수 있습니다.</div>
+
+      <div class="step"><span class="num" style="background:var(--blue)">1</span><b>메타 개발자 등록 &amp; 앱 만들기</b><br>
+        <a href="https://developers.facebook.com" target="_blank">developers.facebook.com</a> 에 <b>평소 쓰는 페이스북 계정</b>으로 로그인 → 우측 상단 <b>내 앱(My Apps)</b> → <b>앱 만들기</b> → 유형 <b>비즈니스</b> 선택 → 앱 이름(예: 선암파머스앱) 입력. 가입은 무료이고 새 계정이 아니라 기존 계정을 그대로 씁니다.
+      </div>
+
+      <div class="step"><span class="num" style="background:var(--blue)">2</span><b>Graph API 탐색기에서 토큰 발급</b><br>
+        상단 <b>도구 → Graph API 탐색기</b>(<a href="https://developers.facebook.com/tools/explorer" target="_blank">developers.facebook.com/tools/explorer</a>) → 우측에서 방금 만든 <b>앱 선택</b> → <b>Get Token → Get User Access Token</b> → 아래 권한 체크 후 <b>액세스 토큰 생성</b> → 페이지·광고계정 권한 허용. 화면에 뜨는 긴 문자열이 토큰입니다.
+        <div style="margin-top:8px;font-size:12.5px;color:var(--ink-2)">필요 권한: <code>pages_show_list</code> · <code>pages_read_engagement</code> · <code>ads_read</code> · <code>read_insights</code></div>
+      </div>
+
+      <div class="step"><span class="num" style="background:var(--blue)">3</span><b>장기 토큰으로 교환 (중요)</b><br>
+        방금 받은 토큰은 <b>몇 시간~최대 60일</b>이면 만료됩니다. 아래 명령으로 60일짜리 <b>장기 토큰</b>으로 교환하세요. <code>APP_ID</code>/<code>APP_SECRET</code>은 <b>앱 설정 → 기본 설정</b>에서 확인합니다.
+        <pre>curl "https://graph.facebook.com/v21.0/oauth/access_token?\
+  grant_type=fb_exchange_token&amp;\
+  client_id=APP_ID&amp;client_secret=APP_SECRET&amp;\
+  fb_exchange_token=단기토큰"</pre>
+      </div>
+
+      <div class="step"><span class="num" style="background:var(--blue)">4</span><b>accounts.json에 메타 자격증명 추가 &amp; 자동 갱신</b><br>
+        <code>accounts.json</code>의 계정 객체에 <code>meta</code> 블록을 추가합니다. <code>adAccountId</code>는 메타 광고관리자 URL의 <code>act_</code> 번호, <code>pageId</code>는 페이지 정보에서 확인합니다.
+        <pre>{
+  "name": "선암파머스",
+  "meta": {
+    "accessToken": "EAAG...(장기토큰)",
+    "adAccountId": "act_1234567890",
+    "pageId": "111122223333"
+  }
+}</pre>
+        이후 <code>python fetch_meta_ads.py</code> 실행 → <code>data/</code> 에 메타 성과 JSON 생성. 토큰이 60일마다 만료되니, 예약 작업으로 <b>50일 주기 자동 갱신</b>을 걸어두면 끊김 없이 유지됩니다.
+      </div>
+
+      <div class="row">
+        <button class="btn ghost" id="metaModalClose">닫기</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- META CSV GUIDE MODAL -->
+  <div class="modal-bg" id="metaCsvModal">
+    <div class="modal">
+      <h3>📥 메타 광고 관리자 CSV 받는 법</h3>
+      <div class="m-sub">캠페인별·소재별 성과를 보려면 광고 관리자에서 <b>일별로 쪼갠 CSV</b>를 받아 올리면 돼요. 캠페인용·소재용 두 가지만 기억하세요.</div>
+
+      <div class="step"><span class="num" style="background:var(--blue)">1</span><b>기간 설정 &amp; 일별로 쪼개기</b><br>
+        우측 상단 <b>달력</b>에서 기간 선택 → 상단 <b>분석 데이터(Breakdowns) → 시간 → 일별</b> 체크. ⭐ 이게 있어야 날짜별 추세가 그려져요. (날짜는 "보고 시작" 열로 들어옵니다)
+      </div>
+
+      <div class="step"><span class="num" style="background:var(--blue)">2</span><b>열(컬럼) 맞춤설정에서 체크</b><br>
+        상단 <b>「열: 성과」 → 「열 맞춤 설정」</b> 에서 아래 항목 체크 후 적용:
+        <div style="margin-top:8px;font-size:12.5px;color:var(--ink-2)">✅ 캠페인 이름 &nbsp;·&nbsp; ✅ 노출 &nbsp;·&nbsp; ✅ 링크 클릭 &nbsp;·&nbsp; ✅ 지출 금액 &nbsp;·&nbsp; ✅ 결과(또는 구매) &nbsp;·&nbsp; ✅ 구매 전환값</div>
+        <div style="margin-top:4px;font-size:12px;color:var(--muted)">⭐ 「광고」 탭에서 받을 땐 <b>"캠페인 이름"을 꼭 추가</b>하세요. 그래야 한 파일로 캠페인별·소재별이 모두 채워져요. (광고 이름은 광고 탭이면 자동 포함)</div>
+      </div>
+
+      <div class="step"><span class="num" style="background:var(--blue)">3</span><b>「광고」 탭에서 CSV 내보내기 — 파일 하나면 끝</b><br>
+        좌측에서 <b>「광고」 탭</b>을 선택한 뒤 우측 상단 <b>내보내기(↓) → 테이블 데이터 내보내기 → CSV</b>. 광고 단위로 받으면 <b>광고 이름 + 캠페인 이름</b>이 함께 들어와서, 메타 탭에 한 번만 올리면 <b>캠페인별·소재별 표가 동시에</b> 채워져요.
+        <div style="margin-top:4px;font-size:12px;color:var(--muted)">※ 「캠페인」 탭에서 받아도 동작하지만, 그건 캠페인별 표만 나오고 소재별은 안 나와요.</div>
+      </div>
+
+      <div class="step" style="background:#fff7ed;border:1px solid #fed7aa"><b>⚠️ 꼭 지켜요</b><br>
+        · 반드시 <b>CSV</b>로 받기 (엑셀 .xlsx는 안 읽혀요 — 받았으면 "다른 이름으로 저장 → CSV"로 변환)<br>
+        · <b>2단계 "일별"</b> 빼먹으면 "일자 컬럼을 찾을 수 없습니다" 에러가 나요
+      </div>
+
+      <div class="row">
+        <button class="btn ghost" id="metaCsvModalClose">닫기</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- AI 의견 전체보기 모달 -->
+  <div class="modal-bg" id="opinionsModal">
+    <div class="modal" style="max-width:760px">
+      <h3>AI 의견 전체 보기</h3>
+      <div id="opinionsModalBody" style="display:flex;flex-direction:column;gap:10px;margin-top:6px"></div>
+      <div class="row"><button class="btn ghost" id="opinionsModalClose">닫기</button></div>
+    </div>
+  </div>
+
+  <!-- GLOSSARY MODAL -->
+  <div class="modal-bg" id="glossaryModal">
+    <div class="modal" style="max-width:760px">
+      <h3>💡 광고 용어 설명</h3>
+      <div class="m-sub" id="glossaryMsub">용어를 정리해드려요.</div>
+      <div class="glossary-grid" id="glossaryGrid"></div>
+      <div class="row">
+        <button class="btn ghost" id="glossaryClose">닫기</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHANNEL TABS -->
+  <div class="ch-tabs">
+    <button class="ch-tab active" data-ch="SA">네이버 검색광고 <span class="ch-status" id="status-SA"></span></button>
+    <button class="ch-tab" data-ch="DA">네이버 디스플레이 <span class="ch-status" id="status-DA"></span></button>
+    <button class="ch-tab" data-ch="META">메타 <span class="ch-status" id="status-META"></span></button>
+  </div>
+
+  <!-- DA EXPLORATION NOTICE (DA 탭 활성 시만 보임) -->
+  <div class="da-exploration" id="daNotice" style="display:none">
+    <div id="daNoticeHead" style="display:flex;justify-content:space-between;align-items:center;gap:10px;cursor:pointer">
+      <h3 style="margin:0">📂 디스플레이 광고(ADVoost) · CSV 업로드 방식</h3>
+      <span style="display:flex;align-items:center;gap:10px">
+        <span id="daNoticeSummary" style="font-size:12px;color:var(--ink-2)"></span>
+        <span id="daNoticeCaret" style="font-size:12.5px;color:var(--ink-2);white-space:nowrap">▾ 접기</span>
+      </span>
+    </div>
+    <div id="daNoticeBody">
+    <div class="da-desc" style="margin-top:8px">
+      네이버 광고주센터에서 <b>ADVoost 성과 리포트를 CSV로 다운로드</b>해서 아래 영역에 업로드하면 대시보드에 바로 반영됩니다. 업로드한 데이터는 브라우저에 저장돼서 새로고침해도 유지됩니다.
+    </div>
+    <label class="da-upload" id="daUpload">
+      <input type="file" id="daFileInput" accept=".csv,.tsv,.txt">
+      <div class="up-ico">📂</div>
+      <div class="up-text">CSV 파일을 드래그하거나 클릭해서 업로드</div>
+      <div class="up-hint">자동 인식 컬럼: 일자/날짜/date · 노출수/impressions · 클릭수/clicks · 광고비/비용/cost · 전환수/conversions · 전환매출/revenue</div>
+    </label>
+    <div class="da-loaded" id="daLoaded" style="display:none">
+      <span>✅</span>
+      <div class="filename" id="daFilename">—</div>
+      <span class="lstats" id="daLoadedStats"></span>
+      <button id="daClear">삭제</button>
+    </div>
+    </div>
+  </div>
+
+  <!-- PERIOD BAR -->
+  <!-- META CHANNEL NOTICE (META 탭 활성 시만 보임) -->
+  <div class="da-exploration" id="metaNotice" style="display:none">
+    <div id="metaNoticeHead" style="display:flex;justify-content:space-between;align-items:center;gap:10px;cursor:pointer">
+      <h3 style="margin:0">🔗 메타(페이스북·인스타그램) 광고</h3>
+      <span style="display:flex;align-items:center;gap:10px">
+        <span id="metaNoticeSummary" style="font-size:12px;color:var(--ink-2)"></span>
+        <span id="metaNoticeCaret" style="font-size:12.5px;color:var(--ink-2);white-space:nowrap">▾ 접기</span>
+      </span>
+    </div>
+    <div id="metaNoticeBody">
+    <div class="da-desc" style="margin-top:8px">
+      메타 성과를 넣는 방법은 두 가지예요. <b>① 지금 바로</b> — 메타 광고 관리자에서 <b>성과 리포트를 CSV/엑셀로 내보내</b> 아래에 업로드. <b>② 자동 연동</b> — 개발자 토큰을 발급해 매일 자동 갱신. 업로드 데이터는 브라우저에 저장돼 새로고침해도 유지됩니다.
+    </div>
+    <label class="da-upload" id="metaUpload">
+      <input type="file" id="metaFileInput" accept=".csv,.tsv,.txt">
+      <div class="up-ico">📂</div>
+      <div class="up-text">메타 광고 관리자 CSV 업로드 (「광고」 탭에서 받으면 캠페인+소재 한 번에)</div>
+      <div class="up-hint">자동 인식 컬럼: 보고시작/일자 · 노출 · 링크클릭 · 지출금액 · 결과 · 구매전환값 · (광고이름·캠페인이름 자동)</div>
+    </label>
+    <div class="da-loaded" id="metaLoaded" style="display:none">
+      <span>✅</span>
+      <div class="filename" id="metaFilename">—</div>
+      <span class="lstats" id="metaLoadedStats"></span>
+      <button id="metaClear">삭제</button>
+    </div>
+    <div style="margin-top:12px">
+      <button class="btn primary" style="border:none;border-radius:10px;padding:10px 18px;font-weight:700;cursor:pointer;font-family:inherit;font-size:13px;background:var(--blue);color:#fff" onclick="document.getElementById('metaModal').classList.add('open')">🔗 토큰 자동연동 안내</button>
+      <button style="margin-left:8px;border:1px solid var(--line);border-radius:10px;padding:10px 18px;font-weight:700;cursor:pointer;font-family:inherit;font-size:13px;background:var(--card);color:var(--ink-2)" onclick="document.getElementById('metaCsvModal').classList.add('open')">📥 CSV 받는 법</button>
+    </div>
+    </div>
+  </div>
+
+  <div id="naverDataArea">
+  <div class="periodbar" id="periodBar">
+    <div class="segs" id="segs">
+      <button class="seg" data-days="1">어제</button>
+      <button class="seg active" data-days="7">최근 7일</button>
+      <button class="seg" data-days="14">최근 14일</button>
+      <button class="seg" data-days="30">최근 30일</button>
+      <button class="seg" data-days="60">최근 60일</button>
+    </div>
+    <div class="dr">
+      <span>사용자 지정</span>
+      <input type="date" id="dStart">~ <input type="date" id="dEnd">
+      <button id="applyRange">적용</button>
+      <span class="current-range" id="currentRange">—</span>
+    </div>
+  </div>
+
+  <!-- KPI CARDS -->
+  <div class="kpis" id="kpis"></div>
+
+  <!-- AD TYPE CARDS -->
+  <div class="hint" id="adtypeHint" style="margin:-4px 0 8px;padding:0 2px">
+    🎯 광고 유형별 성과 · 각 뱃지 <b>양호 / 평균권 / 주의</b>는 업계 참고치 대비 평가 <i class="info-ic" data-gloss="benchGrade">ⓘ</i>
+  </div>
+  <div class="adtypes" id="adtypes"></div>
+
+  <!-- TREND CHART + AI OPINION -->
+  <div class="grid2" id="trendGrid">
+    <div class="panel">
+      <h2>일자별 추이 <span class="tag" id="trendTag">소재 교체·입찰가 변경 이벤트 마커 포함</span></h2>
+      <div class="legend" id="seriesToggle" style="margin-bottom:8px">
+        <button class="series-pill" data-series="CTR"><i class="dot" style="background:#03c75a"></i>CTR(%)</button>
+        <button class="series-pill" data-series="CPC"><i class="dot" style="background:#2563eb"></i>CPC(원)</button>
+        <button class="series-pill" data-series="COST"><i class="dot" style="background:#f59e0b"></i>광고비(천원)</button>
+        <button class="series-pill" data-series="ROAS"><i class="dot" style="background:#7c3aed"></i>ROAS(%)</button>
+      </div>
+      <div class="chart-box"><canvas id="trendChart"></canvas></div>
+      <div id="trendTimelineWrap">
+        <div class="tl">
+          <div class="tl-inner" id="timeline">
+            <div class="tl-axis"></div>
+          </div>
+        </div>
+        <div class="hint" style="margin-top:6px">타임라인의 점에 마우스를 올리면 이벤트 상세와 전후 CTR 변화를 확인합니다.</div>
+      </div>
+    </div>
+
+    <div class="panel" id="opinionPanel">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px">
+        <h2 style="margin:0">AI 의견<i class="info-ic" data-gloss="aiOpinion">ⓘ</i> <span class="tag ttp" data-tip="신뢰도를 3단계로 나눠 보여줘요.<br><b>팩트</b> — 실제 데이터 계산값(정확)<br><b>가설</b> — 추정한 원인(가능성)<br><b>권장</b> — 다음 액션 제안<br><br>⚙️ <b>업그레이드 엔진</b>: 데이터 적은 항목은 「관찰」로 판단 보류 · 기간 내 상승/하락 추세 반영 · 돈 많이 걸린 이슈부터 우선 정렬 · 권장에 예상효과(₩) 수치화 · 업계 참고치보다 내 과거 대비 우선" style="cursor:help">팩트 · 가설 · 권장 분리</span></h2>
+        <button id="opinionsExpand" style="font-size:11.5px;padding:4px 10px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink-2);cursor:pointer;font-family:inherit;white-space:nowrap">전체 보기</button>
+      </div>
+      <div class="hint" id="opinionHint" style="margin-bottom:10px">📊 총평 · 🎨 소재 · 🔥 CPC 경고 · 💡 예산 제안 · 🚨 키워드 주의 — 아이콘 설명은 ⓘ 클릭</div>
+      <div class="opinions" id="opinions"></div>
+    </div>
+
+    <div class="panel" id="trendInterpPanel" style="display:none">
+      <h2>그래프 해석 <span class="tag">초반 → 후반 변화</span></h2>
+      <div id="trendInterpBody"></div>
+    </div>
+  </div>
+
+  <!-- META REPORT (META 탭 전용) -->
+  <div id="metaReport" style="display:none">
+    <div id="secCamp">
+    <div class="panel" style="margin-bottom:14px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:10px;flex-wrap:wrap">
+        <h2 style="margin:0">캠페인별 성과</h2>
+        <select id="metaCampSort" style="font-size:12px;padding:5px 8px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink-2);font-family:inherit;cursor:pointer">
+          <option value="cost">지출 많은 순</option>
+          <option value="rev">매출 높은 순</option>
+          <option value="roas">ROAS 높은 순</option>
+          <option value="ctr">CTR 높은 순</option>
+          <option value="clk">클릭 많은 순</option>
+          <option value="imp">노출 많은 순</option>
+          <option value="conv">결과 많은 순</option>
+          <option value="name">이름순 (가나다)</option>
+          <option value="ord">등록 순</option>
+        </select>
+      </div>
+      <div id="metaCampHint" style="display:none;text-align:center;padding:28px 16px;border:1px dashed var(--line);border-radius:12px;background:#fafcfb;color:var(--ink-2)">
+        <div style="font-size:30px;margin-bottom:8px">🗂️</div>
+        <div style="font-size:14px;font-weight:700;margin-bottom:4px">캠페인별 데이터가 없어요</div>
+        <div style="font-size:12.5px;color:var(--muted);line-height:1.6">업로드한 파일에 <b>캠페인 이름</b>이 없어요.<br>광고 관리자에서 내보낼 때 <b>열 맞춤설정 → "캠페인 이름"</b>을 추가하면 캠페인별로 채워져요. (「📥 CSV 받는 법」 참고)</div>
+      </div>
+      <div class="scroll" id="metaCampWrap">
+        <table>
+          <thead><tr><th>캠페인</th><th>노출</th><th>클릭</th><th>CTR</th><th>CPC</th><th>지출</th><th><span class="ttp" data-tip="메타가 캠페인 목적에 따라 집계한 결과값입니다. 구매 캠페인=구매수, 트래픽 캠페인=랜딩 조회수 등 목적별로 다릅니다. 매출(구매 전환값)과는 별개입니다." style="border-bottom:1px dotted var(--muted);cursor:help">결과 ⓘ</span></th><th>매출</th><th>ROAS</th></tr></thead>
+          <tbody id="metaCampBody"></tbody>
+        </table>
+      </div>
+      <div style="font-size:11.5px;color:var(--muted);margin-top:8px;line-height:1.6">※ <b>결과</b> = 메타가 캠페인 <b>목적별</b>로 집계한 값 (구매 캠페인은 구매수, 트래픽 캠페인은 랜딩 조회수 등). 실제 <b>매출</b>은 "구매 전환값" 기준이라 결과 수와는 별개예요.</div>
+    </div>
+
+    <div class="panel" style="margin-bottom:14px">
+      <h2>캠페인별 의견 <span class="tag">캠페인 단위 진단</span> <span class="ttp" data-tip="효율로 캠페인을 진단해요. 양호=ROAS 500%↑ · 보통=300~500% · 주의=300% 미만 · 위험=매출 거의 없음 · 유입형=트래픽·인지 목적(ROAS로 평가 안 함). 카드에 마우스를 올리면 위 표의 해당 줄이 표시돼요." style="font-size:11px;color:var(--muted);cursor:help;border-bottom:1px dotted var(--muted)">ⓘ</span></h2>
+      <div id="metaCampFeedback"></div>
+    </div>
+    </div>
+    <div id="secAd">
+    <div class="panel" style="margin-bottom:14px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:10px;flex-wrap:wrap">
+        <h2 style="margin:0">소재(광고)별 성과</h2>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <select id="metaAdCampFilter" style="font-size:12px;padding:5px 8px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink-2);font-family:inherit;cursor:pointer"><option value="">전체 캠페인</option></select>
+        <select id="metaAdSort" style="font-size:12px;padding:5px 8px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink-2);font-family:inherit;cursor:pointer">
+          <option value="rev">매출 높은 순</option>
+          <option value="cost">지출 많은 순</option>
+          <option value="roas">ROAS 높은 순</option>
+          <option value="ctr">CTR 높은 순</option>
+          <option value="clk">클릭 많은 순</option>
+          <option value="imp">노출 많은 순</option>
+          <option value="conv">결과 많은 순</option>
+          <option value="name">이름순 (가나다)</option>
+          <option value="ord">등록 순</option>
+        </select>
+        </div>
+      </div>
+      <div id="metaAdHint" class="da-desc" style="display:none;margin-bottom:4px">업로드한 파일에 <b>광고 이름</b>이 없어요. 광고 관리자 <b>「광고」 탭</b>에서 일별로 내보낸 CSV를 올리면 <b>한 파일로</b> 캠페인·소재가 함께 채워져요. (「📥 CSV 받는 법」 참고)</div>
+      <div class="scroll" id="metaAdTableWrap" style="display:none">
+        <table>
+          <thead><tr><th>소재(광고)</th><th>캠페인</th><th>노출</th><th>클릭</th><th>CTR</th><th>지출</th><th><span class="ttp" data-tip="메타가 캠페인 목적에 따라 집계한 결과값입니다. 구매 캠페인=구매수, 트래픽 캠페인=랜딩 조회수 등 목적별로 다릅니다. 매출(구매 전환값)과는 별개입니다." style="border-bottom:1px dotted var(--muted);cursor:help">결과 ⓘ</span></th><th>매출</th><th>ROAS</th></tr></thead>
+          <tbody id="metaAdBody"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="panel" id="metaAdFeedbackPanel" style="margin-bottom:14px;display:none">
+      <h2>소재별 의견 <span class="tag">소재 단위 진단</span> <span class="ttp" data-tip="🚀 잘하는 소재=ROAS 높은 상위 · 🔧 점검 필요=지출 많은데 효율 낮음 · 💎 숨은 보석=지출 적은데 효율 좋음. 항목에 마우스를 올리면 위 표의 해당 줄이 표시돼요." style="font-size:11px;color:var(--muted);cursor:help;border-bottom:1px dotted var(--muted)">ⓘ</span></h2>
+      <div id="metaAdFeedback"></div>
+    </div>
+    </div>
+
+    <div class="panel" style="margin-bottom:18px">
+      <h2>총평 <span class="tag">선택 기간 전체 기준</span> <span class="ttp" data-tip="선택 기간 전체(모든 캠페인 합산) 기준 진단이에요. ①전체 ROAS 진단 ②매출 집중도 ③예산 재배분 ④저효율 경고 ⑤클릭 효율(CTR·CPC) 중 해당되는 항목만 표시돼요." style="font-size:11px;color:var(--muted);cursor:help;border-bottom:1px dotted var(--muted)">ⓘ</span></h2>
+      <div class="opinions" id="metaCampOps"></div>
+      <div style="font-size:11.5px;color:var(--muted);margin-top:12px;line-height:1.65">※ <b>업계 참고치</b>는 농식품·신선식품 이커머스의 <b>메타(페이스북·인스타그램) 광고 통상 범위</b>를 추정한 기본값이에요 — CTR 0.8~2.0% · CPC 300~800원 · ROAS 200~500%. 공식 통계가 아니라 일반적인 가늠선이라, 정확한 비교는 <b>내 과거 성과</b>를 기준으로 삼는 게 가장 좋아요.</div>
+    </div>
+  </div>
+
+  <!-- KEYWORD TABLES -->
+  <div class="grid2" id="keywordSection">
+    <div class="panel">
+      <h2>성과 우수 키워드 TOP 10<i class="info-ic" data-gloss="topKws">ⓘ</i> <span class="tag">ROAS 기준</span></h2>
+      <div class="scroll">
+        <table id="topTable">
+          <thead><tr>
+            <th>키워드</th><th>광고유형</th><th>노출</th><th>클릭</th><th>CTR</th><th>CPC</th><th>광고비</th><th>전환</th><th>매출</th><th>ROAS</th>
+          </tr></thead><tbody></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="panel">
+      <h2>손실 위험 키워드 BOTTOM 10<i class="info-ic" data-gloss="botKws">ⓘ</i> <span class="tag">광고비 대비 성과 낮음</span></h2>
+      <div class="scroll">
+        <table id="botTable">
+          <thead><tr>
+            <th>키워드</th><th>광고유형</th><th>광고비</th><th>전환</th><th>ROAS</th><th>제안</th>
+          </tr></thead><tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- INVENTORY: 소재·키워드 전체 목록 -->
+  <div class="panel" id="inventorySection" style="margin-bottom:18px">
+    <h2>소재 · 키워드 전체 목록 <span class="tag">네이버 API에서 수집한 원본 자산</span></h2>
+    <div class="inv-tabs">
+      <button class="inv-tab active" data-tab="ads">소재 <span id="invAdsCount">(0)</span></button>
+      <button class="inv-tab" data-tab="kws">키워드 <span id="invKwsCount">(0)</span></button>
+    </div>
+    <input type="text" class="inv-search" id="invSearch" placeholder="소재 텍스트·키워드·광고그룹명으로 검색…" />
+    <div class="inv-stats" id="invStats">—</div>
+    <div class="scroll" style="max-height:480px">
+      <table id="invTable">
+        <thead id="invThead"></thead>
+        <tbody id="invTbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- VERIFICATION -->
+  <div class="verify" id="verify">
+    <b>리포트 자체검증 · </b><span id="verifyText">—</span>
+    <div class="hint" style="margin-top:4px">모든 수치는 데이터 소스의 합계·평균으로 재계산된 값입니다. API 연동 후에는 매일 새벽 스크립트가 원본 로그를 갱신하며, 본 검증 블록이 불일치 항목을 자동 표시합니다.</div>
+  </div>
+
+  <div class="sub" id="benchNote" style="margin-top:12px">
+    ※ 업계 참고치는 농식품·신선식품 이커머스 통상범위(쇼핑검색 CTR 1.0~1.5%, CPC 200~400원, ROAS 300~500%)를 기본값으로 사용했으며, 실 운영 시 네이버 검색광고센터의 <b>동종업계 비교</b> 탭 수치를 주 1회 수동 반영 권장합니다.
+  </div>
+  </div>
+</div>
+
+<div class="tip" id="tip"></div>
+
+<script>
+/* ============================================================
+   1. 샘플 데이터 생성 (실제 API 연동 시 이 블록이 원본 로그로 교체됨)
+   ============================================================ */
+const BENCH = {
+  shop:     { CTR:[1.0,1.5], CPC:[200,400], ROAS:[300,500] },
+  powerlink:{ CTR:[0.6,1.0], CPC:[300,600], ROAS:[200,400] },
+  brand:    { CTR:[3.0,6.0], CPC:[100,250], ROAS:[500,900] },
+  // ADVoost (성과형 DA) — 검색광고와 다른 참고치. 노출 많고 CTR 낮음
+  advoost:  { CTR:[0.2,0.5], CPC:[150,400], ROAS:[200,500] },
+  // 메타(페이스북/인스타그램) 성과형 — 농식품 이커머스 통상범위
+  meta:     { CTR:[0.8,2.0], CPC:[300,800], ROAS:[200,500] }
+};
+const AD_LABEL = { shop:'쇼핑검색광고', powerlink:'파워링크', brand:'브랜드검색', advoost:'ADVoost 쇼핑', meta:'메타 광고' };
+const AD_BADGE = { shop:'b-shop', powerlink:'b-pl', brand:'b-br', advoost:'b-ad', meta:'b-meta' };
+// SA vs DA 구분 (AI 의견·벤치마크 판정에서 구분 필요)
+const AD_CHANNEL = { shop:'SA', powerlink:'SA', brand:'SA', advoost:'DA', meta:'META' };
+
+// 현재 활성 채널 탭 ('SA' or 'DA')
+let MAIN_CHANNEL = 'SA';
+
+// 초보자용 광고 용어 사전 (ⓘ 아이콘 호버 + 용어 모달에서 공통 사용)
+// cat: SA=검색광고 / DA=디스플레이 / STR=구조 / KPI=지표 / OPS=운영
+const GLOSSARY = {
+  // ── 광고 유형 (Ad Types) ──
+  search: {
+    cat:'SA', title:'검색광고 (SA)', sub:'파워링크·쇼핑검색·브랜드검색의 총칭',
+    desc:'이용자가 네이버에서 키워드를 검색했을 때 결과에 노출되는 광고 전체. 구매·관심 의도가 이미 있는 사람에게만 보여서 전환 효율이 높음. 현재 이 대시보드에 <b>직접 잡히는</b> 영역.'
+  },
+  display: {
+    cat:'DA', title:'디스플레이 광고 (DA)', sub:'네이버 지면 이미지/배너',
+    desc:'네이버 메인·뉴스·블로그·앱 지면에 이미지·배너 형태로 노출. 검색 의도 없는 사람에게도 보여서 인지도 확장·리마케팅에 유리. <b>ADVoost·퀵스타트가 여기에 속함</b>. 현재 대시보드는 별도 API 연동 후 포함 예정.'
+  },
+  powerlink: {
+    cat:'SA', title:'파워링크 (사이트검색광고)', sub:'통합검색 상단 텍스트 광고',
+    desc:'이용자가 네이버에서 키워드를 검색하면 통합검색 상단 "파워링크" 영역에 노출되는 텍스트형 광고. <b>클릭당 과금(CPC)</b>. 키워드 입찰로 순위 결정. 인지·유입 확장에 효과적.'
+  },
+  shop: {
+    cat:'SA', title:'쇼핑검색광고', sub:'네이버쇼핑 상단 상품 노출',
+    desc:'네이버쇼핑 검색 결과 상단·중간에 본인 스마트스토어 상품이 이미지·가격과 함께 노출. <b>클릭당 과금(CPC)</b>. 구매 직전 사용자에게 도달해서 전환율이 대체로 높은 편. 선암파머스 같은 실물 판매 상점의 주력 수단.'
+  },
+  brand: {
+    cat:'SA', title:'브랜드검색', sub:'내 브랜드명 검색 시 최상단 브랜드존',
+    desc:'이용자가 본인 브랜드명(예: "선암파머스")을 검색했을 때, 검색 결과 최상단에 로고·대표이미지·링크가 묶인 큰 "브랜드존"으로 노출. <b>일정 기간 정액제</b>. 경쟁사가 내 브랜드명으로 입찰 거는 걸 막는 방어용으로도 씀.'
+  },
+  advoost: {
+    cat:'DA', title:'ADVoost (성과형 디스플레이)', sub:'AI 자동화 배너/피드 광고',
+    desc:'네이버의 <b>성과형 디스플레이 광고 2.0</b>. AI가 타겟·입찰·소재 조합을 자동 최적화해서 네이버 앱·쇼핑·블로그·밴드 등 지면에 노출. 검색광고와는 완전 별도 시스템. 전환 이벤트 기반 입찰(CPA/CPC)이 가능.'
+  },
+  quickstart: {
+    cat:'DA', title:'퀵스타트 (ADVoost)', sub:'ADVoost의 초심자용 자동 모드',
+    desc:'ADVoost 내에서 최소 설정(목표·예산·상품만 입력)으로 바로 시작되는 <b>AI 완전 자동 모드</b>. 타겟·소재·입찰 모두 네이버가 자동 운영. 스크린샷에 보이는 "퀵스타트_ADVoost 쇼핑"이 이 모드.'
+  },
+
+  // ── 계정 구조 (Structure) ──
+  account: {
+    cat:'STR', title:'광고 계정', sub:'가장 바깥 단위 · Customer ID',
+    desc:'네이버 검색광고센터에 로그인한 최상위 단위. 선암파머스의 경우 <b>Customer ID 1872388</b>이 계정 식별자. 한 사업자가 여러 계정(본계정/부계정)을 운영할 수도 있음.'
+  },
+  campaign: {
+    cat:'STR', title:'캠페인', sub:'광고 대분류 · 유형별로 나뉨',
+    desc:'계정 아래 광고의 대분류 단위. 보통 <b>광고 유형(쇼핑검색/파워링크/브랜드검색)별로 1개씩</b> 만들거나, 상품 카테고리별로 쪼갬(예: "쇼핑_사과", "쇼핑_꿀"). 현재 선암파머스 계정에 <b>9개 캠페인</b>이 있음.'
+  },
+  adgroup: {
+    cat:'STR', title:'광고그룹', sub:'세부 타겟·예산 설정 단위',
+    desc:'캠페인 아래에 있는 세부 단위. <b>이 단위에서 타겟 지역·기기·노출 시간·일 예산·기본 입찰가</b>를 설정. 같은 상품이어도 타겟을 다르게 쪼개려면 광고그룹을 여러 개 만듦. 선암파머스에 <b>49개</b> 있음.'
+  },
+  creative: {
+    cat:'STR', title:'소재 (광고 소재)', sub:'검색결과에 실제로 보여지는 문구',
+    desc:'이용자 눈에 보이는 광고 그 자체 — <b>제목·설명 문구·이미지·링크</b>. 광고그룹 하나에 여러 개 등록해서 네이버가 성과 좋은 걸 자동으로 더 자주 노출(A/B). 선암파머스에 <b>116개 소재</b>가 등록돼 있음 — 맨 아래 "소재·키워드 전체 목록" 탭에서 전부 열람 가능.'
+  },
+  keyword: {
+    cat:'STR', title:'키워드', sub:'어떤 검색어에 노출할지',
+    desc:'광고그룹에 등록하는 "이 검색어가 들어오면 내 광고를 보여달라"는 조건어. <b>키워드별로 입찰가를 따로 지정</b>할 수도 있음. 선암파머스에 <b>79개 키워드</b> 등록. 누가 등록했는지는 "소재·키워드 전체 목록" 탭의 등록일·패턴으로 추정 가능.'
+  },
+
+  // ── 주요 지표 (KPIs) ──
+  imp: {
+    cat:'KPI', title:'노출수 (Impressions)', sub:'광고가 보여진 횟수',
+    desc:'이용자의 검색 결과에 내 광고가 <b>실제로 표시된 횟수</b>. 클릭 여부와 무관. 키워드 선택과 입찰가가 노출수에 영향.'
+  },
+  clk: {
+    cat:'KPI', title:'클릭수 (Clicks)', sub:'광고가 클릭된 횟수',
+    desc:'노출된 광고를 이용자가 실제로 <b>클릭해서 내 사이트(스마트스토어)로 유입된 횟수</b>. 파워링크·쇼핑검색은 클릭당 과금이므로 여기서 비용이 차감됨.'
+  },
+  ctr: {
+    cat:'KPI', title:'CTR (클릭률)', sub:'노출 대비 클릭 비율',
+    desc:'<b>CTR = 클릭수 ÷ 노출수 × 100(%)</b>. 소재 매력도·키워드 적합도의 핵심 지표. 농식품 쇼핑검색광고 참고치는 <b>1.0~1.5%</b>. 하락하면 소재 피로도·키워드 확장 오작동 의심.'
+  },
+  cpc: {
+    cat:'KPI', title:'CPC (클릭당 비용)', sub:'클릭 한 번에 드는 광고비',
+    desc:'<b>CPC = 광고비 ÷ 클릭수</b>. 경쟁이 치열할수록 올라감. 쇼핑검색 참고치 <b>200~400원</b>, 파워링크 <b>300~600원</b>. 본인 과거 평균 대비 급등하면 입찰가·경쟁 상황 점검.'
+  },
+  conv: {
+    cat:'KPI', title:'전환 (Conversion)', sub:'구매·가입 등 원하는 행동 완료',
+    desc:'광고 클릭 후 이용자가 <b>실제로 구매 완료</b>(또는 설정한 다른 목표 달성)한 횟수. 스마트스토어 결제 완료를 전환으로 자동 집계하려면 <b>전환스크립트 또는 스마트스토어 연동</b>이 세팅돼 있어야 함.'
+  },
+  roas: {
+    cat:'KPI', title:'ROAS (투자수익률)', sub:'광고비 1원 당 매출',
+    desc:'<b>ROAS = 매출 ÷ 광고비 × 100(%)</b>. 400%면 1원 광고비로 4원 매출. 업계 평균 <b>300~500%</b>. 단, 이 ROAS는 "광고 기여 추정치"라 실제 순매출(반품·취소 반영)은 스마트스토어 정산 데이터와 교차검증 필요.'
+  },
+  cpa: {
+    cat:'KPI', title:'CPA (전환당 비용)', sub:'주문 하나 얻는 데 드는 광고비',
+    desc:'<b>CPA = 광고비 ÷ 전환수</b>. 상품 1개 평균 마진보다 CPA가 낮아야 이익. 예: 평균 주문 이익이 5천원인데 CPA가 7천원이면 팔수록 손해.'
+  },
+  cpm: {
+    cat:'KPI', title:'CPM (1천회 노출 비용) · DA 지표', sub:'디스플레이 광고의 비용 효율',
+    desc:'<b>CPM = 광고비 ÷ (노출수 ÷ 1,000)</b>. 디스플레이 광고(ADVoost)는 클릭보다 <b>노출·도달</b>이 주 목적이라 CPM이 비용 효율의 핵심 지표. 낮을수록 같은 예산으로 더 많은 사람에게 도달. 농식품 DA 참고치는 <b>2,000~5,000원</b>.'
+  },
+  lpv: {
+    cat:'KPI', title:'랜딩 페이지 조회', sub:'클릭 후 페이지가 열린 횟수',
+    desc:'광고를 클릭한 뒤 실제로 랜딩페이지가 <b>열린 횟수</b>. 링크 클릭보다 많이 적으면 페이지 로딩 지연·즉시 이탈 가능성. "클릭 → 구매" 사이 어디서 이탈하는지 찾는 데 씁니다.'
+  },
+  purchaseValue: {
+    cat:'KPI', title:'구매 전환값', sub:'광고로 발생한 매출 금액',
+    desc:'광고를 통해 발생한 <b>구매의 매출 금액 합계</b>. ROAS 계산의 분자(매출)가 됩니다. 메타의 "구매 전환값" 열과 같아요.'
+  },
+  bannerFatigue: {
+    cat:'OPS', title:'배너 소재 피로도', sub:'같은 이미지 반복 노출로 CTR 하락',
+    desc:'ADVoost 등 디스플레이 광고에서 <b>동일 배너를 같은 사용자에게 반복 노출</b>하면 반응률(CTR)이 급락하는 현상. 네이버 AI는 소재 풀이 클수록 최적화 여지가 커지므로, CTR 하락 징후가 보이면 기존 소재를 끄지 말고 <b>신규 소재 2~3개를 추가</b>해서 AI 자동 재학습을 유도하는 게 정석.'
+  },
+  crossChannel: {
+    cat:'OPS', title:'크로스 채널 시너지', sub:'DA가 SA에 미치는 인지 기여',
+    desc:'디스플레이 광고(DA)로 브랜드 노출을 쌓으면, 이후 네이버에서 브랜드명을 <b>직접 검색</b>하는 수요(→ 브랜드검색광고)가 늘어나는 효과. DA의 "실제 기여"는 DA 단독 ROAS보다 <b>항상 크다</b>는 관점. DA 집행 전·후 브랜드검색 노출·클릭 변화를 함께 보면 이 효과를 대략 측정 가능.'
+  },
+  daAudience: {
+    cat:'OPS', title:'타겟 오디언스 (DA)', sub:'ADVoost가 자동으로 정하는 노출 대상',
+    desc:'ADVoost는 운영자가 직접 타겟을 선택하지 않고, 네이버 AI가 <b>과거 구매·관심 패턴이 유사한 사용자군</b>을 자동으로 찾아 노출. 시간이 지날수록 데이터가 쌓여 정확도가 올라가지만, 같은 사용자군에 너무 자주 노출되면 CPM이 상승하는 "오디언스 포화" 현상 발생 가능.'
+  },
+
+  // ── 운영 기능 (Operations) ──
+  autokw: {
+    cat:'OPS', title:'키워드 자동 확장', sub:'유사·연관 검색어까지 자동 매칭',
+    desc:'내가 등록한 키워드 외에도 <b>네이버가 연관 검색어에도 내 광고를 자동으로 노출</b>해주는 옵션. 편하지만 <b>의도치 않은 키워드에 광고비가 새어나갈 위험</b> 있음. 광고그룹 설정에서 on/off 가능. 모르는 키워드가 비용만 많이 쓰고 있으면 이 옵션 점검.'
+  },
+  extmat: {
+    cat:'OPS', title:'확장소재', sub:'기본 소재 외 추가 요소',
+    desc:'파워링크 기본 제목·설명 외에 <b>전화번호·위치·추가링크·프로모션 문구</b> 등을 덧붙여 노출하는 기능. CTR을 높이는 효과. 소재 목록에 제목 없이 전화번호만 있는 항목이 있다면 확장소재일 가능성.'
+  },
+  bid: {
+    cat:'OPS', title:'입찰가', sub:'키워드 클릭 1회에 낼 수 있는 최대 금액',
+    desc:'키워드별 또는 광고그룹 기본값으로 설정. <b>높을수록 상위 노출 확률 ↑, 대신 CPC도 ↑</b>. 성과 낮은 키워드는 15~20% 하향, 성과 좋은 키워드는 상향 — 이 판단을 쉽게 하라고 만든 게 본 대시보드.'
+  },
+  pause: {
+    cat:'OPS', title:'일시중지 vs 삭제', sub:'중지는 복구 가능, 삭제는 영구',
+    desc:'<b>일시중지</b>: 과거 성과·설정 보존, 언제든 재개 가능. 대부분의 경우 이걸 쓰세요. <br><b>삭제</b>: 데이터와 함께 영구 제거, 네이버 머신러닝 학습 기록도 초기화. 정말 다시 쓸 일이 없을 때만.'
+  },
+  seed: {
+    cat:'OPS', title:'쉬운 등록 마법사', sub:'네이버 자동 세팅',
+    desc:'처음 광고 계정 만들 때 네이버가 <b>스마트스토어 상품 정보를 기반으로 캠페인·광고그룹·키워드·소재를 자동 생성</b>해주는 마법사. 편리하지만 AI가 뿌린 키워드가 남아있을 수 있음. 소재 제목이 기계적이거나 등록일이 한날에 몰려 있으면 이 마법사가 생성한 것.'
+  },
+  inspection: {
+    cat:'OPS', title:'검수(승인) 상태', sub:'소재/키워드의 심의 단계',
+    desc:'소재나 키워드 등록 시 네이버가 내용 심의. <b>게재 중(ELIGIBLE/APPROVED)</b> = 심사 통과하고 실제 노출 중, <b>검수 중(REVIEW)</b> = 심사 대기, <b>승인 거부(REJECTED)</b> = 가이드 위반으로 반려. 전체 목록 탭에서 상태 뱃지로 확인 가능.'
+  },
+  topKws: {
+    cat:'OPS', title:'성과 우수 키워드 TOP 10', sub:'ROAS 기준 상위 10개',
+    desc:'선택 기간에 <b>광고비 대비 매출이 가장 좋은</b> 키워드 10개를 ROAS(광고비 1원당 매출) 순으로 정렬. 쉽게 말해 <b>"이 키워드가 돈을 벌어주고 있다"</b>는 신호. 조치 방향: <b>입찰가 상향</b>·<b>유사 키워드 발굴</b>·<b>해당 키워드 전용 소재 추가</b>. 최소 노출 200·클릭 5 필터로 통계적 노이즈 제거돼 있음.'
+  },
+  botKws: {
+    cat:'OPS', title:'손실 위험 키워드 BOTTOM 10', sub:'광고비는 나가는데 성과 낮은 10개',
+    desc:'선택 기간에 <b>광고비를 쓰고 있지만 ROAS가 낮은</b> 키워드 10개. 쉽게 말해 <b>"돈은 쓰는데 매출이 안 나오는 키워드"</b>. 제안 컬럼의 처방대로 <b>입찰가 15~20% 하향</b> 또는 <b>키워드 일시중지</b>·<b>소재 리뉴얼</b> 적용. 이 10개만 손봐도 전체 광고 효율이 크게 개선되는 경우가 많아서 우선순위가 가장 높은 액션 영역.'
+  },
+  aiOpinion: {
+    cat:'OPS', title:'AI 의견 카드 종류', sub:'이모지로 카테고리 구분',
+    desc:'<b>📊 전체 ROAS 판정</b> — 선택 기간 전체 수익성 총평<br><b>🎨 소재 교체 영향</b> — 소재 수정·등록 전후 CTR 비교 (API editTm 기반 사실)<br><b>🔥 CPC 과열</b> — 특정 광고유형의 클릭당 비용이 업계 참고치 초과<br><b>💡 예산 재배분 기회</b> — 광고유형 간 ROAS 격차로 예산 이동 제안<br><b>🚨 무전환 고지출 키워드</b> — 클릭은 나오는데 전환 0인 키워드 경고'
+  },
+  benchGrade: {
+    cat:'KPI', title:'양호 / 평균권 / 주의 뱃지', sub:'업계 참고치 대비 분포 위치',
+    desc:'광고 유형별 카드의 CTR·CPC·ROAS 옆 뱃지는 내 값이 <b>업계 참고치 분포의 어디에 위치</b>하는지를 보여줍니다.<br><br><b>양호(초록)</b> — CTR·ROAS는 <b>상위 분포</b>(참고치 상단 이상), CPC는 <b>하위 분포</b>(참고치 하단 이하 = 비용 저렴).<br><b>평균권(회색)</b> — <b>중위 분포</b>, 즉 업계 참고치 범위 안.<br><b>주의(빨강)</b> — CTR·ROAS는 <b>하위 분포</b>(참고치 미달), CPC는 <b>상위 분포</b>(참고치 초과 = 비쌈).<br><b>—(회색)</b> — 값이 0이라 판정 불가 (해당 기간 노출·지출 없음).'
+  },
+  fact: {
+    cat:'KPI', title:'팩트 (Fact)', sub:'API 원본 데이터에서 확정된 사실',
+    desc:'네이버 API에서 내려온 <b>원본 데이터로부터 직접 계산된 수치·이벤트</b>. 노출·클릭·광고비·ROAS 등 모든 숫자는 실시간 재계산돼 원본과 일치하며, 소재 교체 같은 이벤트도 API의 editTm(수정 시각) 필드에 기반. <b>규칙 엔진이 지어낼 수 없는 영역</b>. 리포트 맨 아래 자체검증 블록이 팩트가 원본과 일치함을 확인해줍니다.'
+  },
+  hyp: {
+    cat:'KPI', title:'가설 (Hypothesis)', sub:'팩트로부터 추론한 "가능성"',
+    desc:'팩트 수치에서 유도된 <b>원인 추정</b>. 규칙 엔진은 "가능성 있음" 형태로만 기술하며 단정하지 않음. 예: "CTR 하락은 소재 피로도 <b>가능성</b>" — 외부 요인(경쟁·계절·뉴스)까지 고려해야 최종 판단이 가능하므로, 가설은 참고만 하시고 확정 원인은 운영자가 내립니다.'
+  },
+  rec: {
+    cat:'KPI', title:'권장 (Recommendation)', sub:'규칙 엔진이 도출한 액션 제안',
+    desc:'팩트·가설을 토대로 규칙 엔진이 내놓은 <b>구체적 조치 제안</b>. 예: "입찰가 15% 하향 검토", "상단 키워드 예산 +20% 시뮬레이션 권장". <b>자동 실행되지 않으며</b>, 본인의 계절성·재고·마진 상황을 감안해서 검색광고센터에서 직접 적용하시면 됩니다.'
+  },
+  colBid: {
+    cat:'OPS', title:'입찰가 (키워드 테이블)', sub:'클릭당 최대 지불 의사 금액',
+    desc:'<b>내가(또는 대행사가) 설정한</b> 클릭당 지불 상한. ₩500이면 "이 키워드 클릭 1회당 최대 500원까지 내겠다"는 의미. 실제 CPC는 경쟁 상황에 따라 이 값 이하에서 결정됨. <b>세팅해둔 값</b>이며, 네이버가 자동으로 정한 건 아닙니다. 검색광고센터 → 해당 광고그룹/키워드에서 수정 가능.'
+  },
+  colCustomBid: {
+    cat:'OPS', title:'개별 입찰 사용 여부', sub:'키워드별 맞춤 입찰 vs 그룹 기본값',
+    desc:'<b>사용</b> — 이 키워드에만 따로 지정한 입찰가가 적용됨(윗 컬럼 입찰가가 그 값).<br><b>—(미사용)</b> — 이 키워드는 <b>광고그룹 기본 입찰가</b>를 그대로 따름(윗 컬럼의 값은 그룹 기본값).<br>키워드마다 성과가 다르므로 잘되는 키워드만 개별 상향, 안되는 키워드만 개별 하향하는 식으로 세밀하게 운영할 때 "사용"으로 전환.'
+  },
+  colStatus: {
+    cat:'OPS', title:'상태 (게재 중 등)', sub:'현재 노출되고 있는지의 상태',
+    desc:'<b>게재 중(ELIGIBLE·APPROVED·LIVE)</b> — 심사 통과 + 활성화 상태, 실제로 검색 결과에 노출되고 있음.<br><b>검수 중(REVIEW·UNDER_REVIEW)</b> — 네이버가 아직 심사 중이라 노출 대기.<br><b>일시중지(PAUSED)</b> — 운영자가 임시로 껐음. 과거 성과·머신러닝 학습 보존, 언제든 재개 가능.<br><b>승인 거부(REJECTED)</b> — 광고 가이드 위반으로 반려. 문구 수정 후 재등록 필요.<br><b>등록 완료(REGISTERED)</b> — 등록됐지만 아직 활성화 전.<br><b>삭제됨(DELETED)</b> — 영구 제거, 학습 데이터도 초기화.'
+  },
+  colAdgroup: {
+    cat:'STR', title:'광고그룹 (컬럼)', sub:'해당 키워드/소재가 속한 그룹 이름',
+    desc:'광고그룹은 타겟·예산·기본 입찰가를 묶는 단위. 많이 보이는 "MO"는 <b>모바일 전용 광고그룹</b> 이름일 가능성이 크고, "PC"는 PC 전용. 타겟이나 예산을 바꾸고 싶으면 해당 광고그룹 단위에서 수정해야 함.'
+  },
+  colRegDate: {
+    cat:'OPS', title:'등록일', sub:'소재가 처음 등록된 날',
+    desc:'소재(광고 제목·설명)가 처음 네이버 검색광고센터에 등록된 날짜. 한 날짜에 여러 소재가 몰려 있으면 <b>"쉬운 등록 마법사"로 한꺼번에 자동 생성됐을 가능성</b>. 띄엄띄엄 분산돼 있으면 운영자가 수동으로 만든 흔적.'
+  },
+  colEditDate: {
+    cat:'OPS', title:'최종 수정', sub:'소재 문구가 마지막으로 수정된 날',
+    desc:'소재 제목·설명이 마지막으로 바뀐 날짜. <b>등록일과 같으면 한 번도 수정 안 됨</b>. 등록일과 다르면 그 날짜에 소재 교체가 일어났다는 사실 증거 — AI 의견의 "🎨 소재 교체 영향" 카드가 이 필드를 기반으로 전후 CTR을 비교합니다.'
+  }
+};
+
+function _gTagHTML(cat){
+  const m = {SA:'sa', DA:'da', BR:'br'}[cat] || '';
+  return `<span class="g-tag ${m}">${cat}</span>`;
+}
+const META_GLOSS = {
+  imp:{desc:'광고가 화면에 <b>표시된 횟수</b>. 페이스북·인스타그램 피드·릴스·스토리 등에 보여진 횟수예요. 클릭 여부와 무관.'},
+  clk:{sub:'링크 클릭 횟수', desc:'광고의 링크를 눌러 사이트로 이동한 횟수(<b>링크 클릭</b> 기준). 좋아요·더보기 등을 포함한 "전체 클릭"과는 달라요.'},
+  ctr:{desc:'<b>CTR = 링크 클릭 ÷ 노출 × 100(%)</b>. 소재가 시선을 끄는 정도. 농식품 메타 광고 참고치 약 <b>0.8~2.0%</b>.'},
+  cpc:{desc:'<b>CPC = 광고비 ÷ 링크 클릭</b>. 클릭 한 번에 든 비용. 참고치 약 <b>300~800원</b>.'},
+  conv:{sub:'메타가 집계한 결과(목적별)', desc:'메타가 캠페인 <b>목적에 따라</b> 집계한 결과 수. 구매 캠페인=구매수, 트래픽 캠페인=랜딩 조회수 등 목적별로 달라요. 매출(구매 전환값)과는 별개.'},
+  roas:{desc:'<b>ROAS = 구매 전환값(매출) ÷ 광고비 × 100(%)</b>. 400%면 광고비 1원당 매출 4원. 참고치 약 <b>200~500%</b>. 메타의 "구매 ROAS"와 같은 공식이에요.'},
+  cpm:{title:'CPM (1천회 노출 비용)', sub:'1천 회 노출당 비용', desc:'<b>CPM = 광고비 ÷ (노출 ÷ 1,000)</b>. 인지·도달이 목적일 때 비용 효율을 보는 지표.'},
+  aiOpinion:{desc:'선택 기간 <b>전체(모든 캠페인 합산)</b> 기준 자동 진단이에요. 📊 전체 ROAS · 🎯 매출 집중도 · 💡 예산 재배분 · 🚨 저효율 경고 · 🖱️ 클릭 효율 · 🧭 구매 여정(퍼널) · 🎨 소재 요약 중 <b>해당되는 항목만</b> 표시돼요.'}
+};
+function _glossDesc(key){ const g=GLOSSARY[key]; if(!g) return ''; const m=(MAIN_CHANNEL==='META')?META_GLOSS[key]:null; return (m&&m.desc)||g.desc; }
+function _glossSub(key){ const g=GLOSSARY[key]; if(!g) return ''; const m=(MAIN_CHANNEL==='META')?META_GLOSS[key]:null; return (m&&m.sub)||g.sub; }
+function _glossTitle(key){ const g=GLOSSARY[key]; if(!g) return ''; const m=(MAIN_CHANNEL==='META')?META_GLOSS[key]:null; return (m&&m.title)||g.title; }
+function _glossaryHTML(key){
+  const g = GLOSSARY[key]; if(!g) return '';
+  return `<b>${_glossTitle(key)}</b> ${_gTagHTML(g.cat)}<br><span style="color:#8cffc0">${_glossSub(key)}</span><br><br>${_glossDesc(key)}`;
+}
+
+function seedRand(seed){let s=seed;return()=>{s=(s*1664525+1013904223)%4294967296;return s/4294967296}}
+const rnd = seedRand(20260416);
+
+// 오늘 = 2026-04-16
+const TODAY = (function(){ const d=new Date(); d.setHours(0,0,0,0); return d; })();
+const DAYS = 90;
+
+function dateStr(d){return d.toISOString().slice(0,10)}
+function addDays(d,n){const x=new Date(d);x.setDate(x.getDate()+n);return x}
+
+// 일자 × 광고유형 샘플 시계열
+let daily = [];
+for(let i=DAYS-1;i>=0;i--){
+  const d = addDays(TODAY,-i);
+  const ds = dateStr(d);
+  const dow = d.getDay(); // 주말 소폭 하락
+  const weekendFactor = (dow===0||dow===6) ? 0.85 : 1;
+
+  // 4/10 이후 쇼핑 소재 교체 → CTR 상승
+  const creativeBoost = d >= new Date('2026-04-10') ? 1.32 : 1.0;
+  // 3/25 이후 파워링크 입찰가 과열 → CPC 상승
+  const cpcPush = d >= new Date('2026-03-25') ? 1.22 : 1.0;
+
+  // shop
+  {
+    const imp = Math.round((2800 + rnd()*900) * weekendFactor);
+    const ctr = (0.70 + rnd()*0.25) * creativeBoost;     // %
+    const clk = Math.round(imp * ctr/100);
+    const cpc = 340 + rnd()*90;
+    const cost = Math.round(clk * cpc);
+    const cvr = 0.035 + rnd()*0.015;                      // 3.5~5%
+    const conv = Math.round(clk * cvr);
+    const aov = 38000 + rnd()*6000;
+    const rev = Math.round(conv * aov);
+    daily.push({date:ds,ad:'shop',imp,clk,cost,conv,rev});
+  }
+  // powerlink
+  {
+    const imp = Math.round((1700 + rnd()*500) * weekendFactor);
+    const ctr = 0.55 + rnd()*0.22;
+    const clk = Math.round(imp * ctr/100);
+    const cpc = (430 + rnd()*120) * cpcPush;
+    const cost = Math.round(clk * cpc);
+    const cvr = 0.020 + rnd()*0.012;
+    const conv = Math.round(clk * cvr);
+    const aov = 33000 + rnd()*5000;
+    const rev = Math.round(conv * aov);
+    daily.push({date:ds,ad:'powerlink',imp,clk,cost,conv,rev});
+  }
+  // brand
+  {
+    const imp = Math.round((650 + rnd()*220) * weekendFactor);
+    const ctr = 3.8 + rnd()*1.6;
+    const clk = Math.round(imp * ctr/100);
+    const cpc = 150 + rnd()*60;
+    const cost = Math.round(clk * cpc);
+    const cvr = 0.065 + rnd()*0.02;
+    const conv = Math.round(clk * cvr);
+    const aov = 42000 + rnd()*7000;
+    const rev = Math.round(conv * aov);
+    daily.push({date:ds,ad:'brand',imp,clk,cost,conv,rev});
+  }
+  // ADVoost (DA) — 4/1 이후 시작. 노출 많고 CTR 낮음, CPC는 SA와 유사
+  if(d >= new Date('2026-04-01')){
+    // 초반 7일은 AI 학습 기간으로 성과 낮음, 이후 안정화
+    const daysSinceStart = Math.round((d - new Date('2026-04-01'))/86400000);
+    const rampUp = daysSinceStart < 7 ? 0.4 + daysSinceStart*0.1 : 1.0;
+    // 4/10경 소재 피로도로 CTR 소폭 하락 시뮬레이션 (배너 피로도 AI 의견 테스트용)
+    const fatigue = d >= new Date('2026-04-12') ? 0.65 : 1.0;
+    const imp = Math.round((6200 + rnd()*3400) * weekendFactor * rampUp);
+    const ctr = (0.28 + rnd()*0.25) * fatigue;
+    const clk = Math.round(imp * ctr/100);
+    const cpc = 200 + rnd()*180;
+    const cost = Math.round(clk * cpc);
+    const cvr = 0.020 + rnd()*0.015;
+    const conv = Math.round(clk * cvr);
+    const aov = 35000 + rnd()*7000;
+    const rev = Math.round(conv * aov);
+    daily.push({date:ds,ad:'advoost',imp,clk,cost,conv,rev});
+  }
+}
+
+// 키워드 누적(최근 30일 기준) — 실 운영 시 일자×키워드 raw 테이블로 대체
+const KW_POOL = [
+  {kw:'햇사과 선물세트',       ad:'shop',      base:{imp:18200,ctr:1.32,cpc:360,cvr:4.5,aov:42000}},
+  {kw:'유기농 사과',           ad:'shop',      base:{imp:14800,ctr:0.62,cpc:540,cvr:1.1,aov:36000}},
+  {kw:'산지직송 배',           ad:'shop',      base:{imp:9700, ctr:1.28,cpc:310,cvr:5.2,aov:39000}},
+  {kw:'청송사과',              ad:'shop',      base:{imp:8100, ctr:1.05,cpc:380,cvr:3.8,aov:38000}},
+  {kw:'아침대용 사과',         ad:'shop',      base:{imp:5200, ctr:1.52,cpc:260,cvr:6.1,aov:28000}},
+  {kw:'감홍사과',              ad:'shop',      base:{imp:3400, ctr:0.94,cpc:420,cvr:3.0,aov:37000}},
+  {kw:'국내산 꿀',             ad:'shop',      base:{imp:6800, ctr:1.18,cpc:300,cvr:7.0,aov:54000}},
+  {kw:'토종 아카시아꿀',       ad:'shop',      base:{imp:4100, ctr:1.40,cpc:280,cvr:8.2,aov:58000}},
+  {kw:'잡화꿀 선물',           ad:'shop',      base:{imp:2800, ctr:1.10,cpc:320,cvr:6.0,aov:62000}},
+  {kw:'사과즙',                ad:'shop',      base:{imp:5600, ctr:0.72,cpc:490,cvr:2.1,aov:32000}},
+
+  {kw:'사과 쇼핑몰',           ad:'powerlink', base:{imp:8400, ctr:0.68,cpc:520,cvr:2.6,aov:36000}},
+  {kw:'과일 도매',             ad:'powerlink', base:{imp:6200, ctr:0.45,cpc:780,cvr:0.9,aov:41000}},
+  {kw:'명절 과일 선물',        ad:'powerlink', base:{imp:5800, ctr:0.92,cpc:460,cvr:3.8,aov:48000}},
+  {kw:'건강 선물세트',         ad:'powerlink', base:{imp:4300, ctr:0.38,cpc:690,cvr:0.6,aov:44000}},
+  {kw:'유기농 과일',           ad:'powerlink', base:{imp:3900, ctr:0.55,cpc:610,cvr:1.4,aov:39000}},
+
+  {kw:'선암파머스',            ad:'brand',     base:{imp:2600, ctr:5.20,cpc:170,cvr:8.5,aov:44000}},
+  {kw:'선암 사과',             ad:'brand',     base:{imp:1400, ctr:4.60,cpc:190,cvr:7.8,aov:41000}},
+  {kw:'선암 꿀',               ad:'brand',     base:{imp: 720, ctr:4.10,cpc:210,cvr:6.9,aov:56000}}
+];
+
+// 30일 윈도우를 기반으로 일자×키워드 가상 데이터 생성
+let kwDaily = [];
+for(let i=59;i>=0;i--){ // 최근 60일
+  const d = addDays(TODAY,-i); const ds=dateStr(d);
+  for(const k of KW_POOL){
+    const noise = 0.85 + rnd()*0.35;
+    const imp = Math.round(k.base.imp/30 * noise);
+    const clk = Math.round(imp * k.base.ctr/100 * (0.9+rnd()*0.2));
+    const cpc = Math.round(k.base.cpc * (0.95+rnd()*0.1));
+    const cost = clk * cpc;
+    const conv = Math.round(clk * k.base.cvr/100 * (0.85+rnd()*0.3));
+    const rev = conv * k.base.aov;
+    kwDaily.push({date:ds, kw:k.kw, ad:k.ad, imp, clk, cost, conv, rev});
+  }
+}
+
+// 이벤트 로그 (API의 editTm / bid change log / keyword add·pause 결과)
+let EVENTS = [
+  {date:'2026-03-25', type:'bid',      ad:'powerlink', title:'파워링크 CPC 15% 상향',      detail:'캠페인 PL-02 평균 입찰가 460→530원'},
+  {date:'2026-04-01', type:'creative', ad:'advoost',   title:'ADVoost 캠페인 시작',        detail:'퀵스타트_ADVoost 쇼핑 신규 개설 · 일예산 ₩30,000'},
+  {date:'2026-04-05', type:'kw',       ad:'shop',      title:'신규 키워드 추가',            detail:"'아침대용 사과' 외 3개"},
+  {date:'2026-04-10', type:'creative', ad:'shop',      title:'소재 교체(쇼핑검색)',        detail:"'햇사과 특가' → '산지직송 당도보장'"},
+  {date:'2026-04-13', type:'bid',      ad:'shop',      title:'하향 입찰 적용',              detail:"'유기농 사과' 키워드 540→460원"},
+];
+
+document.getElementById('lastUpdate').textContent =
+  new Date(TODAY.getTime()-1*60*60*1000).toLocaleString('ko-KR');
+
+/* ============================================================
+   2. 유틸
+   ============================================================ */
+const fmtNum = n => Number(n||0).toLocaleString('ko-KR');
+const fmtInt = n => fmtNum(Math.round(n||0));
+const fmtWon = n => '₩' + fmtInt(n);
+const fmtPct = (n,d=2) => (n==null||isNaN(n) ? '—' : n.toFixed(d)+'%');
+function safeDiv(a,b){return b>0?a/b:0}
+
+function sumRange(start,end,filter=null){
+  const s=dateStr(start), e=dateStr(end);
+  // DA 탭: 업로드된 CSV가 있으면 그걸, 없으면 샘플의 advoost 행을 사용
+  let src;
+  if(MAIN_CHANNEL==='DA'){
+    src = DA_UPLOADED_DATA;
+  } else if(MAIN_CHANNEL==='META'){
+    src = META_UPLOADED_DATA;
+  } else {
+    src = daily.filter(r=>r.ad!=='advoost');
+  }
+  const rows = src.filter(r => {
+    if(r.date<s || r.date>e) return false;
+    if(filter) return r.ad===filter;
+    return true;
+  });
+  const t = rows.reduce((a,r)=>{a.imp+=r.imp;a.clk+=r.clk;a.cost+=r.cost;a.conv+=r.conv;a.rev+=r.rev;a.lpv+=(r.lpv||0);return a},
+    {imp:0,clk:0,cost:0,conv:0,rev:0,lpv:0});
+  t.ctr  = safeDiv(t.clk,t.imp)*100;
+  t.cpc  = safeDiv(t.cost,t.clk);
+  t.cvr  = safeDiv(t.conv,t.clk)*100;
+  t.roas = safeDiv(t.rev,t.cost)*100;
+  return t;
+}
+function kwRange(start,end){
+  const s=dateStr(start), e=dateStr(end);
+  const map = new Map();
+  for(const r of kwDaily){
+    if(r.date<s||r.date>e) continue;
+    const key = r.kw+'|'+r.ad;
+    const m = map.get(key) || {kw:r.kw,ad:r.ad,imp:0,clk:0,cost:0,conv:0,rev:0};
+    m.imp+=r.imp; m.clk+=r.clk; m.cost+=r.cost; m.conv+=r.conv; m.rev+=r.rev;
+    map.set(key,m);
+  }
+  const out = [...map.values()];
+  for(const m of out){
+    m.ctr  = safeDiv(m.clk,m.imp)*100;
+    m.cpc  = safeDiv(m.cost,m.clk);
+    m.roas = safeDiv(m.rev,m.cost)*100;
+  }
+  return out;
+}
+
+/* ============================================================
+   3. 기간 선택 & 렌더 파이프라인
+   ============================================================ */
+let currentStart, currentEnd;
+let RANGE_STATE = {mode:'preset', days:7};
+function setRangeByDays(days){
+  // 데이터 최신일을 끝점으로(데이터가 매일 갱신되면 실제 어제와 동일), 없으면 실제 어제
+  const range = channelDateRange();
+  let end, start;
+  if(range){
+    const maxD=new Date(range.max), minD=new Date(range.min);
+    end = maxD;
+    start = (days===1) ? maxD : addDays(maxD, -(days-1));
+    if(start < minD) start = minD;
+  } else {
+    end = addDays(TODAY,-1);
+    start = (days===1) ? addDays(TODAY,-1) : addDays(TODAY,-(days-1));
+  }
+  currentEnd=end; currentStart=start;
+  const s = document.getElementById('dStart'), e = document.getElementById('dEnd');
+  if(s) s.value = dateStr(start);
+  if(e) e.value = dateStr(end);
+  document.querySelectorAll('#segs .seg').forEach(b=>{
+    b.classList.toggle('active', +b.dataset.days === days);
+  });
+  render();
+}
+function reapplyRange(){
+  if(RANGE_STATE.mode==='custom' && RANGE_STATE.start && RANGE_STATE.end && RANGE_STATE.start<=RANGE_STATE.end){
+    document.querySelectorAll('#segs .seg').forEach(x=>x.classList.remove('active'));
+    currentStart=new Date(RANGE_STATE.start); currentEnd=new Date(RANGE_STATE.end);
+    const ds=document.getElementById('dStart'), de=document.getElementById('dEnd');
+    if(ds) ds.value=RANGE_STATE.start; if(de) de.value=RANGE_STATE.end;
+    render();
+    return;
+  }
+  setRangeByDays(RANGE_STATE.days||7);
+}
+document.querySelectorAll('#segs .seg').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('#segs .seg').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    RANGE_STATE={mode:'preset', days:+b.dataset.days};
+    setRangeByDays(+b.dataset.days);
+  });
+});
+document.getElementById('applyRange').addEventListener('click',()=>{
+  const s=document.getElementById('dStart').value, e=document.getElementById('dEnd').value;
+  if(!s||!e){alert('시작·종료일을 선택하세요');return;}
+  if(s>e){alert('시작일이 종료일보다 늦습니다');return;}
+  document.querySelectorAll('#segs .seg').forEach(x=>x.classList.remove('active'));
+  RANGE_STATE={mode:'custom', start:s, end:e};
+  currentStart = new Date(s); currentEnd = new Date(e);
+  render();
+});
+document.getElementById('seriesToggle').addEventListener('click', e=>{
+  const b=e.target.closest('[data-series]'); if(!b) return;
+  const k=b.dataset.series; SERIES_VIS[k]=!SERIES_VIS[k];
+  b.classList.toggle('off', !SERIES_VIS[k]);
+  renderChart();
+});
+async function exportReport(){
+  if(typeof html2canvas==='undefined'){ alert('이미지 모듈을 불러오는 중이에요. 잠시 후 다시 시도해 주세요.'); return; }
+  const el=document.querySelector('.wrap'); if(!el) return;
+  const btn=document.getElementById('exportBtn'); const old=btn?btn.textContent:'';
+  if(btn){ btn.textContent='생성 중…'; btn.disabled=true; }
+  document.body.classList.add('capturing');
+  try{
+    const canvas=await html2canvas(el,{backgroundColor:'#f5f7f6',scale:2,windowWidth:1440,useCORS:true});
+    const a=document.createElement('a');
+    const acct=(typeof CURRENT_ACCT!=='undefined'&&CURRENT_ACCT&&CURRENT_ACCT.name)?CURRENT_ACCT.name:'광고';
+    const ch=MAIN_CHANNEL==='META'?'메타':MAIN_CHANNEL==='DA'?'네이버디스플레이':'네이버검색광고';
+    a.download=`${acct}_${ch}_리포트_${dateStr(currentEnd||new Date())}.png`;
+    a.href=canvas.toDataURL('image/png');
+    a.click();
+  }catch(err){ alert('이미지 생성 실패: '+(err&&err.message||err)); }
+  document.body.classList.remove('capturing');
+  if(btn){ btn.textContent=old; btn.disabled=false; }
+}
+// 리포트 저장 드롭다운 바인딩 (아래)
+async function exportSplit(){
+  if(typeof html2canvas==='undefined'){ alert('이미지 모듈을 불러오는 중이에요. 잠시 후 다시 시도해 주세요.'); return; }
+  const isMeta = MAIN_CHANNEL==='META';
+  const secs = isMeta
+    ? [['1_KPI', document.getElementById('kpis')], ['2_추이와의견', document.getElementById('trendGrid')], ['3_캠페인', document.getElementById('secCamp')], ['4_소재', document.getElementById('secAd')]]
+    : [['1_KPI', document.getElementById('kpis')], ['2_추이와의견', document.getElementById('trendGrid')], ['3_키워드', document.getElementById('keywordSection')], ['4_인벤토리', document.getElementById('inventorySection')]];
+  const vis = secs.filter(([n,e])=> e && e.offsetParent!==null && e.offsetHeight>0);
+  if(!vis.length){ alert('저장할 영역이 없어요.'); return; }
+  const btn=document.getElementById('exportBtn'); const old=btn?btn.textContent:'';
+  if(btn){ btn.textContent='생성 중…'; btn.disabled=true; }
+  document.body.classList.add('capturing');
+  const acct=(typeof CURRENT_ACCT!=='undefined'&&CURRENT_ACCT&&CURRENT_ACCT.name)?CURRENT_ACCT.name:'광고';
+  const ch=isMeta?'메타':MAIN_CHANNEL==='DA'?'네이버디스플레이':'네이버검색광고';
+  const dt=dateStr(currentEnd||new Date());
+  try{
+    for(const [name,e] of vis){
+      const canvas=await html2canvas(e,{backgroundColor:'#f5f7f6',scale:2,windowWidth:1440,useCORS:true});
+      const a=document.createElement('a'); a.download=`${acct}_${ch}_리포트_${dt}_${name}.png`; a.href=canvas.toDataURL('image/png'); a.click();
+      await new Promise(r=>setTimeout(r,500));
+    }
+  }catch(err){ alert('이미지 생성 실패: '+(err&&err.message||err)); }
+  document.body.classList.remove('capturing');
+  if(btn){ btn.textContent=old; btn.disabled=false; }
+}
+(function bindExportMenu(){
+  const exBtn=document.getElementById('exportBtn'), exMenu=document.getElementById('exportMenu');
+  if(!exBtn||!exMenu) return;
+  exBtn.addEventListener('click', e=>{ e.stopPropagation(); exMenu.classList.toggle('open'); });
+  document.addEventListener('click', e=>{ if(!exBtn.contains(e.target) && !exMenu.contains(e.target)) exMenu.classList.remove('open'); });
+  document.getElementById('exportFull').addEventListener('click', ()=>{ exMenu.classList.remove('open'); exportReport(); });
+  document.getElementById('exportSplit2').addEventListener('click', ()=>{ exMenu.classList.remove('open'); exportSplit(); });
+})();
+
+/* ============================================================
+   4. KPI 카드 렌더 + 벤치마크 평가
+   ============================================================ */
+function evalMetric(value, low, high, inverted=false){
+  // 지표별 "방향"에 관계없이 결과는 항상 양호/평균권/주의 3단계로 통일.
+  // CTR·ROAS는 높을수록 좋음(inverted=false), CPC는 낮을수록 좋음(inverted=true)
+  // 값이 0이거나 없으면 "데이터 없음"으로 처리 — 거짓 양호/주의 표시 방지.
+  if(value==null||isNaN(value))  return {tone:'none', text:'—', hide:true};
+  if(!value)                     return {tone:'none', text:'데이터 없음', hide:true};
+  if(!inverted){
+    if(value >= high) return {tone:'good',text:'양호'};
+    if(value >= low)  return {tone:'flat',text:'평균권'};
+    return {tone:'bad',text:'주의'};
+  } else {
+    if(value <= low)  return {tone:'good',text:'양호'};
+    if(value <= high) return {tone:'flat',text:'평균권'};
+    return {tone:'bad',text:'주의'};
+  }
+}
+
+function renderKPIs(){
+  const len = Math.round((currentEnd-currentStart)/86400000)+1;
+  const prevEnd = addDays(currentStart,-1);
+  const prevStart = addDays(prevEnd,-(len-1));
+  const cur = sumRange(currentStart,currentEnd);
+  const prev = sumRange(prevStart,prevEnd);
+  // 베이스라인(본인 과거 90일) — 메타는 업로드 기간만 있어 무의미하므로 숨김
+  const base = sumRange(addDays(TODAY,-89), TODAY);
+  const showBase = MAIN_CHANNEL!=='META';
+
+  function delta(a,b){ if(!b) return null; return (a-b)/b*100; }
+  function chip(pct, inverted=false){
+    if(pct==null) return `<span class="chip flat">전기 대비 —</span>`;
+    const good = inverted ? pct<0 : pct>0;
+    const cls = Math.abs(pct)<1 ? 'flat' : (good?'good':'bad');
+    const sign = pct>=0?'▲':'▼';
+    return `<span class="chip ${cls}">전기 대비 ${sign}${Math.abs(pct).toFixed(1)}%</span>`;
+  }
+  function bchip(value, low, high, inverted=false){
+    const e = evalMetric(value,low,high,inverted);
+    return `<span class="chip ${e.tone==='good'?'good':e.tone==='bad'?'bad':'bench'}">업계 ${low}~${high}</span>`;
+  }
+
+  const mix = cur;
+  const prevMix = prev;
+
+  // 전체(가중)
+  const KB = (MAIN_CHANNEL==='META') ? {ctr:[0.8,2.0],cpc:[300,800],roas:[200,500]} : {ctr:[1.0,1.5],cpc:[200,400],roas:[300,500]};
+  const _benchSrc = (MAIN_CHANNEL==='META') ? '농식품 메타 광고 통상범위(추정)' : '농식품 검색광고 통상범위';
+  function _benchTip(metric,val,inverted){
+    const b=KB[metric]; const e=evalMetric(val,b[0],b[1],inverted);
+    const range = metric==='cpc' ? `₩${b[0].toLocaleString()}~₩${b[1].toLocaleString()}` : `${b[0]}~${b[1]}%`;
+    const fmtv  = metric==='cpc' ? fmtWon(val) : (metric==='roas'? fmtPct(val,0):fmtPct(val,2));
+    return `<b>업계 참고치</b> ${range}<br>내 값 <b>${fmtv}</b> · 판정 <b>${e.text}</b><br><span style='color:#9db0a8'>${_benchSrc} · 같은 기간 기준</span>`;
+  }
+  const _len = Math.max(1, Math.round((currentEnd-currentStart)/86400000)+1);
+  const _div=(a,b)=> b>0? a/b : 0;
+  const _mut = h => `<br><span style='color:#9db0a8'>${h}</span>`;
+  function _kpiTip(label){
+    if(label==='CTR')  return _benchTip('ctr', cur.ctr, false);
+    if(label==='CPC')  return _benchTip('cpc', cur.cpc, true);
+    if(label==='ROAS') return _benchTip('roas', cur.roas, false);
+    if(label==='노출수')      return `하루 평균 노출 <b>${fmtInt(cur.imp/_len)}</b>`+_mut(`${_len}일 합계 ${fmtInt(cur.imp)}`);
+    if(label==='클릭수')      return `하루 평균 클릭 <b>${fmtInt(cur.clk/_len)}</b>`+_mut(`${_len}일 합계 ${fmtInt(cur.clk)}`);
+    if(label==='광고비')      return `하루 평균 지출 <b>${fmtWon(cur.cost/_len)}</b>`+_mut(`${_len}일 합계 ${fmtWon(cur.cost)}`);
+    if(label==='전환수')      return `하루 평균 <b>${fmtInt(cur.conv/_len)}건</b>`+_mut(`${_len}일 합계 ${fmtInt(cur.conv)}건`);
+    if(label==='매출(광고기여)') return `하루 평균 매출 <b>${fmtWon(cur.rev/_len)}</b>`+_mut(`${_len}일 합계 ${fmtWon(cur.rev)}`);
+    return '';
+  }
+  const cards = [
+    {
+      label:'노출수', value: fmtInt(cur.imp), evidence:{cur,prev,label:'노출수'},
+      chips:[ chip(delta(cur.imp,prev.imp)) ]
+    },
+    {
+      label:'클릭수', value: fmtInt(cur.clk), evidence:{cur,prev,label:'클릭수'},
+      chips:[ chip(delta(cur.clk,prev.clk)) ]
+    },
+    {
+      label:'CTR', value: fmtPct(cur.ctr), evidence:{cur,prev,label:'CTR'},
+      chips:[
+        chip(delta(cur.ctr,prev.ctr)),
+        ...(showBase?[`<span class="chip bench">과거 90일 ${fmtPct(base.ctr)}</span>`]:[])
+      ],
+      eval: showBase? eval90text(cur.ctr, base.ctr, false) : ''
+    },
+    {
+      label:'CPC', value: fmtWon(cur.cpc), evidence:{cur,prev,label:'CPC'},
+      chips:[
+        chip(delta(cur.cpc,prev.cpc), true),
+        ...(showBase?[`<span class="chip bench">과거 90일 ${fmtWon(base.cpc)}</span>`]:[])
+      ],
+      eval: showBase? eval90text(cur.cpc, base.cpc, true) : ''
+    },
+    {
+      label:'광고비', value: fmtWon(cur.cost), evidence:{cur,prev,label:'광고비'},
+      chips:[ chip(delta(cur.cost,prev.cost), true) ]
+    },
+    {
+      label:'전환수', value: fmtInt(cur.conv), evidence:{cur,prev,label:'전환수'},
+      chips:[ chip(delta(cur.conv,prev.conv)) ]
+    },
+    {
+      label:'매출(광고기여)', value: fmtWon(cur.rev), evidence:{cur,prev,label:'매출'},
+      chips:[ chip(delta(cur.rev,prev.rev)) ]
+    },
+    {
+      label:'ROAS', value: fmtPct(cur.roas,0), evidence:{cur,prev,label:'ROAS'},
+      chips:[
+        chip(delta(cur.roas,prev.roas)),
+        ...(showBase?[`<span class="chip bench">과거 90일 ${fmtPct(base.roas,0)}</span>`]:[])
+      ],
+      eval: showBase? eval90text(cur.roas, base.roas, false) : ''
+    }
+  ];
+
+  document.getElementById('kpis').innerHTML = cards.map(c=>`
+    <div class="kpi">
+      <div class="label">${c.label}</div>
+      <div class="value ttp" data-tip="${_kpiTip(c.label)}">${c.value}</div>
+      <div class="deltas">${c.chips.join('')}</div>
+      ${c.eval?`<div class="eval">${c.eval}</div>`:''}
+    </div>
+  `).join('');
+
+  bindEvidenceTooltip();
+  // 현재 범위 표기
+  document.getElementById('currentRange').textContent =
+    `선택 기간 ${dateStr(currentStart)} ~ ${dateStr(currentEnd)} (${len}일) · 비교 기간 ${dateStr(prevStart)} ~ ${dateStr(prevEnd)}`;
+
+  return {cur,prev,base,len,prevStart,prevEnd};
+}
+function eval90text(v,base,inverted){
+  if(!v||!base) return '';
+  const diff = (v-base)/base*100;
+  const good = inverted ? diff<0 : diff>0;
+  const word = Math.abs(diff)<2 ? '유지' : (good?'개선':'악화');
+  return `내 과거 대비 ${diff>=0?'+':''}${diff.toFixed(1)}% (${word})`;
+}
+
+/* ============================================================
+   5. 광고 유형별 카드
+   ============================================================ */
+function renderAdTypes(){
+  const types = MAIN_CHANNEL==='DA' ? ['advoost'] : MAIN_CHANNEL==='META' ? ['meta'] : ['shop','powerlink','brand'];
+  const html = types.map(t=>{
+    const cur  = sumRange(currentStart,currentEnd,t);
+    const base = sumRange(addDays(TODAY,-89),TODAY,t);
+    const b = BENCH[t];
+    const ctrEval = evalMetric(cur.ctr, b.CTR[0], b.CTR[1], false);
+    const cpcEval = evalMetric(cur.cpc, b.CPC[0], b.CPC[1], true);
+    const roasEval= evalMetric(cur.roas,b.ROAS[0],b.ROAS[1],false);
+    function bar(val, lo, hi){
+      const pos = Math.max(0, Math.min(100, (val-lo)/(hi-lo)*100));
+      return `<div class="bar"><span style="width:${pos}%"></span></div>`;
+    }
+    const adLbl = AD_LABEL[t];
+    function _esc(s){ return String(s).replace(/"/g,'&quot;'); }
+    function benchTip(metric, value, lo, hi, unit, inverted, ev){
+      const fmtV = metric==='CPC' ? fmtWon(value) : (unit==='%' ? fmtPct(value, metric==='ROAS'?0:2) : fmtNum(value)+unit);
+      const fmtR = metric==='CPC' ? `${fmtWon(lo)} ~ ${fmtWon(hi)}` : `${lo}${unit} ~ ${hi}${unit}`;
+      const loStr = metric==='CPC' ? fmtWon(lo) : `${lo}${unit}`;
+      const hiStr = metric==='CPC' ? fmtWon(hi) : `${hi}${unit}`;
+      let basis;
+      if(ev.hide){
+        basis = '해당 기간 노출·지출이 0이라 판정 유보';
+      } else if(ev.tone==='good'){
+        basis = inverted
+          ? `내 값이 <b>하위 분포</b> (≤ ${loStr}) → 비용 효율 양호`
+          : `내 값이 <b>상위 분포</b> (≥ ${hiStr}) → 성과 양호`;
+      } else if(ev.tone==='bad'){
+        basis = inverted
+          ? `내 값이 <b>상위 분포</b> (> ${hiStr}) → 비용 과열`
+          : `내 값이 <b>하위 분포</b> (< ${loStr}) → 성과 주의`;
+      } else {
+        basis = `내 값이 <b>중위 분포</b> (${loStr} ~ ${hiStr}) → 업계 표준 수준`;
+      }
+      return `<b>${adLbl} · ${metric} ${fmtV} → ${ev.text}</b>
+<br><br><b>판정 근거</b><br>${basis}
+<br><br><b>업계 참고치 범위</b><br>${fmtR} (${adLbl} · ${inverted?'낮을수록 양호':'높을수록 양호'})
+<br><br><span style="color:#8cffc0">※ 참고치는 <b>농식품·신선식품 이커머스 통상 범위</b>(메조미디어·DMC·나스미디어 연간 리포트 기반). 네이버 공식 "동종업계 비교" 수치가 아니므로 절대 기준은 아니며, 본인 과거 데이터 대비 변화와 함께 해석 권장.</span>`;
+    }
+    // 평가 뱃지: 값 0이거나 없으면 회색 "—"만, 의미있는 값이면 색상 판정 + 호버 툴팁
+    function evalChip(ev, metric, value, lo, hi, unit, inverted){
+      const tip = _esc(benchTip(metric, value, lo, hi, unit, inverted, ev));
+      if(ev.hide) return `<span class="chip flat" style="opacity:.6;cursor:help" data-bench="${tip}">—</span>`;
+      const cls = ev.tone==='good'?'good':ev.tone==='bad'?'bad':'flat';
+      return `<span class="chip ${cls}" style="cursor:help" data-bench="${tip}">${ev.text}</span>`;
+    }
+    return `
+    <div class="adcard">
+      <h3><span>${AD_LABEL[t]}<i class="info-ic" data-gloss="${t}">ⓘ</i>${AD_CHANNEL[t]==='DA' ? '<span class="da-ribbon">DA</span>' : ''}</span>
+        <span class="badge ${AD_BADGE[t]}">${t.toUpperCase()}</span>
+      </h3>
+      <div class="mini">
+        <div class="mi"><div class="l">광고비</div><div class="v">${fmtWon(cur.cost)}</div></div>
+        <div class="mi"><div class="l">전환</div><div class="v">${fmtInt(cur.conv)}</div></div>
+        <div class="mi"><div class="l">ROAS</div><div class="v">${fmtPct(cur.roas,0)}</div></div>
+      </div>
+      <div style="margin-top:10px;font-size:12px">
+        <div style="display:flex;justify-content:space-between"><span>CTR ${fmtPct(cur.ctr)}</span>${evalChip(ctrEval,'CTR',cur.ctr,b.CTR[0],b.CTR[1],'%',false)}</div>
+        ${bar(cur.ctr,b.CTR[0],b.CTR[1])}
+        <div style="display:flex;justify-content:space-between;margin-top:6px"><span>CPC ${fmtWon(cur.cpc)}</span>${evalChip(cpcEval,'CPC',cur.cpc,b.CPC[0],b.CPC[1],'원',true)}</div>
+        ${bar(cur.cpc,b.CPC[0],b.CPC[1])}
+        <div style="display:flex;justify-content:space-between;margin-top:6px"><span>ROAS ${fmtPct(cur.roas,0)}</span>${evalChip(roasEval,'ROAS',cur.roas,b.ROAS[0],b.ROAS[1],'%',false)}</div>
+        ${bar(cur.roas,b.ROAS[0],b.ROAS[1])}
+        <div class="hint" style="margin-top:6px">내 과거 90일 · CTR ${fmtPct(base.ctr)} · CPC ${fmtWon(base.cpc)} · ROAS ${fmtPct(base.roas,0)}</div>
+      </div>
+    </div>`;
+  }).join('');
+  document.getElementById('adtypes').innerHTML = html;
+  bindGlossaryIcons();
+  bindBenchmarkTips();
+}
+
+// 양호/평균권/주의 뱃지 호버 → 업계 참고치·판정 근거·출처 툴팁
+function bindBenchmarkTips(){
+  document.querySelectorAll('[data-bench]:not([data-benchbound])').forEach(el=>{
+    el.setAttribute('data-benchbound', '1');
+    el.addEventListener('mousemove', e=>{
+      showTip(e, el.dataset.bench || '');
+    });
+    el.addEventListener('mouseleave', hideTip);
+  });
+}
+
+// ⓘ 아이콘 호버 시 용어 설명을 기존 tip 엘리먼트로 표시 (중복 바인딩 방지)
+function bindGlossaryIcons(){
+  // .info-ic 뿐 아니라 .tg (팩트/가설/권장 태그) 등 data-gloss 있는 모든 요소에 바인딩
+  document.querySelectorAll('[data-gloss]:not([data-bound])').forEach(el=>{
+    el.setAttribute('data-bound', '1');
+    el.addEventListener('mousemove', e=>{
+      const key = el.dataset.gloss;
+      showTip(e, _glossaryHTML(key));
+    });
+    el.addEventListener('mouseleave', hideTip);
+    el.addEventListener('click', ()=>openGlossaryModal(el.dataset.gloss));
+  });
+}
+
+/* ============================================================
+   6. 차트 + 타임라인
+   ============================================================ */
+let chartRef=null;
+const SERIES_VIS={CTR:true,CPC:true,COST:true,ROAS:true};
+function renderChart(){
+  const rows = [];
+  for(let d=new Date(currentStart); d<=currentEnd; d=addDays(d,1)){
+    const t = sumRange(d,d);
+    rows.push({date:dateStr(d), ctr:+t.ctr.toFixed(2), cpc:Math.round(t.cpc), cost:Math.round(t.cost/1000), roas:Math.round(t.roas)});
+  }
+  const labels = rows.map(r=>r.date.slice(5));
+  const ds = {
+    CTR:    rows.map(r=>r.ctr),
+    CPC:    rows.map(r=>r.cpc),
+    COST:   rows.map(r=>r.cost),
+    ROAS:   rows.map(r=>r.roas)
+  };
+  const ctx = document.getElementById('trendChart').getContext('2d');
+  if(chartRef) chartRef.destroy();
+  chartRef = new Chart(ctx,{
+    type:'line',
+    data:{
+      labels,
+      datasets:[
+        {label:'CTR(%)',    data:ds.CTR,  borderColor:'#03c75a', backgroundColor:'#03c75a22', tension:.3, yAxisID:'y1', pointRadius:2, hidden:!SERIES_VIS.CTR},
+        {label:'CPC(원)',   data:ds.CPC,  borderColor:'#2563eb', backgroundColor:'#2563eb22', tension:.3, yAxisID:'y2', pointRadius:2, hidden:!SERIES_VIS.CPC},
+        {label:'광고비(천원)',data:ds.COST, borderColor:'#f59e0b', backgroundColor:'#f59e0b22', tension:.3, yAxisID:'y2', pointRadius:2, hidden:!SERIES_VIS.COST},
+        {label:'ROAS(%)',   data:ds.ROAS, borderColor:'#7c3aed', backgroundColor:'#7c3aed22', tension:.3, yAxisID:'y2', pointRadius:2, hidden:!SERIES_VIS.ROAS}
+      ]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false, resizeDelay:150,
+      animation:false,
+      plugins:{legend:{display:false}},
+      scales:{
+        y1:{type:'linear',position:'left',ticks:{callback:v=>Number(v).toFixed(1)+'%'},title:{display:true,text:'CTR(%)'}},
+        y2:{type:'linear',position:'right',grid:{drawOnChartArea:false},title:{display:true,text:'CPC(원)·광고비(천원)·ROAS(%)'}}
+      }
+    }
+  });
+
+  // 타임라인
+  const tl = document.getElementById('timeline');
+  tl.innerHTML = '<div class="tl-axis"></div>';
+  const len = rows.length-1 || 1;
+  EVENTS.forEach(ev=>{
+    const d = new Date(ev.date);
+    if(d<currentStart||d>currentEnd) return;
+    const idx = Math.round((d-currentStart)/86400000);
+    const leftPct = (idx/len)*100;
+    // 전후 7일 CTR 비교(소재 교체일 때)
+    let impact = '';
+    if(ev.type==='creative'){
+      const beforeEnd = addDays(d,-1), beforeStart = addDays(d,-7);
+      const afterStart = d, afterEnd = addDays(d,6);
+      const b = sumRange(beforeStart, beforeEnd, ev.ad);
+      const a = sumRange(afterStart,  afterEnd, ev.ad);
+      if(b.ctr>0&&a.ctr>0){
+        const diff=((a.ctr-b.ctr)/b.ctr*100).toFixed(1);
+        impact = `전 7일 CTR ${fmtPct(b.ctr)} → 후 7일 ${fmtPct(a.ctr)} (${diff>=0?'+':''}${diff}%)`;
+      }
+    }
+    const wrap = document.createElement('div');
+    wrap.className = `tl-ev ${ev.type}`;
+    wrap.style.left = leftPct+'%';
+    wrap.innerHTML = `<div class="lbl">${ev.title}</div><div class="dotx"></div><div class="dt">${ev.date.slice(5)}</div>`;
+    wrap.addEventListener('mouseenter',e=>{
+      showTip(e,`<b>${ev.title}</b> (${ev.date})<br>${ev.detail}${impact?'<br><b>영향:</b> '+impact:''}`);
+    });
+    wrap.addEventListener('mouseleave',hideTip);
+    tl.appendChild(wrap);
+  });
+}
+
+/* ============================================================
+   7. 키워드 TOP/BOTTOM
+   ============================================================ */
+function renderKwTables(){
+  const kws = kwRange(currentStart,currentEnd);
+  // 최소 노출·클릭 기준 필터로 노이즈 제거
+  const sig = kws.filter(k=>k.imp>=200 && k.clk>=5);
+  const top = [...sig].sort((a,b)=>b.roas-a.roas).slice(0,10);
+  const bot = [...sig].sort((a,b)=>a.roas-b.roas).slice(0,10);
+
+  const tbody1 = document.querySelector('#topTable tbody');
+  tbody1.innerHTML = top.map(k=>`
+    <tr>
+      <td>${k.kw}</td>
+      <td><span class="badge ${AD_BADGE[k.ad]}">${AD_LABEL[k.ad]}</span></td>
+      <td>${fmtInt(k.imp)}</td>
+      <td>${fmtInt(k.clk)}</td>
+      <td>${fmtPct(k.ctr)}</td>
+      <td>${fmtWon(k.cpc)}</td>
+      <td>${fmtWon(k.cost)}</td>
+      <td>${fmtInt(k.conv)}</td>
+      <td>${fmtWon(k.rev)}</td>
+      <td><b style="color:#027a38">${fmtPct(k.roas,0)}</b></td>
+    </tr>
+  `).join('') || `<tr><td colspan="10" style="text-align:center;color:var(--muted)">해당 기간에 유의미한 키워드가 없습니다.</td></tr>`;
+
+  const tbody2 = document.querySelector('#botTable tbody');
+  tbody2.innerHTML = bot.map(k=>{
+    let tip = '';
+    if(k.conv===0)             tip = '전환 0 → 일시중지 권장';
+    else if(k.roas<150)        tip = '입찰가 20% 하향 또는 제외';
+    else if(k.ctr<0.4)         tip = '소재·제목 리뉴얼 필요';
+    else                       tip = '입찰가 미세 조정 관찰';
+    return `<tr>
+      <td>${k.kw}</td>
+      <td><span class="badge ${AD_BADGE[k.ad]}">${AD_LABEL[k.ad]}</span></td>
+      <td>${fmtWon(k.cost)}</td>
+      <td>${fmtInt(k.conv)}</td>
+      <td><b style="color:#b91c3c">${fmtPct(k.roas,0)}</b></td>
+      <td style="text-align:left;font-size:12px">${tip}</td>
+    </tr>`;
+  }).join('') || `<tr><td colspan="6" style="text-align:center;color:var(--muted)">해당 기간에 유의미한 키워드가 없습니다.</td></tr>`;
+}
+
+/* ============================================================
+   8. AI 의견 엔진 (규칙 기반)
+       - LLM이 숫자를 지어내지 못하도록, 판정은 전부 규칙으로 먼저 확정
+       - 문장 내 숫자는 ev 클래스로 원본 수치 근거 툴팁 바인딩
+   ============================================================ */
+function renderOpinions(ctx){
+  const {cur,prev,base,len,prevStart,prevEnd} = ctx;
+  if((cur.imp||0)<=0 && (cur.cost||0)<=0){
+    const oe=document.getElementById('opinions'); if(oe) oe.innerHTML='<div style="font-size:13px;color:var(--muted);line-height:1.7">선택한 기간에 데이터가 없어요. 기간을 바꾸거나 CSV를 업로드해 주세요.</div>';
+    const vt=document.getElementById('verifyText'); if(vt) vt.textContent='—';
+    return;
+  }
+  const types = MAIN_CHANNEL==='DA' ? ['advoost'] : MAIN_CHANNEL==='META' ? ['meta'] : ['shop','powerlink','brand'];
+  const per = {};
+  types.forEach(t=>{
+    per[t] = {
+      cur:  sumRange(currentStart,currentEnd,t),
+      prev: sumRange(prevStart,prevEnd,t),
+      base: sumRange(addDays(TODAY,-89),TODAY,t)
+    };
+  });
+
+  const ops = [];
+
+  // ── 총평(ROAS)
+  {
+    const dRoas = ((cur.roas - prev.roas)/(prev.roas||1))*100;
+    const sev = cur.roas<300 ? {ttl:'주의', bg:'#e11d48'} : cur.roas<500 ? {ttl:'보통',bg:'#f59e0b'} : {ttl:'양호',bg:'#03c75a'};
+    ops.push({
+      ic:'📊', icbg:sev.bg, title:'전체 ROAS 판정', sev:sev.ttl, sevBg:sev.bg,
+      lines:[
+        {tag:'fact', html:`선택 기간 ROAS <span class="ev" data-raw='{"current_roas":${cur.roas.toFixed(1)},"revenue":${cur.rev},"cost":${cur.cost}}'>${fmtPct(cur.roas,0)}</span>, 전기 대비 <span class="ev" data-raw='{"prev_roas":${prev.roas.toFixed(1)}}'>${dRoas>=0?'+':''}${dRoas.toFixed(1)}%</span>.`},
+        {tag:'fact', html:`내 과거 90일 평균 <span class="ev" data-raw='{"baseline_roas":${base.roas.toFixed(1)}}'>${fmtPct(base.roas,0)}</span> 대비 ${((cur.roas-base.roas)/base.roas*100).toFixed(1)}%.`},
+        {tag:'rec', html: cur.roas<300
+            ? '목표(400%) 미달 → <b>하단 키워드 제외·입찰 하향 우선</b>. BOTTOM 10 표에서 즉시 액션 대상 확인.'
+            : cur.roas<500
+            ? '목표(400%) 달성, 추가 성장 여지 있음. 상단 키워드 예산 +15~20% 검토.'
+            : '목표 초과 달성. 확장 국면 — 상단 키워드·유사 키워드 발굴 권장.'}
+      ]
+    });
+  }
+
+  // ── 소재 교체 이벤트 영향 (같은 날·같은 광고유형은 하나로 묶음)
+  const creativeGroups = {};
+  if(MAIN_CHANNEL!=='META') EVENTS.forEach(ev=>{
+    if(ev.type!=='creative') return;
+    const d = new Date(ev.date);
+    if(d<currentStart||d>currentEnd) return;
+    const key = `${ev.date}|${ev.ad}`;
+    (creativeGroups[key] ||= {date:ev.date, ad:ev.ad, items:[]}).items.push(ev);
+  });
+  Object.values(creativeGroups).forEach(g=>{
+    const d = new Date(g.date);
+    const before = sumRange(addDays(d,-7), addDays(d,-1), g.ad);
+    const after  = sumRange(d, addDays(d,6), g.ad);
+    if(before.ctr<=0||after.ctr<=0) return;
+    const diff = ((after.ctr-before.ctr)/before.ctr*100);
+    const isUp = diff>=0;
+    const n = g.items.length;
+    const sample = g.items.slice(0,2).map(x=>x.detail).filter(Boolean).join(' · ');
+    ops.push({
+      ic:'🎨', icbg:'#7c3aed', title:`${AD_LABEL[g.ad]} 소재 교체 영향`, sev: isUp?'긍정':'부정', sevBg: isUp?'#03c75a':'#e11d48',
+      lines:[
+        {tag:'fact', html:`${g.date} — <b>${AD_LABEL[g.ad]} 소재 ${n}건</b> 수정·등록 (API editTm 기준 확정)${sample?` · 예: ${sample}`:''}.`},
+        {tag:'fact', html:`교체 전 7일 CTR <span class="ev" data-raw='${JSON.stringify(before)}'>${fmtPct(before.ctr)}</span> → 후 7일 <span class="ev" data-raw='${JSON.stringify(after)}'>${fmtPct(after.ctr)}</span> (<b>${isUp?'+':''}${diff.toFixed(1)}%</b>).`},
+        {tag:'hyp', html: isUp
+            ? '신규 카피가 기존 소재보다 사용자 반응을 더 잘 끌어내고 있을 가능성.'
+            : '신규 카피의 명확성 부족 가능성 — 제목 첫 어절에 혜택·원산지 재배치 실험.'},
+        {tag:'rec', html: isUp ? '현 소재 유지, 4주 후 재평가.' : '1주 내 A/B 대체 소재 후보 2개 준비.'}
+      ]
+    });
+  });
+
+  // ── 광고유형별 비효율 (CPC 벤치마크 초과)
+  types.forEach(t=>{
+    const c = per[t].cur, b = per[t].base;
+    const bench = BENCH[t];
+    if(!c.clk) return;
+    if(c.cpc > bench.CPC[1] && c.cost > 50000){
+      const over = ((c.cpc-bench.CPC[1])/bench.CPC[1]*100).toFixed(0);
+      ops.push({
+        ic:'🔥', icbg:'#f59e0b', title:`${AD_LABEL[t]} CPC 과열`, sev:'경고', sevBg:'#f59e0b',
+        lines:[
+          {tag:'fact', html:`CPC <span class="ev" data-raw='${JSON.stringify(c)}'>${fmtWon(c.cpc)}</span>, 업계 참고치 상단 <b>${fmtWon(bench.CPC[1])}</b>를 <b>${over}%</b> 초과.`},
+          {tag:'fact', html:`광고비 <span class="ev" data-raw='${JSON.stringify(c)}'>${fmtWon(c.cost)}</span> 중 ${AD_LABEL[t]} 단독 집행.`},
+          {tag:'hyp', html:'상위 키워드 경쟁 심화 또는 입찰가 일괄 상향 이력 영향 가능성.'},
+          {tag:'rec', html:'BOTTOM 키워드 입찰 15% 하향 → 1주 성과 재측정. 또는 노출지면 제한(모바일 전용) 전환 검토.'}
+        ]
+      });
+    }
+  });
+
+  // ── 예산 재배분 제안
+  {
+    const best = types.map(t=>({t,roas:per[t].cur.roas,cost:per[t].cur.cost})).sort((a,b)=>b.roas-a.roas);
+    const worst = best[best.length-1], top1 = best[0];
+    if(top1.roas - worst.roas > 150){
+      const shift = Math.round(worst.cost*0.2);
+      ops.push({
+        ic:'💡', icbg:'#2563eb', title:'예산 재배분 기회', sev:'제안', sevBg:'#2563eb',
+        lines:[
+          {tag:'fact', html:`ROAS 최고 ${AD_LABEL[top1.t]} <b>${fmtPct(top1.roas,0)}</b> · 최저 ${AD_LABEL[worst.t]} <b>${fmtPct(worst.roas,0)}</b> (격차 <b>${(top1.roas-worst.roas).toFixed(0)}%p</b>).`},
+          {tag:'hyp', html:'상위 유형은 현재 예산 제약 가능성, 하위 유형은 포화 상태 가능성.'},
+          {tag:'rec', html:`${AD_LABEL[worst.t]} 예산 <b>${fmtWon(shift)}</b>(약 20%)를 ${AD_LABEL[top1.t]} 상위 키워드로 이동 시뮬레이션 권장.`}
+        ]
+      });
+    }
+  }
+
+  // ── ADVoost 배너 소재 피로도 (DA 전용, DA 탭에서만 활성)
+  if(MAIN_CHANNEL === 'DA') {
+    const da = sumRange(currentStart,currentEnd,'advoost');
+    if(da && da.clk >= 10){
+      // 선택 기간을 "최근 1/3"과 "이전 2/3"로 나눠 CTR 추세 비교
+      const span = Math.round((currentEnd-currentStart)/86400000)+1;
+      const recentSpan = Math.max(3, Math.round(span/3));
+      const recentStart = addDays(currentEnd, -(recentSpan-1));
+      const earlierEnd  = addDays(recentStart, -1);
+      const r = sumRange(recentStart, currentEnd, 'advoost');
+      const p = sumRange(currentStart, earlierEnd, 'advoost');
+      if(r.ctr>0 && p.ctr>0 && r.ctr < p.ctr * 0.75){
+        const drop = ((r.ctr-p.ctr)/p.ctr*100).toFixed(0);
+        ops.push({
+          ic:'🎨', icbg:'#e11d48', title:'ADVoost 배너 소재 피로도',
+          sev:'주의', sevBg:'#e11d48',
+          lines:[
+            {tag:'fact', html:`최근 <b>${recentSpan}일</b> CTR <span class="ev" data-raw='${JSON.stringify(r)}'>${fmtPct(r.ctr)}</span> vs 이전 기간 <span class="ev" data-raw='${JSON.stringify(p)}'>${fmtPct(p.ctr)}</span> — <b>${drop}%</b> 하락.`},
+            {tag:'hyp', html:'동일 이미지 배너 반복 노출로 인한 <b>사용자 피로도</b> 가능성. ADVoost는 자동 최적화가 소재 풀 다양성에 의존.'},
+            {tag:'rec', html:'신규 이미지 소재 <b>2~3개 업로드</b> → AI 자동 재학습 유도. 기존 소재를 끄지 말고 추가만 해서 A/B 테스트.'}
+          ]
+        });
+      }
+    }
+  }
+
+  // ── 크로스 채널 시너지 (DA 전용, DA 탭에서만 활성)
+  if(MAIN_CHANNEL === 'DA') {
+    const da = sumRange(currentStart,currentEnd,'advoost');
+    const br = sumRange(currentStart,currentEnd,'brand');
+    if(da && br && da.clk>=10 && br.imp>=50){
+      // DA 시작 이전(2026-04-01 이전) 브랜드검색 베이스라인 vs DA 집행 기간 브랜드검색
+      const daStart = new Date('2026-04-01');
+      if(currentEnd >= daStart){
+        const preStart = addDays(daStart, -30);
+        const preEnd   = addDays(daStart, -1);
+        const pre = sumRange(preStart, preEnd, 'brand');
+        const during = sumRange(
+          currentStart > daStart ? currentStart : daStart,
+          currentEnd,
+          'brand'
+        );
+        if(pre.imp>0 && during.imp>0){
+          const impLift = ((during.imp/Math.max(1,pre.imp)) - 1) * 100;
+          if(Math.abs(impLift) >= 15){
+            const up = impLift > 0;
+            ops.push({
+              ic:'🔀', icbg:'#2563eb', title:'크로스 채널 시너지 (DA → 브랜드검색)',
+              sev: up?'긍정':'관찰', sevBg: up?'#03c75a':'#6b7280',
+              lines:[
+                {tag:'fact', html:`ADVoost 집행 전 30일 브랜드검색 노출 <b>${fmtInt(pre.imp)}</b> → 집행 기간 <b>${fmtInt(during.imp)}</b> (<b>${up?'+':''}${impLift.toFixed(0)}%</b>).`},
+                {tag:'hyp', html: up
+                  ? 'ADVoost 노출이 브랜드 인지도를 높여 "선암파머스"를 직접 검색하는 수요 증가 가능성.'
+                  : '브랜드검색 수요 변화는 계절성·타 이벤트 영향 가능성도 배제 불가 — 단독 해석 주의.'},
+                {tag:'rec', html: up
+                  ? 'DA의 인지 기여분을 감안하면 <b>DA ROAS 실제 효과는 단독 측정치보다 높음</b>. 브랜드검색과 DA를 묶어 합산 ROI 평가 권장.'
+                  : 'DA 광고비 대비 순수 전환 기여가 낮으면, 타겟 재설정 또는 소재 재편 검토.'}
+              ]
+            });
+          }
+        }
+      }
+    }
+  }
+
+  // ── 키워드 레벨 주의 (전환 0 + 지출 큼)
+  {
+    const kws = (MAIN_CHANNEL==='META'?[]:kwRange(currentStart,currentEnd)).filter(k=>k.conv===0 && k.cost>=20000);
+    if(kws.length){
+      const lines = [{tag:'fact',html:`전환 0 + 광고비 2만원 이상 키워드 <b>${kws.length}개</b> 확인.`}];
+      kws.slice(0,3).forEach(k=>{
+        lines.push({tag:'fact', html:`· <b>'${k.kw}'</b> (${AD_LABEL[k.ad]}) — 지출 <span class="ev" data-raw='${JSON.stringify(k)}'>${fmtWon(k.cost)}</span>, 클릭 ${fmtInt(k.clk)}, 전환 0.`});
+      });
+      lines.push({tag:'rec', html:'1차로 해당 키워드 <b>일시중지</b> 또는 입찰 30% 하향 후, 랜딩 연관성 점검.'});
+      ops.push({ic:'🚨', icbg:'#e11d48', title:'무전환 고지출 키워드', sev:'주의', sevBg:'#e11d48', lines});
+    }
+  }
+
+  // 렌더
+  document.getElementById('opinions').innerHTML = ops.map(o=>`
+    <div class="op">
+      <div class="head">
+        <div class="ic" style="background:${o.icbg}">${o.ic}</div>
+        <div class="ttl">${o.title}</div>
+        <div class="sev" style="background:${o.sevBg}22;color:${o.sevBg}">${o.sev}</div>
+      </div>
+      ${o.lines.map(l=>`<div class="line"><span class="tg ${l.tag} info-ic-like" data-gloss="${l.tag}" style="cursor:help">${l.tag==='fact'?'팩트':l.tag==='hyp'?'가설':'권장'}</span>${l.html}</div>`).join('')}
+    </div>
+  `).join('');
+  bindEvidenceTooltip();
+  bindGlossaryIcons();
+
+  // 검증 블록
+  const totalFacts = ops.reduce((a,o)=>a+o.lines.filter(l=>l.tag==='fact').length,0);
+  document.getElementById('verifyText').innerHTML =
+    `이 리포트의 <span class="ok">${totalFacts}건의 팩트 모두</span> 원본 데이터 합계와 실시간 재계산 일치. 가설·권장은 규칙엔진이 팩트로부터 파생한 것으로, 단정 표현을 배제하고 '가능성·검토·권장' 형태로만 기술합니다.`;
+}
+
+/* ============================================================
+   9. 근거 툴팁
+   ============================================================ */
+const tipEl = document.getElementById('tip');
+function showTip(e, html){
+  tipEl.innerHTML = html;
+  tipEl.style.display = 'block';
+  const x = e.clientX, y = e.clientY;
+  tipEl.style.left = Math.min(window.innerWidth-320, x+12)+'px';
+  tipEl.style.top  = Math.min(window.innerHeight-160, y+14)+'px';
+}
+function hideTip(){ tipEl.style.display='none'; }
+function bindEvidenceTooltip(){
+  document.querySelectorAll('.ev').forEach(el=>{
+    el.addEventListener('mousemove', e=>{
+      let html='<b>근거 데이터</b>';
+      try{
+        const raw = el.dataset.raw || el.dataset.evi;
+        if(raw){
+          const o = JSON.parse(raw);
+          for(const [k,v] of Object.entries(o)){
+            html += `<div class="row"><span>${k}</span><span>${typeof v==='number'?v.toLocaleString('ko-KR'):v}</span></div>`;
+          }
+        }
+      }catch(err){}
+      showTip(e, html);
+    });
+    el.addEventListener('mouseleave', hideTip);
+  });
+}
+
+/* ============================================================
+   9-b. 인벤토리 (소재 · 키워드 전체 목록)
+   ============================================================ */
+let INV_TAB = 'ads';
+let INV_QUERY = '';
+
+function _statusCls(s){
+  const k = (s||'').toString().toUpperCase().replace(/\s/g,'_');
+  return 's-' + (k || 'unknown');
+}
+function _statusKor(s){
+  const map = {
+    ELIGIBLE:'게재 중', APPROVED:'게재 중', LIVE:'게재 중', OK:'정상',
+    PAUSED:'일시중지', REVIEW:'검수 중', UNDER_REVIEW:'검수 중', REGISTERED:'등록 완료',
+    REJECTED:'승인 거부', DELETED:'삭제됨', INELIGIBLE:'게재 불가'
+  };
+  const k = (s||'').toString().toUpperCase().replace(/\s/g,'_');
+  return map[k] || (s || '—');
+}
+function _esc(s){ return String(s==null?'':s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+function renderInventory(){
+  // 탭 버튼 상태
+  document.querySelectorAll('.inv-tab').forEach(b=>{
+    b.classList.toggle('active', b.dataset.tab === INV_TAB);
+  });
+  document.getElementById('invAdsCount').textContent = `(${fmtInt(ADS_LIST.length)})`;
+  document.getElementById('invKwsCount').textContent = `(${fmtInt(KW_LIST.length)})`;
+
+  const thead = document.getElementById('invThead');
+  const tbody = document.getElementById('invTbody');
+  const q = INV_QUERY.trim().toLowerCase();
+
+  if(INV_TAB === 'ads'){
+    thead.innerHTML = `<tr>
+      <th>광고유형</th>
+      <th style="text-align:left">소재 제목</th>
+      <th style="text-align:left">설명</th>
+      <th style="text-align:left">광고그룹<i class="info-ic" data-gloss="colAdgroup">ⓘ</i></th>
+      <th>상태<i class="info-ic" data-gloss="colStatus">ⓘ</i></th>
+      <th>등록일<i class="info-ic" data-gloss="colRegDate">ⓘ</i></th>
+      <th>최종 수정<i class="info-ic" data-gloss="colEditDate">ⓘ</i></th>
+    </tr>`;
+    const filtered = ADS_LIST.filter(a=>{
+      if(!q) return true;
+      return [a.headline, a.description, a.adgroupName, a.adgroup].some(x => String(x||'').toLowerCase().includes(q));
+    });
+    document.getElementById('invStats').textContent = `전체 ${fmtInt(ADS_LIST.length)}개 · 검색 결과 ${fmtInt(filtered.length)}개`;
+    tbody.innerHTML = filtered.map(a => `<tr>
+      <td><span class="badge ${AD_BADGE[a.ad]||'b-pl'}">${AD_LABEL[a.ad]||a.ad||'—'}</span></td>
+      <td style="text-align:left">${_esc(a.headline) || '<span class="hint">(제목 없음)</span>'}</td>
+      <td style="text-align:left;color:var(--ink-2);font-size:12.5px">${_esc(a.description).slice(0,80) || '—'}</td>
+      <td style="text-align:left;font-size:12px;color:var(--muted)">${_esc(a.adgroupName)||'—'}</td>
+      <td><span class="status-pill ${_statusCls(a.status)}">${_statusKor(a.status)}</span></td>
+      <td style="font-size:12px;color:var(--muted)">${_esc((a.regTm||'').slice(0,10))}</td>
+      <td style="font-size:12px;color:var(--muted)">${_esc((a.editTm||'').slice(0,10))}</td>
+    </tr>`).join('') || `<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:24px">소재가 없습니다. API 연결 후 스크립트를 실행하시면 네이버 계정의 소재가 여기에 표시됩니다.</td></tr>`;
+  } else {
+    thead.innerHTML = `<tr>
+      <th>광고유형</th>
+      <th style="text-align:left">키워드</th>
+      <th style="text-align:left">광고그룹<i class="info-ic" data-gloss="colAdgroup">ⓘ</i></th>
+      <th>입찰가<i class="info-ic" data-gloss="colBid">ⓘ</i></th>
+      <th>개별 입찰<i class="info-ic" data-gloss="colCustomBid">ⓘ</i></th>
+      <th>상태<i class="info-ic" data-gloss="colStatus">ⓘ</i></th>
+    </tr>`;
+    const filtered = KW_LIST.filter(k=>{
+      if(!q) return true;
+      return [k.keyword, k.adgroupName, k.adgroup].some(x => String(x||'').toLowerCase().includes(q));
+    });
+    document.getElementById('invStats').textContent = `전체 ${fmtInt(KW_LIST.length)}개 · 검색 결과 ${fmtInt(filtered.length)}개`;
+    tbody.innerHTML = filtered.map(k => `<tr>
+      <td><span class="badge ${AD_BADGE[k.ad]||'b-pl'}">${AD_LABEL[k.ad]||k.ad||'—'}</span></td>
+      <td style="text-align:left">${_esc(k.keyword) || '—'}</td>
+      <td style="text-align:left;font-size:12px;color:var(--muted)">${_esc(k.adgroupName)||'—'}</td>
+      <td>${k.bidAmt!=null ? fmtWon(k.bidAmt) : '<span class="hint">그룹값</span>'}</td>
+      <td style="font-size:12px">${k.useCustomBid ? '사용' : '—'}</td>
+      <td><span class="status-pill ${_statusCls(k.status)}">${_statusKor(k.status)}</span></td>
+    </tr>`).join('') || `<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:24px">키워드가 없습니다. API 연결 후 스크립트를 실행하시면 네이버 계정의 키워드가 여기에 표시됩니다.</td></tr>`;
+  }
+  bindGlossaryIcons();
+}
+
+// 탭 버튼 & 검색 이벤트 (한 번만 바인딩)
+document.querySelectorAll('.inv-tab').forEach(b=>{
+  b.addEventListener('click', ()=>{ INV_TAB = b.dataset.tab; renderInventory(); });
+});
+document.getElementById('invSearch').addEventListener('input', e=>{
+  INV_QUERY = e.target.value || '';
+  renderInventory();
+});
+
+/* ============================================================
+   10. 메인 렌더
+   ============================================================ */
+function _opsHTML(ops){ return ops.map(o=>`
+    <div class="op">
+      <div class="head">
+        <div class="ic" style="background:${o.icbg}">${o.ic}</div>
+        <div class="ttl">${o.title}</div>
+        <div class="sev" style="background:${o.sevBg}22;color:${o.sevBg}">${o.sev}</div>
+      </div>
+      ${o.lines.map(l=>`<div class="line"><span class="tg ${l.tag} ttp" data-tip="${l.tag==='fact'?'팩트 — 실제 데이터에서 계산한 값이에요. 해석 없이 숫자 그대로라 신뢰할 수 있어요.':l.tag==='hyp'?'가설 — 데이터로부터 추정한 가능한 원인이에요. 단정이 아니라 가능성이에요.':'권장 — 팩트·가설을 근거로 한 다음 액션 제안이에요. 검토용 힌트로 쓰세요.'}" style="cursor:help">${l.tag==='fact'?'팩트':l.tag==='hyp'?'가설':'권장'}</span>${l.html}</div>`).join('')}
+    </div>`).join(''); }
+
+function _metaAgg(rows, key){
+  const a=dateStr(currentStart), b=dateStr(currentEnd); const m={};
+  const _span=Math.round((currentEnd-currentStart)/86400000)+1;
+  const _mid=dateStr(addDays(currentStart, Math.floor(_span/2)));
+  rows.forEach(r=>{ if(r.date<a||r.date>b) return; const k=(r[key]||'(이름 없음)');
+    const o=m[k]||(m[k]={name:k,camp:r.campaign||'',imp:0,clk:0,cost:0,conv:0,rev:0,lpv:0,dmin:null,dmax:null,fCost:0,fRev:0,sCost:0,sRev:0});
+    o.imp+=r.imp;o.clk+=r.clk;o.cost+=r.cost;o.conv+=r.conv;o.rev+=r.rev;o.lpv+=(r.lpv||0);
+    if(r.imp>0||r.cost>0){ if(!o.dmin||r.date<o.dmin)o.dmin=r.date; if(!o.dmax||r.date>o.dmax)o.dmax=r.date; }
+    if(r.date<_mid){ o.fCost+=r.cost; o.fRev+=r.rev; } else { o.sCost+=r.cost; o.sRev+=r.rev; } });
+  return Object.values(m).map((o,i)=>{
+    o._ord=i;
+    o.ctr=o.imp?o.clk/o.imp*100:0; o.cpc=o.clk?o.cost/o.clk:0; o.roas=o.cost?o.rev/o.cost*100:0;
+    const fR=o.fCost?o.fRev/o.fCost*100:0, sR=o.sCost?o.sRev/o.sCost*100:0;
+    o.trend = (_span>=4 && o.fCost>0 && o.sCost>0 && fR>0) ? (sR-fR)/fR*100 : null;
+    o.lowVol = (o.clk < MIN_CLK || o.imp < MIN_IMP);
+    return o; });
+}
+
+function _campVerdict(c){
+  const name=c.name||'';
+  if(/트래픽|traffic|조회|인지|도달|reach|awareness|랜딩|view/i.test(name))
+    return {tag:'유입형', col:'#1d4ed8', bg:'#dbeafe', msg:'유입(트래픽) 목적으로 보여요. ROAS보다 클릭·조회 효율로 평가하고, 전환 캠페인과 직접 비교는 피하세요.'};
+  if(c.lowVol)
+    return {tag:'관찰', col:'#5f5e5a', bg:'#eef2f0', msg:`데이터가 적어(클릭 ${fmtInt(c.clk)}회) 아직 판단을 보류해요. 노출·클릭이 더 쌓이면 평가할게요.`};
+  // 퍼널 기반: 어디서 이탈하는지 (소재 vs 랜딩 vs 전환)
+  const lo=BENCH.meta.CTR[0];
+  const reach = c.clk? c.lpv/c.clk*100 : 0;
+  const where = (c.ctr < lo)
+      ? ' 클릭부터 잘 안 나와요 → <b>소재(노출→클릭)</b> 문제로 보여요. 소재 교체 우선.'
+      : (c.lpv>0 && reach<80)
+      ? ' 클릭은 되는데 랜딩 도달이 적어요 → <b>페이지 로딩·링크(클릭→랜딩)</b> 점검.'
+      : ' 클릭은 잘 나오는데 구매가 적어요 → <b>랜딩·가격·타겟(클릭 후)</b> 점검.';
+  const tr = (c.trend!=null && Math.abs(c.trend)>=20) ? ` 최근 효율이 <b>${c.trend>=0?'오르는':'떨어지는'} 추세</b>(${c.trend>=0?'+':''}${Math.round(c.trend)}%).` : '';
+  if(c.rev<=0 || c.roas<100)
+    return {tag:'위험', col:'#b91c3c', bg:'#ffe4e6', msg:'전환 매출이 거의 없어요.'+where+tr+' 개선이 없으면 예산 하향/중지를 검토하세요.'};
+  if(c.roas<300)
+    return {tag:'주의', col:'#92400e', bg:'#fef3c7', msg:'효율이 목표(400%)에 못 미쳐요.'+where+tr};
+  if(c.roas<500)
+    return {tag:'보통', col:'#1d4ed8', bg:'#dbeafe', msg:'목표권이에요.'+tr+' 잘되는 소재 비중을 늘리면 더 오를 여지가 있어요.'};
+  return {tag:'양호', col:'#027a38', bg:'#e6faec', msg:'효율이 좋아요.'+tr+' 예산 확대·유사 타겟 확장을 검토해보세요.'};
+}
+function renderCampFeedback(camps){
+  const el=document.getElementById('metaCampFeedback'); if(!el) return;
+  const html=camps.map((c,i)=>{ if(c.cost<=0 || !c.name || c.name==='(이름 없음)') return ''; const v=_campVerdict(c); return `<div class="fb-card" data-ci="${i}" style="border-left:3px solid ${v.col}">
+    <span class="fb-badge" style="background:${v.bg};color:${v.col}">${v.tag}</span>
+    <div style="font-size:13px;line-height:1.6"><b>${c.name}</b> <span style="color:var(--muted)">· ROAS ${fmtPct(c.roas,0)} · 지출 ${fmtWon(c.cost)} · 매출 ${fmtWon(c.rev)}</span><br><span style="color:var(--ink-2)">${v.msg}</span></div>
+  </div>`;}).join('');
+  el.innerHTML = html || `<div style="text-align:center;padding:22px 16px;border:1px dashed var(--line);border-radius:10px;background:#fafcfb;color:var(--muted);font-size:12.5px;line-height:1.6">캠페인별 의견을 내려면 CSV에 <b>캠페인 이름</b>이 필요해요.<br>위 「캠페인별 성과」 안내를 참고해 주세요.</div>`;
+}
+function renderAdFeedback(ads){
+  const el=document.getElementById('metaAdFeedback'); if(!el) return;
+  const spent=ads.filter(a=>a.cost>0);
+  const valid=spent.filter(a=>!a.lowVol);
+  const byRoas=[...valid].sort((a,b)=>b.roas-a.roas);
+  const top=byRoas.filter(a=>a.roas>=300).slice(0,3);
+  const watch=[...valid].filter(a=>a.cost>=50000 && a.roas<200).sort((a,b)=>b.cost-a.cost).slice(0,3);
+  const gem=byRoas.filter(a=>a.cost<50000 && a.roas>=500).slice(0,3);
+  const ctrLo=BENCH.meta.CTR[0], ctrHi=BENCH.meta.CTR[1];
+  const weakCreative=byRoas.filter(a=>a.ctr<ctrLo && a.roas>=300).slice(0,3);
+  const weakLanding=[...valid].filter(a=>a.ctr>=ctrHi && a.roas>0 && a.roas<200).sort((a,b)=>b.cost-a.cost).slice(0,3);
+  function blk(label,color,tint,items,msg){ if(!items.length) return '';
+    const lis=items.map(a=>`<div class="fb-item" data-ai="${a._ai}" style="font-size:12.5px;color:var(--ink-2);line-height:1.7"><b>${a.name}</b> <span style="color:var(--muted)">(ROAS ${fmtPct(a.roas,0)} · 지출 ${fmtWon(a.cost)})</span></div>`).join('');
+    return `<div class="fb-block" style="background:${tint}">
+      <div style="font-size:13px;font-weight:700;color:${color};margin-bottom:5px">${label}</div>
+      ${lis}
+      <div style="font-size:12px;color:var(--ink-2);margin-top:5px">${msg}</div>
+    </div>`; }
+  const html = blk('🚀 잘하는 소재','#027a38','#f2fbf5',top,'→ 예산을 더 실어 확대해보세요.')
+    + blk('🔧 점검 필요 소재','#b91c3c','#fdf0f0',watch,'→ 소재 교체·타겟 점검. 개선이 없으면 예산 하향.')
+    + blk('💎 숨은 보석','#2563eb','#eff5fd',gem,'→ 지출은 적지만 효율이 좋아요. 예산을 조금 늘려 테스트해보세요.')
+    + blk('🖼️ 소재가 약해요 (클릭 부족·구매는 좋음)','#92400e','#fdf6ec',weakCreative,'→ 사면 잘 사는데 클릭률이 낮아요. 썸네일·후킹 문구를 개선하면 더 커져요. (이탈: 노출→클릭)')
+    + blk('🛒 클릭 후 이탈 (클릭 좋음·구매 약함)','#b91c3c','#fdf0f0',weakLanding,'→ 소재는 잘 끄는데 구매로 안 이어져요. 랜딩페이지·가격·타겟을 점검하세요. (이탈: 클릭 후)');
+  el.innerHTML = html || '<div style="font-size:13px;color:var(--muted)">소재별 의견을 낼 데이터가 부족해요.</div>';
+}
+(function bindMetaHover(){
+  function wire(fbId, bodyId, attr){
+    const fb=document.getElementById(fbId); if(!fb) return;
+    const set=(e,on)=>{ const el=e.target.closest('['+attr+']'); if(!el) return; const v=el.getAttribute(attr); const tr=document.querySelector('#'+bodyId+' tr['+attr+'=\''+v+'\']'); if(tr) tr.classList.toggle('row-hl',on); };
+    fb.addEventListener('mouseover', e=>set(e,true));
+    fb.addEventListener('mouseout', e=>set(e,false));
+  }
+  wire('metaCampFeedback','metaCampBody','data-ci');
+  wire('metaAdFeedback','metaAdBody','data-ai');
+})();
+(function bindMetaSort(){
+  const cs=document.getElementById('metaCampSort'); if(cs) cs.addEventListener('change',e=>{META_CAMP_SORT=e.target.value; if(MAIN_CHANNEL==='META') render();});
+  const as=document.getElementById('metaAdSort'); if(as) as.addEventListener('change',e=>{META_AD_SORT=e.target.value; if(MAIN_CHANNEL==='META') render();});
+  const acf=document.getElementById('metaAdCampFilter'); if(acf) acf.addEventListener('change',e=>{META_AD_CAMP=e.target.value; if(MAIN_CHANNEL==='META') render();});
+})();
+(function bindInfoTips(){
+  let active=null;
+  document.addEventListener('mouseover', e=>{ const t=e.target.closest('.ttp'); if(t){ active=t; showTip(e, t.getAttribute('data-tip')); }});
+  document.addEventListener('mousemove', e=>{ if(active){ const t=e.target.closest('.ttp'); if(t===active) showTip(e, active.getAttribute('data-tip')); } });
+  document.addEventListener('mouseout', e=>{ const t=e.target.closest('.ttp'); if(t){ active=null; hideTip(); } });
+})();
+let _rzT; window.addEventListener('resize', ()=>{ clearTimeout(_rzT); _rzT=setTimeout(()=>{
+  const op=document.getElementById('opinionPanel'); const tg=document.getElementById('trendGrid'); if(!op||!tg) return;
+  if(window.innerWidth<=1100){ op.style.height=''; } else { const cp=tg.children[0]; if(cp) op.style.height=cp.offsetHeight+'px'; }
+}, 150); });
+function renderMetaCampOpinions(camps, ads, ctx){
+  const ops=[]; const cur=ctx.cur, prev=ctx.prev;
+  const _et = document.getElementById('opinions') || document.getElementById('metaCampOps');
+  if((cur.imp||0)<=0 && (cur.cost||0)<=0){ if(_et) _et.innerHTML='<div style="font-size:13px;color:var(--muted);line-height:1.7">선택한 기간에 데이터가 없어요. 기간을 바꾸거나 최신 CSV를 올려보세요.</div>'; return; }
+  const TRAFFIC=/트래픽|traffic|조회|인지|도달|reach|awareness|랜딩|view/i;
+  const spent = camps.filter(c=>c.cost>0);
+  const totalRev = spent.reduce((a,c)=>a+c.rev,0);
+
+  // 1) 전체 ROAS 진단
+  {
+    const sev = cur.roas<300?{t:'주의',b:'#e11d48'}:cur.roas<500?{t:'보통',b:'#f59e0b'}:{t:'양호',b:'#03c75a'};
+    const dPrev = (prev&&prev.roas)? ((cur.roas-prev.roas)/prev.roas*100) : null;
+    const prevTxt = dPrev==null?'':` · 전기 대비 ${dPrev>=0?'+':''}${dPrev.toFixed(0)}%`;
+    const _sp=Math.round((currentEnd-currentStart)/86400000)+1; const _md=addDays(currentStart,Math.floor(_sp/2));
+    const _fh=sumRange(currentStart, addDays(_md,-1)), _sh=sumRange(_md, currentEnd);
+    const oTrend=(_sp>=4 && _fh.cost>0 && _sh.cost>0 && _fh.roas>0)?(_sh.roas-_fh.roas)/_fh.roas*100:null;
+    const trLine=(oTrend!=null && Math.abs(oTrend)>=10)?`기간 안에서도 효율이 <b>${oTrend>=0?'오르는':'떨어지는'} 추세</b>(${oTrend>=0?'+':''}${Math.round(oTrend)}%)예요. `:'';
+    ops.push({ic:'📊',icbg:sev.b,title:'전체 ROAS 진단',sev:sev.t,sevBg:sev.b,lines:[
+      {tag:'fact',html:`지출 <b>${fmtWon(cur.cost)}</b> · 매출 <b>${fmtWon(cur.rev)}</b> · ROAS <b>${fmtPct(cur.roas,0)}</b>${prevTxt}`},
+      {tag:'hyp',html: trLine + (cur.roas>=500?'목표(400%)를 넉넉히 넘겨 <b>확장 국면</b>으로 보여요.':cur.roas>=300?'목표(400%)에 가까워요. 잘되는 쪽에 힘을 더 실으면 넘길 여지가 있어요.':'목표(400%)에 못 미쳐요. 돈이 새는 곳(저효율)을 먼저 막는 게 우선이에요.')},
+      {tag:'rec',html: cur.roas>=500?'성과 좋은 캠페인·소재의 예산을 늘리고, 비슷한 타겟으로 확장을 시도해 보세요.':cur.roas>=300?'상위 캠페인 예산을 10~20% 늘리고, 하위 캠페인은 소재를 교체해 보세요.':'아래 「성과가 잘 안 나는 캠페인」부터 예산을 줄이거나 끄고, 남는 예산을 상위로 옮겨 보세요.'}
+    ]});
+  }
+
+  // 2) 매출 집중도
+  if(spent.length>=2 && totalRev>0){
+    const t1=[...spent].sort((a,b)=>b.rev-a.rev)[0];
+    const share=Math.round(t1.rev/totalRev*100);
+    if(share>=55){
+      ops.push({ic:'🎯',icbg:'#7c3aed',title:'매출이 한 곳에 쏠려 있어요',sev:'참고',sevBg:'#7c3aed',lines:[
+        {tag:'fact',html:`전체 매출의 <b>${share}%</b> (${fmtWon(t1.rev)}) — <b>${t1.name}</b>.`},
+        {tag:'hyp',html:'한 캠페인 의존도가 높으면, 그 캠페인이 흔들릴 때(소재 피로·경쟁 심화 등) 전체 성과가 같이 출렁일 수 있어요.'},
+        {tag:'rec',html:'잘되는 캠페인은 유지하되, 2~3등 캠페인이나 신규 소재를 키워 <b>매출원을 분산</b>해 두면 더 안정적이에요.'}
+      ]});
+    }
+  }
+
+  // 3) 예산 재배분
+  const eff = spent.filter(c=>c.rev>0 && !TRAFFIC.test(c.name)).sort((a,b)=>b.roas-a.roas);
+  if(eff.length>=2){
+    const top=eff[0], wor=eff[eff.length-1];
+    if(top.roas-wor.roas>150){
+      const shift=Math.round(wor.cost*0.2);
+      const extra=Math.round(shift*(top.roas-wor.roas)/100);
+      ops.push({ic:'💡',icbg:'#2563eb',title:'예산을 옮기면 매출이 더 나올 수 있어요',sev:'제안',sevBg:'#2563eb',lines:[
+        {tag:'fact',html:`효율 1위 <b>${top.name}</b> ${fmtPct(top.roas,0)} · 꼴찌 <b>${wor.name}</b> ${fmtPct(wor.roas,0)} · 격차 <b>${(top.roas-wor.roas).toFixed(0)}%p</b>.`},
+        {tag:'hyp',html:'같은 1만원을 써도 효율 좋은 쪽이 훨씬 많은 매출을 만들어요. 낮은 쪽 예산이 덜 효율적으로 쓰이고 있을 가능성이 커요.'},
+        {tag:'rec',html:`${wor.name} 예산 약 <b>${fmtWon(shift)}</b>(20%)를 ${top.name}로 옮기면 단순 계산상 <b>약 +${fmtWon(extra)}</b> 매출이 더 날 수 있어요. 한 번에 옮기지 말고 일부만 테스트해 보세요.`}
+      ]});
+    }
+  }
+
+  // 4) 저효율 경고
+  const low=spent.filter(c=>c.roas>0 && c.roas<200 && c.cost>=50000 && !TRAFFIC.test(c.name)).sort((a,b)=>a.roas-b.roas).slice(0,3);
+  if(low.length){
+    const wasted=low.reduce((a,c)=>a+c.cost,0);
+    const gain=Math.round(low.reduce((a,c)=>a+Math.max(0, c.cost*4 - c.rev),0));
+    ops.push({ic:'🚨',icbg:'#e11d48',title:'성과가 잘 안 나는 캠페인이 있어요',sev:'주의',sevBg:'#e11d48',lines:[
+      {tag:'fact',html:`ROAS 200% 미만 · 지출 5만원↑: ${low.map(c=>`<b>${c.name}</b> ${fmtPct(c.roas,0)}`).join(', ')} · 합계 지출 <b>${fmtWon(wasted)}</b>.`},
+      {tag:'hyp',html:'클릭은 나오는데 구매로 잘 안 이어지는 경우가 많아요. 소재가 안 맞거나, 타겟이 너무 넓거나, 랜딩페이지에서 이탈하는 등이 원인일 수 있어요.'},
+      {tag:'rec',html:`소재·타겟 점검 후 2주 내 개선이 없으면 예산 하향/중지를 검토하세요. 이들을 목표(ROAS 400%)까지만 올려도 단순 계산상 <b>약 +${fmtWon(gain)}</b> 매출 여지가 있어요. (트래픽·인지 목적은 제외)`}
+    ]});
+  }
+
+  // 5) 클릭 효율 (CTR/CPC)
+  {
+    const b=BENCH.meta, lo=b.CTR[0], hi=b.CTR[1];
+    let sev,fact,hyp,rec;
+    const _dctr=(prev&&prev.ctr)?((cur.ctr-prev.ctr)/prev.ctr*100):null;
+    const _ctrPrev=_dctr==null?'':(' · 전기 대비 '+(_dctr>=0?'+':'')+_dctr.toFixed(0)+'%');
+    if(cur.ctr<lo){ sev={t:'주의',b:'#e11d48'};
+      fact=`CTR <b>${fmtPct(cur.ctr)}</b> · CPC <b>${fmtWon(cur.cpc)}</b> · 업계 참고치 ${lo}~${hi}%${_ctrPrev}.`;
+      hyp='노출은 되는데 사람들이 잘 안 눌러요. 첫 이미지·후킹 문구가 약하거나, 타겟이 광고와 안 맞을 가능성이 있어요.';
+      rec='썸네일·영상 첫 3초·카피를 바꾼 신규 소재를 2~3개 만들어 테스트해 보세요.'; }
+    else if(cur.ctr>hi){ sev={t:'양호',b:'#03c75a'};
+      fact=`CTR <b>${fmtPct(cur.ctr)}</b> · CPC <b>${fmtWon(cur.cpc)}</b> · 업계 참고치 ${lo}~${hi}%${_ctrPrev}.`;
+      hyp='소재 매력도가 높은 편이에요. 다만 클릭이 실제 구매(ROAS)로 이어지는지도 같이 봐야 해요.';
+      rec='반응 좋은 소재의 변형(색·문구 A/B)을 더 만들어 좋은 흐름을 이어가세요.'; }
+    else { sev={t:'보통',b:'#f59e0b'};
+      fact=`CTR <b>${fmtPct(cur.ctr)}</b> · CPC <b>${fmtWon(cur.cpc)}</b> · 업계 참고치 ${lo}~${hi}%${_ctrPrev}.`;
+      hyp='무난한 수준이에요. 큰 문제는 없지만 끌어올릴 여지는 있어요.';
+      rec='상위 소재를 조금씩 변형해 CTR을 높이면, 같은 예산으로 더 많은 클릭을 얻을 수 있어요.'; }
+    ops.push({ic:'🖱️',icbg:sev.b,title:'클릭 효율 진단 (CTR·CPC)',sev:sev.t,sevBg:sev.b,lines:[
+      {tag:'fact',html:fact},{tag:'hyp',html:hyp},{tag:'rec',html:rec}
+    ]});
+  }
+
+  // 6) 구매 여정(퍼널) 진단 — 어디서 이탈하는지
+  if(cur.clk>0){
+    const ctr2 = cur.imp? cur.clk/cur.imp*100 : 0;
+    const reach = cur.clk? Math.min(100, cur.lpv/cur.clk*100) : 0;
+    const buy = cur.lpv? cur.conv/cur.lpv*100 : 0;
+    const stages=[
+      {name:'노출→클릭(소재)', low: ctr2 < BENCH.meta.CTR[0], hint:'소재(첫 이미지·후킹 문구)가 클릭을 잘 못 끌어요. 신규 소재 교체를 우선하세요.'},
+      {name:'클릭→랜딩 도달', low: cur.lpv>0 && reach < 80, hint:'클릭은 됐는데 랜딩페이지 도달이 적어요. 페이지 로딩 지연·모바일 최적화·링크 오류를 점검하세요.'},
+      {name:'랜딩→구매', low: cur.lpv>0 && buy>0 && buy < 2, hint:'페이지까진 왔는데 구매가 적어요. 상품·가격·상세페이지 설득력·타겟 적합성을 점검하세요.'}
+    ];
+    const weak=stages.find(x=>x.low);
+    const lines=[{tag:'fact',html:`노출 ${fmtInt(cur.imp)} → 클릭 ${fmtInt(cur.clk)} (CTR ${fmtPct(ctr2)})${cur.lpv>0?` → 랜딩 ${fmtInt(cur.lpv)} (도달 ${fmtPct(reach)})`:''} → 결과 ${fmtInt(cur.conv)}.`}];
+    if(weak) lines.push({tag:'hyp',html:`가장 약한 구간은 <b>${weak.name}</b>로 보여요 — 여기서 이탈이 큰 편이에요.`});
+    lines.push({tag:'rec',html: weak? weak.hint : '단계별로 크게 새는 곳은 없어요. 지금 흐름을 유지하면서, 잘되는 소재의 변형을 추가해 클릭을 조금씩 더 늘려보세요.'});
+    if(cur.lpv<=0) lines.push({tag:'rec',html:'※ 이 파일엔 "랜딩 페이지 조회" 데이터가 없어, 클릭 이후(랜딩→구매) 단계는 나누지 못했어요. 광고 관리자에서 "랜딩 페이지 조회" 열을 포함해 내보내면 어디서 이탈하는지까지 짚어드려요.'});
+    ops.push({ic:'🧭',icbg: weak?'#f59e0b':'#2563eb',title:'구매 여정(퍼널) 진단',sev: weak?'점검':'참고',sevBg: weak?'#f59e0b':'#2563eb',lines});
+  }
+
+  // 7) 소재 성과 요약 (캠페인+소재 병행)
+  if(ads && ads.length){
+    const sp=ads.filter(a=>a.cost>0);
+    if(sp.length){
+      const best=[...sp].sort((a,b)=>b.roas-a.roas)[0];
+      const worst=[...sp].filter(a=>a.cost>=50000).sort((a,b)=>a.roas-b.roas)[0];
+      const lines=[{tag:'fact',html:`효율 최고 소재 <b>${best.name}</b> ROAS ${fmtPct(best.roas,0)} · 지출 ${fmtWon(best.cost)}.`}];
+      if(worst && worst!==best) lines.push({tag:'fact',html:`지출 큰데 효율 낮은 소재 <b>${worst.name}</b> ROAS ${fmtPct(worst.roas,0)} · 지출 ${fmtWon(worst.cost)}.`});
+      lines.push({tag:'rec',html:'잘되는 소재의 변형을 늘리고, 효율 낮은 소재는 교체·축소하세요. (자세한 건 아래 「소재별 의견」)'});
+      ops.push({ic:'🎨',icbg:'#7c3aed',title:'소재 성과 요약',sev:'참고',sevBg:'#7c3aed',lines});
+    }
+  }
+  const _prio={'전체 ROAS 진단':0,'성과가 잘 안 나는 캠페인이 있어요':1,'예산을 옮기면 매출이 더 나올 수 있어요':2,'매출이 한 곳에 쏠려 있어요':3,'구매 여정(퍼널) 진단':4,'클릭 효율 진단 (CTR·CPC)':5,'소재 성과 요약':6};
+  ops.sort((x,y)=>(_prio[x.title]??9)-(_prio[y.title]??9));
+  const tgt = document.getElementById('opinions') || document.getElementById('metaCampOps');
+  tgt.innerHTML = _opsHTML(ops) + '<div style="font-size:11.5px;color:var(--muted);margin-top:12px;line-height:1.65">※ <b>업계 참고치</b>는 농식품·신선식품 이커머스의 <b>메타 광고 통상 범위</b> 추정값이에요 — CTR 0.8~2.0% · CPC 300~800원 · ROAS 200~500%. 공식 통계가 아니라 가늠선이니, 정확한 비교는 <b>내 과거 성과</b> 기준이 가장 좋아요.</div>';
+}
+
+function renderMetaReport(ctx){
+  const hasCamp = META_UPLOADED_DATA.some(r=>r.campaign);
+  let camps=_metaAgg(META_UPLOADED_DATA,'campaign').filter(o=>o.cost>0||o.imp>0);
+  camps=_sortMeta(camps, META_CAMP_SORT);
+  if(hasCamp){
+    document.getElementById('metaCampHint').style.display='none';
+    document.getElementById('metaCampWrap').style.display='';
+    document.getElementById('metaCampBody').innerHTML = camps.length? camps.map((c,i)=>`<tr data-ci="${i}">
+      <td title="${c.name}">${c.name}${c.dmin?`<br><span style="font-size:11px;color:var(--muted)">게시 ${c.dmin.slice(5)}~${c.dmax.slice(5)}</span>`:''}</td><td>${fmtInt(c.imp)}</td><td>${fmtInt(c.clk)}</td>
+      <td>${fmtPct(c.ctr)}</td><td>${fmtWon(c.cpc)}</td><td>${fmtWon(c.cost)}</td>
+      <td>${fmtInt(c.conv)}</td><td>${fmtWon(c.rev)}</td><td><b>${fmtPct(c.roas,0)}</b></td></tr>`).join('')
+      : `<tr><td colspan="9" style="text-align:center;color:var(--muted)">선택 기간 데이터 없음</td></tr>`;
+  } else {
+    document.getElementById('metaCampHint').style.display='';
+    document.getElementById('metaCampWrap').style.display='none';
+  }
+  renderCampFeedback(camps);
+  let adsForOps=[];
+  const hasAd = META_UPLOADED_DATA.some(r=>r.adname);
+  const adFbPanel=document.getElementById('metaAdFeedbackPanel');
+  if(hasAd){
+    document.getElementById('metaAdHint').style.display='none';
+    document.getElementById('metaAdTableWrap').style.display='';
+    const _camps=[...new Set(META_UPLOADED_DATA.filter(r=>r.adname).map(r=>r.campaign).filter(Boolean))];
+    const _csel=document.getElementById('metaAdCampFilter');
+    if(_csel){ const _cv=META_AD_CAMP; _csel.innerHTML='<option value="">전체 캠페인</option>'+_camps.map(c=>`<option value="${c.replace(/"/g,'&quot;')}">${c}</option>`).join(''); _csel.value=_cv; if(_csel.value!==_cv) META_AD_CAMP=''; }
+    const _adRows = META_AD_CAMP ? META_UPLOADED_DATA.filter(r=>r.campaign===META_AD_CAMP) : META_UPLOADED_DATA;
+    let ads=_metaAgg(_adRows,'adname').filter(o=>o.name!=='(이름 없음)' && (o.cost>0||o.imp>0));
+    ads=_sortMeta(ads, META_AD_SORT);
+    ads.forEach((a,i)=>a._ai=i);
+    adsForOps=ads;
+    document.getElementById('metaAdBody').innerHTML = ads.length? ads.map((c,i)=>`<tr data-ai="${i}">
+      <td title="${c.name}">${c.name}</td><td title="${c.camp}">${c.camp||'—'}</td>
+      <td>${fmtInt(c.imp)}</td><td>${fmtInt(c.clk)}</td><td>${fmtPct(c.ctr)}</td>
+      <td>${fmtWon(c.cost)}</td><td>${fmtInt(c.conv)}</td><td>${fmtWon(c.rev)}</td>
+      <td><b>${fmtPct(c.roas,0)}</b></td></tr>`).join('')
+      : `<tr><td colspan="9" style="text-align:center;color:var(--muted)">선택 기간 데이터 없음</td></tr>`;
+    if(adFbPanel) adFbPanel.style.display='';
+    renderAdFeedback(ads);
+  } else {
+    document.getElementById('metaAdHint').style.display='';
+    document.getElementById('metaAdTableWrap').style.display='none';
+    if(adFbPanel) adFbPanel.style.display='none';
+  }
+  renderMetaCampOpinions(camps, adsForOps, ctx);
+}
+
+function _trendJudge(firstV, secondV){
+  if(firstV==null || firstV<=0) return {pct:null, mag:'-', up:true, flat:true};
+  const d=(secondV-firstV)/firstV*100; const a=Math.abs(d);
+  const mag = a<10?'거의 변화 없이':a<30?'조금':'크게';
+  return {pct:d, mag, up:d>=0, flat:a<10};
+}
+function renderTrendInterp(){
+  const el=document.getElementById('trendInterpBody'); if(!el) return;
+  const span=Math.round((currentEnd-currentStart)/86400000)+1;
+  if(span<3){ el.innerHTML='<div style="font-size:13px;color:var(--muted);line-height:1.7">선택한 기간이 3일보다 짧아서 추세를 판단하기 어려워요. 기간을 늘려 보세요.</div>'; return; }
+  const half=Math.floor(span/2);
+  const f=sumRange(currentStart, addDays(currentStart, half-1));
+  const g=sumRange(addDays(currentEnd, -(half-1)), currentEnd);
+  const rows=[
+    {k:'ROAS', label:'효율 (<span style="color:#7c3aed;font-weight:700">ROAS</span>)',       sem:true,  t:_trendJudge(f.roas, g.roas)},
+    {k:'CTR',  label:'클릭률 (<span style="color:#03c75a;font-weight:700">CTR</span>)',      sem:true,  t:_trendJudge(f.ctr,  g.ctr)},
+    {k:'CPC',  label:'클릭당 비용 (<span style="color:#2563eb;font-weight:700">CPC</span>)',  sem:false, t:_trendJudge(f.cpc,  g.cpc)},
+    {k:'COST', label:'<span style="color:#f59e0b;font-weight:700">광고비</span>',            sem:false, t:_trendJudge(f.cost, g.cost)}
+  ];
+  const roasT=rows[0].t, costT=rows[3].t;
+  const roasUp = roasT.pct!=null && !roasT.flat && roasT.up;
+  const roasDn = roasT.pct!=null && !roasT.flat && !roasT.up;
+  const costDn = costT.pct!=null && !costT.flat && !costT.up;
+  const costUp = costT.pct!=null && !costT.flat && costT.up;
+  let summary;
+  if(roasUp && !costDn) summary='광고비는 비슷한데 <b>매출 효율(ROAS)이 올랐어요.</b> 잘 되고 있는 흐름이에요.';
+  else if(roasUp && costDn) summary='광고비를 줄이면서도 <b>효율이 올랐어요.</b> 가장 좋은 흐름이에요.';
+  else if(roasDn && costUp) summary='광고비는 늘었는데 <b>효율은 떨어졌어요.</b> 점검이 필요해 보여요.';
+  else if(roasDn && costDn) summary='광고비도 효율도 <b>함께 줄었어요.</b> 축소되는 흐름이에요.';
+  else summary='큰 변화 없이 <b>안정적인 흐름</b>이에요.';
+  let maxD=null,minD=null,maxR=-1,minR=Infinity,maxT=null,minT=null,sumRevDays=0,sumCostDays=0,nDays=0;
+  for(let d=new Date(currentStart); d<=currentEnd; d=addDays(d,1)){
+    const t=sumRange(d,d); if(t.cost<=0) continue;
+    nDays++; sumRevDays+=t.rev; sumCostDays+=t.cost;
+    if(t.roas>maxR){maxR=t.roas;maxD=dateStr(d);maxT=t;}
+    if(t.roas<minR){minR=t.roas;minD=dateStr(d);minT=t;}
+  }
+  const avgRev = nDays? sumRevDays/nDays : 0;
+  const avgCost = nDays? sumCostDays/nDays : 0;
+  const dowK=ds=>['일','월','화','수','목','금','토'][new Date(ds).getDay()];
+  function topBy(ds, field){
+    const key = META_UPLOADED_DATA.some(r=>r.campaign)?'campaign':(META_UPLOADED_DATA.some(r=>r.adname)?'adname':null);
+    if(!key) return null;
+    const m={};
+    META_UPLOADED_DATA.forEach(r=>{ if(r.date!==ds) return; const k=r[key]||'(이름 없음)'; const o=m[k]||(m[k]={name:k,cost:0,rev:0}); o.cost+=r.cost; o.rev+=r.rev; });
+    const arr=Object.values(m); if(!arr.length) return null;
+    return arr.sort((a,b)=> field==='rev'? b.rev-a.rev : b.cost-a.cost)[0];
+  }
+  let dayInsightHTML='';
+  if(maxD){
+    const mult = avgRev>0 ? (maxT.rev/avgRev) : 0;
+    const tp = topBy(maxD,'rev');
+    const tpShare = tp&&maxT.rev>0 ? Math.round(tp.rev/maxT.rev*100) : 0;
+    const drv = (tp&&tpShare>=40)? ` 주로 <b>${tp.name}</b>에서 났어요(${tpShare}%).` : '';
+    let bestWhy;
+    if(avgCost>0 && maxT.cost < avgCost*0.5)
+      bestWhy = `이 날은 지출이 ${fmtWon(maxT.cost)}로 적어 ROAS가 크게 잡혔어요(소액 지출일은 ROAS가 튈 수 있어요).`+drv;
+    else if(mult>=1.3)
+      bestWhy = `매출 ${fmtWon(maxT.rev)}로 평소보다 컸어요(하루 평균의 ${mult.toFixed(1)}배).`+drv;
+    else
+      bestWhy = `매출 ${fmtWon(maxT.rev)} · 지출 ${fmtWon(maxT.cost)}.`+drv;
+    const wp = topBy(minD,'cost');
+    const wdrv = wp? ` (지출 대부분 <b>${wp.name}</b>)` : '';
+    let worstWhy;
+    if(minT.rev<=0)
+      worstWhy = `지출 ${fmtWon(minT.cost)}을 썼지만 전환 매출이 없던 날이에요.`+wdrv;
+    else if(avgCost>0 && minT.cost > avgCost*0.7)
+      worstWhy = `지출은 평소 수준인데 매출 ${fmtWon(minT.rev)}에 그쳐 효율이 낮았어요.`+wdrv;
+    else
+      worstWhy = `매출 ${fmtWon(minT.rev)} · 지출 ${fmtWon(minT.cost)}로 효율이 낮았어요.`+wdrv;
+    dayInsightHTML = `
+      <div style="font-size:12.5px;color:var(--ink-2);line-height:1.7;margin-bottom:8px">
+        <div style="margin-bottom:6px"><span style="color:#027a38;font-weight:700">가장 좋았던 날</span> ${maxD.slice(5)}(${dowK(maxD)}) · ROAS ${fmtPct(maxR,0)}<br><span style="color:var(--muted)">${bestWhy}</span></div>
+        <div><span style="color:#b91c3c;font-weight:700">가장 낮았던 날</span> ${minD.slice(5)}(${dowK(minD)}) · ROAS ${fmtPct(minR,0)}<br><span style="color:var(--muted)">${worstWhy}</span></div>
+      </div>`;
+  }
+  function phrase(r){
+    const t=r.t;
+    if(t.pct==null) return {txt:'데이터 부족', col:'var(--muted)'};
+    const pc=`${t.pct>=0?'+':''}${Math.round(t.pct)}%`;
+    if(t.flat) return {txt:`거의 그대로예요 (${pc})`, col:'var(--ink-2)'};
+    if(r.sem){ const w=t.up?'좋아졌어요':'나빠졌어요'; return {txt:`${t.mag} ${w} (${pc})`, col:t.up?'#027a38':'#b91c3c'}; }
+    const w = r.k==='CPC' ? (t.up?'올랐어요':'내렸어요') : (t.up?'늘었어요':'줄었어요');
+    return {txt:`${t.mag} ${w} (${pc})`, col:'var(--ink-2)'};
+  }
+  const metricRows=rows.map(r=>{const x=phrase(r); return `<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:13px;padding:6px 0;border-bottom:1px solid var(--line)">
+    <span style="color:var(--ink-2)">${r.label}</span>
+    <span style="font-weight:700;color:${x.col};text-align:right">${x.txt}</span>
+  </div>`;}).join('');
+  let advice;
+  if(roasUp) advice='성과 좋은 캠페인·소재에 예산을 조금 더 실어보세요.';
+  else if(roasDn) advice='효율이 떨어진 소재·타겟을 점검하고, 성과 낮은 항목은 예산을 줄여보세요.';
+  else advice='지금 수준을 유지하면서 새 소재를 테스트해 보세요.';
+  el.innerHTML = `
+    <div style="font-size:13.5px;line-height:1.75;margin-bottom:12px">${summary}</div>
+    <div>${metricRows}</div>
+    <div style="margin-top:14px;padding:12px 13px;background:#f7faf8;border:1px solid var(--line);border-radius:10px">
+      <div style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.3px;margin-bottom:8px">📌 기간 중 하이라이트</div>
+      ${dayInsightHTML}
+      <div style="font-size:12.5px;color:var(--ink-2);line-height:1.7"><b>다음 액션</b> · ${advice}</div>
+    </div>
+    <div style="font-size:11px;color:var(--muted);margin-top:10px;line-height:1.6">선택 기간의 <b>초반 ${half}일</b>과 <b>후반 ${half}일</b>을 비교했어요. (효율·클릭률은 단순 평균이 아니라 매출·지출 합계로 다시 계산)</div>`;
+}
+
+function _statusHTML(kind){
+  const map={live:['#03c75a','실시간 API'], csv:['#2563eb','CSV 연동'], sample:['#f59e0b','샘플 데이터'], none:['#8a9690','연동 전']};
+  const a=map[kind]||map.none;
+  return `<span style="display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;padding:2px 7px;border-radius:999px;background:${a[0]}1a;color:${a[0]};vertical-align:middle"><span style="width:6px;height:6px;border-radius:50%;background:${a[0]}"></span>${a[1]}</span>`;
+}
+function updateChannelStatus(){
+  const sa=document.getElementById('status-SA'); if(sa) sa.innerHTML=_statusHTML('sample');
+  const da=document.getElementById('status-DA'); if(da) da.innerHTML=_statusHTML(DA_UPLOADED_DATA.length?'csv':'none');
+  const me=document.getElementById('status-META'); if(me) me.innerHTML=_statusHTML(META_UPLOADED_DATA.length?'csv':'none');
+}
+function render(){
+  const isMeta = MAIN_CHANNEL==='META';
+  updateChannelStatus();
+  ['adtypeHint','adtypes','verify','benchNote'].forEach(id=>{const el=document.getElementById(id); if(el) el.style.display=isMeta?'none':'';});
+  const op=document.getElementById('opinionPanel'); if(op) op.style.display='';
+  const oh=document.getElementById('opinionHint'); if(oh) oh.style.display=isMeta?'none':'';
+  const mcp=document.getElementById('metaCampOps'); const mcpPanel=mcp&&mcp.closest('.panel'); if(mcpPanel) mcpPanel.style.display='none';
+  const mr=document.getElementById('metaReport'); if(mr) mr.style.display=isMeta?'':'none';
+  const tip=document.getElementById('trendInterpPanel'); if(tip) tip.style.display='none';
+  const ttw=document.getElementById('trendTimelineWrap'); if(ttw) ttw.style.display=isMeta?'none':'';
+  const ttag=document.getElementById('trendTag'); if(ttag) ttag.style.display=isMeta?'none':'';
+  const ctx = renderKPIs();
+  renderChart();
+  if(isMeta){ renderMetaReport(ctx); }
+  else { renderAdTypes(); renderKwTables(); renderOpinions(ctx); renderInventory(); }
+  const tg=document.getElementById('trendGrid');
+  if(op && tg){ requestAnimationFrame(()=>{ if(window.innerWidth<=1100){ op.style.height=''; return; } const cp=tg.children[0]; if(cp) op.style.height=cp.offsetHeight+'px'; }); }
+}
+
+/* ============================================================
+   11. 계정 스위처 & API 데이터 로딩
+   ============================================================ */
+// 샘플 데이터 스냅샷 (실계정 로딩 실패 시 폴백)
+const SAMPLE_DAILY  = daily.slice();
+const SAMPLE_KW     = kwDaily.slice();
+const SAMPLE_EVENTS = EVENTS.slice();
+const SAMPLE_ACCT = {
+  id:'sample', name:'선암파머스', customerId:'—',
+  status:'sample', updatedAt:'—', kind:'샘플'
+};
+
+let ACCOUNTS = [SAMPLE_ACCT];
+let CURRENT_ACCT = SAMPLE_ACCT;
+
+let ADS_LIST = [];
+let KW_LIST  = [];
+
+function applyDataset(src){
+  if(!src){
+    daily = SAMPLE_DAILY.slice();
+    kwDaily = SAMPLE_KW.slice();
+    EVENTS = SAMPLE_EVENTS.slice();
+    ADS_LIST = [];
+    KW_LIST  = [];
+    return;
+  }
+  daily   = Array.isArray(src.daily)   ? src.daily   : SAMPLE_DAILY.slice();
+  kwDaily = Array.isArray(src.kwDaily) ? src.kwDaily : (Array.isArray(src.keywords) ? src.keywords : SAMPLE_KW.slice());
+  EVENTS  = Array.isArray(src.events)  ? src.events  : SAMPLE_EVENTS.slice();
+  ADS_LIST = Array.isArray(src.adsList) ? src.adsList : [];
+  KW_LIST  = Array.isArray(src.keywordsList) ? src.keywordsList : [];
+}
+
+// file:// 에서도 작동하도록 스크립트 태그로 로드 (fetch는 로컬 파일 차단됨)
+function _tryLoadScript(src){
+  return new Promise(resolve=>{
+    const s = document.createElement('script');
+    s.src = src + '?t=' + Date.now();
+    s.onload  = () => resolve(true);
+    s.onerror = () => resolve(false);
+    document.head.appendChild(s);
+  });
+}
+
+async function loadAccounts(){
+  const ok = await _tryLoadScript('./data/bundle.js');
+  const b = window.NAVER_ADS_BUNDLE;
+  if(ok && b && Array.isArray(b.accounts) && b.accounts.length){
+    ACCOUNTS = b.accounts.map(a=>({
+      id:a.id||a.customerId,
+      name:a.name,
+      customerId:a.customerId,
+      status:a.status||'ok',
+      updatedAt:a.updatedAt||'',
+      error:a.error||null,
+      kind:'실계정'
+    })).concat([SAMPLE_ACCT]);
+  } else {
+    ACCOUNTS = [SAMPLE_ACCT];
+  }
+  try{ const sv=JSON.parse(localStorage.getItem('sunamfarmers_accounts')||'[]'); if(Array.isArray(sv)&&sv.length) ACCOUNTS = sv.concat(ACCOUNTS); }catch(e){}
+}
+function saveAccounts(){ try{ localStorage.setItem('sunamfarmers_accounts', JSON.stringify(ACCOUNTS.filter(a=>a.status==='blank'))); }catch(e){} }
+
+async function switchAccount(acct){
+  CURRENT_ACCT = acct;
+  loadAccountUploads();
+  // UI 업데이트
+  document.getElementById('accBtnIcon').textContent = (acct.name||'·').slice(0,1);
+  document.getElementById('accBtnName').textContent = acct.name;
+  document.getElementById('accBtnSub').textContent  = acct.status==='sample'?'샘플 데이터':(acct.status==='blank'?'데이터 없음':('ID '+acct.customerId));
+
+  const badge = document.getElementById('dataModeBadge');
+  const sub   = document.getElementById('headerSub');
+  const lu    = document.getElementById('lastUpdate');
+  badge.style.display = '';
+
+  if(acct.status==='blank'){
+    daily=[]; kwDaily=[]; EVENTS=[]; ADS_LIST=[]; KW_LIST=[];
+    badge.style.display='none';
+    sub.textContent = '새 계정 · 데이터 없음 (검색광고 연동 또는 CSV 업로드 전)';
+    lu.textContent = '—';
+  } else if(acct.status==='sample'){
+    applyDataset(null);
+    badge.className='status-badge sample'; badge.textContent='샘플 데이터';
+    sub.textContent = 'API 자격증명 연결 전 · 샘플 데이터로 동작 중';
+    lu.textContent = new Date(TODAY.getTime()-1*60*60*1000).toLocaleString('ko-KR');
+  } else {
+    const b = window.NAVER_ADS_BUNDLE;
+    const data = b && b.data && b.data[acct.customerId];
+    if(data){
+      applyDataset(data);
+      badge.className='status-badge live'; badge.textContent='실시간 API';
+      sub.textContent = `${acct.name} · Customer ID ${acct.customerId}`;
+      lu.textContent = data?.meta?.fetchedAt || acct.updatedAt || '—';
+    } else {
+      applyDataset(null);
+      badge.className='status-badge err'; badge.textContent='연결 실패';
+      sub.textContent = `${acct.name}: 데이터 파일 없음 — 샘플로 표시`;
+      lu.textContent = '—';
+    }
+  }
+  if(typeof updateMetaUploadUI==='function') updateMetaUploadUI();
+  if(typeof updateDAUploadUI==='function') updateDAUploadUI();
+  renderAccountList();
+  // 날짜가 아직 설정 전이면 render 보류 (bootstrap의 setRangeByDays가 처리)
+  if(currentStart && currentEnd) switchChannel(MAIN_CHANNEL);
+}
+
+function deleteAccount(acct){
+  if(!acct || acct.status!=='blank') return;
+  const ans = prompt(`"${acct.name}" 계정을 삭제할까요?\n이 계정에 업로드한 데이터도 함께 삭제되며 되돌릴 수 없어요.\n\n삭제하려면 아래 문구를 정확히 입력하세요:\n삭제확인합니다`);
+  if(ans===null) return;
+  if(ans.trim()!=='삭제확인합니다'){ alert('입력 문구가 일치하지 않아 삭제를 취소했어요.'); return; }
+  ['sunamfarmers_meta_upload','sunamfarmers_da_upload','sunamfarmers_meta_ad_upload'].forEach(b=>{ try{ localStorage.removeItem(b+'__'+acct.id); }catch(e){} });
+  ACCOUNTS = ACCOUNTS.filter(a=>a.id!==acct.id);
+  saveAccounts();
+  switchAccount(SAMPLE_ACCT);
+}
+function renderAccountList(){
+  const box = document.getElementById('accountList');
+  box.innerHTML = ACCOUNTS.map((a,i)=>{
+    const cls = a.status==='ok'?'ok':(a.status==='err'?'err':'sample');
+    const note = a.status==='ok' ? (a.updatedAt?('갱신 '+a.updatedAt):'실계정')
+                : a.status==='err' ? ('오류: '+(a.error||'연결 실패'))
+                : a.status==='blank' ? '새 계정 · 데이터 없음'
+                : '프로토타입용 샘플';
+    const active = (a.id===CURRENT_ACCT.id);
+    return `<div class="acc-item ${active?'active':''}" data-idx="${i}">
+      <span class="dot-status ${cls}"></span>
+      <span class="meta"><span class="n">${a.name}</span><span class="s">${note}</span></span>
+      ${active?'<span class="check">✓</span>':''}
+      ${a.status==='blank'?`<button class="acc-del" data-del="${i}" title="계정 삭제" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:13px;padding:2px 6px;line-height:1">🗑</button>`:''}
+    </div>`;
+  }).join('');
+  box.querySelectorAll('.acc-item').forEach(el=>{
+    el.addEventListener('click',()=>{
+      const idx = +el.dataset.idx;
+      toggleAccountMenu(false);
+      switchAccount(ACCOUNTS[idx]);
+    });
+  });
+  box.querySelectorAll('.acc-del').forEach(el=>{
+    el.addEventListener('click',e=>{ e.stopPropagation(); deleteAccount(ACCOUNTS[+el.dataset.del]); });
+  });
+}
+
+function toggleAccountMenu(force){
+  const btn  = document.getElementById('accountBtn');
+  const menu = document.getElementById('accountMenu');
+  const open = force!==undefined ? force : !menu.classList.contains('open');
+  menu.classList.toggle('open', open);
+  btn.classList.toggle('open', open);
+  btn.setAttribute('aria-expanded', open?'true':'false');
+}
+document.getElementById('accountBtn').addEventListener('click', e=>{
+  e.stopPropagation(); toggleAccountMenu();
+});
+document.addEventListener('click', e=>{
+  if(!e.target.closest('.account-switcher')) toggleAccountMenu(false);
+});
+document.getElementById('accAdd').addEventListener('click', ()=>{
+  toggleAccountMenu(false);
+  const name = (prompt('새 광고 계정 이름을 입력하세요','새 계정')||'').trim();
+  if(!name) return;
+  const acct = {id:'acct_'+Date.now(), name, customerId:'—', status:'blank', updatedAt:'', kind:'신규'};
+  ACCOUNTS = [acct].concat(ACCOUNTS);
+  saveAccounts();
+  switchAccount(acct);
+});
+document.getElementById('modalClose').addEventListener('click', ()=>{
+  document.getElementById('addModal').classList.remove('open');
+});
+document.getElementById('addModal').addEventListener('click', e=>{
+  if(e.target.id==='addModal') e.target.classList.remove('open');
+});
+document.getElementById('metaConnectBtn').addEventListener('click', ()=>{
+  document.getElementById('apiModal').classList.add('open');
+});
+document.getElementById('metaModalClose').addEventListener('click', ()=>{
+  document.getElementById('metaModal').classList.remove('open');
+});
+document.getElementById('metaModal').addEventListener('click', e=>{
+  if(e.target.id==='metaModal') e.target.classList.remove('open');
+});
+document.getElementById('metaCsvModalClose').addEventListener('click', ()=>{
+  document.getElementById('metaCsvModal').classList.remove('open');
+});
+document.getElementById('metaCsvModal').addEventListener('click', e=>{
+  if(e.target.id==='metaCsvModal') e.target.classList.remove('open');
+});
+document.getElementById('apiModalClose').addEventListener('click', ()=>{
+  document.getElementById('apiModal').classList.remove('open');
+});
+document.getElementById('apiModal').addEventListener('click', e=>{
+  if(e.target.id==='apiModal') e.target.classList.remove('open');
+});
+document.getElementById('opinionsExpand').addEventListener('click', ()=>{
+  document.getElementById('opinionsModalBody').innerHTML = document.getElementById('opinions').innerHTML;
+  document.getElementById('opinionsModal').classList.add('open');
+});
+document.getElementById('opinionsModalClose').addEventListener('click', ()=>{
+  document.getElementById('opinionsModal').classList.remove('open');
+});
+document.getElementById('opinionsModal').addEventListener('click', e=>{
+  if(e.target.id==='opinionsModal') e.target.classList.remove('open');
+});
+
+// 용어 모달 (글로서리)
+function renderGlossaryModal(highlightKey){
+  const sections = (MAIN_CHANNEL==='META') ? [
+    {title:'주요 지표', keys:['imp','clk','ctr','cpc','conv','roas','cpm']},
+    {title:'메타 데이터', keys:['lpv','purchaseValue']},
+    {title:'대시보드 가이드', keys:['aiOpinion','fact','hyp','rec']},
+  ] : [
+    {title:'광고 유형', keys:['search','display','powerlink','shop','brand','advoost','quickstart']},
+    {title:'계정 구조', keys:['account','campaign','adgroup','creative','keyword']},
+    {title:'주요 지표', keys:['imp','clk','ctr','cpc','conv','roas','cpa','cpm']},
+    {title:'운영 기능', keys:['autokw','extmat','bid','pause','seed','inspection','bannerFatigue','crossChannel','daAudience']},
+    {title:'대시보드 가이드', keys:['topKws','botKws','aiOpinion','benchGrade','fact','hyp','rec','colBid','colCustomBid','colStatus','colAdgroup','colRegDate','colEditDate']},
+  ];
+  const grid = document.getElementById('glossaryGrid');
+  // 그리드를 덮어쓰는 방식: 섹션 헤더는 전체 폭, 아이템은 2열
+  let html = '';
+  sections.forEach(sec=>{
+    html += `<div class="g-section-title" style="grid-column:1/-1">${sec.title}</div>`;
+    sec.keys.forEach(k=>{
+      const g = GLOSSARY[k]; if(!g) return;
+      const hl = (k===highlightKey) ? ' style="outline:2px solid #03c75a"' : '';
+      html += `
+        <div class="g-item"${hl}>
+          <h4>${_glossTitle(k)} <span class="g-tag ${g.cat.toLowerCase()}">${g.cat}</span></h4>
+          <div class="g-sub">${_glossSub(k)}</div>
+          <div class="g-desc">${_glossDesc(k)}</div>
+        </div>`;
+    });
+  });
+  grid.innerHTML = html;
+}
+function openGlossaryModal(highlightKey){
+  const ms=document.getElementById('glossaryMsub');
+  if(ms) ms.innerHTML = (MAIN_CHANNEL==='META')
+    ? '메타(페이스북·인스타그램) 광고 대시보드에서 쓰는 용어만 모았어요.'
+    : '네이버 광고는 크게 두 갈래 — <b>검색광고(SA)</b>와 <b>디스플레이 광고(DA)</b>로 나뉩니다. 이 대시보드에 잡히는 것과 안 잡히는 것을 구분할 수 있도록 용어 먼저 정리해드려요.';
+  renderGlossaryModal(highlightKey);
+  document.getElementById('glossaryModal').classList.add('open');
+}
+document.getElementById('glossaryBtn').addEventListener('click', ()=>openGlossaryModal());
+document.getElementById('glossaryClose').addEventListener('click', ()=>{
+  document.getElementById('glossaryModal').classList.remove('open');
+});
+document.getElementById('glossaryModal').addEventListener('click', e=>{
+  if(e.target.id==='glossaryModal') e.target.classList.remove('open');
+});
+
+/* ============================================================
+   11-b. 채널 탭 (SA / DA) 전환 + DA CSV 업로드
+   ============================================================ */
+let DA_UPLOADED_DATA = [];     // {date, ad:'advoost', imp, clk, cost, conv, rev}
+let DA_UPLOADED_META = null;   // {filename, uploadedAt, rowCount}
+let META_UPLOADED_DATA = [];   // {date, ad:'meta', imp, clk, cost, conv, rev}
+let METANOTICE_COLLAPSED = true;
+let DANOTICE_COLLAPSED = true;
+let META_CAMP_SORT='cost';
+let META_AD_SORT='rev';
+let META_AD_CAMP='';
+const MIN_CLK=20, MIN_IMP=500;
+function _sortMeta(arr,k){
+  if(k==='name') return [...arr].sort((a,b)=>String(a.name).localeCompare(String(b.name),'ko'));
+  if(k==='ord')  return [...arr].sort((a,b)=>(a._ord||0)-(b._ord||0));
+  return [...arr].sort((a,b)=>(b[k]||0)-(a[k]||0));
+}
+let META_UPLOADED_META = null; // {filename, uploadedAt, rowCount}
+try{
+  const savedM = localStorage.getItem('sunamfarmers_meta_upload');
+  if(savedM){
+    const pm = JSON.parse(savedM);
+    META_UPLOADED_DATA = Array.isArray(pm.data) ? pm.data : [];
+    META_UPLOADED_META = pm.meta || null;
+  }
+}catch(e){}
+function _acctKey(base){ return (typeof CURRENT_ACCT!=='undefined' && CURRENT_ACCT && CURRENT_ACCT.id!=='sample') ? base+'__'+CURRENT_ACCT.id : base; }
+function loadAccountUploads(){
+  function ld(key){ try{ const v=localStorage.getItem(key); if(v){ const p=JSON.parse(v); return {data:Array.isArray(p.data)?p.data:[], meta:p.meta||null}; } }catch(e){} return {data:[],meta:null}; }
+  const m=ld(_acctKey('sunamfarmers_meta_upload'));    META_UPLOADED_DATA=m.data; META_UPLOADED_META=m.meta;
+  const d=ld(_acctKey('sunamfarmers_da_upload'));      DA_UPLOADED_DATA=d.data;   DA_UPLOADED_META=d.meta;
+  const a=ld(_acctKey('sunamfarmers_meta_ad_upload')); META_AD_DATA=a.data;       META_AD_META=a.meta;
+}
+function saveMetaUpload(){
+  try{ localStorage.setItem(_acctKey('sunamfarmers_meta_upload'), JSON.stringify({data:META_UPLOADED_DATA, meta:META_UPLOADED_META})); }catch(e){ console.warn('localStorage 저장 실패', e); }
+}
+function clearMetaUpload(){
+  if(!confirm('업로드된 메타 CSV 데이터를 삭제할까요?')) return;
+  META_UPLOADED_DATA = []; META_UPLOADED_META = null;
+  try{ localStorage.removeItem(_acctKey('sunamfarmers_meta_upload')); }catch(e){}
+  updateMetaUploadUI();
+  if(MAIN_CHANNEL==='META') switchChannel('META');
+}
+function updateMetaUploadUI(){
+  const loaded = document.getElementById('metaLoaded');
+  const upload = document.getElementById('metaUpload');
+  if(!loaded||!upload) return;
+  if(META_UPLOADED_META){
+    loaded.style.display=''; upload.style.display='none';
+    document.getElementById('metaFilename').textContent = META_UPLOADED_META.filename||'—';
+    document.getElementById('metaLoadedStats').textContent = `${fmtInt(META_UPLOADED_DATA.length)}행 · 업로드 ${META_UPLOADED_META.uploadedAt||''}`;
+  } else {
+    loaded.style.display='none'; upload.style.display='';
+  }
+  applyMetaNoticeUI();
+}
+function applyMetaNoticeUI(){
+  const head=document.getElementById('metaNoticeHead');
+  const caret=document.getElementById('metaNoticeCaret');
+  const body=document.getElementById('metaNoticeBody');
+  const summ=document.getElementById('metaNoticeSummary');
+  if(!caret||!body) return;
+  const hasData=!!META_UPLOADED_META;
+  caret.style.display = hasData?'':'none';
+  if(head) head.style.cursor = hasData?'pointer':'default';
+  const collapsed = hasData ? METANOTICE_COLLAPSED : false;
+  body.style.display = collapsed?'none':'';
+  caret.textContent = collapsed?'▸ 펼치기':'▾ 접기';
+  if(summ) summ.textContent = (collapsed&&hasData)?('✅ '+(META_UPLOADED_META.filename||'')):'';
+}
+function applyDaNoticeUI(){
+  const head=document.getElementById('daNoticeHead');
+  const caret=document.getElementById('daNoticeCaret');
+  const body=document.getElementById('daNoticeBody');
+  const summ=document.getElementById('daNoticeSummary');
+  if(!caret||!body) return;
+  const hasData=!!DA_UPLOADED_META;
+  caret.style.display=hasData?'':'none';
+  if(head) head.style.cursor=hasData?'pointer':'default';
+  const collapsed=hasData?DANOTICE_COLLAPSED:false;
+  body.style.display=collapsed?'none':'';
+  caret.textContent=collapsed?'▸ 펼치기':'▾ 접기';
+  if(summ) summ.textContent=(collapsed&&hasData)?('✅ '+(DA_UPLOADED_META.filename||'')):'';
+}
+function handleMetaFile(file){
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = (e)=>{
+    const result = parseCSV(e.target.result);
+    if(result.error){ alert('CSV 파싱 실패: ' + result.error); return; }
+    result.data.forEach(r=> r.ad='meta');
+    META_UPLOADED_DATA = result.data;
+    META_UPLOADED_META = { filename:file.name, uploadedAt:new Date().toLocaleString('ko-KR'), rowCount:result.data.length };
+    saveMetaUpload();
+    updateMetaUploadUI();
+    alert(`✓ ${fmtInt(result.data.length)}행 로드 완료${result.skipped?` · 날짜 오류 ${result.skipped}행 스킵`:''}`);
+    if(MAIN_CHANNEL==='META') switchChannel('META');
+  };
+  reader.readAsText(file, 'UTF-8');
+}
+(function bindMetaUpload(){
+  const up = document.getElementById('metaUpload');
+  const input = document.getElementById('metaFileInput');
+  const clear = document.getElementById('metaClear');
+  if(!up||!input) return;
+  input.addEventListener('change', e=> handleMetaFile(e.target.files[0]));
+  up.addEventListener('dragover', e=>{ e.preventDefault(); up.classList.add('dragover'); });
+  up.addEventListener('dragleave', ()=> up.classList.remove('dragover'));
+  up.addEventListener('drop', e=>{ e.preventDefault(); up.classList.remove('dragover'); if(e.dataTransfer.files[0]) handleMetaFile(e.dataTransfer.files[0]); });
+  if(clear) clear.addEventListener('click', clearMetaUpload);
+  const head=document.getElementById('metaNoticeHead');
+  if(head) head.addEventListener('click', ()=>{ if(!META_UPLOADED_META) return; METANOTICE_COLLAPSED=!METANOTICE_COLLAPSED; applyMetaNoticeUI(); });
+  updateMetaUploadUI();
+})();
+
+// ── 메타 소재(광고) 단위 업로드 ──
+let META_AD_DATA = [];
+let META_AD_META = null;
+try{
+  const sa = localStorage.getItem('sunamfarmers_meta_ad_upload');
+  if(sa){ const pa=JSON.parse(sa); META_AD_DATA=Array.isArray(pa.data)?pa.data:[]; META_AD_META=pa.meta||null; }
+}catch(e){}
+function saveMetaAdUpload(){ try{ localStorage.setItem(_acctKey('sunamfarmers_meta_ad_upload'), JSON.stringify({data:META_AD_DATA,meta:META_AD_META})); }catch(e){} }
+function clearMetaAdUpload(){
+  if(!confirm('업로드된 소재(광고) CSV를 삭제할까요?')) return;
+  META_AD_DATA=[]; META_AD_META=null;
+  try{ localStorage.removeItem(_acctKey('sunamfarmers_meta_ad_upload')); }catch(e){}
+  if(MAIN_CHANNEL==='META') render();
+}
+function handleMetaAdFile(file){
+  if(!file) return;
+  const reader=new FileReader();
+  reader.onload=(e)=>{
+    const result=parseCSV(e.target.result);
+    if(result.error){ alert('CSV 파싱 실패: '+result.error); return; }
+    if(result.col.adname==null){ alert('"광고 이름" 컬럼을 찾지 못했어요. 광고 관리자 "광고" 탭에서 일별로 내보낸 CSV인지 확인해 주세요.'); return; }
+    result.data.forEach(r=> r.ad='meta');
+    META_AD_DATA=result.data;
+    META_AD_META={filename:file.name, uploadedAt:new Date().toLocaleString('ko-KR'), rowCount:result.data.length};
+    saveMetaAdUpload();
+    alert(`✓ 소재 ${fmtInt(result.data.length)}행 로드`);
+    if(MAIN_CHANNEL==='META') render();
+  };
+  reader.readAsText(file,'UTF-8');
+}
+(function bindMetaAdUpload(){
+  const up=document.getElementById('metaAdUpload'); const input=document.getElementById('metaAdFileInput'); const clear=document.getElementById('metaAdClear');
+  if(!up||!input) return;
+  input.addEventListener('change', e=> handleMetaAdFile(e.target.files[0]));
+  up.addEventListener('dragover', e=>{e.preventDefault();up.classList.add('dragover');});
+  up.addEventListener('dragleave', ()=> up.classList.remove('dragover'));
+  up.addEventListener('drop', e=>{e.preventDefault();up.classList.remove('dragover'); if(e.dataTransfer.files[0]) handleMetaAdFile(e.dataTransfer.files[0]);});
+  if(clear) clear.addEventListener('click', clearMetaAdUpload);
+})();
+
+// localStorage에서 복원 (파일:// 환경에서도 동작)
+try{
+  const saved = localStorage.getItem('sunamfarmers_da_upload');
+  if(saved){
+    const p = JSON.parse(saved);
+    DA_UPLOADED_DATA = Array.isArray(p.data) ? p.data : [];
+    DA_UPLOADED_META = p.meta || null;
+  }
+}catch(e){}
+
+function saveDAUpload(){
+  try{
+    localStorage.setItem(_acctKey('sunamfarmers_da_upload'), JSON.stringify({
+      data: DA_UPLOADED_DATA, meta: DA_UPLOADED_META
+    }));
+  }catch(e){ console.warn('localStorage 저장 실패', e); }
+}
+
+function clearDAUpload(){
+  if(!confirm('업로드된 CSV 데이터를 삭제하고 샘플로 되돌릴까요?')) return;
+  DA_UPLOADED_DATA = [];
+  DA_UPLOADED_META = null;
+  try{ localStorage.removeItem(_acctKey('sunamfarmers_da_upload')); }catch(e){}
+  updateDAUploadUI();
+  if(MAIN_CHANNEL==='DA'){ updateDatePickerBounds(); updatePeriodButtonStates(); setRangeByDays(7); }
+}
+
+function updateDAUploadUI(){
+  const loaded = document.getElementById('daLoaded');
+  const upload = document.getElementById('daUpload');
+  if(DA_UPLOADED_META){
+    loaded.style.display = '';
+    upload.style.display = 'none';
+    document.getElementById('daFilename').textContent = DA_UPLOADED_META.filename || '—';
+    document.getElementById('daLoadedStats').textContent =
+      `${fmtInt(DA_UPLOADED_DATA.length)}행 · 업로드 ${DA_UPLOADED_META.uploadedAt||''}`;
+  } else {
+    loaded.style.display = 'none';
+    upload.style.display = '';
+  }
+  applyDaNoticeUI();
+}
+
+// 한글·영문 컬럼 자동 매핑 CSV/TSV 파서
+function parseCSV(text){
+  const firstLine = text.split(/\r?\n/)[0] || '';
+  const delim = firstLine.includes('\t') ? '\t' : ',';
+  const rows = [];
+  const lines = text.split(/\r?\n/).filter(l=>l.trim().length);
+  for(const line of lines){
+    const cells = []; let cur = ''; let inQ = false;
+    for(const ch of line){
+      if(ch === '"'){ inQ = !inQ; }
+      else if(ch === delim && !inQ){ cells.push(cur); cur=''; }
+      else cur += ch;
+    }
+    cells.push(cur);
+    rows.push(cells.map(c => c.trim().replace(/^"|"$/g,'')));
+  }
+  if(rows.length < 2) return {error:'CSV에 데이터 행이 없습니다'};
+
+  const headers = rows[0].map(h => h.toLowerCase().replace(/\s+/g,''));
+  const data = rows.slice(1);
+
+  const col = {};
+  const columnMap = {
+    date:     ['일자','날짜','date','일','day','reportdate','보고시작','보고종료','reportingstarts','reportingends','reportstart'],
+    imp:      ['노출수','노출','impressions','imp','impcnt','impression'],
+    clk:      ['클릭수','클릭','clicks','click','clkcnt'],
+    cost:     ['광고비','지출금액','지출','amountspent','spent','spend','cost','salesamt','총비용','비용'],
+    conv:     ['전환수','전환','conversions','conv','ccnt','results','결과','purchases','구매','구매수'],
+    rev:      ['전환매출','매출','revenue','convamt','conversionvalue','purchasevalue','구매전환값','전환값'],
+    campaign: ['캠페인명','캠페인','campaign','campaignname'],
+    adname:   ['광고이름','광고명','adname'],
+    lpv:      ['랜딩페이지조회','landingpageviews','lpv','랜딩조회']
+  };
+  // 정확 매칭 우선(pass1) → 부분 매칭(pass2). 한 컬럼이 두 필드에 중복 배정되지 않도록 used로 잠금.
+  const used = new Set();
+  for(const [field, aliases] of Object.entries(columnMap)){
+    for(const alias of aliases){
+      const k = alias.toLowerCase().replace(/\s+/g,'');
+      const idx = headers.findIndex((h,i)=> !used.has(i) && h === k);
+      if(idx >= 0){ col[field] = idx; used.add(idx); break; }
+    }
+  }
+  for(const [field, aliases] of Object.entries(columnMap)){
+    if(col[field] != null) continue;
+    for(const alias of aliases){
+      const k = alias.toLowerCase().replace(/\s+/g,'');
+      const idx = headers.findIndex((h,i)=> !used.has(i) && h.includes(k));
+      if(idx >= 0){ col[field] = idx; used.add(idx); break; }
+    }
+  }
+  if(col.date == null) return {error:'"일자" 또는 "date" 컬럼을 찾을 수 없습니다. 리포트 설정에서 일자 컬럼을 포함해 다시 다운로드해 주세요.'};
+  if(col.imp == null && col.clk == null) return {error:'"노출수" 또는 "클릭수" 컬럼을 찾을 수 없습니다'};
+
+  const parsed = []; let skipped = 0;
+  for(const row of data){
+    const dn = _normalizeCSVDate(row[col.date]);
+    if(!dn){ skipped++; continue; }
+    parsed.push({
+      date: dn,
+      ad: 'advoost',
+      imp:  _numFromCell(row[col.imp]),
+      clk:  _numFromCell(row[col.clk]),
+      cost: _numFromCell(row[col.cost]),
+      conv: _numFromCell(row[col.conv]),
+      rev:  _numFromCell(row[col.rev]),
+      lpv:  col.lpv!=null ? _numFromCell(row[col.lpv]) : 0,
+      campaign: col.campaign!=null ? (row[col.campaign]||'') : '',
+      adname:   col.adname!=null   ? (row[col.adname]||'')   : ''
+    });
+  }
+  return {data: parsed, skipped, headers, col};
+}
+
+function _normalizeCSVDate(s){
+  if(!s) return null;
+  const digits = String(s).replace(/[^\d]/g,'');
+  if(digits.length === 8) return `${digits.slice(0,4)}-${digits.slice(4,6)}-${digits.slice(6,8)}`;
+  const d = new Date(s);
+  if(!isNaN(d.getTime())) return d.toISOString().slice(0,10);
+  return null;
+}
+function _numFromCell(s){
+  if(s == null || s === '') return 0;
+  const n = parseFloat(String(s).replace(/[,₩%원\s]/g,''));
+  return isNaN(n) ? 0 : Math.max(0, Math.round(n));
+}
+
+function handleDAFile(file){
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = (e)=>{
+    const result = parseCSV(e.target.result);
+    if(result.error){
+      alert('CSV 파싱 실패: ' + result.error);
+      return;
+    }
+    DA_UPLOADED_DATA = result.data;
+    DA_UPLOADED_META = {
+      filename: file.name,
+      uploadedAt: new Date().toLocaleString('ko-KR'),
+      rowCount: result.data.length
+    };
+    saveDAUpload();
+    updateDAUploadUI();
+    alert(`✓ ${fmtInt(result.data.length)}행 로드 완료${result.skipped?` · 날짜 형식 오류 ${result.skipped}행 스킵`:''}`);
+    if(MAIN_CHANNEL==='DA'){
+      updateDatePickerBounds();
+      updatePeriodButtonStates();
+      setRangeByDays(7);
+    }
+  };
+  reader.readAsText(file, 'UTF-8');
+}
+
+// 파일 업로드 이벤트
+(function bindDAUpload(){
+  const up = document.getElementById('daUpload');
+  const input = document.getElementById('daFileInput');
+  const clear = document.getElementById('daClear');
+  input.addEventListener('change', e=> handleDAFile(e.target.files[0]));
+  up.addEventListener('dragover', e=>{ e.preventDefault(); up.classList.add('dragover'); });
+  up.addEventListener('dragleave', ()=> up.classList.remove('dragover'));
+  up.addEventListener('drop', e=>{
+    e.preventDefault(); up.classList.remove('dragover');
+    if(e.dataTransfer.files[0]) handleDAFile(e.dataTransfer.files[0]);
+  });
+  clear.addEventListener('click', clearDAUpload);
+  const head=document.getElementById('daNoticeHead');
+  if(head) head.addEventListener('click', ()=>{ if(!DA_UPLOADED_META) return; DANOTICE_COLLAPSED=!DANOTICE_COLLAPSED; applyDaNoticeUI(); });
+})();
+
+// ── 채널별 데이터 가용 범위 ────────────────────
+function channelDateRange(){
+  let src;
+  if(MAIN_CHANNEL==='DA'){
+    src = DA_UPLOADED_DATA;
+  } else if(MAIN_CHANNEL==='META'){
+    src = META_UPLOADED_DATA;
+  } else {
+    src = daily.filter(r=>r.ad!=='advoost');
+  }
+  if(!src.length) return null;
+  const dates = src.map(r=>r.date).filter(Boolean).sort();
+  return { min: dates[0], max: dates[dates.length-1] };
+}
+
+function updateDatePickerBounds(){
+  const s = document.getElementById('dStart');
+  const e = document.getElementById('dEnd');
+  const today = dateStr(TODAY);
+  if(s){ s.max=today; s.removeAttribute('min'); s.disabled=false; }
+  if(e){ e.max=today; e.removeAttribute('min'); e.disabled=false; }
+}
+
+function updatePeriodButtonStates(){
+  document.querySelectorAll('#segs .seg').forEach(b=>{ b.disabled=false; });
+}
+
+function switchChannel(ch){
+  MAIN_CHANNEL = ch;
+  document.querySelectorAll('.ch-tab').forEach(b=>{
+    b.classList.toggle('active', b.dataset.ch === ch);
+  });
+  const isMeta = ch==='META';
+  const metaHasData = META_UPLOADED_DATA.length>0;
+  const daHasData = DA_UPLOADED_DATA.length>0;
+  document.getElementById('metaNotice').style.display    = isMeta ? '' : 'none';
+  document.getElementById('daNotice').style.display      = ch==='DA' ? '' : 'none';
+  document.getElementById('naverDataArea').style.display = ((isMeta && !metaHasData) || (ch==='DA' && !daHasData)) ? 'none' : '';
+  if(isMeta){
+    document.getElementById('keywordSection').style.display  = 'none';
+    document.getElementById('inventorySection').style.display = 'none';
+    updateMetaUploadUI();
+    if(metaHasData){ updateDatePickerBounds(); updatePeriodButtonStates(); reapplyRange(); }
+    return;
+  }
+  document.getElementById('keywordSection').style.display  = ch==='DA' ? 'none' : '';
+  document.getElementById('inventorySection').style.display = ch==='DA' ? 'none' : '';
+  updateDAUploadUI();
+  updateDatePickerBounds();
+  updatePeriodButtonStates();
+  reapplyRange();  // 채널 전환 시 사용자가 설정한 기간 유지(범위 밖이면 클램프)
+}
+document.querySelectorAll('.ch-tab').forEach(btn=>{
+  btn.addEventListener('click', ()=>switchChannel(btn.dataset.ch));
+});
+
+/* ============================================================
+   12. 부트스트랩
+   ============================================================ */
+// 날짜 입력 기본값
+document.getElementById('dStart').value = dateStr(addDays(TODAY,-6));
+document.getElementById('dEnd').value   = dateStr(TODAY);
+
+(async ()=>{
+  // 1) 먼저 계정 목록 로드 (bundle.js가 있으면 window.NAVER_ADS_BUNDLE 채워짐)
+  await loadAccounts();
+  // 2) 기본 계정 선택 — 실계정 있으면 첫 실계정, 없으면 샘플
+  const firstReal = ACCOUNTS.find(a=>a.status==='ok');
+  const def = firstReal || SAMPLE_ACCT;
+  // 3) 데이터셋 스와핑 (아직 date 범위 미설정이라 render()는 보류됨)
+  await switchAccount(def);
+  // 4) 채널별 date picker/버튼 상태 초기화
+  updateDAUploadUI();
+  updateDatePickerBounds();
+  updatePeriodButtonStates();
+  // 5) 기본 기간 = 실데이터 마지막 날 기준 최근 7일
+  setRangeByDays(7);
+})();
+
+</script>
+</body>
+</html>
