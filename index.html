@@ -1700,6 +1700,26 @@ function renderKwInsight(){
   el.innerHTML = html;
   renderKwOpp();
 }
+const _BID_TIP='추정 입찰가는 네이버 예상치예요(실시간 경매라 변동). 노출=노출 시작에 필요한 최소가, 3위=평균 3위 목표가.<br>넣을만/비추는 내 <b>수익성 상한 CPC</b>(객단가×전환율÷목표ROAS)와 비교한 판정이에요. 추천가는 상한을 넘지 않는 선이에요.';
+const _CEIL_TIP='수익성 상한 CPC = 객단가 × 전환율 ÷ 목표ROAS.<br>이 금액보다 비싸게 클릭을 사면 목표 수익률이 깨져요. 목표 ROAS를 바꾸면 상한·추천이 다시 계산돼요.<br>(신규 연관 키워드는 내 계정 평균 전환율로 추정한 값이라 실제와 다를 수 있어요.)';
+function _bidCeiling(){
+  const aov=Number(ACCT_META.acctAov||0), cvr=Number(ACCT_META.acctCvr||0);
+  if(!aov||!cvr||!TARGET_ROAS) return 0;
+  return aov*(cvr/100)/(TARGET_ROAS/100);
+}
+function _bidRecLine(o){
+  if(o.bidMin==null && o.bidPos==null) return '';
+  const ceil=_bidCeiling();
+  const parts=[];
+  if(o.bidMin!=null) parts.push('노출 '+fmtWon(o.bidMin));
+  if(o.bidPos!=null) parts.push('3위 '+fmtWon(o.bidPos));
+  let v='';
+  if(ceil>0 && o.bidMin!=null){
+    if(o.bidMin<=ceil){ const rec=Math.round(Math.min(ceil, o.bidPos||o.bidMin)); v=` · <b style="color:#0a9d4e">넣을만 · 추천 ${fmtWon(rec)}</b>`; }
+    else v=` · <b style="color:#e11d48">비추 · 상한 ${fmtWon(Math.round(ceil))} 초과</b>`;
+  }
+  return `<div class="ttp" data-tip="${_BID_TIP}" style="font-size:11px;color:var(--muted);margin-top:1px;cursor:help">추정 입찰가 ${parts.join(' · ')}${v}</div>`;
+}
 function _kwOppStamp(){
   const a=(typeof CURRENT_ACCT!=='undefined')?CURRENT_ACCT:null;
   if(!a) return '';
@@ -1719,17 +1739,27 @@ function renderKwOpp(){
     const on=(i===KW_SEED_SEL);
     return `<button class="kwseed" data-i="${i}" style="border:1px solid ${on?AC:'var(--line)'};background:${on?AC:'#fff'};color:${on?'#fff':'var(--ink-2)'};border-radius:14px;padding:4px 11px;font-size:12px;font-weight:600;cursor:pointer;margin:0 5px 5px 0;font-family:inherit">${_esc(g.seed)}</button>`;
   }).join('');
+  // 수익성 상한 + 목표ROAS 컨트롤
+  const ceil=_bidCeiling();
+  const ceilHTML = ceil>0
+    ? `수익성 상한 CPC ≈ <b style="color:${AC}">${fmtWon(Math.round(ceil))}</b> <span style="color:var(--muted)">(객단가 ${fmtWon(ACCT_META.acctAov)} × 전환율 ${ACCT_META.acctCvr}% ÷ 목표ROAS ${TARGET_ROAS}%)</span>`
+    : `<span style="color:var(--muted)">전환 데이터가 없어 수익성 상한은 계산 불가 — 네이버 추정가만 참고</span>`;
+  const ctrl=`<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:12px;margin:2px 0 10px"><label style="white-space:nowrap">목표 ROAS <input id="tgtRoas" type="number" min="50" step="50" value="${TARGET_ROAS}" style="width:62px;padding:3px 6px;border:1px solid var(--line);border-radius:6px;font-family:inherit;font-size:12px;background:var(--card);color:var(--ink)">%</label><span class="ttp" data-tip="${_CEIL_TIP}" style="cursor:help">${ceilHTML}</span></div>`;
   const g=groups[KW_SEED_SEL];
   const all=g.items||[];
-  const lim=(typeof KW_OPP_MORE!=='undefined'&&KW_OPP_MORE)?all.length:8;
-  let rows=all.slice(0,lim).map(o=>`<div style="display:flex;justify-content:space-between;gap:10px;padding:4px 0;border-bottom:1px solid var(--line)"><span><b>${_esc(o.keyword)}</b></span><span style="color:var(--muted);white-space:nowrap">검색량 ${fmtInt(o.total||0)}/월 · 경쟁 ${_compPill(o.comp)} ${_depthScore(o.depth)}</span></div>`).join('');
+  if(typeof KW_OPP_LIMIT==='undefined') KW_OPP_LIMIT=10;
+  const lim=Math.min(KW_OPP_LIMIT, all.length);
+  let rows=all.slice(0,lim).map(o=>`<div style="padding:5px 0;border-bottom:1px solid var(--line)"><div style="display:flex;justify-content:space-between;gap:10px"><span><b>${_esc(o.keyword)}</b></span><span style="color:var(--muted);white-space:nowrap">검색량 ${fmtInt(o.total||0)}/월 · 경쟁 ${_compPill(o.comp)} ${_depthScore(o.depth)}</span></div>${_bidRecLine(o)}</div>`).join('');
   if(!rows) rows='<span class="hint">연관 키워드 없음</span>';
   let moreBtn='';
-  if(all.length>8){
-    const lbl=(typeof KW_OPP_MORE!=='undefined'&&KW_OPP_MORE)?'접기 ▲':('+ '+(all.length-8)+'개 더보기 ▼');
-    moreBtn=`<button class="kwmore" style="border:none;background:none;color:${AC};font-size:12px;font-weight:600;cursor:pointer;margin-top:7px;padding:0;font-family:inherit">${lbl}</button>`;
+  const btnCss=`border:none;background:none;color:${AC};font-size:12px;font-weight:600;cursor:pointer;margin-top:7px;padding:0;font-family:inherit`;
+  if(all.length>lim){
+    const nextN=Math.min(10, all.length-lim);
+    moreBtn=`<button class="kwmore" style="${btnCss}">+ ${nextN}개 더보기 ▼</button>`;
+  } else if(lim>10){
+    moreBtn=`<button class="kwless" style="${btnCss}">접기 ▲</button>`;
   }
-  box.innerHTML=`<div style="font-size:12px;color:var(--ink-2)">내 등록 키워드 (클릭해서 연관·하위 키워드 보기)</div><div style="margin:6px 0 8px">${chips}</div><div style="font-size:12.5px;line-height:1.6"><b style="color:${AC}">'${_esc(g.seed)}'</b> 연관 키워드 <span style="color:var(--muted)">(${all.length}개)</span><div style="margin-top:4px">${rows}</div>${moreBtn}</div><div style="font-size:12px;color:var(--ink-2);margin-top:10px">→ <b>검색량 크고 경쟁 낮음·중간</b>인 키워드부터 광고그룹에 추가하세요. 더 많은 연관어는 <a href="https://manage.searchad.naver.com" target="_blank" style="color:${AC}">검색광고센터 → 도구 → 키워드도구</a>에서 직접 탐색할 수 있어요.</div>`;
+  box.innerHTML=`<div style="font-size:12px;color:var(--ink-2)">내 등록 키워드 (클릭해서 연관·하위 키워드 보기)</div><div style="margin:6px 0 8px">${chips}</div>${ctrl}<div style="font-size:12.5px;line-height:1.6"><b style="color:${AC}">'${_esc(g.seed)}'</b> 연관 키워드 <span style="color:var(--muted)">(${all.length}개)</span><div style="margin-top:4px">${rows}</div>${moreBtn}</div><div style="font-size:12px;color:var(--ink-2);margin-top:10px">→ <b>검색량 크고 경쟁 낮음·중간, 넣을만</b>인 키워드부터 광고그룹에 추가하세요. 더 많은 연관어는 <a href="https://manage.searchad.naver.com" target="_blank" style="color:${AC}">검색광고센터 → 도구 → 키워드도구</a>에서 직접 탐색할 수 있어요.</div>`;
 }
 function renderOpinions(ctx){
   let {cur,prev,base,len,prevStart,prevEnd} = ctx;
@@ -2111,11 +2141,13 @@ document.getElementById('invFilter').addEventListener('change', e=>{
   renderInventory();
 });
 let KW_SEED_SEL = 0;
-let KW_OPP_MORE = false;
+let KW_OPP_LIMIT = 10;
 document.addEventListener('click', e=>{
-  const b=e.target.closest('.kwseed'); if(b){ KW_SEED_SEL = parseInt(b.dataset.i,10)||0; KW_OPP_MORE=false; renderKwOpp(); return; }
-  const m=e.target.closest('.kwmore'); if(m){ KW_OPP_MORE=!KW_OPP_MORE; renderKwOpp(); }
+  const b=e.target.closest('.kwseed'); if(b){ KW_SEED_SEL = parseInt(b.dataset.i,10)||0; KW_OPP_LIMIT=10; renderKwOpp(); return; }
+  const m=e.target.closest('.kwmore'); if(m){ KW_OPP_LIMIT+=10; renderKwOpp(); return; }
+  const l=e.target.closest('.kwless'); if(l){ KW_OPP_LIMIT=10; renderKwOpp(); }
 });
+document.addEventListener('change', e=>{ if(e.target && e.target.id==='tgtRoas'){ const v=parseInt(e.target.value,10); TARGET_ROAS=(v>0?v:400); renderKwOpp(); } });
 
 /* ============================================================
    10. 메인 렌더
@@ -2572,6 +2604,8 @@ let CURRENT_ACCT = SAMPLE_ACCT;
 let ADS_LIST = [];
 let KW_LIST  = [];
 let KW_OPPS  = [];
+let ACCT_META = {};
+let TARGET_ROAS = 400;
 
 function applyDataset(src){
   if(!src){
@@ -2581,6 +2615,7 @@ function applyDataset(src){
     ADS_LIST = [];
     KW_LIST  = [];
     KW_OPPS  = [];
+    ACCT_META = {};
     return;
   }
   daily   = Array.isArray(src.daily)   ? src.daily   : SAMPLE_DAILY.slice();
@@ -2589,6 +2624,7 @@ function applyDataset(src){
   ADS_LIST = Array.isArray(src.adsList) ? src.adsList : [];
   KW_LIST  = Array.isArray(src.keywordsList) ? src.keywordsList : [];
   KW_OPPS  = Array.isArray(src.kwOpportunities) ? src.kwOpportunities : [];
+  ACCT_META = (src.meta && typeof src.meta==="object") ? src.meta : {};
 }
 
 // file:// 에서도 작동하도록 스크립트 태그로 로드 (fetch는 로컬 파일 차단됨)
@@ -2635,7 +2671,7 @@ async function switchAccount(acct){
   const lu    = document.getElementById('lastUpdate');
 
   if(acct.status==='blank'){
-    daily=[]; kwDaily=[]; EVENTS=[]; ADS_LIST=[]; KW_LIST=[]; KW_OPPS=[];
+    daily=[]; kwDaily=[]; EVENTS=[]; ADS_LIST=[]; KW_LIST=[]; KW_OPPS=[]; ACCT_META={};
     LIVE_FETCHED='';
     badge.style.display='none';
     sub.textContent = '새 계정 · 데이터 없음 (검색광고 연동 또는 CSV 업로드 전)';

@@ -85,6 +85,28 @@ def _get(uri: str, acct: dict, params: dict | None = None, retries: int = 3):
     raise RuntimeError(last_err or "unknown error")
 
 
+def _post(uri: str, acct: dict, body: dict, retries: int = 3):
+    data = json.dumps(body, ensure_ascii=False).encode("utf-8")
+    url = API_BASE + uri
+    last_err = None
+    for attempt in range(retries):
+        try:
+            req = request.Request(url, data=data, method="POST", headers=_headers("POST", uri, acct))
+            with request.urlopen(req, timeout=30) as resp:
+                b = resp.read().decode("utf-8")
+                return json.loads(b) if b else None
+        except error.HTTPError as e:
+            last_err = f"HTTP {e.code}: {e.read().decode('utf-8', 'ignore')[:200]}"
+            if e.code in (429, 500, 502, 503, 504):
+                time.sleep(1.5 * (attempt + 1))
+                continue
+            raise RuntimeError(last_err)
+        except error.URLError as e:
+            last_err = f"URL error: {e.reason}"
+            time.sleep(1.0 * (attempt + 1))
+    raise RuntimeError(last_err or "unknown error")
+
+
 # ────────────────────────────────────────────────
 # 3. 광고 유형 매핑 (네이버 campaignTp → 대시보드 코드)
 # ────────────────────────────────────────────────
@@ -182,6 +204,47 @@ def fetch_keyword_tool(acct: dict, kw_strings: list) -> tuple:
     for g in groups:
         g.pop("_rel", None)
     return vol_map, groups
+
+
+def _bid_int(v):
+    try:
+        return int(round(float(v)))
+    except Exception:
+        return None
+
+
+def fetch_bid_estimates(acct: dict, kw_strings: list, device: str = "MOBILE", position: int = 3) -> dict:
+    """네이버 예상 입찰가 추정.
+    반환: {nospace(키워드): {"min": 노출최소입찰가, "pos": 평균N위목표입찰가}}
+    """
+    out = {}
+    # nospace -> 검색 key(공백 제거 표기)
+    disp = {}
+    for s in kw_strings:
+        k = _nospace(s)
+        if k and k not in disp:
+            disp[k] = s.strip().replace(" ", "")
+    keys = list(disp.values())
+
+    def _collect(uri, body_extra, field):
+        for i in range(0, len(keys), 100):
+            batch = keys[i:i + 100]
+            items = [dict({"key": k}, **body_extra) for k in batch]
+            try:
+                res = _post(uri, acct, {"device": device, "items": items})
+            except Exception as e:
+                print(f"    ! 입찰가 추정 실패({uri.split('/')[-2]}): {e}")
+                continue
+            for e in (res or {}).get("estimate") or []:
+                kw = _nospace(e.get("keyword") or e.get("key") or "")
+                bid = _bid_int(e.get("bid"))
+                if kw and bid is not None:
+                    out.setdefault(kw, {})[field] = bid
+            time.sleep(0.2)
+
+    _collect("/estimate/exposure-minimum-bid/keyword", {}, "min")
+    _collect("/estimate/average-position-bid/keyword", {"position": position}, "pos")
+    return out
 
 
 # ────────────────────────────────────────────────
@@ -531,6 +594,37 @@ def fetch_account(acct: dict, days: int = 365) -> dict:
         if r:
             item["avgRnk"] = r
 
+    # 4-6) 예상 입찰가 (등록 키워드 + 연관 키워드 합집합)
+    print(f"  · [{name}] 예상 입찰가 추정...")
+    est_keys = [k.get("keyword", "") for k in keywords]
+    for g in kw_opps:
+        for it in g.get("items", []):
+            est_keys.append(it.get("keyword", ""))
+    try:
+        bid_map = fetch_bid_estimates(acct, est_keys)
+    except Exception as e:
+        print(f"    ! 입찰가 추정 전체 실패: {e}")
+        bid_map = {}
+    print(f"    입찰가 추정 {len(bid_map)}개")
+    for item in kw_list:
+        b = bid_map.get(_nospace(item.get("keyword", "")))
+        if b:
+            if b.get("min") is not None: item["bidMin"] = b["min"]
+            if b.get("pos") is not None: item["bidPos"] = b["pos"]
+    for g in kw_opps:
+        for it in g.get("items", []):
+            b = bid_map.get(_nospace(it.get("keyword", "")))
+            if b:
+                if b.get("min") is not None: it["bidMin"] = b["min"]
+                if b.get("pos") is not None: it["bidPos"] = b["pos"]
+
+    # 계정 평균 전환율·객단가 (수익성 상한 계산 근거)
+    tot_clk  = sum(int(d.get("clk", 0) or 0)  for d in daily)
+    tot_conv = sum(int(d.get("conv", 0) or 0) for d in daily)
+    tot_rev  = sum(int(d.get("rev", 0) or 0)  for d in daily)
+    acct_cvr = round(tot_conv / tot_clk * 100, 2) if tot_clk else 0
+    acct_aov = round(tot_rev / tot_conv) if tot_conv else 0
+
     return {
         "meta": {
             "account": name,
@@ -542,6 +636,10 @@ def fetch_account(acct: dict, days: int = 365) -> dict:
             "keywordCount":  len(keywords),
             "creativeCount": len(ads),
             "hasKeywordTool": bool(vol_map or kw_opps),
+            "hasBidEstimate": bool(bid_map),
+            "acctCvr": acct_cvr,
+            "acctAov": acct_aov,
+            "bidPosition": 3,
         },
         "daily": daily,
         "kwDaily": kw_daily,
