@@ -272,7 +272,7 @@
   <div class="topbar">
     <div class="brand">
       <div>
-        <h1>선암파머스 광고 대시보드 <span class="status-badge" id="dataModeBadge">샘플 데이터</span></h1>
+        <h1>선암파머스 광고 대시보드 <span class="status-badge" id="dataModeBadge" style="display:none">샘플 데이터</span></h1>
         <div class="sub" id="headerSub">API 자격증명 연결 전 · 샘플 데이터로 동작 중</div>
       </div>
     </div>
@@ -567,7 +567,7 @@
 
   <!-- AD TYPE CARDS -->
   <div class="hint" id="adtypeHint" style="margin:-4px 0 8px;padding:0 2px">
-    🎯 광고 유형별 성과 · 각 뱃지 <b>양호 / 평균권 / 주의</b>는 업계 참고치 대비 평가 <i class="info-ic" data-gloss="benchGrade">ⓘ</i>
+    🎯 광고 유형별 성과 · 막대 = <b>업계 참고치 범위 내 내 위치</b>(초록 양호·노랑 평균권·빨강 주의, CPC는 낮을수록 좋음) <i class="info-ic" data-gloss="benchGrade">ⓘ</i> · <b>카드를 클릭</b>하면 아래 추이 그래프에 포함/제외돼요
   </div>
   <div class="adtypes" id="adtypes"></div>
 
@@ -1217,6 +1217,18 @@ document.getElementById('seriesToggle').addEventListener('click', e=>{
   b.classList.toggle('off', !SERIES_VIS[k]);
   renderChart();
 });
+(function bindAdtypeToggle(){
+  const box=document.getElementById('adtypes'); if(!box) return;
+  box.addEventListener('click', e=>{
+    if(MAIN_CHANNEL!=='SA') return;
+    const card=e.target.closest('.adcard'); if(!card) return;
+    const t=card.dataset.adtype; if(!t || !(t in SA_ACTIVE)) return;
+    const activeCount=Object.values(SA_ACTIVE).filter(Boolean).length;
+    if(SA_ACTIVE[t] && activeCount<=1) return;
+    SA_ACTIVE[t]=!SA_ACTIVE[t];
+    render();
+  });
+})();
 async function exportReport(){
   if(typeof html2canvas==='undefined'){ alert('이미지 모듈을 불러오는 중이에요. 잠시 후 다시 시도해 주세요.'); return; }
   const el=document.querySelector('.wrap'); if(!el) return;
@@ -1390,7 +1402,6 @@ function renderKPIs(){
       <div class="label">${c.label}</div>
       <div class="value ttp" data-tip="${_kpiTip(c.label)}">${c.value}</div>
       <div class="deltas">${c.chips.join('')}</div>
-      ${c.eval?`<div class="eval">${c.eval}</div>`:''}
     </div>
   `).join('');
 
@@ -1421,9 +1432,10 @@ function renderAdTypes(){
     const ctrEval = evalMetric(cur.ctr, b.CTR[0], b.CTR[1], false);
     const cpcEval = evalMetric(cur.cpc, b.CPC[0], b.CPC[1], true);
     const roasEval= evalMetric(cur.roas,b.ROAS[0],b.ROAS[1],false);
-    function bar(val, lo, hi){
+    function bar(val, lo, hi, tone){
       const pos = Math.max(0, Math.min(100, (val-lo)/(hi-lo)*100));
-      return `<div class="bar"><span style="width:${pos}%"></span></div>`;
+      const cls = tone==='bad'?' bad':tone==='flat'?' warn':'';
+      return `<div class="bar${cls}"><span style="width:${pos}%"></span></div>`;
     }
     const adLbl = AD_LABEL[t];
     function _esc(s){ return String(s).replace(/"/g,'&quot;'); }
@@ -1458,8 +1470,10 @@ function renderAdTypes(){
       const cls = ev.tone==='good'?'good':ev.tone==='bad'?'bad':'flat';
       return `<span class="chip ${cls}" style="cursor:help" data-bench="${tip}">${ev.text}</span>`;
     }
+    const _saI = MAIN_CHANNEL==='SA';
+    const _off = _saI && typeof SA_ACTIVE!=='undefined' && !SA_ACTIVE[t];
     return `
-    <div class="adcard">
+    <div class="adcard" data-adtype="${t}" style="${_saI?'cursor:pointer;transition:opacity .12s;':''}${_off?'opacity:.4;':''}">
       <h3><span>${AD_LABEL[t]}<i class="info-ic" data-gloss="${t}">ⓘ</i>${AD_CHANNEL[t]==='DA' ? '<span class="da-ribbon">DA</span>' : ''}</span>
         <span class="badge ${AD_BADGE[t]}">${t.toUpperCase()}</span>
       </h3>
@@ -1470,11 +1484,11 @@ function renderAdTypes(){
       </div>
       <div style="margin-top:10px;font-size:12px">
         <div style="display:flex;justify-content:space-between"><span>CTR ${fmtPct(cur.ctr)}</span>${evalChip(ctrEval,'CTR',cur.ctr,b.CTR[0],b.CTR[1],'%',false)}</div>
-        ${bar(cur.ctr,b.CTR[0],b.CTR[1])}
+        ${bar(cur.ctr,b.CTR[0],b.CTR[1],ctrEval.tone)}
         <div style="display:flex;justify-content:space-between;margin-top:6px"><span>CPC ${fmtWon(cur.cpc)}</span>${evalChip(cpcEval,'CPC',cur.cpc,b.CPC[0],b.CPC[1],'원',true)}</div>
-        ${bar(cur.cpc,b.CPC[0],b.CPC[1])}
+        ${bar(cur.cpc,b.CPC[0],b.CPC[1],cpcEval.tone)}
         <div style="display:flex;justify-content:space-between;margin-top:6px"><span>ROAS ${fmtPct(cur.roas,0)}</span>${evalChip(roasEval,'ROAS',cur.roas,b.ROAS[0],b.ROAS[1],'%',false)}</div>
-        ${bar(cur.roas,b.ROAS[0],b.ROAS[1])}
+        ${bar(cur.roas,b.ROAS[0],b.ROAS[1],roasEval.tone)}
         <div class="hint" style="margin-top:6px">내 과거 90일 · CTR ${fmtPct(base.ctr)} · CPC ${fmtWon(base.cpc)} · ROAS ${fmtPct(base.roas,0)}</div>
       </div>
     </div>`;
@@ -1514,10 +1528,21 @@ function bindGlossaryIcons(){
    ============================================================ */
 let chartRef=null;
 const SERIES_VIS={CTR:true,CPC:true,COST:true,ROAS:true};
+let SA_ACTIVE={shop:true,powerlink:true,brand:true};
+function _chartDayTotal(d){
+  if(MAIN_CHANNEL==='SA'){
+    const act=['shop','powerlink','brand'].filter(x=>SA_ACTIVE[x]);
+    const a={imp:0,clk:0,cost:0,conv:0,rev:0};
+    act.forEach(x=>{const r=sumRange(d,d,x);a.imp+=r.imp;a.clk+=r.clk;a.cost+=r.cost;a.conv+=r.conv;a.rev+=r.rev;});
+    a.ctr=a.imp?a.clk/a.imp*100:0; a.cpc=a.clk?a.cost/a.clk:0; a.roas=a.cost?a.rev/a.cost*100:0;
+    return a;
+  }
+  return sumRange(d,d);
+}
 function renderChart(){
   const rows = [];
   for(let d=new Date(currentStart); d<=currentEnd; d=addDays(d,1)){
-    const t = sumRange(d,d);
+    const t = _chartDayTotal(d);
     rows.push({date:dateStr(d), ctr:+t.ctr.toFixed(2), cpc:Math.round(t.cpc), cost:Math.round(t.cost/1000), roas:Math.round(t.roas)});
   }
   const labels = rows.map(r=>r.date.slice(5));
@@ -2349,6 +2374,24 @@ function _statusHTML(kind){
   const a=map[kind]||map.none;
   return `<span style="display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;padding:2px 7px;border-radius:999px;background:${a[0]}1a;color:${a[0]};vertical-align:middle"><span style="width:6px;height:6px;border-radius:50%;background:${a[0]}"></span>${a[1]}</span>`;
 }
+function refreshHeaderSub(){
+  const sub=document.getElementById('headerSub'); if(!sub) return;
+  const a=(typeof CURRENT_ACCT!=='undefined')?CURRENT_ACCT:null;
+  const metaOn=(typeof META_UPLOADED_DATA!=='undefined' && META_UPLOADED_DATA.length>0);
+  const parts=[];
+  if(a && a.status==='ok'){
+    parts.push(`네이버 검색광고 · Customer ID ${a.customerId} · 매일 04시 자동 갱신`);
+    if(LIVE_FETCHED){ const fd=new Date(String(LIVE_FETCHED).replace(' ','T')); const days=Math.floor((Date.now()-fd.getTime())/86400000); if(!isNaN(days)&&days>=2) parts.push(`<span style="color:var(--red);font-weight:700">⚠️ ${days}일째 미갱신 — 연동 점검 필요</span>`); }
+  } else if(a && a.status==='err'){
+    parts.push('<span style="color:var(--red);font-weight:700">네이버 검색광고 연동 실패 — API 키 점검</span>');
+  } else if(a && a.status==='blank'){
+    parts.push('새 계정 · 데이터 없음 (연동/업로드 전)');
+  } else {
+    parts.push('네이버 검색광고: 샘플 데이터 (연동 전)');
+  }
+  if(metaOn) parts.push('메타 연동됨');
+  sub.innerHTML = parts.join(' · ');
+}
 function updateChannelStatus(){
   const sa=document.getElementById('status-SA');
   if(sa){ const st=(typeof CURRENT_ACCT!=='undefined'&&CURRENT_ACCT)?CURRENT_ACCT.status:'sample';
@@ -2359,6 +2402,7 @@ function updateChannelStatus(){
 function render(){
   const isMeta = MAIN_CHANNEL==='META';
   updateChannelStatus();
+  refreshHeaderSub();
   ['adtypeHint','adtypes','verify','benchNote'].forEach(id=>{const el=document.getElementById(id); if(el) el.style.display=isMeta?'none':'';});
   const op=document.getElementById('opinionPanel'); if(op) op.style.display='';
   const oh=document.getElementById('opinionHint'); if(oh) oh.style.display=isMeta?'none':'';
@@ -2451,15 +2495,15 @@ async function switchAccount(acct){
   const badge = document.getElementById('dataModeBadge');
   const sub   = document.getElementById('headerSub');
   const lu    = document.getElementById('lastUpdate');
-  badge.style.display = '';
 
   if(acct.status==='blank'){
     daily=[]; kwDaily=[]; EVENTS=[]; ADS_LIST=[]; KW_LIST=[];
+    LIVE_FETCHED='';
     badge.style.display='none';
     sub.textContent = '새 계정 · 데이터 없음 (검색광고 연동 또는 CSV 업로드 전)';
     lu.textContent = '—';
   } else if(acct.status==='sample'){
-    applyDataset(null);
+    applyDataset(null); LIVE_FETCHED='';
     badge.className='status-badge sample'; badge.textContent='샘플 데이터';
     sub.textContent = 'API 자격증명 연결 전 · 샘플 데이터로 동작 중';
     lu.textContent = '샘플 데이터 (자동 갱신 아님)';
@@ -2467,12 +2511,12 @@ async function switchAccount(acct){
     const b = window.NAVER_ADS_BUNDLE;
     const data = b && b.data && b.data[acct.customerId];
     if(data){
-      applyDataset(data);
+      applyDataset(data); LIVE_FETCHED = (data&&data.meta&&data.meta.fetchedAt) || acct.updatedAt || '';
       badge.className='status-badge live'; badge.textContent='실시간 API';
       sub.textContent = `${acct.name} · Customer ID ${acct.customerId} · 실시간 API · 매일 자동 갱신`;
       lu.textContent = data?.meta?.fetchedAt || acct.updatedAt || '—';
     } else {
-      applyDataset(null);
+      applyDataset(null); LIVE_FETCHED='';
       badge.className='status-badge err'; badge.textContent='연결 실패';
       sub.textContent = `${acct.name}: 데이터 파일 없음 — 샘플로 표시`;
       lu.textContent = '—';
@@ -2480,6 +2524,7 @@ async function switchAccount(acct){
   }
   if(typeof updateMetaUploadUI==='function') updateMetaUploadUI();
   if(typeof updateDAUploadUI==='function') updateDAUploadUI();
+  refreshHeaderSub();
   renderAccountList();
   // 날짜가 아직 설정 전이면 render 보류 (bootstrap의 setRangeByDays가 처리)
   if(currentStart && currentEnd) switchChannel(MAIN_CHANNEL);
@@ -2638,6 +2683,7 @@ let DA_UPLOADED_DATA = [];     // {date, ad:'advoost', imp, clk, cost, conv, rev
 let DA_UPLOADED_META = null;   // {filename, uploadedAt, rowCount}
 let META_UPLOADED_DATA = [];   // {date, ad:'meta', imp, clk, cost, conv, rev}
 let METANOTICE_COLLAPSED = true;
+let LIVE_FETCHED = '';
 let DANOTICE_COLLAPSED = true;
 let META_CAMP_SORT='cost';
 let META_AD_SORT='rev';
@@ -3027,8 +3073,7 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
   // 1) 먼저 계정 목록 로드 (bundle.js가 있으면 window.NAVER_ADS_BUNDLE 채워짐)
   await loadAccounts();
   // 2) 기본 계정 선택 — 실계정 있으면 첫 실계정, 없으면 샘플
-  const firstReal = ACCOUNTS.find(a=>a.status==='ok');
-  const def = firstReal || SAMPLE_ACCT;
+  const def = ACCOUNTS.find(a=>a.status==='ok') || ACCOUNTS.find(a=>a.status==='err') || SAMPLE_ACCT;
   // 3) 데이터셋 스와핑 (아직 date 범위 미설정이라 render()는 보류됨)
   await switchAccount(def);
   // 4) 채널별 date picker/버튼 상태 초기화
