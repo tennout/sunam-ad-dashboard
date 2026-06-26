@@ -277,7 +277,7 @@
       </div>
     </div>
     <div class="topbar-right no-capture">
-      <div class="sub">최종 <b id="lastUpdate">—</b></div>
+      <div class="sub ttp" data-tip="데이터를 마지막으로 받아온 시각이에요.<br>실시간 연동 중이면 자동 수집 시각이 표시되고, 매일 자동 갱신돼요.<br>샘플 데이터는 갱신되지 않아요." style="cursor:help">최종 갱신 <b id="lastUpdate">—</b></div>
       <div class="account-switcher" style="position:relative">
         <button class="glossary-btn" id="exportBtn" title="리포트 이미지로 저장" aria-haspopup="true">📷 리포트 저장 ▾</button>
         <div class="account-menu" id="exportMenu" role="menu">
@@ -2345,12 +2345,14 @@ function renderTrendInterp(){
 }
 
 function _statusHTML(kind){
-  const map={live:['#03c75a','실시간 API'], csv:['#2563eb','CSV 연동'], sample:['#f59e0b','샘플 데이터'], none:['#8a9690','연동 전']};
+  const map={live:['#03c75a','실시간 연동 중'], csv:['#2563eb','CSV 연동'], sample:['#f59e0b','샘플 데이터'], err:['#e11d48','연동 실패'], none:['#8a9690','연동 전']};
   const a=map[kind]||map.none;
   return `<span style="display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;padding:2px 7px;border-radius:999px;background:${a[0]}1a;color:${a[0]};vertical-align:middle"><span style="width:6px;height:6px;border-radius:50%;background:${a[0]}"></span>${a[1]}</span>`;
 }
 function updateChannelStatus(){
-  const sa=document.getElementById('status-SA'); if(sa) sa.innerHTML=_statusHTML('sample');
+  const sa=document.getElementById('status-SA');
+  if(sa){ const st=(typeof CURRENT_ACCT!=='undefined'&&CURRENT_ACCT)?CURRENT_ACCT.status:'sample';
+    sa.innerHTML=_statusHTML(st==='ok'?'live':st==='err'?'err':st==='blank'?'none':'sample'); }
   const da=document.getElementById('status-DA'); if(da) da.innerHTML=_statusHTML(DA_UPLOADED_DATA.length?'csv':'none');
   const me=document.getElementById('status-META'); if(me) me.innerHTML=_statusHTML(META_UPLOADED_DATA.length?'csv':'none');
 }
@@ -2460,14 +2462,14 @@ async function switchAccount(acct){
     applyDataset(null);
     badge.className='status-badge sample'; badge.textContent='샘플 데이터';
     sub.textContent = 'API 자격증명 연결 전 · 샘플 데이터로 동작 중';
-    lu.textContent = new Date(TODAY.getTime()-1*60*60*1000).toLocaleString('ko-KR');
+    lu.textContent = '샘플 데이터 (자동 갱신 아님)';
   } else {
     const b = window.NAVER_ADS_BUNDLE;
     const data = b && b.data && b.data[acct.customerId];
     if(data){
       applyDataset(data);
       badge.className='status-badge live'; badge.textContent='실시간 API';
-      sub.textContent = `${acct.name} · Customer ID ${acct.customerId}`;
+      sub.textContent = `${acct.name} · Customer ID ${acct.customerId} · 실시간 API · 매일 자동 갱신`;
       lu.textContent = data?.meta?.fetchedAt || acct.updatedAt || '—';
     } else {
       applyDataset(null);
