@@ -714,6 +714,12 @@
     <div id="kwInsightBody"></div>
   </div>
 
+  <!-- 키워드 기회 (별도 섹션) -->
+  <div class="panel" id="kwOppPanel" style="margin-bottom:18px;display:none">
+    <h2 style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><span>키워드 기회 <span class="tag">하위·연관 키워드 탐색 · 추천 입찰가</span></span><span id="kwOppStampSlot"></span></h2>
+    <div id="kwOppArea"></div>
+  </div>
+
   <div class="panel" id="inventorySection" style="margin-bottom:18px">
     <h2>소재 · 키워드 전체 목록 <span class="tag">네이버 API에서 수집한 원본 자산</span></h2>
     <div class="inv-tabs">
@@ -1693,15 +1699,15 @@ function renderKwInsight(){
     const names=dormant.slice(0,8).map(k=>`<b>${k.keyword}</b>`).join(', ');
     html+=`<div class="fb-block" style="background:#eff5fd"><div style="font-size:13px;font-weight:700;color:#2563eb;margin-bottom:5px">잠자는 키워드 ${dormant.length}개 (최근 노출 거의 없음)</div><div style="font-size:12.5px;color:var(--ink-2);line-height:1.7">${names}${dormant.length>8?` 외 ${dormant.length-8}개`:''}<br><span style="color:var(--ink-2)">→ 등록은 됐지만 <b>입찰가가 낮아 검색 시 노출이 안 되는</b> 상태일 가능성이 커요. 검색광고센터에서 입찰가·일예산을 올려 노출을 시작시키세요.</span></div></div>`;
   }
-  if(typeof KW_OPPS!=='undefined' && KW_OPPS.length){
-    html+=`<div class="fb-block" style="background:#eefbf8"><div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:7px"><div style="font-size:13px;font-weight:700;color:#0d8a7d">키워드 기회 — 내 키워드에서 하위·연관 키워드 탐색</div>${_kwOppStamp()}</div><div id="kwOppArea"></div></div>`;
-  }
   html+=`<div class="fb-block" style="background:#fafcfb"><div style="font-size:13px;font-weight:700;margin-bottom:5px">키워드 "진입" 가이드 — 등록만으론 노출 안 돼요</div><div style="font-size:12.5px;color:var(--ink-2);line-height:1.7">검색 시 내 광고가 뜨려면: <b>① 입찰가</b>를 경쟁 수준으로 올리기 · <b>② 일예산</b> 충분히 · <b>③ 품질지수</b>(키워드–소재–랜딩 연관성) 관리.<br><a href="https://searchad.naver.com" target="_blank">searchad.naver.com</a> → 캠페인 → 광고그룹 → <b>키워드 입찰가</b> 조정. 새 키워드도 여기서 추가해요.</div></div>`;
   el.innerHTML = html;
   renderKwOpp();
 }
-const _BID_TIP='<b>추정 입찰가</b> · 네이버 예상치 (경매라 변동)<br>· 노출 = 노출이 시작되는 최소가<br>· 3위 = 평균 3위에 필요한 값<br><br><b>넣을만 / 비추</b> · 수익성 상한과 비교한 판정<br>추천가는 상한을 넘지 않는 선이에요.';
-const _CEIL_TIP='<b>수익성 상한 CPC</b><br>= 객단가 × 전환율 ÷ 목표ROAS<br><br>이보다 비싸게 클릭을 사면<br>목표 수익률이 깨져요.<br>값을 바꾸면 추천이 다시 계산돼요.';
+const _AOV_TIP='<b>기대 객단가</b> · 전환(구매) 1건당 기대 매출<br>자동값은 내 계정 실제 평균(매출÷전환).<br>직접 입력해 바꿀 수 있어요.';
+const _CVR_TIP='<b>기대 전환율</b> · 클릭 100번당 몇 건 구매로<br>이어질지에 대한 기대치.<br>자동값은 내 계정 실제 평균(전환÷클릭).<br>신규 키워드는 이 기대치로 추천을 계산해요.';
+const _ROAS_TIP='<b>목표 ROAS</b> · 광고비 1원당 거두려는 매출 배수<br>예: 400 = 광고비의 4배 매출이 목표.<br>높일수록 추천 입찰가(상한)는 낮아져요.';
+const _BID_TIP='<b>추정 입찰가</b> · 네이버 예상치 (경매라 변동)<br>· 노출 = 노출이 시작되는 최소가<br>· 3위 = 평균 3위에 필요한 값<br><br><b>추천 입찰가</b> · 수익이 남는 선에서 권하는 값<br>· 수익성 상한을 넘지 않게 정해요<br>· 상한을 넘으면 \'수익성 상한 초과\'로 표시<br><br>객단가·전환율을 입력해야 추천이 떠요.';
+const _CEIL_TIP='<b>수익성 상한 CPC</b><br>= 기대 객단가 × 기대 전환율 ÷ 목표ROAS<br><br>이보다 비싸게 클릭을 사면<br>목표 수익률이 깨져요.<br>값을 바꾸면 추천이 다시 계산돼요.';
 function _bidAov(){ return (USER_AOV!=null?USER_AOV:Number(ACCT_META.acctAov||0)); }
 function _bidCvr(){ return (USER_CVR!=null?USER_CVR:Number(ACCT_META.acctCvr||0)); }
 function _bidCeiling(){
@@ -1712,15 +1718,16 @@ function _bidCeiling(){
 function _bidRecLine(o){
   if(o.bidMin==null && o.bidPos==null) return '';
   const ceil=_bidCeiling();
-  const parts=[];
-  if(o.bidMin!=null) parts.push('노출 '+fmtWon(o.bidMin));
-  if(o.bidPos!=null) parts.push('3위 '+fmtWon(o.bidPos));
-  let v='';
-  if(ceil>0 && o.bidMin!=null){
-    if(o.bidMin<=ceil){ const rec=Math.round(Math.min(ceil, o.bidPos||o.bidMin)); v=` · <b style="color:#0a9d4e">넣을만 · 추천 ${fmtWon(rec)}</b>`; }
-    else v=` · <b style="color:#e11d48">비추 · 상한 ${fmtWon(Math.round(ceil))} 초과</b>`;
+  const est=[];
+  if(o.bidMin!=null) est.push('노출 '+fmtWon(o.bidMin));
+  if(o.bidPos!=null) est.push('3위 '+fmtWon(o.bidPos));
+  let rec='';
+  const base=(o.bidMin!=null)?o.bidMin:o.bidPos;
+  if(ceil>0 && base!=null){
+    if(base<=ceil){ const r=Math.round(Math.min(ceil, o.bidPos||o.bidMin)); rec=`  ·  <b style="color:#0a9d4e">추천 입찰가 ${fmtWon(r)}</b>`; }
+    else rec=`  ·  <b style="color:#e11d48">수익성 상한 초과</b>`;
   }
-  return `<div class="ttp" data-tip="${_BID_TIP}" style="font-size:11px;color:var(--muted);margin-top:1px;cursor:help">추정 입찰가 ${parts.join(' · ')}${v}</div>`;
+  return `<div class="ttp" data-tip="${_BID_TIP}" style="font-size:11px;margin-top:2px;cursor:help"><span style="color:var(--muted)">추정 입찰가 ${est.join(' · ')}</span>${rec}</div>`;
 }
 function _kwOppStamp(){
   const a=(typeof CURRENT_ACCT!=='undefined')?CURRENT_ACCT:null;
@@ -1733,8 +1740,9 @@ function _kwOppStamp(){
 }
 function renderKwOpp(){
   const box=document.getElementById('kwOppArea'); if(!box) return;
+  const slot=document.getElementById('kwOppStampSlot'); if(slot) slot.innerHTML=_kwOppStamp();
   const groups=(typeof KW_OPPS!=='undefined' && Array.isArray(KW_OPPS))?KW_OPPS:[];
-  if(!groups.length){ box.innerHTML='<span class="hint">연관 키워드 데이터가 아직 없어요.</span>'; return; }
+  if(!groups.length){ box.innerHTML='<span class="hint">연관 키워드 데이터가 아직 없어요. 키워드도구 수집 후 표시됩니다.</span>'; return; }
   if(typeof KW_SEED_SEL==='undefined' || KW_SEED_SEL>=groups.length) KW_SEED_SEL=0;
   const AC='#0d8a7d';
   const chips=groups.map((g,i)=>{
@@ -1749,10 +1757,15 @@ function renderKwOpp(){
     ? `→ 수익성 상한 CPC ≈ <b style="color:${AC}">${fmtWon(Math.round(ceil))}</b>`
     : `<span style="color:var(--muted)">→ 객단가·전환율을 채우면 추천 입찰가가 계산돼요</span>`;
   const ctrl=`<div style="display:flex;align-items:center;gap:8px 12px;flex-wrap:wrap;font-size:12px;margin:2px 0 10px;padding:8px 10px;background:#f6faf9;border:1px solid var(--line);border-radius:8px">`
-    +`<label style="white-space:nowrap">목표 ROAS <input id="tgtRoas" type="number" min="50" step="50" value="${TARGET_ROAS}" style="${ist2}">%</label>`
-    +`<label style="white-space:nowrap">객단가 <input id="inAov" type="number" min="0" step="1000" value="${_bidAov()||''}" placeholder="원" style="${ist}">원</label>`
-    +`<label style="white-space:nowrap">전환율 <input id="inCvr" type="number" min="0" step="0.1" value="${_bidCvr()||''}" placeholder="%" style="${ist2}">%</label>`
+    +`<label style="white-space:nowrap">목표 ROAS <span class="ttp" data-tip="${_ROAS_TIP}" style="cursor:help;color:var(--muted)">ⓘ</span> <input id="tgtRoas" type="number" min="50" step="50" value="${TARGET_ROAS}" style="${ist2}">%</label>`
+    +`<label style="white-space:nowrap">기대 객단가 <span class="ttp" data-tip="${_AOV_TIP}" style="cursor:help;color:var(--muted)">ⓘ</span> <input id="inAov" type="number" min="0" step="1000" value="${_bidAov()||''}" placeholder="원" style="${ist}">원</label>`
+    +`<label style="white-space:nowrap">기대 전환율 <span class="ttp" data-tip="${_CVR_TIP}" style="cursor:help;color:var(--muted)">ⓘ</span> <input id="inCvr" type="number" min="0" step="0.1" value="${_bidCvr()||''}" placeholder="%" style="${ist2}">%</label>`
     +`<span class="ttp" data-tip="${_CEIL_TIP}" style="cursor:help;font-weight:600">${ceilHTML}</span></div>`;
+  const refParts=[];
+  if(Number(ACCT_META.acctAov)>0) refParts.push(`내 평균 객단가 <b>${fmtWon(ACCT_META.acctAov)}</b>`);
+  if(Number(ACCT_META.acctCvr)>0) refParts.push(`내 평균 전환율 <b>${ACCT_META.acctCvr}%</b>`);
+  refParts.push('식품·쇼핑 전환율은 보통 <b>1~3%</b>');
+  const refHint=`<div style="font-size:11px;color:var(--muted);margin:-2px 0 10px">참고 · ${refParts.join(' · ')}${(Number(ACCT_META.acctAov)>0||Number(ACCT_META.acctCvr)>0)?' (자동값은 내 계정 실제 평균)':' · 내 상품 평균 판매가를 객단가에 입력'}</div>`;
   const g=groups[KW_SEED_SEL];
   const all=g.items||[];
   if(typeof KW_OPP_LIMIT==='undefined') KW_OPP_LIMIT=10;
@@ -1767,7 +1780,7 @@ function renderKwOpp(){
   } else if(lim>10){
     moreBtn=`<button class="kwless" style="${btnCss}">접기 ▲</button>`;
   }
-  box.innerHTML=`<div style="font-size:12px;color:var(--ink-2)">내 등록 키워드 (클릭해서 연관·하위 키워드 보기)</div><div style="margin:6px 0 8px">${chips}</div>${ctrl}<div style="font-size:12.5px;line-height:1.6"><b style="color:${AC}">'${_esc(g.seed)}'</b> 연관 키워드 <span style="color:var(--muted)">(${all.length}개)</span><div style="margin-top:4px">${rows}</div>${moreBtn}</div><div style="font-size:12px;color:var(--ink-2);margin-top:10px">→ <b>검색량 크고 경쟁 낮음·중간, 넣을만</b>인 키워드부터 광고그룹에 추가하세요. 더 많은 연관어는 <a href="https://manage.searchad.naver.com" target="_blank" style="color:${AC}">검색광고센터 → 도구 → 키워드도구</a>에서 직접 탐색할 수 있어요.</div>`;
+  box.innerHTML=`<div style="font-size:12px;color:var(--ink-2)">내 등록 키워드 (클릭해서 연관·하위 키워드 보기)</div><div style="margin:6px 0 8px">${chips}</div>${ctrl}${refHint}<div style="font-size:12.5px;line-height:1.6"><b style="color:${AC}">'${_esc(g.seed)}'</b> 연관 키워드 <span style="color:var(--muted)">(${all.length}개)</span><div style="margin-top:4px">${rows}</div>${moreBtn}</div><div style="font-size:12px;color:var(--ink-2);margin-top:10px">→ <b>검색량 크고, 경쟁 낮음·중간이고, 추천 입찰가가 뜨는</b> 키워드부터 광고그룹에 추가하세요. 더 많은 연관어는 <a href="https://manage.searchad.naver.com" target="_blank" style="color:${AC}">검색광고센터 → 도구 → 키워드도구</a>에서 직접 탐색할 수 있어요.</div>`;
 }
 function renderOpinions(ctx){
   let {cur,prev,base,len,prevStart,prevEnd} = ctx;
@@ -2591,6 +2604,7 @@ function render(){
   const ttw=document.getElementById('trendTimelineWrap'); if(ttw) ttw.style.display=isMeta?'none':'';
   const ttag=document.getElementById('trendTag'); if(ttag) ttag.style.display=isMeta?'none':'';
   const kip=document.getElementById('kwInsightPanel'); if(kip) kip.style.display=(MAIN_CHANNEL==='SA')?'':'none';
+  const kop=document.getElementById('kwOppPanel'); if(kop) kop.style.display=(MAIN_CHANNEL==='SA')?'':'none';
   const ctx = renderKPIs();
   renderChart();
   if(isMeta){ renderMetaReport(ctx); }
