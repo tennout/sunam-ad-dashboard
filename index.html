@@ -937,6 +937,18 @@ const GLOSSARY = {
     cat:'OPS', title:'입찰가 (키워드 테이블)', sub:'클릭당 최대 지불 의사 금액',
     desc:'<b>내가(또는 대행사가) 설정한</b> 클릭당 지불 상한. ₩500이면 "이 키워드 클릭 1회당 최대 500원까지 내겠다"는 의미. 실제 CPC는 경쟁 상황에 따라 이 값 이하에서 결정됨. <b>세팅해둔 값</b>이며, 네이버가 자동으로 정한 건 아닙니다. 검색광고센터 → 해당 광고그룹/키워드에서 수정 가능.'
   },
+  colVol: {
+    cat:'STR', title:'월 검색량 (PC+모바일)', sub:'한 달간 네이버에서 이 키워드가 검색된 횟수',
+    desc:'네이버 키워드도구 기준, 최근 한 달 동안 이 키워드가 PC+모바일에서 <b>검색된 횟수</b>예요. 클수록 수요가 많은 키워드. 검색량이 큰데 내가 노출이 약하면 <b>기회 손실</b>, 검색량이 거의 없으면 등록해둬도 트래픽이 안 나옵니다. (검색량이 매우 적으면 약 5로 표시)'
+  },
+  colComp: {
+    cat:'STR', title:'경쟁 정도', sub:'이 키워드에 광고주가 얼마나 몰려 있는지',
+    desc:'네이버 키워드도구의 경쟁지수. <b>높음</b> — 광고주가 많아 입찰가(CPC)가 비싸고 상위 노출이 어려움. <b>중간/낮음</b> — 상대적으로 저렴하게 진입 가능.<br>검색량은 크면서 경쟁이 낮은 키워드가 <b>가성비 좋은 진입 후보</b>예요.'
+  },
+  colRnk: {
+    cat:'OPS', title:'평균 노출순위', sub:'내 광고가 검색결과에서 평균 몇 번째에 떴는지',
+    desc:'최근 30일간 이 키워드로 <b>내 광고가 노출된 평균 위치</b>(노출 가중). 숫자가 작을수록 위쪽. 1~2위는 상단 프리미엄, 숫자가 크면 아래쪽이라 클릭이 적게 나옵니다. 순위를 올리려면 입찰가·품질지수를 높이세요. (노출이 없으면 — 로 표시)'
+  },
   colCustomBid: {
     cat:'OPS', title:'개별 입찰 사용 여부', sub:'키워드별 맞춤 입찰 vs 그룹 기본값',
     desc:'<b>사용</b> — 이 키워드에만 따로 지정한 입찰가가 적용됨(윗 컬럼 입찰가가 그 값).<br><b>—(미사용)</b> — 이 키워드는 <b>광고그룹 기본 입찰가</b>를 그대로 따름(윗 컬럼의 값은 그룹 기본값).<br>키워드마다 성과가 다르므로 잘되는 키워드만 개별 상향, 안되는 키워드만 개별 하향하는 식으로 세밀하게 운영할 때 "사용"으로 전환.'
@@ -1681,6 +1693,12 @@ function renderKwInsight(){
     const names=dormant.slice(0,8).map(k=>`<b>${k.keyword}</b>`).join(', ');
     html+=`<div class="fb-block" style="background:#eff5fd"><div style="font-size:13px;font-weight:700;color:#2563eb;margin-bottom:5px">잠자는 키워드 ${dormant.length}개 (최근 노출 거의 없음)</div><div style="font-size:12.5px;color:var(--ink-2);line-height:1.7">${names}${dormant.length>8?` 외 ${dormant.length-8}개`:''}<br><span style="color:var(--ink-2)">→ 등록은 됐지만 <b>입찰가가 낮아 검색 시 노출이 안 되는</b> 상태일 가능성이 커요. 검색광고센터에서 입찰가·일예산을 올려 노출을 시작시키세요.</span></div></div>`;
   }
+  if(typeof KW_OPPS!=='undefined' && KW_OPPS.length){
+    const top=[...KW_OPPS].sort((x,y)=>(y.total||0)-(x.total||0)).slice(0,12);
+    const compCol={'낮음':'#027a38','중간':'#92400e','높음':'#b91c3c'};
+    const rows=top.map(o=>{const c=compCol[o.comp]||'var(--muted)';return `<b>${_esc(o.keyword)}</b> <span style="color:var(--muted)">검색량 ${fmtInt(o.total||0)}/월 · 경쟁 <span style="color:${c};font-weight:600">${o.comp||'—'}</span></span>`;}).join('<br>');
+    html+=`<div class="fb-block" style="background:#f3f0fd"><div style="font-size:13px;font-weight:700;color:#7c3aed;margin-bottom:5px">키워드 기회 — 아직 안 넣은 연관 키워드</div><div style="font-size:12.5px;color:var(--ink-2);line-height:1.7">${rows}<br><span style="color:var(--ink-2)">→ 내 등록 키워드와 연관되면서 <b>검색량은 큰데 아직 광고에 없는</b> 키워드예요. <b>검색량이 크고 경쟁이 낮음·중간</b>인 것부터 광고그룹에 추가해 보세요. (네이버 키워드도구 기준)</span></div></div>`;
+  }
   html+=`<div class="fb-block" style="background:#fafcfb"><div style="font-size:13px;font-weight:700;margin-bottom:5px">키워드 "진입" 가이드 — 등록만으론 노출 안 돼요</div><div style="font-size:12.5px;color:var(--ink-2);line-height:1.7">검색 시 내 광고가 뜨려면: <b>① 입찰가</b>를 경쟁 수준으로 올리기 · <b>② 일예산</b> 충분히 · <b>③ 품질지수</b>(키워드–소재–랜딩 연관성) 관리.<br><a href="https://searchad.naver.com" target="_blank">searchad.naver.com</a> → 캠페인 → 광고그룹 → <b>키워드 입찰가</b> 조정. 새 키워드도 여기서 추가해요.</div></div>`;
   el.innerHTML = html;
 }
@@ -1952,6 +1970,12 @@ function _statusKor(s){
 }
 function _esc(s){ return String(s==null?'':s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 
+function _compPill(c){
+  if(!c) return '<span class="hint">—</span>';
+  const m={'낮음':'#03c75a','중간':'#f59e0b','높음':'#e11d48'};
+  const col=m[c]||'#888';
+  return `<span style="display:inline-block;padding:1px 8px;border-radius:10px;font-size:11px;font-weight:700;color:${col};background:${col}1a">${c}</span>`;
+}
 function renderInventory(){
   // 탭 버튼 상태
   document.querySelectorAll('.inv-tab').forEach(b=>{
@@ -1993,6 +2017,9 @@ function renderInventory(){
       <th>광고유형</th>
       <th style="text-align:left">키워드</th>
       <th style="text-align:left">광고그룹<i class="info-ic" data-gloss="colAdgroup">ⓘ</i></th>
+      <th>월검색량<i class="info-ic" data-gloss="colVol">ⓘ</i></th>
+      <th>경쟁도<i class="info-ic" data-gloss="colComp">ⓘ</i></th>
+      <th>평균순위<i class="info-ic" data-gloss="colRnk">ⓘ</i></th>
       <th>입찰가<i class="info-ic" data-gloss="colBid">ⓘ</i></th>
       <th>개별 입찰<i class="info-ic" data-gloss="colCustomBid">ⓘ</i></th>
       <th>상태<i class="info-ic" data-gloss="colStatus">ⓘ</i></th>
@@ -2006,10 +2033,13 @@ function renderInventory(){
       <td><span class="badge ${AD_BADGE[k.ad]||'b-pl'}">${AD_LABEL[k.ad]||k.ad||'—'}</span></td>
       <td style="text-align:left">${_esc(k.keyword) || '—'}</td>
       <td style="text-align:left;font-size:12px;color:var(--muted)">${_esc(k.adgroupName)||'—'}</td>
+      <td>${k.monthlyTotal!=null ? fmtInt(k.monthlyTotal) : '<span class="hint">—</span>'}</td>
+      <td>${_compPill(k.compIdx)}</td>
+      <td>${k.avgRnk!=null ? (k.avgRnk+'위') : '<span class="hint">—</span>'}</td>
       <td>${k.bidAmt!=null ? fmtWon(k.bidAmt) : '<span class="hint">그룹값</span>'}</td>
       <td style="font-size:12px">${k.useCustomBid ? '사용' : '—'}</td>
       <td><span class="status-pill ${_statusCls(k.status)}">${_statusKor(k.status)}</span></td>
-    </tr>`).join('') || `<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:24px">키워드가 없습니다. API 연결 후 스크립트를 실행하시면 네이버 계정의 키워드가 여기에 표시됩니다.</td></tr>`;
+    </tr>`).join('') || `<tr><td colspan="9" style="text-align:center;color:var(--muted);padding:24px">키워드가 없습니다. API 연결 후 스크립트를 실행하시면 네이버 계정의 키워드가 여기에 표시됩니다.</td></tr>`;
   }
   bindGlossaryIcons();
 }
@@ -2481,6 +2511,7 @@ let CURRENT_ACCT = SAMPLE_ACCT;
 
 let ADS_LIST = [];
 let KW_LIST  = [];
+let KW_OPPS  = [];
 
 function applyDataset(src){
   if(!src){
@@ -2489,6 +2520,7 @@ function applyDataset(src){
     EVENTS = SAMPLE_EVENTS.slice();
     ADS_LIST = [];
     KW_LIST  = [];
+    KW_OPPS  = [];
     return;
   }
   daily   = Array.isArray(src.daily)   ? src.daily   : SAMPLE_DAILY.slice();
@@ -2496,6 +2528,7 @@ function applyDataset(src){
   EVENTS  = Array.isArray(src.events)  ? src.events  : SAMPLE_EVENTS.slice();
   ADS_LIST = Array.isArray(src.adsList) ? src.adsList : [];
   KW_LIST  = Array.isArray(src.keywordsList) ? src.keywordsList : [];
+  KW_OPPS  = Array.isArray(src.kwOpportunities) ? src.kwOpportunities : [];
 }
 
 // file:// 에서도 작동하도록 스크립트 태그로 로드 (fetch는 로컬 파일 차단됨)
@@ -2542,7 +2575,7 @@ async function switchAccount(acct){
   const lu    = document.getElementById('lastUpdate');
 
   if(acct.status==='blank'){
-    daily=[]; kwDaily=[]; EVENTS=[]; ADS_LIST=[]; KW_LIST=[];
+    daily=[]; kwDaily=[]; EVENTS=[]; ADS_LIST=[]; KW_LIST=[]; KW_OPPS=[];
     LIVE_FETCHED='';
     badge.style.display='none';
     sub.textContent = '새 계정 · 데이터 없음 (검색광고 연동 또는 CSV 업로드 전)';
