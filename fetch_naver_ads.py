@@ -127,22 +127,29 @@ def _nospace(s: str) -> str:
 
 
 def fetch_keyword_tool(acct: dict, kw_strings: list) -> tuple:
-    """등록 키워드 문자열들로 keywordstool 조회.
-    반환: (vol_map, opportunities)
-      vol_map[nospace(키워드)] = {pc, mobile, total, comp, depth}
-      opportunities = [{keyword, pc, mobile, total, comp, depth}, ...]  (미등록 연관키워드)
+    """등록 키워드 각각을 시드로 keywordstool 조회 → 시드별로 묶어 반환.
+    반환: (vol_map, groups)
+      vol_map[nospace(키워드)] = {pc, mobile, total, comp, depth}   # 등록 키워드 검색량
+      groups = [{seed, items:[{keyword, pc, mobile, total, comp}, ...]}, ...]
+              (items = 시드와 연관되면서 아직 등록 안 된 키워드, 연관도·검색량 순)
     """
-    vol_map, opp_map = {}, {}
+    vol_map = {}
+    groups = []
     registered = {_nospace(s) for s in kw_strings if s and s.strip()}
-    uniq = [s.strip() for s in dict.fromkeys(kw_strings) if s and s.strip()]
-    for i in range(0, len(uniq), 5):  # hintKeywords는 최대 5개
-        batch = uniq[i:i + 5]
-        hint = ",".join(k.replace(" ", "") for k in batch)
+    # nospace -> 대표 표기 (중복 제거, 등록 순서 보존)
+    disp = {}
+    for s in kw_strings:
+        k = _nospace(s)
+        if k and k not in disp:
+            disp[k] = s.strip()
+    for seed in disp:  # 시드 하나씩 단일 조회해야 어느 시드의 연관인지 구분됨
+        hint = disp[seed].replace(" ", "")
         try:
             res = _get("/keywordstool", acct, {"hintKeywords": hint, "showDetail": 1})
         except Exception as e:
             print(f"    ! 키워드도구 조회 실패({hint}): {e}")
             continue
+        items = []
         for r in (res or {}).get("keywordList") or []:
             kw = (r.get("relKeyword") or "").strip()
             if not kw:
@@ -154,15 +161,27 @@ def fetch_keyword_tool(acct: dict, kw_strings: list) -> tuple:
                 depth = round(float(r.get("plAvgDepth") or 0), 1)
             except Exception:
                 depth = 0
-            rec = {"pc": pc, "mobile": mo, "total": pc + mo, "comp": comp, "depth": depth}
             key = _nospace(kw)
+            rec = {"pc": pc, "mobile": mo, "total": pc + mo, "comp": comp, "depth": depth}
             if key in registered:
-                vol_map[key] = rec
-            elif key not in opp_map:
-                opp_map[key] = dict(rec, keyword=kw)
+                vol_map.setdefault(key, rec)  # 등록 키워드 검색량 채우기
+                continue
+            # 미등록 연관 키워드 — 시드 토큰을 품고 있으면 연관도 가산
+            items.append(dict(rec, keyword=kw, _rel=1 if seed in key else 0))
+        # 연관도 → 검색량 순, 상위 10개
+        items.sort(key=lambda x: (x["_rel"], x["total"]), reverse=True)
+        items = items[:10]
+        rel_cnt = sum(1 for it in items if it.get("_rel"))
+        for it in items:
+            it.pop("_rel", None)
+        if items:
+            groups.append({"seed": disp[seed], "items": items, "_rel": rel_cnt})
         time.sleep(0.2)  # rate-limit 완화
-    opportunities = sorted(opp_map.values(), key=lambda x: x["total"], reverse=True)[:40]
-    return vol_map, opportunities
+    # 연관도 높은(시드 토큰 포함 많은) 그룹부터, 그다음 최대 검색량 순
+    groups.sort(key=lambda g: (g["_rel"], max((i["total"] for i in g["items"]), default=0)), reverse=True)
+    for g in groups:
+        g.pop("_rel", None)
+    return vol_map, groups
 
 
 # ────────────────────────────────────────────────
@@ -492,7 +511,7 @@ def fetch_account(acct: dict, days: int = 365) -> dict:
     except Exception as e:
         print(f"    ! 키워드도구 전체 실패: {e}")
         vol_map, kw_opps = {}, []
-    print(f"    검색량 매칭 {len(vol_map)}개 · 연관키워드 후보 {len(kw_opps)}개")
+    print(f"    검색량 매칭 {len(vol_map)}개 · 연관키워드 그룹 {len(kw_opps)}개")
 
     # 키워드별 평균노출순위(노출가중)
     kw_rank = {}
