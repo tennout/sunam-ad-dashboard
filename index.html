@@ -1686,7 +1686,7 @@ function renderKwInsight(){
     return `<div class="fb-block" style="background:${tint}"><div style="font-size:13px;font-weight:700;color:${color};margin-bottom:5px">${label}</div><div style="font-size:12.5px;color:var(--ink-2);line-height:1.7">${items.map(fmt).join('<br>')}<br><span style="color:var(--ink-2)">${msg}</span></div></div>`; }
   let html='';
   html+=blk('우수 키워드','#027a38','#f2fbf5',hero,k=>`<b>${k.kw}</b> (ROAS ${fmtPct(k.roas,0)} · 지출 ${fmtWon(k.cost)})`,'→ 입찰가를 올리고 예산을 더 줘서 노출·클릭을 키워보세요.');
-  html+=blk('브랜드 키워드 (방어·유지)','#7c3aed','#f3f0fd',brand,k=>`<b>${k.kw}</b> (ROAS ${fmtPct(k.roas,0)} · 지출 ${fmtWon(k.cost)})`,'→ 본인 브랜드명 검색은 이미 구매의도가 높아 ROAS가 높게 나와요. 무리하게 예산을 늘리기보다, 경쟁사가 내 브랜드명에 광고 거는지 <b>방어·점유 유지</b> 관점으로 보세요. (브랜드검색 상품도 고려)');
+  html+=blk('브랜드 키워드 (방어·유지)','#6d77a8','#f4f5fb',brand,k=>`<b>${k.kw}</b> (ROAS ${fmtPct(k.roas,0)} · 지출 ${fmtWon(k.cost)})`,'→ 본인 브랜드명 검색은 이미 구매의도가 높아 ROAS가 높게 나와요. 무리하게 예산을 늘리기보다, 경쟁사가 내 브랜드명에 광고 거는지 <b>방어·점유 유지</b> 관점으로 보세요. (브랜드검색 상품도 고려)');
   html+=blk('무전환 고지출 키워드','#b91c3c','#fdf0f0',waste,k=>`<b>${k.kw}</b> (지출 ${fmtWon(k.cost)} · 클릭 ${fmtInt(k.clk)} · 전환 0)`,'→ 입찰가를 30% 낮추거나 제외하세요. 랜딩페이지 연관성도 점검.');
   html+=blk('노출 많은데 클릭 적은 키워드','#92400e','#fdf6ec',lowctr,k=>`<b>${k.kw}</b> (CTR ${fmtPct(k.ctr)} · 노출 ${fmtInt(k.imp)})`,'→ 광고 문구·확장소재를 개선하거나 순위(입찰가)를 점검하세요.');
   if(dormant.length){
@@ -1694,25 +1694,42 @@ function renderKwInsight(){
     html+=`<div class="fb-block" style="background:#eff5fd"><div style="font-size:13px;font-weight:700;color:#2563eb;margin-bottom:5px">잠자는 키워드 ${dormant.length}개 (최근 노출 거의 없음)</div><div style="font-size:12.5px;color:var(--ink-2);line-height:1.7">${names}${dormant.length>8?` 외 ${dormant.length-8}개`:''}<br><span style="color:var(--ink-2)">→ 등록은 됐지만 <b>입찰가가 낮아 검색 시 노출이 안 되는</b> 상태일 가능성이 커요. 검색광고센터에서 입찰가·일예산을 올려 노출을 시작시키세요.</span></div></div>`;
   }
   if(typeof KW_OPPS!=='undefined' && KW_OPPS.length){
-    html+=`<div class="fb-block" style="background:#f3f0fd"><div style="font-size:13px;font-weight:700;color:#7c3aed;margin-bottom:7px">키워드 기회 — 내 키워드에서 하위·연관 키워드 탐색</div><div id="kwOppArea"></div></div>`;
+    html+=`<div class="fb-block" style="background:#eefbf8"><div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:7px"><div style="font-size:13px;font-weight:700;color:#0d8a7d">키워드 기회 — 내 키워드에서 하위·연관 키워드 탐색</div>${_kwOppStamp()}</div><div id="kwOppArea"></div></div>`;
   }
   html+=`<div class="fb-block" style="background:#fafcfb"><div style="font-size:13px;font-weight:700;margin-bottom:5px">키워드 "진입" 가이드 — 등록만으론 노출 안 돼요</div><div style="font-size:12.5px;color:var(--ink-2);line-height:1.7">검색 시 내 광고가 뜨려면: <b>① 입찰가</b>를 경쟁 수준으로 올리기 · <b>② 일예산</b> 충분히 · <b>③ 품질지수</b>(키워드–소재–랜딩 연관성) 관리.<br><a href="https://searchad.naver.com" target="_blank">searchad.naver.com</a> → 캠페인 → 광고그룹 → <b>키워드 입찰가</b> 조정. 새 키워드도 여기서 추가해요.</div></div>`;
   el.innerHTML = html;
   renderKwOpp();
+}
+function _kwOppStamp(){
+  const a=(typeof CURRENT_ACCT!=='undefined')?CURRENT_ACCT:null;
+  if(!a) return '';
+  if(a.status==='ok' && a.updatedAt){
+    return `<span style="display:inline-flex;align-items:center;gap:5px;font-size:11px;color:#0d8a7d;font-weight:600;white-space:nowrap"><span style="width:7px;height:7px;border-radius:50%;background:#03c75a;box-shadow:0 0 0 3px #03c75a22"></span>실시간 연동 · ${a.updatedAt} 기준</span>`;
+  }
+  if(a.status==='sample') return '<span style="font-size:11px;color:var(--muted)">샘플 데이터</span>';
+  return '';
 }
 function renderKwOpp(){
   const box=document.getElementById('kwOppArea'); if(!box) return;
   const groups=(typeof KW_OPPS!=='undefined' && Array.isArray(KW_OPPS))?KW_OPPS:[];
   if(!groups.length){ box.innerHTML='<span class="hint">연관 키워드 데이터가 아직 없어요.</span>'; return; }
   if(typeof KW_SEED_SEL==='undefined' || KW_SEED_SEL>=groups.length) KW_SEED_SEL=0;
+  const AC='#0d8a7d';
   const chips=groups.map((g,i)=>{
     const on=(i===KW_SEED_SEL);
-    return `<button class="kwseed" data-i="${i}" style="border:1px solid ${on?'#7c3aed':'var(--line)'};background:${on?'#7c3aed':'transparent'};color:${on?'#fff':'var(--ink-2)'};border-radius:14px;padding:4px 11px;font-size:12px;font-weight:600;cursor:pointer;margin:0 5px 5px 0;font-family:inherit">${_esc(g.seed)}</button>`;
+    return `<button class="kwseed" data-i="${i}" style="border:1px solid ${on?AC:'var(--line)'};background:${on?AC:'#fff'};color:${on?'#fff':'var(--ink-2)'};border-radius:14px;padding:4px 11px;font-size:12px;font-weight:600;cursor:pointer;margin:0 5px 5px 0;font-family:inherit">${_esc(g.seed)}</button>`;
   }).join('');
   const g=groups[KW_SEED_SEL];
-  let rows=(g.items||[]).slice(0,12).map(o=>`<div style="display:flex;justify-content:space-between;gap:10px;padding:3px 0;border-bottom:1px solid var(--line)"><span><b>${_esc(o.keyword)}</b></span><span style="color:var(--muted);white-space:nowrap">검색량 ${fmtInt(o.total||0)}/월 · 경쟁 ${_compPill(o.comp)} ${_depthScore(o.depth)}</span></div>`).join('');
+  const all=g.items||[];
+  const lim=(typeof KW_OPP_MORE!=='undefined'&&KW_OPP_MORE)?all.length:8;
+  let rows=all.slice(0,lim).map(o=>`<div style="display:flex;justify-content:space-between;gap:10px;padding:4px 0;border-bottom:1px solid var(--line)"><span><b>${_esc(o.keyword)}</b></span><span style="color:var(--muted);white-space:nowrap">검색량 ${fmtInt(o.total||0)}/월 · 경쟁 ${_compPill(o.comp)} ${_depthScore(o.depth)}</span></div>`).join('');
   if(!rows) rows='<span class="hint">연관 키워드 없음</span>';
-  box.innerHTML=`<div style="font-size:12px;color:var(--ink-2)">내 등록 키워드 (클릭해서 연관·하위 키워드 보기)</div><div style="margin:6px 0 8px">${chips}</div><div style="font-size:12.5px;line-height:1.6"><b style="color:#7c3aed">'${_esc(g.seed)}'</b> 연관 키워드<div style="margin-top:4px">${rows}</div></div><div style="font-size:12px;color:var(--ink-2);margin-top:9px">→ <b>검색량 크고 경쟁 낮음·중간</b>인 키워드부터 광고그룹에 추가하세요. (네이버 키워드도구 기준)</div>`;
+  let moreBtn='';
+  if(all.length>8){
+    const lbl=(typeof KW_OPP_MORE!=='undefined'&&KW_OPP_MORE)?'접기 ▲':('+ '+(all.length-8)+'개 더보기 ▼');
+    moreBtn=`<button class="kwmore" style="border:none;background:none;color:${AC};font-size:12px;font-weight:600;cursor:pointer;margin-top:7px;padding:0;font-family:inherit">${lbl}</button>`;
+  }
+  box.innerHTML=`<div style="font-size:12px;color:var(--ink-2)">내 등록 키워드 (클릭해서 연관·하위 키워드 보기)</div><div style="margin:6px 0 8px">${chips}</div><div style="font-size:12.5px;line-height:1.6"><b style="color:${AC}">'${_esc(g.seed)}'</b> 연관 키워드 <span style="color:var(--muted)">(${all.length}개)</span><div style="margin-top:4px">${rows}</div>${moreBtn}</div><div style="font-size:12px;color:var(--ink-2);margin-top:10px">→ <b>검색량 크고 경쟁 낮음·중간</b>인 키워드부터 광고그룹에 추가하세요. 더 많은 연관어는 <a href="https://manage.searchad.naver.com" target="_blank" style="color:${AC}">검색광고센터 → 도구 → 키워드도구</a>에서 직접 탐색할 수 있어요.</div>`;
 }
 function renderOpinions(ctx){
   let {cur,prev,base,len,prevStart,prevEnd} = ctx;
@@ -2071,7 +2088,7 @@ function renderInventory(){
       <td style="text-align:left">${_esc(k.keyword) || '—'}</td>
       <td style="text-align:left;font-size:12px;color:var(--muted)">${_esc(k.adgroupName)||'—'}</td>
       <td>${k.monthlyTotal!=null ? fmtInt(k.monthlyTotal) : '<span class="hint">—</span>'}</td>
-      <td>${_compPill(k.compIdx)}${k.plAvgDepth!=null?'<div style="margin-top:3px">'+_depthScore(k.plAvgDepth)+'</div>':''}</td>
+      <td><span style="display:inline-flex;align-items:center;gap:7px;justify-content:center">${_compPill(k.compIdx)}${k.plAvgDepth!=null?_depthScore(k.plAvgDepth):''}</span></td>
       <td>${k.avgRnk!=null ? (k.avgRnk+'위') : '<span class="hint">—</span>'}</td>
       <td>${k.bidAmt!=null ? fmtWon(k.bidAmt) : '<span class="hint">그룹값</span>'}</td>
       <td style="font-size:12px">${k.useCustomBid ? '사용' : '—'}</td>
@@ -2094,7 +2111,11 @@ document.getElementById('invFilter').addEventListener('change', e=>{
   renderInventory();
 });
 let KW_SEED_SEL = 0;
-document.addEventListener('click', e=>{ const b=e.target.closest('.kwseed'); if(b){ KW_SEED_SEL = parseInt(b.dataset.i,10)||0; renderKwOpp(); } });
+let KW_OPP_MORE = false;
+document.addEventListener('click', e=>{
+  const b=e.target.closest('.kwseed'); if(b){ KW_SEED_SEL = parseInt(b.dataset.i,10)||0; KW_OPP_MORE=false; renderKwOpp(); return; }
+  const m=e.target.closest('.kwmore'); if(m){ KW_OPP_MORE=!KW_OPP_MORE; renderKwOpp(); }
+});
 
 /* ============================================================
    10. 메인 렌더

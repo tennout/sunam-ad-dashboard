@@ -170,7 +170,7 @@ def fetch_keyword_tool(acct: dict, kw_strings: list) -> tuple:
             items.append(dict(rec, keyword=kw, _rel=1 if seed in key else 0))
         # 연관도 → 검색량 순, 상위 10개
         items.sort(key=lambda x: (x["_rel"], x["total"]), reverse=True)
-        items = items[:10]
+        items = items[:25]
         rel_cnt = sum(1 for it in items if it.get("_rel"))
         for it in items:
             it.pop("_rel", None)
