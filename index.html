@@ -709,6 +709,11 @@
   </div>
 
   <!-- INVENTORY: 소재·키워드 전체 목록 -->
+  <div class="panel" id="kwInsightPanel" style="margin-bottom:18px;display:none">
+    <h2>키워드 인사이트 <span class="tag">액션 진단 · 진입 가이드</span></h2>
+    <div id="kwInsightBody"></div>
+  </div>
+
   <div class="panel" id="inventorySection" style="margin-bottom:18px">
     <h2>소재 · 키워드 전체 목록 <span class="tag">네이버 API에서 수집한 원본 자산</span></h2>
     <div class="inv-tabs">
@@ -1658,6 +1663,28 @@ function renderKwTables(){
        - LLM이 숫자를 지어내지 못하도록, 판정은 전부 규칙으로 먼저 확정
        - 문장 내 숫자는 ev 클래스로 원본 수치 근거 툴팁 바인딩
    ============================================================ */
+function renderKwInsight(){
+  const el=document.getElementById('kwInsightBody'); if(!el) return;
+  const kws=kwRange(currentStart,currentEnd).filter(k=>k.imp>0);
+  const hero=[...kws].filter(k=>k.clk>=3 && k.roas>=400).sort((a,b)=>b.roas-a.roas).slice(0,5);
+  const waste=[...kws].filter(k=>k.conv===0 && k.cost>=10000).sort((a,b)=>b.cost-a.cost).slice(0,5);
+  const lowctr=[...kws].filter(k=>k.imp>=100 && k.ctr>0 && k.ctr<0.5).sort((a,b)=>b.imp-a.imp).slice(0,5);
+  const activeNames=new Set(kws.map(k=>k.kw));
+  const reg=(typeof KW_LIST!=='undefined'?KW_LIST:[]);
+  const dormant=reg.filter(k=>k.keyword && !activeNames.has(k.keyword));
+  function blk(label,color,tint,items,fmt,msg){ if(!items.length) return '';
+    return `<div class="fb-block" style="background:${tint}"><div style="font-size:13px;font-weight:700;color:${color};margin-bottom:5px">${label}</div><div style="font-size:12.5px;color:var(--ink-2);line-height:1.7">${items.map(fmt).join('<br>')}<br><span style="color:var(--ink-2)">${msg}</span></div></div>`; }
+  let html='';
+  html+=blk('🚀 효자 키워드','#027a38','#f2fbf5',hero,k=>`<b>${k.kw}</b> (ROAS ${fmtPct(k.roas,0)} · 지출 ${fmtWon(k.cost)})`,'→ 입찰가를 올리고 예산을 더 줘서 노출·클릭을 키워보세요.');
+  html+=blk('🚨 무전환 고지출 키워드','#b91c3c','#fdf0f0',waste,k=>`<b>${k.kw}</b> (지출 ${fmtWon(k.cost)} · 클릭 ${fmtInt(k.clk)} · 전환 0)`,'→ 입찰가를 30% 낮추거나 제외하세요. 랜딩페이지 연관성도 점검.');
+  html+=blk('🖱️ 노출 많은데 클릭 적은 키워드','#92400e','#fdf6ec',lowctr,k=>`<b>${k.kw}</b> (CTR ${fmtPct(k.ctr)} · 노출 ${fmtInt(k.imp)})`,'→ 광고 문구·확장소재를 개선하거나 순위(입찰가)를 점검하세요.');
+  if(dormant.length){
+    const names=dormant.slice(0,8).map(k=>`<b>${k.keyword}</b>`).join(', ');
+    html+=`<div class="fb-block" style="background:#eff5fd"><div style="font-size:13px;font-weight:700;color:#2563eb;margin-bottom:5px">🌱 잠자는 키워드 ${dormant.length}개 (최근 노출 거의 없음)</div><div style="font-size:12.5px;color:var(--ink-2);line-height:1.7">${names}${dormant.length>8?` 외 ${dormant.length-8}개`:''}<br><span style="color:var(--ink-2)">→ 등록은 됐지만 <b>입찰가가 낮아 검색 시 노출이 안 되는</b> 상태일 가능성이 커요. 검색광고센터에서 입찰가·일예산을 올려 "진입"시키세요.</span></div></div>`;
+  }
+  html+=`<div class="fb-block" style="background:#fafcfb"><div style="font-size:13px;font-weight:700;margin-bottom:5px">🧭 키워드 "진입" 가이드 — 등록만으론 노출 안 돼요</div><div style="font-size:12.5px;color:var(--ink-2);line-height:1.7">검색 시 내 광고가 뜨려면: <b>① 입찰가</b>를 경쟁 수준으로 올리기 · <b>② 일예산</b> 충분히 · <b>③ 품질지수</b>(키워드–소재–랜딩 연관성) 관리.<br><a href="https://searchad.naver.com" target="_blank">searchad.naver.com</a> → 캠페인 → 광고그룹 → <b>키워드 입찰가</b> 조정. 새 키워드도 여기서 추가해요.</div></div>`;
+  el.innerHTML = html;
+}
 function renderOpinions(ctx){
   let {cur,prev,base,len,prevStart,prevEnd} = ctx;
   const ACT=(MAIN_CHANNEL==='SA' && typeof SA_ACTIVE!=='undefined')?['shop','powerlink','brand'].filter(t=>SA_ACTIVE[t]):null;
@@ -2417,10 +2444,11 @@ function render(){
   const tip=document.getElementById('trendInterpPanel'); if(tip) tip.style.display='none';
   const ttw=document.getElementById('trendTimelineWrap'); if(ttw) ttw.style.display=isMeta?'none':'';
   const ttag=document.getElementById('trendTag'); if(ttag) ttag.style.display=isMeta?'none':'';
+  const kip=document.getElementById('kwInsightPanel'); if(kip) kip.style.display=(MAIN_CHANNEL==='SA')?'':'none';
   const ctx = renderKPIs();
   renderChart();
   if(isMeta){ renderMetaReport(ctx); }
-  else { renderAdTypes(); renderKwTables(); renderOpinions(ctx); renderInventory(); }
+  else { renderAdTypes(); renderKwTables(); renderOpinions(ctx); renderInventory(); if(MAIN_CHANNEL==='SA') renderKwInsight(); }
   const tg=document.getElementById('trendGrid');
   if(op && tg){ requestAnimationFrame(()=>{ if(window.innerWidth<=1100){ op.style.height=''; return; } const cp=tg.children[0]; if(cp) op.style.height=cp.offsetHeight+'px'; }); }
 }
