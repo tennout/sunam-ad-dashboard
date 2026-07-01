@@ -2470,49 +2470,49 @@ function _renderMetaFunnel(){
   let worst=-1, worstDrop=-1;
   for(let k=1;k<steps.length;k++){ const prev=steps[k-1][1]; if(prev>0){ const drop=1-(steps[k][1]/prev); if(drop>worstDrop){ worstDrop=drop; worst=k; } } }
   const vsort=steps.map(x=>x[1]).slice().sort((x,y)=>y-x);
-  const secondV=vsort[1]||vsort[0]||1;
-  const shades=['#1877f2','#2f7de8','#3f74d6','#4a67c4','#e11d48'];
-  const meaning2=meaning;
-  const barEls=[], nameEls=[];
-  steps.forEach((st,k)=>{
-    const [lbl,val]=st;
-    const trunc = val > secondV*1.15;
-    const h = trunc ? 100 : Math.max(3, Math.round(val/secondV*70));
-    const bad=(k===worst && worstDrop>0);
-    const col=bad?'#e11d48':shades[k];
-    const prev=k>0?steps[k-1][1]:null;
-    const rate=(prev&&prev>0)?(val/prev*100):null;
-    let tip=`<b>${lbl}</b> ${fmtInt(val)} · ${meaning2[k]}`;
-    if(trunc) tip+=' · 막대가 커서 중간 생략';
-    const brk = trunc ? `<div style="position:absolute;left:-1px;right:-1px;top:24px;height:18px;pointer-events:none"><svg viewBox="0 0 100 20" preserveAspectRatio="none" width="100%" height="18" style="display:block"><polygon points="0,10 12.5,4 25,14 37.5,4 50,14 62.5,4 75,14 87.5,4 100,10 100,15 87.5,9 75,19 62.5,9 50,19 37.5,9 25,19 12.5,9 0,15" fill="#ffffff"></polygon></svg></div>` : '';
-    barEls.push(`<div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%"><div style="font-size:12.5px;font-weight:800;margin-bottom:4px;white-space:nowrap">${fmtInt(val)}</div><div class="ttp" data-tip="${tip}" style="position:relative;width:100%;max-width:58px;height:${h}%;min-height:6px;background:${col};border-radius:6px 6px 0 0;cursor:help">${brk}</div></div>`);
-    nameEls.push(`<div style="flex:1;text-align:center"><div style="font-size:11.5px;font-weight:700">${lbl}</div></div>`);
+  const second=vsort[1]||vsort[0]||1;
+  const N=steps.length;
+  const AGRI=[null,1.2,85,2.5];   // 농식품(신선식품 이커머스) 평균 전환율(%)
+  const W=620, plotH=220, topPad=38, botPad=34, lp=18, rp=18;
+  const Hs=plotH+topPad+botPad;
+  const slot=(W-lp-rp)/N, barW=Math.min(66, slot*0.58);
+  const unit=(0.70*plotH)/second;   // 2번째값(클릭)=노출 높이의 70%
+  const baseY=topPad+plotH;
+  const geo=steps.map((st,idx)=>{
+    const val=st[1]; const rawH=val*unit; const trunc=rawH>plotH+1;
+    const h=Math.min(plotH, Math.max(6, rawH));
+    const x=lp+slot*idx+(slot-barW)/2; const topY=topPad+(plotH-h);
+    return {x,topY,h,trunc,val,lbl:st[0]};
   });
-  // 막대 사이 전환율 칩
-  function gapChip(k){
+  function wave(x,w,y){ const n=6, seg=w/n, amp=4, band=6; const t=[],b=[];
+    for(let q=0;q<=n;q++){ t.push((x+seg*q)+','+(y+(q%2?amp:-amp))); }
+    for(let q=n;q>=0;q--){ b.push((x+seg*q)+','+(y+band+(q%2?-amp:amp))); }
+    return t.concat(b).join(' '); }
+  let svg='';
+  geo.forEach((g,idx)=>{
+    const col=(idx===N-1)?'#e11d48':'#2b83f0';
+    svg+=`<rect x="${g.x.toFixed(1)}" y="${g.topY.toFixed(1)}" width="${barW.toFixed(1)}" height="${g.h.toFixed(1)}" rx="4" fill="${col}"></rect>`;
+    svg+=`<text x="${(g.x+barW/2).toFixed(1)}" y="${(g.topY-9).toFixed(1)}" text-anchor="middle" font-size="13" font-weight="800" fill="#1b1d21">${fmtInt(g.val)}</text>`;
+    svg+=`<text x="${(g.x+barW/2).toFixed(1)}" y="${(baseY+22).toFixed(1)}" text-anchor="middle" font-size="12" font-weight="700" fill="#1b1d21">${g.lbl}</text>`;
+    if(g.trunc){ svg+=`<polygon points="${wave(g.x,barW,g.topY+22)}" fill="#ffffff"></polygon>`; }
+  });
+  for(let k=1;k<N;k++){
+    const a=geo[k-1], b=geo[k];
+    const x1=a.x+barW, y1=a.topY, x2=b.x, y2=b.topY;
+    svg+=`<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="#aab2ba" stroke-width="1.5" marker-end="url(#fnlAr)"></line>`;
     const prev=steps[k-1][1], val=steps[k][1];
-    const rate=(prev>0)?(val/prev*100):null;
-    const bm=[null,1.0,80,2.5][k];
-    const bad=(k===worst && worstDrop>0);
-    if(rate==null) return '<div style="flex:0 0 62px"></div>';
-    const vd=bm?(rate>=bm*1.1?'참고보다 좋음':rate<=bm*0.7?'참고보다 낮음':'참고 범위'):'';
-    const tip=`${steps[k-1][0]} → ${steps[k][0]}<br><b>전환율 ${fmtPct(rate,1)}</b>`+(bm?`<br><span style='opacity:.5'>업계 참고 ~${bm}% · ${vd}</span>`:'');
-    const col=bad?'#e11d48':'var(--ink-2)';
-    return `<div class="ttp" data-tip="${tip}" style="flex:0 0 62px;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;cursor:help;border-radius:8px"><span style="font-size:14px;color:${col};line-height:1">↓</span><span style="font-size:11.5px;font-weight:700;color:${col};margin-top:1px">${fmtPct(rate,0)}</span></div>`;
+    const rate=prev>0?val/prev*100:0;
+    const bm=AGRI[k];
+    const mx=(x1+x2)/2, my=(y1+y2)/2-9;
+    const tip=`${steps[k-1][0]} → ${steps[k][0]}<br><b>전환율 ${fmtPct(rate,1)}</b> · 이탈 ${fmtPct(Math.max(0,100-rate),1)}`+(bm?`<br><span style='opacity:.55'>농식품 평균 ~${bm}%</span>`:'');
+    svg+=`<g class="ttp" data-tip="${tip}" style="cursor:help"><rect x="${(mx-28).toFixed(1)}" y="${(my-16).toFixed(1)}" width="56" height="30" fill="transparent"></rect><text x="${mx.toFixed(1)}" y="${my.toFixed(1)}" text-anchor="middle" font-size="12" font-weight="700" fill="#4b5058">${fmtPct(rate,0)}</text></g>`;
   }
-  let barsRow=barEls[0], nameRow=nameEls[0];
-  for(let k=1;k<steps.length;k++){ barsRow+=gapChip(k)+barEls[k]; nameRow+=`<div style="flex:0 0 62px"></div>`+nameEls[k]; }
   const roas=f.cost?f.rev/f.cost*100:0;
-  const tip = worst>0 ? `이탈 최대 구간: <b>${steps[worst-1][0]}→${steps[worst][0]}</b>. `+(
-      steps[worst][0]==='클릭'?'소재(썸네일·문구)가 클릭을 못 끌고 있어요.':
-      steps[worst][0]==='랜딩 조회'?'클릭 후 페이지 로딩·링크 점검.':
-      steps[worst][0]==='장바구니'?'랜딩페이지 상품 매력·가격 점검.':
-      steps[worst][0]==='구매'?'결제 단계(배송비·결제수단) 점검.':'') : '';
   el.innerHTML = _funnelHead(basisAll?'전체 소재':META_FUNNEL_AD, !basisAll) +
-    `<div style="display:flex;align-items:stretch;height:300px">${barsRow}</div>`+
-    `<div style="display:flex;margin-top:8px;border-top:1px solid var(--line);padding-top:8px">${nameRow}</div>`+
-    `<div style="font-size:12px;color:var(--ink-2);margin-top:12px;line-height:1.6">${tip} <span style="color:var(--muted)">· 지출 ${fmtWon(f.cost)} · 매출 ${fmtWon(f.rev)} · ROAS ${_mFmtRoas(roas)}</span></div>`+
-    `<div style="font-size:11.5px;color:var(--muted);margin-top:6px">장바구니 담기 <b>${fmtInt(f.atc)}</b>회 <span style="opacity:.85">— 구매는 장바구니를 거치지 않는 경우도 있어 별도 참고 지표로 표시</span></div>`;
+    `<div style="font-size:11.5px;color:var(--muted);margin-bottom:6px">막대를 잇는 선 위 <b>%</b>는 앞 단계 → 다음 단계로 넘어간 <b>전환율</b>이에요. 선에 마우스를 올리면 이탈율·농식품 평균도 보여요.</div>`+
+    `<svg viewBox="0 0 ${W} ${Hs}" width="100%" preserveAspectRatio="xMidYMid meet" style="display:block;max-height:340px"><defs><marker id="fnlAr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#aab2ba"></path></marker></defs>${svg}</svg>`+
+    `<div style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.6">지출 ${fmtWon(f.cost)} · 매출 ${fmtWon(f.rev)} · ROAS ${_mFmtRoas(roas)}</div>`+
+    `<div style="font-size:11.5px;color:var(--muted);margin-top:4px">장바구니 담기 <b>${fmtInt(f.atc)}</b>회 <span style="opacity:.85">— 구매는 장바구니를 거치지 않는 경우도 있어 별도 참고 지표</span></div>`;
 }
 function _funnelHead(name, isOne){
   const nm = name.length>24?name.slice(0,24)+'…':name;
