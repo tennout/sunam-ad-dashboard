@@ -1,0 +1,23 @@
+{
+  "generatedAt": "2026-07-01 05:05:26",
+  "tokenExpiresAt": "2026-09-29 04:48:58",
+  "account": {
+    "name": "선암파머스",
+    "adAccountId": "act_25924610800490880"
+  },
+  "daily": [],
+  "creatives": [],
+  "campaigns": [],
+  "placements": [],
+  "funnel": {
+    "imp": 0,
+    "clk": 0,
+    "linkclk": 0,
+    "lpv": 0,
+    "atc": 0,
+    "conv": 0,
+    "rev": 0
+  },
+  "rangeStart": "2026-04-03",
+  "rangeEnd": "2026-07-01"
+}
