@@ -62,7 +62,7 @@ ACTION_KEYS = {
 # ────────────────────────────────────────────────
 def _get(url: str, params: dict, retries: int = 3):
     q = parse.urlencode(params, doseq=True)
-    full = f"{url}?{q}"
+    full = f"{url}?{q}" if q else url   # next URL은 이미 쿼리 포함 → ? 덧붙이면 커서 깨짐
     last = None
     for attempt in range(retries):
         try:
