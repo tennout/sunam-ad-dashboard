@@ -2,7 +2,7 @@
   "meta": {
     "account": "선암파머스",
     "customerId": "1872388",
-    "fetchedAt": "2026-07-01 05:55:45",
+    "fetchedAt": "2026-07-01 20:49:12",
     "rangeStart": "2025-07-02",
     "rangeEnd": "2026-07-01",
     "campaignCount": 9,
@@ -10,8 +10,8 @@
     "creativeCount": 114,
     "hasKeywordTool": true,
     "hasBidEstimate": true,
-    "acctCvr": 7.06,
-    "acctAov": 71227,
+    "acctCvr": 7.07,
+    "acctAov": 71309,
     "bidPosition": 3
   },
   "daily": [
@@ -7309,7 +7309,7 @@
       "date": "2026-07-01",
       "ad": "powerlink",
       "campaign": "cmp-a001-01-000000010084907",
-      "imp": 84,
+      "imp": 210,
       "clk": 2,
       "cost": 347,
       "conv": 1,
@@ -32859,11 +32859,11 @@
       "date": "2026-07-01",
       "ad": "shop",
       "campaign": "cmp-a001-02-000000010110962",
-      "imp": 3543,
-      "clk": 14,
-      "cost": 9842,
-      "conv": 2,
-      "rev": 167000
+      "imp": 4978,
+      "clk": 27,
+      "cost": 21498,
+      "conv": 3,
+      "rev": 267000
     }
   ],
   "kwDaily": [
@@ -56561,7 +56561,7 @@
       "date": "2026-07-01",
       "kw": "선암파머스",
       "ad": "powerlink",
-      "imp": 7,
+      "imp": 15,
       "clk": 1,
       "cost": 220,
       "conv": 1,
@@ -58522,9 +58522,9 @@
       "bidAmt": 500,
       "useCustomBid": true,
       "status": "ELIGIBLE",
-      "monthlyPc": 1250,
-      "monthlyMobile": 7250,
-      "monthlyTotal": 8500,
+      "monthlyPc": 1240,
+      "monthlyMobile": 7280,
+      "monthlyTotal": 8520,
       "compIdx": "중간",
       "plAvgDepth": 8.0,
       "bidPos": 1770
@@ -58539,8 +58539,8 @@
       "useCustomBid": true,
       "status": "ELIGIBLE",
       "monthlyPc": 640,
-      "monthlyMobile": 2770,
-      "monthlyTotal": 3410,
+      "monthlyMobile": 2780,
+      "monthlyTotal": 3420,
       "compIdx": "중간",
       "plAvgDepth": 8.0,
       "bidPos": 1270
@@ -58570,9 +58570,9 @@
       "bidAmt": 500,
       "useCustomBid": true,
       "status": "ELIGIBLE",
-      "monthlyPc": 1080,
-      "monthlyMobile": 3690,
-      "monthlyTotal": 4770,
+      "monthlyPc": 1070,
+      "monthlyMobile": 3680,
+      "monthlyTotal": 4750,
       "compIdx": "중간",
       "plAvgDepth": 8.0,
       "bidPos": 1210
@@ -58587,8 +58587,8 @@
       "useCustomBid": true,
       "status": "ELIGIBLE",
       "monthlyPc": 460,
-      "monthlyMobile": 1870,
-      "monthlyTotal": 2330,
+      "monthlyMobile": 1880,
+      "monthlyTotal": 2340,
       "compIdx": "중간",
       "plAvgDepth": 8.0,
       "bidPos": 1270
@@ -58603,8 +58603,8 @@
       "useCustomBid": true,
       "status": "ELIGIBLE",
       "monthlyPc": 70,
-      "monthlyMobile": 540,
-      "monthlyTotal": 610,
+      "monthlyMobile": 530,
+      "monthlyTotal": 600,
       "compIdx": "중간",
       "plAvgDepth": 8.0,
       "bidPos": 560
@@ -58619,8 +58619,8 @@
       "useCustomBid": true,
       "status": "ELIGIBLE",
       "monthlyPc": 40,
-      "monthlyMobile": 320,
-      "monthlyTotal": 360,
+      "monthlyMobile": 300,
+      "monthlyTotal": 340,
       "compIdx": "높음",
       "plAvgDepth": 8.0,
       "bidPos": 640
@@ -58634,9 +58634,9 @@
       "bidAmt": 500,
       "useCustomBid": true,
       "status": "ELIGIBLE",
-      "monthlyPc": 40,
-      "monthlyMobile": 180,
-      "monthlyTotal": 220,
+      "monthlyPc": 30,
+      "monthlyMobile": 170,
+      "monthlyTotal": 200,
       "compIdx": "중간",
       "plAvgDepth": 8.0,
       "bidPos": 680
@@ -58683,8 +58683,8 @@
       "useCustomBid": true,
       "status": "ELIGIBLE",
       "monthlyPc": 20,
-      "monthlyMobile": 100,
-      "monthlyTotal": 120,
+      "monthlyMobile": 110,
+      "monthlyTotal": 130,
       "compIdx": "높음",
       "plAvgDepth": 8.0,
       "bidPos": 1010
@@ -58698,9 +58698,9 @@
       "bidAmt": 500,
       "useCustomBid": true,
       "status": "ELIGIBLE",
-      "monthlyPc": 90,
-      "monthlyMobile": 200,
-      "monthlyTotal": 290,
+      "monthlyPc": 80,
+      "monthlyMobile": 190,
+      "monthlyTotal": 270,
       "compIdx": "높음",
       "plAvgDepth": 8.0,
       "bidPos": 1000
@@ -58714,9 +58714,9 @@
       "bidAmt": 500,
       "useCustomBid": true,
       "status": "ELIGIBLE",
-      "monthlyPc": 3910,
-      "monthlyMobile": 2930,
-      "monthlyTotal": 6840,
+      "monthlyPc": 3920,
+      "monthlyMobile": 2880,
+      "monthlyTotal": 6800,
       "compIdx": "중간",
       "plAvgDepth": 8.0,
       "bidPos": 1350
@@ -58730,9 +58730,9 @@
       "bidAmt": 500,
       "useCustomBid": true,
       "status": "ELIGIBLE",
-      "monthlyPc": 100,
-      "monthlyMobile": 790,
-      "monthlyTotal": 890,
+      "monthlyPc": 110,
+      "monthlyMobile": 820,
+      "monthlyTotal": 930,
       "compIdx": "높음",
       "plAvgDepth": 10.0,
       "bidPos": 1070
@@ -58747,8 +58747,8 @@
       "useCustomBid": true,
       "status": "ELIGIBLE",
       "monthlyPc": 170,
-      "monthlyMobile": 820,
-      "monthlyTotal": 990,
+      "monthlyMobile": 810,
+      "monthlyTotal": 980,
       "compIdx": "높음",
       "plAvgDepth": 7.0,
       "bidPos": 480
@@ -58795,8 +58795,8 @@
       "useCustomBid": true,
       "status": "ELIGIBLE",
       "monthlyPc": 450,
-      "monthlyMobile": 2170,
-      "monthlyTotal": 2620,
+      "monthlyMobile": 2160,
+      "monthlyTotal": 2610,
       "compIdx": "중간",
       "plAvgDepth": 8.0,
       "bidPos": 1430
@@ -58811,8 +58811,8 @@
       "useCustomBid": true,
       "status": "ELIGIBLE",
       "monthlyPc": 5,
-      "monthlyMobile": 50,
-      "monthlyTotal": 55,
+      "monthlyMobile": 40,
+      "monthlyTotal": 45,
       "compIdx": "높음",
       "plAvgDepth": 3.0,
       "bidPos": 200
@@ -58843,8 +58843,8 @@
       "useCustomBid": true,
       "status": "ELIGIBLE",
       "monthlyPc": 290,
-      "monthlyMobile": 3450,
-      "monthlyTotal": 3740,
+      "monthlyMobile": 3430,
+      "monthlyTotal": 3720,
       "compIdx": "높음",
       "plAvgDepth": 8.0,
       "bidPos": 1050
@@ -58858,9 +58858,9 @@
       "bidAmt": 500,
       "useCustomBid": true,
       "status": "ELIGIBLE",
-      "monthlyPc": 170,
+      "monthlyPc": 160,
       "monthlyMobile": 1340,
-      "monthlyTotal": 1510,
+      "monthlyTotal": 1500,
       "compIdx": "높음",
       "plAvgDepth": 10.0,
       "bidPos": 970
@@ -58874,9 +58874,9 @@
       "bidAmt": 500,
       "useCustomBid": true,
       "status": "ELIGIBLE",
-      "monthlyPc": 190,
-      "monthlyMobile": 740,
-      "monthlyTotal": 930,
+      "monthlyPc": 180,
+      "monthlyMobile": 720,
+      "monthlyTotal": 900,
       "compIdx": "중간",
       "plAvgDepth": 8.0,
       "bidPos": 1990
@@ -58891,8 +58891,8 @@
       "useCustomBid": true,
       "status": "ELIGIBLE",
       "monthlyPc": 80,
-      "monthlyMobile": 790,
-      "monthlyTotal": 870,
+      "monthlyMobile": 760,
+      "monthlyTotal": 840,
       "compIdx": "높음",
       "plAvgDepth": 8.0,
       "bidPos": 1140
@@ -58906,9 +58906,9 @@
       "bidAmt": 500,
       "useCustomBid": true,
       "status": "ELIGIBLE",
-      "monthlyPc": 140,
-      "monthlyMobile": 840,
-      "monthlyTotal": 980,
+      "monthlyPc": 130,
+      "monthlyMobile": 820,
+      "monthlyTotal": 950,
       "compIdx": "높음",
       "plAvgDepth": 8.0,
       "bidPos": 1340
@@ -58971,8 +58971,8 @@
       "useCustomBid": true,
       "status": "ELIGIBLE",
       "monthlyPc": 5,
-      "monthlyMobile": 160,
-      "monthlyTotal": 165,
+      "monthlyMobile": 150,
+      "monthlyTotal": 155,
       "compIdx": "높음",
       "plAvgDepth": 8.0,
       "bidPos": 770
@@ -58987,8 +58987,8 @@
       "useCustomBid": true,
       "status": "ELIGIBLE",
       "monthlyPc": 1530,
-      "monthlyMobile": 8830,
-      "monthlyTotal": 10360,
+      "monthlyMobile": 8750,
+      "monthlyTotal": 10280,
       "compIdx": "높음",
       "plAvgDepth": 8.0,
       "bidPos": 1880
@@ -59002,8 +59002,8 @@
       "bidAmt": 500,
       "useCustomBid": true,
       "status": "ELIGIBLE",
-      "monthlyPc": 130,
-      "monthlyMobile": 720,
+      "monthlyPc": 120,
+      "monthlyMobile": 730,
       "monthlyTotal": 850,
       "compIdx": "높음",
       "plAvgDepth": 8.0,
@@ -59018,9 +59018,9 @@
       "bidAmt": 500,
       "useCustomBid": true,
       "status": "ELIGIBLE",
-      "monthlyPc": 4640,
+      "monthlyPc": 4630,
       "monthlyMobile": 18400,
-      "monthlyTotal": 23040,
+      "monthlyTotal": 23030,
       "compIdx": "높음",
       "plAvgDepth": 10.0,
       "bidPos": 1220
@@ -59034,9 +59034,9 @@
       "bidAmt": 500,
       "useCustomBid": true,
       "status": "ELIGIBLE",
-      "monthlyPc": 530,
-      "monthlyMobile": 1640,
-      "monthlyTotal": 2170,
+      "monthlyPc": 510,
+      "monthlyMobile": 1650,
+      "monthlyTotal": 2160,
       "compIdx": "높음",
       "plAvgDepth": 10.0,
       "bidPos": 780
@@ -59051,8 +59051,8 @@
       "useCustomBid": true,
       "status": "ELIGIBLE",
       "monthlyPc": 120,
-      "monthlyMobile": 220,
-      "monthlyTotal": 340,
+      "monthlyMobile": 230,
+      "monthlyTotal": 350,
       "compIdx": "낮음",
       "plAvgDepth": 0.0,
       "bidPos": 70
@@ -59082,9 +59082,9 @@
       "bidAmt": 500,
       "useCustomBid": true,
       "status": "PAUSED",
-      "monthlyPc": 1030,
-      "monthlyMobile": 1860,
-      "monthlyTotal": 2890,
+      "monthlyPc": 1040,
+      "monthlyMobile": 1890,
+      "monthlyTotal": 2930,
       "compIdx": "높음",
       "plAvgDepth": 10.0,
       "bidPos": 1970
@@ -59098,9 +59098,9 @@
       "bidAmt": 500,
       "useCustomBid": true,
       "status": "ELIGIBLE",
-      "monthlyPc": 820,
+      "monthlyPc": 830,
       "monthlyMobile": 3360,
-      "monthlyTotal": 4180,
+      "monthlyTotal": 4190,
       "compIdx": "중간",
       "plAvgDepth": 8.0,
       "bidPos": 610
@@ -59115,8 +59115,8 @@
       "useCustomBid": true,
       "status": "ELIGIBLE",
       "monthlyPc": 290,
-      "monthlyMobile": 1360,
-      "monthlyTotal": 1650,
+      "monthlyMobile": 1350,
+      "monthlyTotal": 1640,
       "compIdx": "중간",
       "plAvgDepth": 8.0,
       "bidPos": 550
@@ -59146,9 +59146,9 @@
       "bidAmt": 200,
       "useCustomBid": true,
       "status": "ELIGIBLE",
-      "monthlyPc": 1250,
-      "monthlyMobile": 7250,
-      "monthlyTotal": 8500,
+      "monthlyPc": 1240,
+      "monthlyMobile": 7280,
+      "monthlyTotal": 8520,
       "compIdx": "중간",
       "plAvgDepth": 8.0,
       "bidPos": 1770
@@ -59163,8 +59163,8 @@
       "useCustomBid": true,
       "status": "ELIGIBLE",
       "monthlyPc": 640,
-      "monthlyMobile": 2770,
-      "monthlyTotal": 3410,
+      "monthlyMobile": 2780,
+      "monthlyTotal": 3420,
       "compIdx": "중간",
       "plAvgDepth": 8.0,
       "bidPos": 1270
@@ -59194,9 +59194,9 @@
       "bidAmt": 200,
       "useCustomBid": true,
       "status": "ELIGIBLE",
-      "monthlyPc": 1080,
-      "monthlyMobile": 3690,
-      "monthlyTotal": 4770,
+      "monthlyPc": 1070,
+      "monthlyMobile": 3680,
+      "monthlyTotal": 4750,
       "compIdx": "중간",
       "plAvgDepth": 8.0,
       "bidPos": 1210
@@ -59211,8 +59211,8 @@
       "useCustomBid": true,
       "status": "ELIGIBLE",
       "monthlyPc": 460,
-      "monthlyMobile": 1870,
-      "monthlyTotal": 2330,
+      "monthlyMobile": 1880,
+      "monthlyTotal": 2340,
       "compIdx": "중간",
       "plAvgDepth": 8.0,
       "bidPos": 1270
@@ -59227,8 +59227,8 @@
       "useCustomBid": true,
       "status": "ELIGIBLE",
       "monthlyPc": 70,
-      "monthlyMobile": 540,
-      "monthlyTotal": 610,
+      "monthlyMobile": 530,
+      "monthlyTotal": 600,
       "compIdx": "중간",
       "plAvgDepth": 8.0,
       "bidPos": 560
@@ -59243,8 +59243,8 @@
       "useCustomBid": true,
       "status": "ELIGIBLE",
       "monthlyPc": 40,
-      "monthlyMobile": 320,
-      "monthlyTotal": 360,
+      "monthlyMobile": 300,
+      "monthlyTotal": 340,
       "compIdx": "높음",
       "plAvgDepth": 8.0,
       "bidPos": 640
@@ -59258,9 +59258,9 @@
       "bidAmt": 200,
       "useCustomBid": true,
       "status": "ELIGIBLE",
-      "monthlyPc": 40,
-      "monthlyMobile": 180,
-      "monthlyTotal": 220,
+      "monthlyPc": 30,
+      "monthlyMobile": 170,
+      "monthlyTotal": 200,
       "compIdx": "중간",
       "plAvgDepth": 8.0,
       "bidPos": 680
@@ -59307,8 +59307,8 @@
       "useCustomBid": true,
       "status": "ELIGIBLE",
       "monthlyPc": 20,
-      "monthlyMobile": 100,
-      "monthlyTotal": 120,
+      "monthlyMobile": 110,
+      "monthlyTotal": 130,
       "compIdx": "높음",
       "plAvgDepth": 8.0,
       "bidPos": 1010
@@ -59322,9 +59322,9 @@
       "bidAmt": 200,
       "useCustomBid": true,
       "status": "ELIGIBLE",
-      "monthlyPc": 90,
-      "monthlyMobile": 200,
-      "monthlyTotal": 290,
+      "monthlyPc": 80,
+      "monthlyMobile": 190,
+      "monthlyTotal": 270,
       "compIdx": "높음",
       "plAvgDepth": 8.0,
       "bidPos": 1000
@@ -59338,9 +59338,9 @@
       "bidAmt": 200,
       "useCustomBid": true,
       "status": "ELIGIBLE",
-      "monthlyPc": 3910,
-      "monthlyMobile": 2930,
-      "monthlyTotal": 6840,
+      "monthlyPc": 3920,
+      "monthlyMobile": 2880,
+      "monthlyTotal": 6800,
       "compIdx": "중간",
       "plAvgDepth": 8.0,
       "bidPos": 1350
@@ -59354,9 +59354,9 @@
       "bidAmt": 200,
       "useCustomBid": true,
       "status": "ELIGIBLE",
-      "monthlyPc": 100,
-      "monthlyMobile": 790,
-      "monthlyTotal": 890,
+      "monthlyPc": 110,
+      "monthlyMobile": 820,
+      "monthlyTotal": 930,
       "compIdx": "높음",
       "plAvgDepth": 10.0,
       "bidPos": 1070
@@ -59371,8 +59371,8 @@
       "useCustomBid": true,
       "status": "ELIGIBLE",
       "monthlyPc": 170,
-      "monthlyMobile": 820,
-      "monthlyTotal": 990,
+      "monthlyMobile": 810,
+      "monthlyTotal": 980,
       "compIdx": "높음",
       "plAvgDepth": 7.0,
       "bidPos": 480
@@ -59419,8 +59419,8 @@
       "useCustomBid": true,
       "status": "ELIGIBLE",
       "monthlyPc": 450,
-      "monthlyMobile": 2170,
-      "monthlyTotal": 2620,
+      "monthlyMobile": 2160,
+      "monthlyTotal": 2610,
       "compIdx": "중간",
       "plAvgDepth": 8.0,
       "bidPos": 1430
@@ -59435,8 +59435,8 @@
       "useCustomBid": true,
       "status": "ELIGIBLE",
       "monthlyPc": 5,
-      "monthlyMobile": 50,
-      "monthlyTotal": 55,
+      "monthlyMobile": 40,
+      "monthlyTotal": 45,
       "compIdx": "높음",
       "plAvgDepth": 3.0,
       "bidPos": 200
@@ -59467,8 +59467,8 @@
       "useCustomBid": true,
       "status": "ELIGIBLE",
       "monthlyPc": 290,
-      "monthlyMobile": 3450,
-      "monthlyTotal": 3740,
+      "monthlyMobile": 3430,
+      "monthlyTotal": 3720,
       "compIdx": "높음",
       "plAvgDepth": 8.0,
       "bidPos": 1050
@@ -59482,9 +59482,9 @@
       "bidAmt": 200,
       "useCustomBid": true,
       "status": "ELIGIBLE",
-      "monthlyPc": 170,
+      "monthlyPc": 160,
       "monthlyMobile": 1340,
-      "monthlyTotal": 1510,
+      "monthlyTotal": 1500,
       "compIdx": "높음",
       "plAvgDepth": 10.0,
       "bidPos": 970
@@ -59498,9 +59498,9 @@
       "bidAmt": 200,
       "useCustomBid": true,
       "status": "ELIGIBLE",
-      "monthlyPc": 190,
-      "monthlyMobile": 740,
-      "monthlyTotal": 930,
+      "monthlyPc": 180,
+      "monthlyMobile": 720,
+      "monthlyTotal": 900,
       "compIdx": "중간",
       "plAvgDepth": 8.0,
       "bidPos": 1990
@@ -59515,8 +59515,8 @@
       "useCustomBid": true,
       "status": "ELIGIBLE",
       "monthlyPc": 80,
-      "monthlyMobile": 790,
-      "monthlyTotal": 870,
+      "monthlyMobile": 760,
+      "monthlyTotal": 840,
       "compIdx": "높음",
       "plAvgDepth": 8.0,
       "bidPos": 1140
@@ -59530,9 +59530,9 @@
       "bidAmt": 200,
       "useCustomBid": true,
       "status": "ELIGIBLE",
-      "monthlyPc": 140,
-      "monthlyMobile": 840,
-      "monthlyTotal": 980,
+      "monthlyPc": 130,
+      "monthlyMobile": 820,
+      "monthlyTotal": 950,
       "compIdx": "높음",
       "plAvgDepth": 8.0,
       "bidPos": 1340
@@ -59595,8 +59595,8 @@
       "useCustomBid": true,
       "status": "ELIGIBLE",
       "monthlyPc": 5,
-      "monthlyMobile": 160,
-      "monthlyTotal": 165,
+      "monthlyMobile": 150,
+      "monthlyTotal": 155,
       "compIdx": "높음",
       "plAvgDepth": 8.0,
       "bidPos": 770
@@ -59611,8 +59611,8 @@
       "useCustomBid": true,
       "status": "ELIGIBLE",
       "monthlyPc": 1530,
-      "monthlyMobile": 8830,
-      "monthlyTotal": 10360,
+      "monthlyMobile": 8750,
+      "monthlyTotal": 10280,
       "compIdx": "높음",
       "plAvgDepth": 8.0,
       "bidPos": 1880
@@ -59626,8 +59626,8 @@
       "bidAmt": 200,
       "useCustomBid": true,
       "status": "ELIGIBLE",
-      "monthlyPc": 130,
-      "monthlyMobile": 720,
+      "monthlyPc": 120,
+      "monthlyMobile": 730,
       "monthlyTotal": 850,
       "compIdx": "높음",
       "plAvgDepth": 8.0,
@@ -59642,9 +59642,9 @@
       "bidAmt": 200,
       "useCustomBid": true,
       "status": "ELIGIBLE",
-      "monthlyPc": 4640,
+      "monthlyPc": 4630,
       "monthlyMobile": 18400,
-      "monthlyTotal": 23040,
+      "monthlyTotal": 23030,
       "compIdx": "높음",
       "plAvgDepth": 10.0,
       "bidPos": 1220
@@ -59658,9 +59658,9 @@
       "bidAmt": 200,
       "useCustomBid": true,
       "status": "ELIGIBLE",
-      "monthlyPc": 530,
-      "monthlyMobile": 1640,
-      "monthlyTotal": 2170,
+      "monthlyPc": 510,
+      "monthlyMobile": 1650,
+      "monthlyTotal": 2160,
       "compIdx": "높음",
       "plAvgDepth": 10.0,
       "bidPos": 780
@@ -59675,8 +59675,8 @@
       "useCustomBid": true,
       "status": "ELIGIBLE",
       "monthlyPc": 120,
-      "monthlyMobile": 220,
-      "monthlyTotal": 340,
+      "monthlyMobile": 230,
+      "monthlyTotal": 350,
       "compIdx": "낮음",
       "plAvgDepth": 0.0,
       "bidPos": 70
@@ -59706,9 +59706,9 @@
       "bidAmt": 200,
       "useCustomBid": true,
       "status": "PAUSED",
-      "monthlyPc": 1030,
-      "monthlyMobile": 1860,
-      "monthlyTotal": 2890,
+      "monthlyPc": 1040,
+      "monthlyMobile": 1890,
+      "monthlyTotal": 2930,
       "compIdx": "높음",
       "plAvgDepth": 10.0,
       "bidPos": 1970
@@ -59722,9 +59722,9 @@
       "bidAmt": 200,
       "useCustomBid": true,
       "status": "ELIGIBLE",
-      "monthlyPc": 820,
+      "monthlyPc": 830,
       "monthlyMobile": 3360,
-      "monthlyTotal": 4180,
+      "monthlyTotal": 4190,
       "compIdx": "중간",
       "plAvgDepth": 8.0,
       "bidPos": 610
@@ -59739,8 +59739,8 @@
       "useCustomBid": true,
       "status": "ELIGIBLE",
       "monthlyPc": 290,
-      "monthlyMobile": 1360,
-      "monthlyTotal": 1650,
+      "monthlyMobile": 1350,
+      "monthlyTotal": 1640,
       "compIdx": "중간",
       "plAvgDepth": 8.0,
       "bidPos": 550
@@ -59770,9 +59770,9 @@
       "bidAmt": 200,
       "useCustomBid": true,
       "status": "ELIGIBLE",
-      "monthlyPc": 110,
-      "monthlyMobile": 350,
-      "monthlyTotal": 460,
+      "monthlyPc": 120,
+      "monthlyMobile": 360,
+      "monthlyTotal": 480,
       "compIdx": "중간",
       "plAvgDepth": 5.0,
       "avgRnk": 2.5,
@@ -59784,8 +59784,8 @@
       "seed": "선물",
       "items": [
         {
-          "pc": 12900,
-          "mobile": 37800,
+          "pc": 12800,
+          "mobile": 37900,
           "total": 50700,
           "comp": "높음",
           "depth": 10.0,
@@ -59793,54 +59793,54 @@
           "bidPos": 2180
         },
         {
-          "pc": 5150,
-          "mobile": 29200,
-          "total": 34350,
+          "pc": 5130,
+          "mobile": 29300,
+          "total": 34430,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "집들이선물추천",
           "bidPos": 2220
         },
         {
-          "pc": 5340,
-          "mobile": 22300,
-          "total": 27640,
+          "pc": 5230,
+          "mobile": 22000,
+          "total": 27230,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "상견례선물",
           "bidPos": 1750
         },
         {
-          "pc": 2570,
+          "pc": 2550,
           "mobile": 12300,
-          "total": 14870,
+          "total": 14850,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "생일선물",
           "bidPos": 1910
         },
         {
-          "pc": 2700,
-          "mobile": 9030,
-          "total": 11730,
+          "pc": 2690,
+          "mobile": 9130,
+          "total": 11820,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "퇴사선물",
           "bidPos": 1760
         },
         {
-          "pc": 1280,
-          "mobile": 8380,
-          "total": 9660,
+          "pc": 1240,
+          "mobile": 8360,
+          "total": 9600,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "남자친구생일선물",
           "bidPos": 1670
         },
         {
-          "pc": 1440,
-          "mobile": 5800,
-          "total": 7240,
+          "pc": 1410,
+          "mobile": 5810,
+          "total": 7220,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "돌선물",
@@ -59856,8 +59856,8 @@
           "bidPos": 2970
         },
         {
-          "pc": 1170,
-          "mobile": 5170,
+          "pc": 1180,
+          "mobile": 5160,
           "total": 6340,
           "comp": "높음",
           "depth": 10.0,
@@ -59866,16 +59866,16 @@
         },
         {
           "pc": 1140,
-          "mobile": 5100,
-          "total": 6240,
+          "mobile": 5140,
+          "total": 6280,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "생일선물추천",
           "bidPos": 1730
         },
         {
-          "pc": 620,
-          "mobile": 5500,
+          "pc": 610,
+          "mobile": 5510,
           "total": 6120,
           "comp": "높음",
           "depth": 10.0,
@@ -59883,45 +59883,45 @@
           "bidPos": 2190
         },
         {
-          "pc": 1220,
-          "mobile": 4780,
+          "pc": 940,
+          "mobile": 5060,
           "total": 6000,
-          "comp": "높음",
-          "depth": 10.0,
-          "keyword": "결혼선물",
-          "bidPos": 2560
-        },
-        {
-          "pc": 960,
-          "mobile": 5030,
-          "total": 5990,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "칠순선물",
           "bidPos": 3690
         },
         {
+          "pc": 1210,
+          "mobile": 4770,
+          "total": 5980,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "결혼선물",
+          "bidPos": 2560
+        },
+        {
           "pc": 1100,
-          "mobile": 4360,
-          "total": 5460,
+          "mobile": 4400,
+          "total": 5500,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "이사선물",
           "bidPos": 1740
         },
         {
-          "pc": 1640,
-          "mobile": 3200,
-          "total": 4840,
+          "pc": 1620,
+          "mobile": 3210,
+          "total": 4830,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "선물세트",
           "bidPos": 1740
         },
         {
-          "pc": 910,
-          "mobile": 3810,
-          "total": 4720,
+          "pc": 900,
+          "mobile": 3830,
+          "total": 4730,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "신혼부부선물",
@@ -59937,27 +59937,27 @@
           "bidPos": 1910
         },
         {
-          "pc": 660,
-          "mobile": 3690,
-          "total": 4350,
+          "pc": 650,
+          "mobile": 3630,
+          "total": 4280,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "1주년선물",
           "bidPos": 1490
         },
         {
-          "pc": 1100,
+          "pc": 1070,
           "mobile": 3150,
-          "total": 4250,
+          "total": 4220,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "와이프생일선물",
           "bidPos": 3430
         },
         {
-          "pc": 860,
-          "mobile": 3280,
-          "total": 4140,
+          "pc": 850,
+          "mobile": 3270,
+          "total": 4120,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "부모님선물",
@@ -59965,26 +59965,26 @@
         },
         {
           "pc": 560,
-          "mobile": 3290,
-          "total": 3850,
+          "mobile": 3310,
+          "total": 3870,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "할머니생신선물",
           "bidPos": 2710
         },
         {
-          "pc": 630,
-          "mobile": 2940,
-          "total": 3570,
+          "pc": 640,
+          "mobile": 2960,
+          "total": 3600,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "남자생일선물",
           "bidPos": 1760
         },
         {
-          "pc": 840,
-          "mobile": 2720,
-          "total": 3560,
+          "pc": 860,
+          "mobile": 2730,
+          "total": 3590,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "선물포장",
@@ -59992,17 +59992,17 @@
         },
         {
           "pc": 580,
-          "mobile": 2920,
-          "total": 3500,
+          "mobile": 2930,
+          "total": 3510,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "친구결혼선물",
           "bidPos": 1370
         },
         {
-          "pc": 580,
-          "mobile": 2850,
-          "total": 3430,
+          "pc": 570,
+          "mobile": 2840,
+          "total": 3410,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "시어머니생신선물",
@@ -60014,18 +60014,18 @@
       "seed": "잼",
       "items": [
         {
-          "pc": 760,
-          "mobile": 9120,
-          "total": 9880,
+          "pc": 770,
+          "mobile": 9250,
+          "total": 10020,
           "comp": "중간",
           "depth": 4.0,
           "keyword": "트라피스트딸기잼",
           "bidPos": 70
         },
         {
-          "pc": 1530,
-          "mobile": 7350,
-          "total": 8880,
+          "pc": 1520,
+          "mobile": 7340,
+          "total": 8860,
           "comp": "중간",
           "depth": 8.0,
           "keyword": "딸기잼",
@@ -60033,8 +60033,8 @@
         },
         {
           "pc": 510,
-          "mobile": 3160,
-          "total": 3670,
+          "mobile": 3130,
+          "total": 3640,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "블루베리잼",
@@ -60042,8 +60042,8 @@
         },
         {
           "pc": 250,
-          "mobile": 2110,
-          "total": 2360,
+          "mobile": 2210,
+          "total": 2460,
           "comp": "중간",
           "depth": 3.0,
           "keyword": "트라피스트수녀원잼",
@@ -60060,17 +60060,17 @@
         },
         {
           "pc": 210,
-          "mobile": 1760,
-          "total": 1970,
+          "mobile": 1780,
+          "total": 1990,
           "comp": "중간",
           "depth": 4.0,
           "keyword": "트라피스트잼",
           "bidPos": 70
         },
         {
-          "pc": 220,
-          "mobile": 1170,
-          "total": 1390,
+          "pc": 230,
+          "mobile": 1190,
+          "total": 1420,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "저당딸기잼",
@@ -60105,8 +60105,8 @@
         },
         {
           "pc": 140,
-          "mobile": 690,
-          "total": 830,
+          "mobile": 700,
+          "total": 840,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "망고잼",
@@ -60114,8 +60114,8 @@
         },
         {
           "pc": 80,
-          "mobile": 710,
-          "total": 790,
+          "mobile": 700,
+          "total": 780,
           "comp": "중간",
           "depth": 8.0,
           "keyword": "수제딸기잼",
@@ -60132,8 +60132,8 @@
         },
         {
           "pc": 50,
-          "mobile": 420,
-          "total": 470,
+          "mobile": 410,
+          "total": 460,
           "comp": "중간",
           "depth": 3.0,
           "keyword": "잼스토리",
@@ -60141,17 +60141,17 @@
         },
         {
           "pc": 30,
-          "mobile": 410,
-          "total": 440,
+          "mobile": 420,
+          "total": 450,
           "comp": "높음",
           "depth": 3.0,
           "keyword": "수녀원딸기잼",
           "bidPos": 130
         },
         {
-          "pc": 70,
-          "mobile": 360,
-          "total": 430,
+          "pc": 60,
+          "mobile": 350,
+          "total": 410,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "유기농딸기잼",
@@ -60159,30 +60159,21 @@
         },
         {
           "pc": 60,
-          "mobile": 300,
-          "total": 360,
+          "mobile": 310,
+          "total": 370,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "애플시나몬잼",
           "bidPos": 340
         },
         {
-          "pc": 50,
+          "pc": 60,
           "mobile": 290,
-          "total": 340,
+          "total": 350,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "딸기잼추천",
           "bidPos": 760
-        },
-        {
-          "pc": 40,
-          "mobile": 270,
-          "total": 310,
-          "comp": "중간",
-          "depth": 8.0,
-          "keyword": "잼종류",
-          "bidPos": 250
         },
         {
           "pc": 50,
@@ -60194,9 +60185,18 @@
           "bidPos": 370
         },
         {
-          "pc": 60,
+          "pc": 40,
+          "mobile": 260,
+          "total": 300,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "잼종류",
+          "bidPos": 250
+        },
+        {
+          "pc": 50,
           "mobile": 230,
-          "total": 290,
+          "total": 280,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "수제잼",
@@ -60213,8 +60213,8 @@
         },
         {
           "pc": 50,
-          "mobile": 190,
-          "total": 240,
+          "mobile": 200,
+          "total": 250,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "무설탕잼",
@@ -60244,22 +60244,13 @@
       "seed": "선물박스",
       "items": [
         {
-          "pc": 250,
+          "pc": 240,
           "mobile": 280,
-          "total": 530,
+          "total": 520,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "선물박스제작",
           "bidPos": 2460
-        },
-        {
-          "pc": 70,
-          "mobile": 80,
-          "total": 150,
-          "comp": "높음",
-          "depth": 10.0,
-          "keyword": "대형선물박스",
-          "bidPos": 680
         },
         {
           "pc": 40,
@@ -60269,6 +60260,33 @@
           "depth": 10.0,
           "keyword": "고급선물박스",
           "bidPos": 1370
+        },
+        {
+          "pc": 60,
+          "mobile": 80,
+          "total": 140,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "대형선물박스",
+          "bidPos": 680
+        },
+        {
+          "pc": 20,
+          "mobile": 80,
+          "total": 100,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "큰선물박스",
+          "bidPos": 680
+        },
+        {
+          "pc": 20,
+          "mobile": 70,
+          "total": 90,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "종이선물박스",
+          "bidPos": 850
         },
         {
           "pc": 20,
@@ -60287,15 +60305,6 @@
           "depth": 10.0,
           "keyword": "크라프트선물박스",
           "bidPos": 690
-        },
-        {
-          "pc": 10,
-          "mobile": 70,
-          "total": 80,
-          "comp": "높음",
-          "depth": 10.0,
-          "keyword": "큰선물박스",
-          "bidPos": 680
         },
         {
           "pc": 20,
@@ -60326,15 +60335,6 @@
         },
         {
           "pc": 10,
-          "mobile": 60,
-          "total": 70,
-          "comp": "높음",
-          "depth": 10.0,
-          "keyword": "종이선물박스",
-          "bidPos": 850
-        },
-        {
-          "pc": 10,
           "mobile": 50,
           "total": 60,
           "comp": "높음",
@@ -60343,9 +60343,9 @@
           "bidPos": 700
         },
         {
-          "pc": 30,
+          "pc": 20,
           "mobile": 30,
-          "total": 60,
+          "total": 50,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "손잡이선물박스",
@@ -60370,9 +60370,9 @@
           "bidPos": 710
         },
         {
-          "pc": 10,
+          "pc": 5,
           "mobile": 20,
-          "total": 30,
+          "total": 25,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "쿠키선물박스",
@@ -60397,8 +60397,8 @@
           "bidPos": 1420
         },
         {
-          "pc": 10,
-          "mobile": 5,
+          "pc": 5,
+          "mobile": 10,
           "total": 15,
           "comp": "높음",
           "depth": 10.0,
@@ -60455,18 +60455,18 @@
           "mobile": 10,
           "total": 15,
           "comp": "높음",
-          "depth": 7.0,
-          "keyword": "골프공선물박스",
-          "bidPos": 850
+          "depth": 10.0,
+          "keyword": "선물박스도매",
+          "bidPos": 1180
         },
         {
           "pc": 5,
           "mobile": 10,
           "total": 15,
           "comp": "높음",
-          "depth": 10.0,
-          "keyword": "선물박스도매",
-          "bidPos": 1180
+          "depth": 7.0,
+          "keyword": "싸바리선물박스",
+          "bidPos": 910
         }
       ]
     },
@@ -60475,8 +60475,8 @@
       "items": [
         {
           "pc": 20,
-          "mobile": 360,
-          "total": 380,
+          "mobile": 370,
+          "total": 390,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "산지애사과즙",
@@ -60502,8 +60502,8 @@
         },
         {
           "pc": 10,
-          "mobile": 250,
-          "total": 260,
+          "mobile": 230,
+          "total": 240,
           "comp": "높음",
           "depth": 7.0,
           "keyword": "착즙사과즙",
@@ -60520,8 +60520,8 @@
         },
         {
           "pc": 10,
-          "mobile": 160,
-          "total": 170,
+          "mobile": 170,
+          "total": 180,
           "comp": "높음",
           "depth": 3.0,
           "keyword": "아임사과즙",
@@ -60538,15 +60538,6 @@
         },
         {
           "pc": 10,
-          "mobile": 100,
-          "total": 110,
-          "comp": "높음",
-          "depth": 8.0,
-          "keyword": "당근사과즙",
-          "bidPos": 550
-        },
-        {
-          "pc": 10,
           "mobile": 90,
           "total": 100,
           "comp": "높음",
@@ -60555,9 +60546,18 @@
           "bidPos": 790
         },
         {
+          "pc": 10,
+          "mobile": 90,
+          "total": 100,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "당근사과즙",
+          "bidPos": 550
+        },
+        {
           "pc": 20,
-          "mobile": 60,
-          "total": 80,
+          "mobile": 70,
+          "total": 90,
           "comp": "높음",
           "depth": 7.0,
           "keyword": "NFC사과즙",
@@ -60695,8 +60695,8 @@
           "total": 25,
           "comp": "높음",
           "depth": 3.0,
-          "keyword": "노슈가애디드사과즙",
-          "bidPos": 220
+          "keyword": "사과즙만들기",
+          "bidPos": 470
         }
       ]
     },
@@ -60704,18 +60704,18 @@
       "seed": "주스",
       "items": [
         {
-          "pc": 2530,
+          "pc": 2510,
           "mobile": 18700,
-          "total": 21230,
+          "total": 21210,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "ABC주스",
           "bidPos": 1880
         },
         {
-          "pc": 1410,
-          "mobile": 9570,
-          "total": 10980,
+          "pc": 1390,
+          "mobile": 9550,
+          "total": 10940,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "해독주스",
@@ -60723,8 +60723,8 @@
         },
         {
           "pc": 1070,
-          "mobile": 3790,
-          "total": 4860,
+          "mobile": 3810,
+          "total": 4880,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "오렌지주스",
@@ -60732,8 +60732,8 @@
         },
         {
           "pc": 400,
-          "mobile": 2810,
-          "total": 3210,
+          "mobile": 2850,
+          "total": 3250,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "ABC주스효능",
@@ -60741,8 +60741,8 @@
         },
         {
           "pc": 360,
-          "mobile": 2020,
-          "total": 2380,
+          "mobile": 2030,
+          "total": 2390,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "델몬트오렌지주스",
@@ -60785,18 +60785,18 @@
           "bidPos": 630
         },
         {
-          "pc": 30,
-          "mobile": 290,
-          "total": 320,
+          "pc": 40,
+          "mobile": 300,
+          "total": 340,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "샐러드주스",
           "bidPos": 730
         },
         {
-          "pc": 20,
+          "pc": 30,
           "mobile": 160,
-          "total": 180,
+          "total": 190,
           "comp": "높음",
           "depth": 3.0,
           "keyword": "아침야채주스",
@@ -60875,18 +60875,18 @@
           "bidPos": 1180
         },
         {
-          "pc": 11800,
-          "mobile": 88000,
-          "total": 99800,
+          "pc": 11700,
+          "mobile": 87800,
+          "total": 99500,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "대전가볼만한곳",
           "bidPos": 980
         },
         {
-          "pc": 7680,
-          "mobile": 50700,
-          "total": 58380,
+          "pc": 7700,
+          "mobile": 51100,
+          "total": 58800,
           "comp": "중간",
           "depth": 7.0,
           "keyword": "코스트코추천상품",
@@ -60894,17 +60894,17 @@
         },
         {
           "pc": 6200,
-          "mobile": 31900,
-          "total": 38100,
+          "mobile": 31700,
+          "total": 37900,
           "comp": "높음",
           "depth": 9.0,
           "keyword": "과일",
           "bidPos": 980
         },
         {
-          "pc": 3810,
-          "mobile": 29500,
-          "total": 33310,
+          "pc": 3820,
+          "mobile": 29400,
+          "total": 33220,
           "comp": "중간",
           "depth": 8.0,
           "keyword": "빵",
@@ -60912,17 +60912,17 @@
         },
         {
           "pc": 1590,
-          "mobile": 22400,
-          "total": 23990,
+          "mobile": 23200,
+          "total": 24790,
           "comp": "중간",
           "depth": 8.0,
           "keyword": "상황버섯",
           "bidPos": 710
         },
         {
-          "pc": 2700,
-          "mobile": 21100,
-          "total": 23800,
+          "pc": 2680,
+          "mobile": 21200,
+          "total": 23880,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "대전카페",
@@ -60934,9 +60934,9 @@
       "seed": "착즙주스",
       "items": [
         {
-          "pc": 100,
-          "mobile": 1760,
-          "total": 1860,
+          "pc": 110,
+          "mobile": 1780,
+          "total": 1890,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "당근착즙주스",
@@ -60961,9 +60961,9 @@
           "bidPos": 1180
         },
         {
-          "pc": 20,
+          "pc": 30,
           "mobile": 190,
-          "total": 210,
+          "total": 220,
           "comp": "중간",
           "depth": 8.0,
           "keyword": "ABC착즙주스",
@@ -60988,6 +60988,15 @@
           "bidPos": 1300
         },
         {
+          "pc": 10,
+          "mobile": 20,
+          "total": 30,
+          "comp": "높음",
+          "depth": 7.0,
+          "keyword": "케일착즙주스",
+          "bidPos": 1140
+        },
+        {
           "pc": 5,
           "mobile": 20,
           "total": 25,
@@ -61007,15 +61016,6 @@
         },
         {
           "pc": 5,
-          "mobile": 20,
-          "total": 25,
-          "comp": "높음",
-          "depth": 7.0,
-          "keyword": "케일착즙주스",
-          "bidPos": 1140
-        },
-        {
-          "pc": 5,
           "mobile": 10,
           "total": 15,
           "comp": "높음",
@@ -61024,99 +61024,99 @@
           "bidPos": 860
         },
         {
-          "pc": 12800,
-          "mobile": 43300,
-          "total": 56100,
+          "pc": 12600,
+          "mobile": 43000,
+          "total": 55600,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "다이어트식단",
           "bidPos": 3760
         },
         {
-          "pc": 3940,
-          "mobile": 48600,
-          "total": 52540,
+          "pc": 3920,
+          "mobile": 48500,
+          "total": 52420,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "토마토효능",
           "bidPos": 1000
         },
         {
-          "pc": 5430,
-          "mobile": 24100,
-          "total": 29530,
-          "comp": "높음",
-          "depth": 9.0,
-          "keyword": "양배추",
-          "bidPos": 1300
-        },
-        {
           "pc": 1470,
-          "mobile": 28000,
-          "total": 29470,
+          "mobile": 28100,
+          "total": 29570,
           "comp": "중간",
           "depth": 8.0,
           "keyword": "빼빼주스",
           "bidPos": 1590
         },
         {
+          "pc": 5440,
+          "mobile": 23800,
+          "total": 29240,
+          "comp": "높음",
+          "depth": 9.0,
+          "keyword": "양배추",
+          "bidPos": 1300
+        },
+        {
           "pc": 4110,
-          "mobile": 22700,
-          "total": 26810,
+          "mobile": 22500,
+          "total": 26610,
           "comp": "중간",
           "depth": 8.0,
           "keyword": "양배추즙",
           "bidPos": 3100
         },
         {
-          "pc": 2220,
+          "pc": 2190,
           "mobile": 22700,
-          "total": 24920,
+          "total": 24890,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "토마토주스",
           "bidPos": 1980
         },
         {
-          "pc": 1480,
-          "mobile": 21100,
-          "total": 22580,
+          "pc": 1490,
+          "mobile": 21200,
+          "total": 22690,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "당근효능",
           "bidPos": 460
         },
         {
-          "pc": 2530,
+          "pc": 2510,
           "mobile": 18700,
-          "total": 21230,
+          "total": 21210,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "ABC주스",
           "bidPos": 1880
         },
         {
-          "pc": 1760,
-          "mobile": 15100,
-          "total": 16860,
+          "pc": 1750,
+          "mobile": 15000,
+          "total": 16750,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "방울토마토효능",
           "bidPos": 360
         },
         {
-          "pc": 1620,
-          "mobile": 12300,
-          "total": 13920,
+          "pc": 1640,
+          "mobile": 12400,
+          "total": 14040,
           "comp": "중간",
           "depth": 7.0,
           "keyword": "마시는샐러드",
           "bidPos": 1760
         },
         {
-          "pc": 2030,
+          "pc": 2040,
           "mobile": 10700,
-          "total": 12730,
+          "total": 12740,
           "comp": "중간",
           "depth": 7.0,
           "keyword": "CCA주스",
@@ -61132,31 +61132,31 @@
           "bidPos": 1760
         },
         {
-          "pc": 1690,
-          "mobile": 9610,
-          "total": 11300,
+          "pc": 1710,
+          "mobile": 9730,
+          "total": 11440,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "당근주스",
           "bidPos": 960
         },
         {
-          "pc": 970,
-          "mobile": 10200,
-          "total": 11170,
-          "comp": "높음",
-          "depth": 10.0,
-          "keyword": "브로콜리효능",
-          "bidPos": 1150
-        },
-        {
-          "pc": 1380,
-          "mobile": 9780,
-          "total": 11160,
+          "pc": 1370,
+          "mobile": 9770,
+          "total": 11140,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "라이코펜",
           "bidPos": 1650
+        },
+        {
+          "pc": 950,
+          "mobile": 10100,
+          "total": 11050,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "브로콜리효능",
+          "bidPos": 1150
         }
       ]
     },
@@ -61165,17 +61165,17 @@
       "items": [
         {
           "pc": 70,
-          "mobile": 320,
-          "total": 390,
+          "mobile": 310,
+          "total": 380,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "클렌즈주스효과",
           "bidPos": 1670
         },
         {
-          "pc": 40,
+          "pc": 50,
           "mobile": 200,
-          "total": 240,
+          "total": 250,
           "comp": "중간",
           "depth": 6.0,
           "keyword": "올리브영클렌즈주스",
@@ -61192,8 +61192,8 @@
         },
         {
           "pc": 10,
-          "mobile": 170,
-          "total": 180,
+          "mobile": 180,
+          "total": 190,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "클렌즈주스레시피",
@@ -61254,9 +61254,9 @@
           "bidPos": 1100
         },
         {
-          "pc": 12800,
-          "mobile": 43300,
-          "total": 56100,
+          "pc": 12600,
+          "mobile": 43000,
+          "total": 55600,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "다이어트식단",
@@ -61264,8 +61264,8 @@
         },
         {
           "pc": 1470,
-          "mobile": 28000,
-          "total": 29470,
+          "mobile": 28100,
+          "total": 29570,
           "comp": "중간",
           "depth": 8.0,
           "keyword": "빼빼주스",
@@ -61273,26 +61273,26 @@
         },
         {
           "pc": 4110,
-          "mobile": 22700,
-          "total": 26810,
+          "mobile": 22500,
+          "total": 26610,
           "comp": "중간",
           "depth": 8.0,
           "keyword": "양배추즙",
           "bidPos": 3100
         },
         {
-          "pc": 1480,
-          "mobile": 21100,
-          "total": 22580,
+          "pc": 1490,
+          "mobile": 21200,
+          "total": 22690,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "당근효능",
           "bidPos": 460
         },
         {
-          "pc": 2530,
+          "pc": 2510,
           "mobile": 18700,
-          "total": 21230,
+          "total": 21210,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "ABC주스",
@@ -61300,35 +61300,35 @@
         },
         {
           "pc": 1270,
-          "mobile": 15600,
-          "total": 16870,
+          "mobile": 15800,
+          "total": 17070,
           "comp": "중간",
           "depth": 6.0,
           "keyword": "칼륨많은음식",
           "bidPos": 360
         },
         {
-          "pc": 1620,
-          "mobile": 12300,
-          "total": 13920,
+          "pc": 1640,
+          "mobile": 12400,
+          "total": 14040,
           "comp": "중간",
           "depth": 7.0,
           "keyword": "마시는샐러드",
           "bidPos": 1760
         },
         {
-          "pc": 2030,
+          "pc": 2040,
           "mobile": 10700,
-          "total": 12730,
+          "total": 12740,
           "comp": "중간",
           "depth": 7.0,
           "keyword": "CCA주스",
           "bidPos": 1760
         },
         {
-          "pc": 1410,
-          "mobile": 9570,
-          "total": 10980,
+          "pc": 1390,
+          "mobile": 9550,
+          "total": 10940,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "해독주스",
@@ -61336,8 +61336,8 @@
         },
         {
           "pc": 1250,
-          "mobile": 8540,
-          "total": 9790,
+          "mobile": 8480,
+          "total": 9730,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "디톡스주스",
@@ -61345,17 +61345,17 @@
         },
         {
           "pc": 580,
-          "mobile": 8090,
-          "total": 8670,
+          "mobile": 8130,
+          "total": 8710,
           "comp": "높음",
           "depth": 7.0,
           "keyword": "파인애플효능",
           "bidPos": 760
         },
         {
-          "pc": 700,
-          "mobile": 5570,
-          "total": 6270,
+          "pc": 670,
+          "mobile": 5540,
+          "total": 6210,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "케일주스",
@@ -61363,16 +61363,16 @@
         },
         {
           "pc": 1090,
-          "mobile": 4950,
-          "total": 6040,
+          "mobile": 4960,
+          "total": 6050,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "스무디",
           "bidPos": 1480
         },
         {
-          "pc": 990,
-          "mobile": 4780,
+          "pc": 1000,
+          "mobile": 4770,
           "total": 5770,
           "comp": "중간",
           "depth": 7.0,
@@ -61380,8 +61380,8 @@
           "bidPos": 250
         },
         {
-          "pc": 410,
-          "mobile": 4190,
+          "pc": 400,
+          "mobile": 4200,
           "total": 4600,
           "comp": "높음",
           "depth": 7.0,
@@ -61448,36 +61448,36 @@
           "bidPos": 870
         },
         {
-          "pc": 42900,
-          "mobile": 42700,
-          "total": 85600,
+          "pc": 44200,
+          "mobile": 43600,
+          "total": 87800,
           "comp": "높음",
           "depth": 3.0,
           "keyword": "추석",
           "bidPos": 470
         },
         {
-          "pc": 1620,
-          "mobile": 12300,
-          "total": 13920,
+          "pc": 1640,
+          "mobile": 12400,
+          "total": 14040,
           "comp": "중간",
           "depth": 7.0,
           "keyword": "마시는샐러드",
           "bidPos": 1760
         },
         {
-          "pc": 2030,
+          "pc": 2040,
           "mobile": 10700,
-          "total": 12730,
+          "total": 12740,
           "comp": "중간",
           "depth": 7.0,
           "keyword": "CCA주스",
           "bidPos": 1760
         },
         {
-          "pc": 1410,
-          "mobile": 9570,
-          "total": 10980,
+          "pc": 1390,
+          "mobile": 9550,
+          "total": 10940,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "해독주스",
@@ -61485,25 +61485,25 @@
         },
         {
           "pc": 1250,
-          "mobile": 8540,
-          "total": 9790,
+          "mobile": 8480,
+          "total": 9730,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "디톡스주스",
           "bidPos": 2080
         },
         {
-          "pc": 1320,
-          "mobile": 6850,
-          "total": 8170,
+          "pc": 1260,
+          "mobile": 6640,
+          "total": 7900,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "스승의날",
           "bidPos": 1160
         },
         {
-          "pc": 990,
-          "mobile": 4780,
+          "pc": 1000,
+          "mobile": 4770,
           "total": 5770,
           "comp": "중간",
           "depth": 7.0,
@@ -61512,44 +61512,44 @@
         },
         {
           "pc": 290,
-          "mobile": 4730,
-          "total": 5020,
+          "mobile": 4710,
+          "total": 5000,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "아기보리차",
           "bidPos": 1390
         },
         {
-          "pc": 270,
-          "mobile": 4020,
-          "total": 4290,
+          "pc": 260,
+          "mobile": 3980,
+          "total": 4240,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "해독주스만들기",
           "bidPos": 1330
         },
         {
-          "pc": 720,
+          "pc": 710,
           "mobile": 3130,
-          "total": 3850,
+          "total": 3840,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "쥬스",
           "bidPos": 620
         },
         {
-          "pc": 270,
-          "mobile": 3430,
-          "total": 3700,
+          "pc": 280,
+          "mobile": 3440,
+          "total": 3720,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "섬유질많은음식",
           "bidPos": 1190
         },
         {
-          "pc": 510,
-          "mobile": 2040,
-          "total": 2550,
+          "pc": 500,
+          "mobile": 2030,
+          "total": 2530,
           "comp": "중간",
           "depth": 4.0,
           "keyword": "저녁식사",
@@ -61557,17 +61557,17 @@
         },
         {
           "pc": 400,
-          "mobile": 1960,
-          "total": 2360,
+          "mobile": 1950,
+          "total": 2350,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "야채주스",
           "bidPos": 2060
         },
         {
-          "pc": 220,
-          "mobile": 2090,
-          "total": 2310,
+          "pc": 230,
+          "mobile": 2110,
+          "total": 2340,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "해독쥬스",
@@ -61575,17 +61575,17 @@
         },
         {
           "pc": 150,
-          "mobile": 1790,
-          "total": 1940,
+          "mobile": 1780,
+          "total": 1930,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "사과당근주스",
           "bidPos": 1510
         },
         {
-          "pc": 100,
-          "mobile": 1760,
-          "total": 1860,
+          "pc": 110,
+          "mobile": 1780,
+          "total": 1890,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "당근착즙주스",
@@ -61593,30 +61593,30 @@
         },
         {
           "pc": 120,
-          "mobile": 1630,
-          "total": 1750,
+          "mobile": 1600,
+          "total": 1720,
           "comp": "중간",
           "depth": 4.0,
           "keyword": "꼬소꼬미",
           "bidPos": 410
         },
         {
-          "pc": 160,
-          "mobile": 1410,
-          "total": 1570,
-          "comp": "높음",
-          "depth": 8.0,
-          "keyword": "독소배출주스",
-          "bidPos": 1140
-        },
-        {
           "pc": 190,
-          "mobile": 1320,
-          "total": 1510,
+          "mobile": 1340,
+          "total": 1530,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "즙",
           "bidPos": 1430
+        },
+        {
+          "pc": 150,
+          "mobile": 1360,
+          "total": 1510,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "독소배출주스",
+          "bidPos": 1140
         }
       ]
     },
@@ -61660,27 +61660,27 @@
           "bidPos": 220
         },
         {
-          "pc": 265800,
-          "mobile": 445500,
-          "total": 711300,
+          "pc": 265300,
+          "mobile": 440000,
+          "total": 705300,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "멜론",
           "bidPos": 640
         },
         {
-          "pc": 3940,
-          "mobile": 48600,
-          "total": 52540,
+          "pc": 3920,
+          "mobile": 48500,
+          "total": 52420,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "토마토효능",
           "bidPos": 1000
         },
         {
-          "pc": 6200,
-          "mobile": 39600,
-          "total": 45800,
+          "pc": 6210,
+          "mobile": 39500,
+          "total": 45710,
           "comp": "중간",
           "depth": 8.0,
           "keyword": "아몬드브리즈",
@@ -61688,35 +61688,35 @@
         },
         {
           "pc": 6200,
-          "mobile": 31900,
-          "total": 38100,
+          "mobile": 31700,
+          "total": 37900,
           "comp": "높음",
           "depth": 9.0,
           "keyword": "과일",
           "bidPos": 980
         },
         {
-          "pc": 5540,
-          "mobile": 25800,
-          "total": 31340,
+          "pc": 5510,
+          "mobile": 26000,
+          "total": 31510,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "단백질음료",
           "bidPos": 2600
         },
         {
-          "pc": 4630,
-          "mobile": 26400,
-          "total": 31030,
+          "pc": 4610,
+          "mobile": 26500,
+          "total": 31110,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "마녀스프",
           "bidPos": 970
         },
         {
-          "pc": 5430,
-          "mobile": 24100,
-          "total": 29530,
+          "pc": 5440,
+          "mobile": 23800,
+          "total": 29240,
           "comp": "높음",
           "depth": 9.0,
           "keyword": "양배추",
@@ -61724,107 +61724,107 @@
         },
         {
           "pc": 4110,
-          "mobile": 22700,
-          "total": 26810,
+          "mobile": 22500,
+          "total": 26610,
           "comp": "중간",
           "depth": 8.0,
           "keyword": "양배추즙",
           "bidPos": 3100
         },
         {
-          "pc": 2340,
-          "mobile": 23200,
-          "total": 25540,
+          "pc": 2320,
+          "mobile": 23100,
+          "total": 25420,
           "comp": "중간",
           "depth": 7.0,
           "keyword": "쥬씨",
           "bidPos": 160
         },
         {
-          "pc": 2220,
+          "pc": 2190,
           "mobile": 22700,
-          "total": 24920,
+          "total": 24890,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "토마토주스",
           "bidPos": 1980
         },
         {
-          "pc": 4640,
-          "mobile": 20000,
-          "total": 24640,
+          "pc": 4420,
+          "mobile": 19200,
+          "total": 23620,
           "comp": "높음",
           "depth": 7.0,
           "keyword": "6월제철과일",
           "bidPos": 600
         },
         {
-          "pc": 1480,
-          "mobile": 21100,
-          "total": 22580,
+          "pc": 1490,
+          "mobile": 21200,
+          "total": 22690,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "당근효능",
           "bidPos": 460
         },
         {
-          "pc": 1660,
+          "pc": 1650,
           "mobile": 20800,
-          "total": 22460,
+          "total": 22450,
           "comp": "중간",
           "depth": 7.0,
           "keyword": "망고빙수",
           "bidPos": 600
         },
         {
-          "pc": 2530,
+          "pc": 2510,
           "mobile": 18700,
-          "total": 21230,
+          "total": 21210,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "ABC주스",
           "bidPos": 1880
         },
         {
-          "pc": 7690,
-          "mobile": 12200,
-          "total": 19890,
+          "pc": 7750,
+          "mobile": 12400,
+          "total": 20150,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "단백질바",
           "bidPos": 1050
         },
         {
-          "pc": 3430,
+          "pc": 3420,
           "mobile": 15900,
-          "total": 19330,
+          "total": 19320,
           "comp": "중간",
           "depth": 8.0,
           "keyword": "나랑드사이다",
           "bidPos": 650
         },
         {
-          "pc": 3490,
+          "pc": 3470,
           "mobile": 14500,
-          "total": 17990,
+          "total": 17970,
           "comp": "중간",
           "depth": 8.0,
           "keyword": "보리차",
           "bidPos": 1630
         },
         {
-          "pc": 1760,
-          "mobile": 15100,
-          "total": 16860,
+          "pc": 1750,
+          "mobile": 15000,
+          "total": 16750,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "방울토마토효능",
           "bidPos": 360
         },
         {
-          "pc": 2030,
+          "pc": 2040,
           "mobile": 10700,
-          "total": 12730,
+          "total": 12740,
           "comp": "중간",
           "depth": 7.0,
           "keyword": "CCA주스",
@@ -61840,9 +61840,9 @@
           "bidPos": 1760
         },
         {
-          "pc": 2680,
-          "mobile": 8760,
-          "total": 11440,
+          "pc": 2700,
+          "mobile": 8820,
+          "total": 11520,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "컵과일",
@@ -61854,9 +61854,9 @@
       "seed": "건강주스",
       "items": [
         {
-          "pc": 40,
+          "pc": 30,
           "mobile": 290,
-          "total": 330,
+          "total": 320,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "아침건강주스",
@@ -61881,27 +61881,27 @@
           "bidPos": 930
         },
         {
-          "pc": 12800,
-          "mobile": 43300,
-          "total": 56100,
+          "pc": 12600,
+          "mobile": 43000,
+          "total": 55600,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "다이어트식단",
           "bidPos": 3760
         },
         {
-          "pc": 3940,
-          "mobile": 48600,
-          "total": 52540,
+          "pc": 3920,
+          "mobile": 48500,
+          "total": 52420,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "토마토효능",
           "bidPos": 1000
         },
         {
-          "pc": 5430,
-          "mobile": 24100,
-          "total": 29530,
+          "pc": 5440,
+          "mobile": 23800,
+          "total": 29240,
           "comp": "높음",
           "depth": 9.0,
           "keyword": "양배추",
@@ -61909,48 +61909,57 @@
         },
         {
           "pc": 4110,
-          "mobile": 22700,
-          "total": 26810,
+          "mobile": 22500,
+          "total": 26610,
           "comp": "중간",
           "depth": 8.0,
           "keyword": "양배추즙",
           "bidPos": 3100
         },
         {
-          "pc": 2220,
+          "pc": 2190,
           "mobile": 22700,
-          "total": 24920,
+          "total": 24890,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "토마토주스",
           "bidPos": 1980
         },
         {
-          "pc": 1480,
-          "mobile": 21100,
-          "total": 22580,
+          "pc": 1490,
+          "mobile": 21200,
+          "total": 22690,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "당근효능",
           "bidPos": 460
         },
         {
-          "pc": 1690,
+          "pc": 1670,
           "mobile": 20100,
-          "total": 21790,
+          "total": 21770,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "변비에좋은음식",
           "bidPos": 1440
         },
         {
-          "pc": 2530,
+          "pc": 2510,
           "mobile": 18700,
-          "total": 21230,
+          "total": 21210,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "ABC주스",
           "bidPos": 1880
+        },
+        {
+          "pc": 1410,
+          "mobile": 17000,
+          "total": 18410,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "변비직빵",
+          "bidPos": 1620
         },
         {
           "pc": 870,
@@ -61962,36 +61971,27 @@
           "bidPos": 880
         },
         {
-          "pc": 1400,
-          "mobile": 16900,
-          "total": 18300,
-          "comp": "높음",
-          "depth": 10.0,
-          "keyword": "변비직빵",
-          "bidPos": 1620
-        },
-        {
-          "pc": 1760,
-          "mobile": 15100,
-          "total": 16860,
+          "pc": 1750,
+          "mobile": 15000,
+          "total": 16750,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "방울토마토효능",
           "bidPos": 360
         },
         {
-          "pc": 1620,
-          "mobile": 12300,
-          "total": 13920,
+          "pc": 1640,
+          "mobile": 12400,
+          "total": 14040,
           "comp": "중간",
           "depth": 7.0,
           "keyword": "마시는샐러드",
           "bidPos": 1760
         },
         {
-          "pc": 2030,
+          "pc": 2040,
           "mobile": 10700,
-          "total": 12730,
+          "total": 12740,
           "comp": "중간",
           "depth": 7.0,
           "keyword": "CCA주스",
@@ -62007,27 +62007,27 @@
           "bidPos": 1760
         },
         {
-          "pc": 1690,
-          "mobile": 9610,
-          "total": 11300,
+          "pc": 1710,
+          "mobile": 9730,
+          "total": 11440,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "당근주스",
           "bidPos": 960
         },
         {
-          "pc": 1380,
-          "mobile": 9780,
-          "total": 11160,
+          "pc": 1370,
+          "mobile": 9770,
+          "total": 11140,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "라이코펜",
           "bidPos": 1650
         },
         {
-          "pc": 1410,
-          "mobile": 9570,
-          "total": 10980,
+          "pc": 1390,
+          "mobile": 9550,
+          "total": 10940,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "해독주스",
@@ -62035,8 +62035,8 @@
         },
         {
           "pc": 1660,
-          "mobile": 8230,
-          "total": 9890,
+          "mobile": 8180,
+          "total": 9840,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "면역력",
@@ -62044,35 +62044,35 @@
         },
         {
           "pc": 1250,
-          "mobile": 8540,
-          "total": 9790,
+          "mobile": 8480,
+          "total": 9730,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "디톡스주스",
           "bidPos": 2080
         },
         {
-          "pc": 2180,
-          "mobile": 6260,
-          "total": 8440,
+          "pc": 2210,
+          "mobile": 6220,
+          "total": 8430,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "토마토즙",
           "bidPos": 1380
         },
         {
-          "pc": 1000,
-          "mobile": 5330,
-          "total": 6330,
+          "pc": 1010,
+          "mobile": 5380,
+          "total": 6390,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "베타카로틴",
           "bidPos": 1590
         },
         {
-          "pc": 700,
-          "mobile": 5570,
-          "total": 6270,
+          "pc": 670,
+          "mobile": 5540,
+          "total": 6210,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "케일주스",
@@ -62093,36 +62093,36 @@
           "bidPos": 190
         },
         {
-          "pc": 265800,
-          "mobile": 445500,
-          "total": 711300,
+          "pc": 265300,
+          "mobile": 440000,
+          "total": 705300,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "멜론",
           "bidPos": 640
         },
         {
-          "pc": 15000,
-          "mobile": 120200,
-          "total": 135200,
+          "pc": 14400,
+          "mobile": 116900,
+          "total": 131300,
           "comp": "중간",
           "depth": 8.0,
           "keyword": "매실",
           "bidPos": 690
         },
         {
-          "pc": 2430,
-          "mobile": 62200,
-          "total": 64630,
+          "pc": 2440,
+          "mobile": 62500,
+          "total": 64940,
           "comp": "높음",
           "depth": 7.0,
           "keyword": "빙수",
           "bidPos": 900
         },
         {
-          "pc": 3540,
-          "mobile": 40200,
-          "total": 43740,
+          "pc": 3570,
+          "mobile": 40400,
+          "total": 43970,
           "comp": "높음",
           "depth": 7.0,
           "keyword": "팥빙수",
@@ -62130,143 +62130,143 @@
         },
         {
           "pc": 6200,
-          "mobile": 31900,
-          "total": 38100,
+          "mobile": 31700,
+          "total": 37900,
           "comp": "높음",
           "depth": 9.0,
           "keyword": "과일",
           "bidPos": 980
         },
         {
-          "pc": 2650,
-          "mobile": 33500,
-          "total": 36150,
+          "pc": 2570,
+          "mobile": 33200,
+          "total": 35770,
           "comp": "높음",
           "depth": 7.0,
           "keyword": "매실10KG",
           "bidPos": 320
         },
         {
-          "pc": 3670,
-          "mobile": 30200,
-          "total": 33870,
+          "pc": 3650,
+          "mobile": 30300,
+          "total": 33950,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "황매실",
           "bidPos": 560
         },
         {
-          "pc": 5640,
-          "mobile": 24800,
-          "total": 30440,
+          "pc": 5610,
+          "mobile": 24700,
+          "total": 30310,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "멸균우유",
           "bidPos": 1220
         },
         {
-          "pc": 2410,
-          "mobile": 24400,
-          "total": 26810,
+          "pc": 2400,
+          "mobile": 24200,
+          "total": 26600,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "홍매실",
           "bidPos": 600
         },
         {
-          "pc": 2340,
-          "mobile": 23200,
-          "total": 25540,
+          "pc": 2320,
+          "mobile": 23100,
+          "total": 25420,
           "comp": "중간",
           "depth": 7.0,
           "keyword": "쥬씨",
           "bidPos": 160
         },
         {
-          "pc": 4640,
-          "mobile": 20000,
-          "total": 24640,
+          "pc": 4420,
+          "mobile": 19200,
+          "total": 23620,
           "comp": "높음",
           "depth": 7.0,
           "keyword": "6월제철과일",
           "bidPos": 600
         },
         {
-          "pc": 1660,
+          "pc": 1650,
           "mobile": 20800,
-          "total": 22460,
+          "total": 22450,
           "comp": "중간",
           "depth": 7.0,
           "keyword": "망고빙수",
           "bidPos": 600
         },
         {
-          "pc": 2530,
+          "pc": 2510,
           "mobile": 18700,
-          "total": 21230,
+          "total": 21210,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "ABC주스",
           "bidPos": 1880
         },
         {
-          "pc": 3430,
+          "pc": 3420,
           "mobile": 15900,
-          "total": 19330,
+          "total": 19320,
           "comp": "중간",
           "depth": 8.0,
           "keyword": "나랑드사이다",
           "bidPos": 650
         },
         {
-          "pc": 2220,
+          "pc": 2210,
           "mobile": 11100,
-          "total": 13320,
+          "total": 13310,
           "comp": "높음",
           "depth": 7.0,
           "keyword": "컵빙수",
           "bidPos": 970
         },
         {
-          "pc": 2030,
+          "pc": 2040,
           "mobile": 10700,
-          "total": 12730,
+          "total": 12740,
           "comp": "중간",
           "depth": 7.0,
           "keyword": "CCA주스",
           "bidPos": 1760
         },
         {
-          "pc": 1470,
-          "mobile": 10700,
-          "total": 12170,
+          "pc": 1450,
+          "mobile": 10600,
+          "total": 12050,
           "comp": "중간",
           "depth": 8.0,
           "keyword": "석류",
           "bidPos": 990
         },
         {
-          "pc": 2680,
-          "mobile": 8760,
-          "total": 11440,
+          "pc": 2700,
+          "mobile": 8820,
+          "total": 11520,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "컵과일",
           "bidPos": 870
         },
         {
-          "pc": 1410,
-          "mobile": 9570,
-          "total": 10980,
+          "pc": 1390,
+          "mobile": 9550,
+          "total": 10940,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "해독주스",
           "bidPos": 2660
         },
         {
-          "pc": 1720,
-          "mobile": 8640,
-          "total": 10360,
+          "pc": 1700,
+          "mobile": 8490,
+          "total": 10190,
           "comp": "중간",
           "depth": 8.0,
           "keyword": "블루베리퓨레",
@@ -62274,17 +62274,17 @@
         },
         {
           "pc": 1250,
-          "mobile": 8540,
-          "total": 9790,
+          "mobile": 8480,
+          "total": 9730,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "디톡스주스",
           "bidPos": 2080
         },
         {
-          "pc": 700,
-          "mobile": 5570,
-          "total": 6270,
+          "pc": 670,
+          "mobile": 5540,
+          "total": 6210,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "케일주스",
@@ -62292,8 +62292,8 @@
         },
         {
           "pc": 1090,
-          "mobile": 4950,
-          "total": 6040,
+          "mobile": 4960,
+          "total": 6050,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "스무디",
@@ -62301,8 +62301,8 @@
         },
         {
           "pc": 870,
-          "mobile": 4230,
-          "total": 5100,
+          "mobile": 4250,
+          "total": 5120,
           "comp": "중간",
           "depth": 8.0,
           "keyword": "콩가루",
@@ -62323,18 +62323,18 @@
           "bidPos": 70
         },
         {
-          "pc": 7910,
-          "mobile": 46400,
-          "total": 54310,
+          "pc": 7870,
+          "mobile": 46300,
+          "total": 54170,
           "comp": "중간",
           "depth": 8.0,
           "keyword": "참치",
           "bidPos": 1010
         },
         {
-          "pc": 3910,
-          "mobile": 48400,
-          "total": 52310,
+          "pc": 3870,
+          "mobile": 48200,
+          "total": 52070,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "식자재마트",
@@ -62342,17 +62342,17 @@
         },
         {
           "pc": 2060,
-          "mobile": 45500,
-          "total": 47560,
+          "mobile": 45300,
+          "total": 47360,
           "comp": "높음",
           "depth": 9.0,
           "keyword": "참치김치찌개",
           "bidPos": 260
         },
         {
-          "pc": 4650,
-          "mobile": 37600,
-          "total": 42250,
+          "pc": 4640,
+          "mobile": 37800,
+          "total": 42440,
           "comp": "중간",
           "depth": 8.0,
           "keyword": "바질페스토",
@@ -62377,9 +62377,9 @@
           "bidPos": 650
         },
         {
-          "pc": 840,
-          "mobile": 17800,
-          "total": 18640,
+          "pc": 820,
+          "mobile": 17500,
+          "total": 18320,
           "comp": "중간",
           "depth": 8.0,
           "keyword": "시금치된장국",
@@ -62387,8 +62387,8 @@
         },
         {
           "pc": 520,
-          "mobile": 15800,
-          "total": 16320,
+          "mobile": 15900,
+          "total": 16420,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "호프집",
@@ -62405,39 +62405,39 @@
         },
         {
           "pc": 730,
-          "mobile": 13100,
-          "total": 13830,
+          "mobile": 13400,
+          "total": 14130,
           "comp": "중간",
           "depth": 8.0,
           "keyword": "브리오슈식빵",
           "bidPos": 450
         },
         {
-          "pc": 580,
+          "pc": 570,
           "mobile": 11900,
-          "total": 12480,
+          "total": 12470,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "포차",
           "bidPos": 2440
         },
         {
-          "pc": 1750,
-          "mobile": 10100,
-          "total": 11850,
-          "comp": "높음",
-          "depth": 8.0,
-          "keyword": "해산물",
-          "bidPos": 670
-        },
-        {
-          "pc": 1630,
-          "mobile": 10100,
-          "total": 11730,
+          "pc": 1640,
+          "mobile": 10200,
+          "total": 11840,
           "comp": "중간",
           "depth": 8.0,
           "keyword": "할라피뇨",
           "bidPos": 430
+        },
+        {
+          "pc": 1740,
+          "mobile": 10100,
+          "total": 11840,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "해산물",
+          "bidPos": 670
         },
         {
           "pc": 1110,
@@ -62449,9 +62449,9 @@
           "bidPos": 340
         },
         {
-          "pc": 2410,
-          "mobile": 9070,
-          "total": 11480,
+          "pc": 2370,
+          "mobile": 8980,
+          "total": 11350,
           "comp": "중간",
           "depth": 8.0,
           "keyword": "식혜",
@@ -62467,54 +62467,54 @@
           "bidPos": 570
         },
         {
-          "pc": 2010,
-          "mobile": 8250,
-          "total": 10260,
-          "comp": "중간",
-          "depth": 8.0,
-          "keyword": "강황가루",
-          "bidPos": 860
-        },
-        {
           "pc": 1630,
-          "mobile": 8580,
-          "total": 10210,
+          "mobile": 8600,
+          "total": 10230,
           "comp": "높음",
           "depth": 7.0,
           "keyword": "삼각김밥",
           "bidPos": 980
         },
         {
-          "pc": 1120,
-          "mobile": 9080,
-          "total": 10200,
+          "pc": 2010,
+          "mobile": 8210,
+          "total": 10220,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "강황가루",
+          "bidPos": 860
+        },
+        {
+          "pc": 1110,
+          "mobile": 9020,
+          "total": 10130,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "김밥재료",
           "bidPos": 580
         },
         {
-          "pc": 1450,
-          "mobile": 8600,
-          "total": 10050,
+          "pc": 1460,
+          "mobile": 8660,
+          "total": 10120,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "맥주안주",
           "bidPos": 1400
         },
         {
-          "pc": 5020,
+          "pc": 5080,
           "mobile": 4920,
-          "total": 9940,
+          "total": 10000,
           "comp": "중간",
           "depth": 8.0,
           "keyword": "파스타소스",
           "bidPos": 800
         },
         {
-          "pc": 1980,
-          "mobile": 7620,
-          "total": 9600,
+          "pc": 2000,
+          "mobile": 7650,
+          "total": 9650,
           "comp": "중간",
           "depth": 5.0,
           "keyword": "알",
@@ -62522,16 +62522,16 @@
         },
         {
           "pc": 1120,
-          "mobile": 7730,
-          "total": 8850,
+          "mobile": 7720,
+          "total": 8840,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "토마토퓨레",
           "bidPos": 510
         },
         {
-          "pc": 710,
-          "mobile": 7660,
+          "pc": 690,
+          "mobile": 7680,
           "total": 8370,
           "comp": "높음",
           "depth": 10.0,
@@ -62553,72 +62553,72 @@
           "bidPos": 770
         },
         {
-          "pc": 3940,
-          "mobile": 48600,
-          "total": 52540,
+          "pc": 3920,
+          "mobile": 48500,
+          "total": 52420,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "토마토효능",
           "bidPos": 1000
         },
         {
-          "pc": 5430,
-          "mobile": 24100,
-          "total": 29530,
-          "comp": "높음",
-          "depth": 9.0,
-          "keyword": "양배추",
-          "bidPos": 1300
-        },
-        {
           "pc": 1470,
-          "mobile": 28000,
-          "total": 29470,
+          "mobile": 28100,
+          "total": 29570,
           "comp": "중간",
           "depth": 8.0,
           "keyword": "빼빼주스",
           "bidPos": 1590
         },
         {
+          "pc": 5440,
+          "mobile": 23800,
+          "total": 29240,
+          "comp": "높음",
+          "depth": 9.0,
+          "keyword": "양배추",
+          "bidPos": 1300
+        },
+        {
           "pc": 4110,
-          "mobile": 22700,
-          "total": 26810,
+          "mobile": 22500,
+          "total": 26610,
           "comp": "중간",
           "depth": 8.0,
           "keyword": "양배추즙",
           "bidPos": 3100
         },
         {
-          "pc": 2220,
+          "pc": 2190,
           "mobile": 22700,
-          "total": 24920,
+          "total": 24890,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "토마토주스",
           "bidPos": 1980
         },
         {
-          "pc": 1480,
-          "mobile": 21100,
-          "total": 22580,
+          "pc": 1490,
+          "mobile": 21200,
+          "total": 22690,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "당근효능",
           "bidPos": 460
         },
         {
-          "pc": 1690,
+          "pc": 1670,
           "mobile": 20100,
-          "total": 21790,
+          "total": 21770,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "변비에좋은음식",
           "bidPos": 1440
         },
         {
-          "pc": 2530,
+          "pc": 2510,
           "mobile": 18700,
-          "total": 21230,
+          "total": 21210,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "ABC주스",
@@ -62634,27 +62634,27 @@
           "bidPos": 880
         },
         {
-          "pc": 1620,
-          "mobile": 12300,
-          "total": 13920,
+          "pc": 1640,
+          "mobile": 12400,
+          "total": 14040,
           "comp": "중간",
           "depth": 7.0,
           "keyword": "마시는샐러드",
           "bidPos": 1760
         },
         {
-          "pc": 2030,
+          "pc": 2040,
           "mobile": 10700,
-          "total": 12730,
+          "total": 12740,
           "comp": "중간",
           "depth": 7.0,
           "keyword": "CCA주스",
           "bidPos": 1760
         },
         {
-          "pc": 2540,
-          "mobile": 9730,
-          "total": 12270,
+          "pc": 2570,
+          "mobile": 9720,
+          "total": 12290,
           "comp": "중간",
           "depth": 8.0,
           "keyword": "쌀과자",
@@ -62670,27 +62670,27 @@
           "bidPos": 1760
         },
         {
-          "pc": 1690,
-          "mobile": 9610,
-          "total": 11300,
+          "pc": 1710,
+          "mobile": 9730,
+          "total": 11440,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "당근주스",
           "bidPos": 960
         },
         {
-          "pc": 1380,
-          "mobile": 9780,
-          "total": 11160,
+          "pc": 1370,
+          "mobile": 9770,
+          "total": 11140,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "라이코펜",
           "bidPos": 1650
         },
         {
-          "pc": 1410,
-          "mobile": 9570,
-          "total": 10980,
+          "pc": 1390,
+          "mobile": 9550,
+          "total": 10940,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "해독주스",
@@ -62698,8 +62698,8 @@
         },
         {
           "pc": 1660,
-          "mobile": 8230,
-          "total": 9890,
+          "mobile": 8180,
+          "total": 9840,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "면역력",
@@ -62707,8 +62707,8 @@
         },
         {
           "pc": 1250,
-          "mobile": 8540,
-          "total": 9790,
+          "mobile": 8480,
+          "total": 9730,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "디톡스주스",
@@ -62716,35 +62716,35 @@
         },
         {
           "pc": 580,
-          "mobile": 8090,
-          "total": 8670,
+          "mobile": 8130,
+          "total": 8710,
           "comp": "높음",
           "depth": 7.0,
           "keyword": "파인애플효능",
           "bidPos": 760
         },
         {
-          "pc": 2180,
-          "mobile": 6260,
-          "total": 8440,
+          "pc": 2210,
+          "mobile": 6220,
+          "total": 8430,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "토마토즙",
           "bidPos": 1380
         },
         {
-          "pc": 1000,
-          "mobile": 5330,
-          "total": 6330,
+          "pc": 1010,
+          "mobile": 5380,
+          "total": 6390,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "베타카로틴",
           "bidPos": 1590
         },
         {
-          "pc": 700,
-          "mobile": 5570,
-          "total": 6270,
+          "pc": 670,
+          "mobile": 5540,
+          "total": 6210,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "케일주스",
@@ -62752,17 +62752,17 @@
         },
         {
           "pc": 1090,
-          "mobile": 4950,
-          "total": 6040,
+          "mobile": 4960,
+          "total": 6050,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "스무디",
           "bidPos": 1480
         },
         {
-          "pc": 440,
-          "mobile": 5500,
-          "total": 5940,
+          "pc": 430,
+          "mobile": 5540,
+          "total": 5970,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "당근쥬스",
@@ -62783,9 +62783,9 @@
           "bidPos": 1710
         },
         {
-          "pc": 5430,
-          "mobile": 24100,
-          "total": 29530,
+          "pc": 5440,
+          "mobile": 23800,
+          "total": 29240,
           "comp": "높음",
           "depth": 9.0,
           "keyword": "양배추",
@@ -62793,44 +62793,44 @@
         },
         {
           "pc": 4110,
-          "mobile": 22700,
-          "total": 26810,
+          "mobile": 22500,
+          "total": 26610,
           "comp": "중간",
           "depth": 8.0,
           "keyword": "양배추즙",
           "bidPos": 3100
         },
         {
-          "pc": 2530,
+          "pc": 2510,
           "mobile": 18700,
-          "total": 21230,
+          "total": 21210,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "ABC주스",
           "bidPos": 1880
         },
         {
-          "pc": 2030,
+          "pc": 2040,
           "mobile": 10700,
-          "total": 12730,
+          "total": 12740,
           "comp": "중간",
           "depth": 7.0,
           "keyword": "CCA주스",
           "bidPos": 1760
         },
         {
-          "pc": 1410,
-          "mobile": 9570,
-          "total": 10980,
+          "pc": 1390,
+          "mobile": 9550,
+          "total": 10940,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "해독주스",
           "bidPos": 2660
         },
         {
-          "pc": 2630,
-          "mobile": 7600,
-          "total": 10230,
+          "pc": 2580,
+          "mobile": 7550,
+          "total": 10130,
           "comp": "높음",
           "depth": 9.0,
           "keyword": "아이스티",
@@ -62838,26 +62838,26 @@
         },
         {
           "pc": 1250,
-          "mobile": 8540,
-          "total": 9790,
+          "mobile": 8480,
+          "total": 9730,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "디톡스주스",
           "bidPos": 2080
         },
         {
-          "pc": 1320,
-          "mobile": 6850,
-          "total": 8170,
+          "pc": 1260,
+          "mobile": 6640,
+          "total": 7900,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "스승의날",
           "bidPos": 1160
         },
         {
-          "pc": 3030,
-          "mobile": 4430,
-          "total": 7460,
+          "pc": 3000,
+          "mobile": 4340,
+          "total": 7340,
           "comp": "높음",
           "depth": 9.0,
           "keyword": "딸기청",
@@ -62865,8 +62865,8 @@
         },
         {
           "pc": 1090,
-          "mobile": 4950,
-          "total": 6040,
+          "mobile": 4960,
+          "total": 6050,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "스무디",
@@ -62874,16 +62874,16 @@
         },
         {
           "pc": 1340,
-          "mobile": 4560,
-          "total": 5900,
+          "mobile": 4530,
+          "total": 5870,
           "comp": "높음",
           "depth": 7.0,
           "keyword": "유통",
           "bidPos": 1280
         },
         {
-          "pc": 990,
-          "mobile": 4780,
+          "pc": 1000,
+          "mobile": 4770,
           "total": 5770,
           "comp": "중간",
           "depth": 7.0,
@@ -62891,27 +62891,27 @@
           "bidPos": 250
         },
         {
-          "pc": 580,
-          "mobile": 4860,
-          "total": 5440,
-          "comp": "중간",
-          "depth": 8.0,
-          "keyword": "양배추즙효능",
-          "bidPos": 1310
-        },
-        {
           "pc": 650,
-          "mobile": 4630,
-          "total": 5280,
+          "mobile": 4710,
+          "total": 5360,
           "comp": "높음",
           "depth": 7.0,
           "keyword": "블루베리스무디",
           "bidPos": 830
         },
         {
-          "pc": 1840,
-          "mobile": 3390,
-          "total": 5230,
+          "pc": 590,
+          "mobile": 4630,
+          "total": 5220,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "양배추즙효능",
+          "bidPos": 1310
+        },
+        {
+          "pc": 1820,
+          "mobile": 3360,
+          "total": 5180,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "도매",
@@ -62919,17 +62919,17 @@
         },
         {
           "pc": 700,
-          "mobile": 4190,
-          "total": 4890,
+          "mobile": 4140,
+          "total": 4840,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "자몽허니블랙티",
           "bidPos": 690
         },
         {
-          "pc": 270,
-          "mobile": 4020,
-          "total": 4290,
+          "pc": 260,
+          "mobile": 3980,
+          "total": 4240,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "해독주스만들기",
@@ -62937,8 +62937,8 @@
         },
         {
           "pc": 360,
-          "mobile": 3880,
-          "total": 4240,
+          "mobile": 3850,
+          "total": 4210,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "대추차효능",
@@ -62946,48 +62946,39 @@
         },
         {
           "pc": 590,
-          "mobile": 3610,
-          "total": 4200,
+          "mobile": 3550,
+          "total": 4140,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "딸기라떼",
           "bidPos": 1060
         },
         {
-          "pc": 800,
-          "mobile": 3110,
-          "total": 3910,
+          "pc": 790,
+          "mobile": 3090,
+          "total": 3880,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "유자청",
           "bidPos": 610
         },
         {
-          "pc": 720,
+          "pc": 710,
           "mobile": 3130,
-          "total": 3850,
+          "total": 3840,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "쥬스",
           "bidPos": 620
         },
         {
-          "pc": 490,
-          "mobile": 3140,
-          "total": 3630,
+          "pc": 470,
+          "mobile": 3080,
+          "total": 3550,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "디톡스다이어트",
           "bidPos": 4640
-        },
-        {
-          "pc": 350,
-          "mobile": 2870,
-          "total": 3220,
-          "comp": "높음",
-          "depth": 7.0,
-          "keyword": "CCA주스효능",
-          "bidPos": 1180
         },
         {
           "pc": 290,
@@ -62997,6 +62988,15 @@
           "depth": 10.0,
           "keyword": "해독주스레시피",
           "bidPos": 1360
+        },
+        {
+          "pc": 340,
+          "mobile": 2870,
+          "total": 3210,
+          "comp": "높음",
+          "depth": 7.0,
+          "keyword": "CCA주스효능",
+          "bidPos": 1180
         }
       ]
     },
@@ -63013,9 +63013,9 @@
           "bidPos": 1180
         },
         {
-          "pc": 5430,
-          "mobile": 24100,
-          "total": 29530,
+          "pc": 5440,
+          "mobile": 23800,
+          "total": 29240,
           "comp": "높음",
           "depth": 9.0,
           "keyword": "양배추",
@@ -63023,35 +63023,35 @@
         },
         {
           "pc": 4110,
-          "mobile": 22700,
-          "total": 26810,
+          "mobile": 22500,
+          "total": 26610,
           "comp": "중간",
           "depth": 8.0,
           "keyword": "양배추즙",
           "bidPos": 3100
         },
         {
-          "pc": 2530,
+          "pc": 2510,
           "mobile": 18700,
-          "total": 21230,
+          "total": 21210,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "ABC주스",
           "bidPos": 1880
         },
         {
-          "pc": 2030,
+          "pc": 2040,
           "mobile": 10700,
-          "total": 12730,
+          "total": 12740,
           "comp": "중간",
           "depth": 7.0,
           "keyword": "CCA주스",
           "bidPos": 1760
         },
         {
-          "pc": 1410,
-          "mobile": 9570,
-          "total": 10980,
+          "pc": 1390,
+          "mobile": 9550,
+          "total": 10940,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "해독주스",
@@ -63059,25 +63059,25 @@
         },
         {
           "pc": 1250,
-          "mobile": 8540,
-          "total": 9790,
+          "mobile": 8480,
+          "total": 9730,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "디톡스주스",
           "bidPos": 2080
         },
         {
-          "pc": 1320,
-          "mobile": 6850,
-          "total": 8170,
+          "pc": 1260,
+          "mobile": 6640,
+          "total": 7900,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "스승의날",
           "bidPos": 1160
         },
         {
-          "pc": 990,
-          "mobile": 4780,
+          "pc": 1000,
+          "mobile": 4770,
           "total": 5770,
           "comp": "중간",
           "depth": 7.0,
@@ -63085,85 +63085,76 @@
           "bidPos": 250
         },
         {
-          "pc": 580,
-          "mobile": 4860,
-          "total": 5440,
+          "pc": 590,
+          "mobile": 4630,
+          "total": 5220,
           "comp": "중간",
           "depth": 8.0,
           "keyword": "양배추즙효능",
           "bidPos": 1310
         },
         {
-          "pc": 860,
-          "mobile": 3650,
-          "total": 4510,
+          "pc": 870,
+          "mobile": 3620,
+          "total": 4490,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "진저샷",
           "bidPos": 3140
         },
         {
-          "pc": 270,
-          "mobile": 4020,
-          "total": 4290,
+          "pc": 260,
+          "mobile": 3980,
+          "total": 4240,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "해독주스만들기",
           "bidPos": 1330
         },
         {
-          "pc": 720,
+          "pc": 710,
           "mobile": 3130,
-          "total": 3850,
+          "total": 3840,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "쥬스",
           "bidPos": 620
         },
         {
-          "pc": 260,
-          "mobile": 3520,
-          "total": 3780,
-          "comp": "중간",
-          "depth": 8.0,
-          "keyword": "아기퓨레",
-          "bidPos": 2300
-        },
-        {
-          "pc": 270,
-          "mobile": 3430,
-          "total": 3700,
+          "pc": 280,
+          "mobile": 3440,
+          "total": 3720,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "섬유질많은음식",
           "bidPos": 1190
         },
         {
-          "pc": 490,
-          "mobile": 3140,
-          "total": 3630,
+          "pc": 260,
+          "mobile": 3460,
+          "total": 3720,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "아기퓨레",
+          "bidPos": 2300
+        },
+        {
+          "pc": 470,
+          "mobile": 3080,
+          "total": 3550,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "디톡스다이어트",
           "bidPos": 4640
         },
         {
-          "pc": 1680,
-          "mobile": 1800,
-          "total": 3480,
+          "pc": 1660,
+          "mobile": 1790,
+          "total": 3450,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "식품",
           "bidPos": 2500
-        },
-        {
-          "pc": 350,
-          "mobile": 2870,
-          "total": 3220,
-          "comp": "높음",
-          "depth": 7.0,
-          "keyword": "CCA주스효능",
-          "bidPos": 1180
         },
         {
           "pc": 290,
@@ -63175,18 +63166,27 @@
           "bidPos": 1360
         },
         {
+          "pc": 340,
+          "mobile": 2870,
+          "total": 3210,
+          "comp": "높음",
+          "depth": 7.0,
+          "keyword": "CCA주스효능",
+          "bidPos": 1180
+        },
+        {
           "pc": 400,
-          "mobile": 1960,
-          "total": 2360,
+          "mobile": 1950,
+          "total": 2350,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "야채주스",
           "bidPos": 2060
         },
         {
-          "pc": 220,
-          "mobile": 2090,
-          "total": 2310,
+          "pc": 230,
+          "mobile": 2110,
+          "total": 2340,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "해독쥬스",
@@ -63194,8 +63194,8 @@
         },
         {
           "pc": 150,
-          "mobile": 1790,
-          "total": 1940,
+          "mobile": 1780,
+          "total": 1930,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "사과당근주스",
@@ -63211,22 +63211,22 @@
           "bidPos": 980
         },
         {
-          "pc": 100,
-          "mobile": 1760,
-          "total": 1860,
+          "pc": 110,
+          "mobile": 1780,
+          "total": 1890,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "당근착즙주스",
           "bidPos": 850
         },
         {
-          "pc": 160,
-          "mobile": 1590,
-          "total": 1750,
+          "pc": 320,
+          "mobile": 1360,
+          "total": 1680,
           "comp": "높음",
           "depth": 8.0,
-          "keyword": "유기농양배추즙",
-          "bidPos": 2410
+          "keyword": "망고퓨레",
+          "bidPos": 760
         }
       ]
     },
@@ -63244,8 +63244,8 @@
         },
         {
           "pc": 830,
-          "mobile": 5330,
-          "total": 6160,
+          "mobile": 5300,
+          "total": 6130,
           "comp": "중간",
           "depth": 8.0,
           "keyword": "동결건조딸기",
@@ -63261,27 +63261,27 @@
           "bidPos": 550
         },
         {
-          "pc": 340,
-          "mobile": 1850,
-          "total": 2190,
-          "comp": "중간",
-          "depth": 8.0,
-          "keyword": "동결건조과일",
-          "bidPos": 670
-        },
-        {
-          "pc": 320,
-          "mobile": 1820,
-          "total": 2140,
+          "pc": 330,
+          "mobile": 1830,
+          "total": 2160,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "건무화과",
           "bidPos": 330
         },
         {
-          "pc": 450,
-          "mobile": 1650,
-          "total": 2100,
+          "pc": 330,
+          "mobile": 1820,
+          "total": 2150,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "동결건조과일",
+          "bidPos": 670
+        },
+        {
+          "pc": 440,
+          "mobile": 1620,
+          "total": 2060,
           "comp": "중간",
           "depth": 8.0,
           "keyword": "레몬물",
@@ -63289,34 +63289,34 @@
         },
         {
           "pc": 260,
-          "mobile": 1550,
-          "total": 1810,
+          "mobile": 1580,
+          "total": 1840,
           "comp": "중간",
           "depth": 8.0,
           "keyword": "반건조무화과",
           "bidPos": 380
         },
         {
-          "pc": 270,
-          "mobile": 1430,
-          "total": 1700,
+          "pc": 280,
+          "mobile": 1450,
+          "total": 1730,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "건살구",
           "bidPos": 340
         },
         {
-          "pc": 370,
-          "mobile": 1140,
-          "total": 1510,
+          "pc": 360,
+          "mobile": 1130,
+          "total": 1490,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "야채스틱",
           "bidPos": 750
         },
         {
-          "pc": 240,
-          "mobile": 1230,
+          "pc": 230,
+          "mobile": 1240,
           "total": 1470,
           "comp": "높음",
           "depth": 8.0,
@@ -63342,18 +63342,9 @@
           "bidPos": 450
         },
         {
-          "pc": 150,
+          "pc": 160,
           "mobile": 920,
-          "total": 1070,
-          "comp": "높음",
-          "depth": 8.0,
-          "keyword": "말린망고",
-          "bidPos": 420
-        },
-        {
-          "pc": 150,
-          "mobile": 910,
-          "total": 1060,
+          "total": 1080,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "동결건조야채칩",
@@ -63361,12 +63352,12 @@
         },
         {
           "pc": 150,
-          "mobile": 730,
-          "total": 880,
+          "mobile": 910,
+          "total": 1060,
           "comp": "높음",
           "depth": 8.0,
-          "keyword": "레몬슬라이스",
-          "bidPos": 470
+          "keyword": "말린망고",
+          "bidPos": 420
         },
         {
           "pc": 140,
@@ -63374,13 +63365,22 @@
           "total": 870,
           "comp": "높음",
           "depth": 8.0,
+          "keyword": "레몬슬라이스",
+          "bidPos": 470
+        },
+        {
+          "pc": 140,
+          "mobile": 710,
+          "total": 850,
+          "comp": "높음",
+          "depth": 8.0,
           "keyword": "딸기요거트",
           "bidPos": 510
         },
         {
           "pc": 60,
-          "mobile": 720,
-          "total": 780,
+          "mobile": 740,
+          "total": 800,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "아기김자반",
@@ -63396,15 +63396,6 @@
           "bidPos": 580
         },
         {
-          "pc": 180,
-          "mobile": 590,
-          "total": 770,
-          "comp": "중간",
-          "depth": 8.0,
-          "keyword": "비건쿠키",
-          "bidPos": 470
-        },
-        {
           "pc": 130,
           "mobile": 630,
           "total": 760,
@@ -63414,13 +63405,13 @@
           "bidPos": 610
         },
         {
-          "pc": 40,
-          "mobile": 720,
+          "pc": 170,
+          "mobile": 590,
           "total": 760,
-          "comp": "높음",
-          "depth": 10.0,
-          "keyword": "레몬차만들기",
-          "bidPos": 350
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "비건쿠키",
+          "bidPos": 470
         },
         {
           "pc": 190,
@@ -63432,17 +63423,17 @@
           "bidPos": 990
         },
         {
-          "pc": 170,
-          "mobile": 510,
-          "total": 680,
+          "pc": 40,
+          "mobile": 700,
+          "total": 740,
           "comp": "높음",
-          "depth": 8.0,
-          "keyword": "건과일",
-          "bidPos": 560
+          "depth": 10.0,
+          "keyword": "레몬차만들기",
+          "bidPos": 350
         },
         {
-          "pc": 170,
-          "mobile": 500,
+          "pc": 160,
+          "mobile": 510,
           "total": 670,
           "comp": "중간",
           "depth": 8.0,
@@ -63450,9 +63441,18 @@
           "bidPos": 780
         },
         {
-          "pc": 150,
-          "mobile": 520,
+          "pc": 170,
+          "mobile": 500,
           "total": 670,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "건과일",
+          "bidPos": 560
+        },
+        {
+          "pc": 140,
+          "mobile": 510,
+          "total": 650,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "말린과일",
@@ -63464,18 +63464,18 @@
       "seed": "생과일쥬스",
       "items": [
         {
-          "pc": 265800,
-          "mobile": 445500,
-          "total": 711300,
+          "pc": 265300,
+          "mobile": 440000,
+          "total": 705300,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "멜론",
           "bidPos": 640
         },
         {
-          "pc": 3940,
-          "mobile": 48600,
-          "total": 52540,
+          "pc": 3920,
+          "mobile": 48500,
+          "total": 52420,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "토마토효능",
@@ -63483,89 +63483,89 @@
         },
         {
           "pc": 6200,
-          "mobile": 31900,
-          "total": 38100,
+          "mobile": 31700,
+          "total": 37900,
           "comp": "높음",
           "depth": 9.0,
           "keyword": "과일",
           "bidPos": 980
         },
         {
-          "pc": 2340,
-          "mobile": 23200,
-          "total": 25540,
+          "pc": 2320,
+          "mobile": 23100,
+          "total": 25420,
           "comp": "중간",
           "depth": 7.0,
           "keyword": "쥬씨",
           "bidPos": 160
         },
         {
-          "pc": 2220,
+          "pc": 2190,
           "mobile": 22700,
-          "total": 24920,
+          "total": 24890,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "토마토주스",
           "bidPos": 1980
         },
         {
-          "pc": 4640,
-          "mobile": 20000,
-          "total": 24640,
+          "pc": 4420,
+          "mobile": 19200,
+          "total": 23620,
           "comp": "높음",
           "depth": 7.0,
           "keyword": "6월제철과일",
           "bidPos": 600
         },
         {
-          "pc": 1660,
+          "pc": 1650,
           "mobile": 20800,
-          "total": 22460,
+          "total": 22450,
           "comp": "중간",
           "depth": 7.0,
           "keyword": "망고빙수",
           "bidPos": 600
         },
         {
-          "pc": 1690,
+          "pc": 1670,
           "mobile": 20100,
-          "total": 21790,
+          "total": 21770,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "변비에좋은음식",
           "bidPos": 1440
         },
         {
-          "pc": 2530,
+          "pc": 2510,
           "mobile": 18700,
-          "total": 21230,
+          "total": 21210,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "ABC주스",
           "bidPos": 1880
         },
         {
-          "pc": 1320,
-          "mobile": 15100,
-          "total": 16420,
+          "pc": 1340,
+          "mobile": 15700,
+          "total": 17040,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "단호박샐러드",
           "bidPos": 430
         },
         {
-          "pc": 1620,
-          "mobile": 12300,
-          "total": 13920,
+          "pc": 1640,
+          "mobile": 12400,
+          "total": 14040,
           "comp": "중간",
           "depth": 7.0,
           "keyword": "마시는샐러드",
           "bidPos": 1760
         },
         {
-          "pc": 2030,
+          "pc": 2040,
           "mobile": 10700,
-          "total": 12730,
+          "total": 12740,
           "comp": "중간",
           "depth": 7.0,
           "keyword": "CCA주스",
@@ -63581,45 +63581,45 @@
           "bidPos": 1760
         },
         {
-          "pc": 2680,
-          "mobile": 8760,
-          "total": 11440,
+          "pc": 2700,
+          "mobile": 8820,
+          "total": 11520,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "컵과일",
           "bidPos": 870
         },
         {
-          "pc": 1440,
-          "mobile": 10000,
+          "pc": 1710,
+          "mobile": 9730,
           "total": 11440,
-          "comp": "높음",
-          "depth": 10.0,
-          "keyword": "원주혁신도시맛집",
-          "bidPos": 650
-        },
-        {
-          "pc": 1690,
-          "mobile": 9610,
-          "total": 11300,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "당근주스",
           "bidPos": 960
         },
         {
-          "pc": 1380,
-          "mobile": 9780,
-          "total": 11160,
+          "pc": 1430,
+          "mobile": 10000,
+          "total": 11430,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "원주혁신도시맛집",
+          "bidPos": 650
+        },
+        {
+          "pc": 1370,
+          "mobile": 9770,
+          "total": 11140,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "라이코펜",
           "bidPos": 1650
         },
         {
-          "pc": 1410,
-          "mobile": 9570,
-          "total": 10980,
+          "pc": 1390,
+          "mobile": 9550,
+          "total": 10940,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "해독주스",
@@ -63627,62 +63627,62 @@
         },
         {
           "pc": 1250,
-          "mobile": 8540,
-          "total": 9790,
+          "mobile": 8480,
+          "total": 9730,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "디톡스주스",
           "bidPos": 2080
         },
         {
-          "pc": 2180,
-          "mobile": 6260,
-          "total": 8440,
+          "pc": 2210,
+          "mobile": 6220,
+          "total": 8430,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "토마토즙",
           "bidPos": 1380
         },
         {
-          "pc": 1020,
-          "mobile": 7380,
-          "total": 8400,
+          "pc": 1000,
+          "mobile": 7340,
+          "total": 8340,
           "comp": "중간",
           "depth": 8.0,
           "keyword": "샐러드야채",
           "bidPos": 680
         },
         {
-          "pc": 940,
+          "pc": 930,
           "mobile": 7080,
-          "total": 8020,
+          "total": 8010,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "원주단계동맛집",
           "bidPos": 640
         },
         {
-          "pc": 1050,
-          "mobile": 6030,
-          "total": 7080,
+          "pc": 1040,
+          "mobile": 6050,
+          "total": 7090,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "시저샐러드",
           "bidPos": 520
         },
         {
-          "pc": 700,
-          "mobile": 6260,
-          "total": 6960,
+          "pc": 680,
+          "mobile": 6140,
+          "total": 6820,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "양상추샐러드",
           "bidPos": 290
         },
         {
-          "pc": 660,
-          "mobile": 6100,
-          "total": 6760,
+          "pc": 650,
+          "mobile": 6070,
+          "total": 6720,
           "comp": "높음",
           "depth": 9.0,
           "keyword": "문막맛집",
@@ -63694,44 +63694,44 @@
       "seed": "유기농사과즙",
       "items": [
         {
-          "pc": 42900,
-          "mobile": 42700,
-          "total": 85600,
+          "pc": 44200,
+          "mobile": 43600,
+          "total": 87800,
           "comp": "높음",
           "depth": 3.0,
           "keyword": "추석",
           "bidPos": 470
         },
         {
-          "pc": 19600,
-          "mobile": 55500,
-          "total": 75100,
+          "pc": 19300,
+          "mobile": 55000,
+          "total": 74300,
           "comp": "중간",
           "depth": 8.0,
           "keyword": "사과",
           "bidPos": 1220
         },
         {
-          "pc": 1210,
-          "mobile": 8040,
-          "total": 9250,
+          "pc": 1200,
+          "mobile": 7930,
+          "total": 9130,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "청송사과",
           "bidPos": 880
         },
         {
-          "pc": 1320,
-          "mobile": 6850,
-          "total": 8170,
+          "pc": 1260,
+          "mobile": 6640,
+          "total": 7900,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "스승의날",
           "bidPos": 1160
         },
         {
-          "pc": 990,
-          "mobile": 4780,
+          "pc": 1000,
+          "mobile": 4770,
           "total": 5770,
           "comp": "중간",
           "depth": 7.0,
@@ -63739,18 +63739,18 @@
           "bidPos": 250
         },
         {
-          "pc": 720,
+          "pc": 710,
           "mobile": 3130,
-          "total": 3850,
+          "total": 3840,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "쥬스",
           "bidPos": 620
         },
         {
-          "pc": 520,
-          "mobile": 2920,
-          "total": 3440,
+          "pc": 510,
+          "mobile": 2880,
+          "total": 3390,
           "comp": "중간",
           "depth": 8.0,
           "keyword": "못난이사과",
@@ -63758,16 +63758,16 @@
         },
         {
           "pc": 590,
-          "mobile": 2190,
-          "total": 2780,
+          "mobile": 2150,
+          "total": 2740,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "부사사과",
           "bidPos": 1010
         },
         {
-          "pc": 300,
-          "mobile": 2420,
+          "pc": 310,
+          "mobile": 2410,
           "total": 2720,
           "comp": "중간",
           "depth": 8.0,
@@ -63776,8 +63776,8 @@
         },
         {
           "pc": 400,
-          "mobile": 1960,
-          "total": 2360,
+          "mobile": 1950,
+          "total": 2350,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "야채주스",
@@ -63785,53 +63785,53 @@
         },
         {
           "pc": 150,
-          "mobile": 1790,
-          "total": 1940,
+          "mobile": 1780,
+          "total": 1930,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "사과당근주스",
           "bidPos": 1510
         },
         {
-          "pc": 490,
-          "mobile": 1420,
-          "total": 1910,
+          "pc": 480,
+          "mobile": 1390,
+          "total": 1870,
           "comp": "중간",
           "depth": 8.0,
           "keyword": "사과10KG",
           "bidPos": 870
         },
         {
-          "pc": 160,
-          "mobile": 1410,
-          "total": 1570,
-          "comp": "높음",
-          "depth": 8.0,
-          "keyword": "독소배출주스",
-          "bidPos": 1140
-        },
-        {
           "pc": 190,
-          "mobile": 1320,
-          "total": 1510,
+          "mobile": 1340,
+          "total": 1530,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "즙",
           "bidPos": 1430
         },
         {
+          "pc": 150,
+          "mobile": 1360,
+          "total": 1510,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "독소배출주스",
+          "bidPos": 1140
+        },
+        {
           "pc": 210,
-          "mobile": 1060,
-          "total": 1270,
+          "mobile": 1030,
+          "total": 1240,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "패션후르츠퓨레",
           "bidPos": 750
         },
         {
-          "pc": 170,
-          "mobile": 1000,
-          "total": 1170,
+          "pc": 180,
+          "mobile": 1010,
+          "total": 1190,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "착즙",
@@ -63848,12 +63848,21 @@
         },
         {
           "pc": 170,
-          "mobile": 420,
-          "total": 590,
+          "mobile": 430,
+          "total": 600,
           "comp": "중간",
           "depth": 6.0,
           "keyword": "다농이네",
           "bidPos": 110
+        },
+        {
+          "pc": 50,
+          "mobile": 450,
+          "total": 500,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "아빠의주스",
+          "bidPos": 680
         },
         {
           "pc": 90,
@@ -63866,17 +63875,8 @@
         },
         {
           "pc": 40,
-          "mobile": 440,
-          "total": 480,
-          "comp": "높음",
-          "depth": 8.0,
-          "keyword": "아빠의주스",
-          "bidPos": 680
-        },
-        {
-          "pc": 50,
-          "mobile": 380,
-          "total": 430,
+          "mobile": 370,
+          "total": 410,
           "comp": "높음",
           "depth": 9.0,
           "keyword": "바나나퓨레",
@@ -63902,8 +63902,8 @@
         },
         {
           "pc": 20,
-          "mobile": 360,
-          "total": 380,
+          "mobile": 370,
+          "total": 390,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "산지애사과즙",
@@ -63924,35 +63924,35 @@
       "seed": "사과착즙주스",
       "items": [
         {
-          "pc": 42900,
-          "mobile": 42700,
-          "total": 85600,
+          "pc": 44200,
+          "mobile": 43600,
+          "total": 87800,
           "comp": "높음",
           "depth": 3.0,
           "keyword": "추석",
           "bidPos": 470
         },
         {
-          "pc": 1410,
-          "mobile": 9570,
-          "total": 10980,
+          "pc": 1390,
+          "mobile": 9550,
+          "total": 10940,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "해독주스",
           "bidPos": 2660
         },
         {
-          "pc": 1320,
-          "mobile": 6850,
-          "total": 8170,
+          "pc": 1260,
+          "mobile": 6640,
+          "total": 7900,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "스승의날",
           "bidPos": 1160
         },
         {
-          "pc": 990,
-          "mobile": 4780,
+          "pc": 1000,
+          "mobile": 4770,
           "total": 5770,
           "comp": "중간",
           "depth": 7.0,
@@ -63960,18 +63960,18 @@
           "bidPos": 250
         },
         {
-          "pc": 720,
+          "pc": 710,
           "mobile": 3130,
-          "total": 3850,
+          "total": 3840,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "쥬스",
           "bidPos": 620
         },
         {
-          "pc": 270,
-          "mobile": 3430,
-          "total": 3700,
+          "pc": 280,
+          "mobile": 3440,
+          "total": 3720,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "섬유질많은음식",
@@ -63979,8 +63979,8 @@
         },
         {
           "pc": 400,
-          "mobile": 1960,
-          "total": 2360,
+          "mobile": 1950,
+          "total": 2350,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "야채주스",
@@ -63988,44 +63988,44 @@
         },
         {
           "pc": 150,
-          "mobile": 1790,
-          "total": 1940,
+          "mobile": 1780,
+          "total": 1930,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "사과당근주스",
           "bidPos": 1510
         },
         {
-          "pc": 100,
-          "mobile": 1760,
-          "total": 1860,
+          "pc": 110,
+          "mobile": 1780,
+          "total": 1890,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "당근착즙주스",
           "bidPos": 850
         },
         {
-          "pc": 160,
-          "mobile": 1410,
-          "total": 1570,
-          "comp": "높음",
-          "depth": 8.0,
-          "keyword": "독소배출주스",
-          "bidPos": 1140
-        },
-        {
           "pc": 190,
-          "mobile": 1320,
-          "total": 1510,
+          "mobile": 1340,
+          "total": 1530,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "즙",
           "bidPos": 1430
         },
         {
-          "pc": 170,
-          "mobile": 1000,
-          "total": 1170,
+          "pc": 150,
+          "mobile": 1360,
+          "total": 1510,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "독소배출주스",
+          "bidPos": 1140
+        },
+        {
+          "pc": 180,
+          "mobile": 1010,
+          "total": 1190,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "착즙",
@@ -64042,12 +64042,21 @@
         },
         {
           "pc": 170,
-          "mobile": 420,
-          "total": 590,
+          "mobile": 430,
+          "total": 600,
           "comp": "중간",
           "depth": 6.0,
           "keyword": "다농이네",
           "bidPos": 110
+        },
+        {
+          "pc": 50,
+          "mobile": 450,
+          "total": 500,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "아빠의주스",
+          "bidPos": 680
         },
         {
           "pc": 90,
@@ -64059,18 +64068,9 @@
           "bidPos": 460
         },
         {
-          "pc": 40,
-          "mobile": 440,
-          "total": 480,
-          "comp": "높음",
-          "depth": 8.0,
-          "keyword": "아빠의주스",
-          "bidPos": 680
-        },
-        {
           "pc": 30,
-          "mobile": 390,
-          "total": 420,
+          "mobile": 400,
+          "total": 430,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "다이어트스무디",
@@ -64104,6 +64104,15 @@
           "bidPos": 190
         },
         {
+          "pc": 30,
+          "mobile": 350,
+          "total": 380,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "다이어트쥬스",
+          "bidPos": 2650
+        },
+        {
           "pc": 20,
           "mobile": 360,
           "total": 380,
@@ -64111,15 +64120,6 @@
           "depth": 8.0,
           "keyword": "아기사과즙",
           "bidPos": 1100
-        },
-        {
-          "pc": 30,
-          "mobile": 340,
-          "total": 370,
-          "comp": "높음",
-          "depth": 8.0,
-          "keyword": "다이어트쥬스",
-          "bidPos": 2650
         },
         {
           "pc": 40,
@@ -64132,8 +64132,8 @@
         },
         {
           "pc": 20,
-          "mobile": 330,
-          "total": 350,
+          "mobile": 340,
+          "total": 360,
           "comp": "높음",
           "depth": 7.0,
           "keyword": "클린쥬스",
@@ -64154,36 +64154,36 @@
       "seed": "아침사과",
       "items": [
         {
-          "pc": 19600,
-          "mobile": 55500,
-          "total": 75100,
+          "pc": 19300,
+          "mobile": 55000,
+          "total": 74300,
           "comp": "중간",
           "depth": 8.0,
           "keyword": "사과",
           "bidPos": 1220
         },
         {
-          "pc": 2330,
-          "mobile": 9490,
-          "total": 11820,
+          "pc": 2310,
+          "mobile": 9470,
+          "total": 11780,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "부사",
           "bidPos": 740
         },
         {
-          "pc": 1210,
-          "mobile": 8040,
-          "total": 9250,
+          "pc": 1200,
+          "mobile": 7930,
+          "total": 9130,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "청송사과",
           "bidPos": 880
         },
         {
-          "pc": 520,
-          "mobile": 2920,
-          "total": 3440,
+          "pc": 510,
+          "mobile": 2880,
+          "total": 3390,
           "comp": "중간",
           "depth": 8.0,
           "keyword": "못난이사과",
@@ -64191,16 +64191,16 @@
         },
         {
           "pc": 590,
-          "mobile": 2190,
-          "total": 2780,
+          "mobile": 2150,
+          "total": 2740,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "부사사과",
           "bidPos": 1010
         },
         {
-          "pc": 300,
-          "mobile": 2420,
+          "pc": 310,
+          "mobile": 2410,
           "total": 2720,
           "comp": "중간",
           "depth": 8.0,
@@ -64208,18 +64208,18 @@
           "bidPos": 1190
         },
         {
-          "pc": 490,
-          "mobile": 1420,
-          "total": 1910,
+          "pc": 480,
+          "mobile": 1390,
+          "total": 1870,
           "comp": "중간",
           "depth": 8.0,
           "keyword": "사과10KG",
           "bidPos": 870
         },
         {
-          "pc": 160,
-          "mobile": 1360,
-          "total": 1520,
+          "pc": 150,
+          "mobile": 1320,
+          "total": 1470,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "사과유명한곳",
@@ -64227,17 +64227,17 @@
         },
         {
           "pc": 270,
-          "mobile": 940,
-          "total": 1210,
+          "mobile": 930,
+          "total": 1200,
           "comp": "중간",
           "depth": 6.0,
           "keyword": "청송사과축제",
           "bidPos": 380
         },
         {
-          "pc": 110,
-          "mobile": 640,
-          "total": 750,
+          "pc": 100,
+          "mobile": 660,
+          "total": 760,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "홍로사과",
@@ -64245,8 +64245,8 @@
         },
         {
           "pc": 90,
-          "mobile": 650,
-          "total": 740,
+          "mobile": 630,
+          "total": 720,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "맛있는사과",
@@ -64254,8 +64254,8 @@
         },
         {
           "pc": 80,
-          "mobile": 560,
-          "total": 640,
+          "mobile": 550,
+          "total": 630,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "경북사과",
@@ -64263,8 +64263,8 @@
         },
         {
           "pc": 110,
-          "mobile": 330,
-          "total": 440,
+          "mobile": 320,
+          "total": 430,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "사과농장",
@@ -64290,8 +64290,8 @@
         },
         {
           "pc": 10,
-          "mobile": 120,
-          "total": 130,
+          "mobile": 110,
+          "total": 120,
           "comp": "중간",
           "depth": 8.0,
           "keyword": "청송사과10KG",
@@ -64299,8 +64299,8 @@
         },
         {
           "pc": 10,
-          "mobile": 60,
-          "total": 70,
+          "mobile": 50,
+          "total": 60,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "부사10KG",
@@ -64357,45 +64357,45 @@
       "seed": "명품사과즙",
       "items": [
         {
-          "pc": 19600,
-          "mobile": 55500,
-          "total": 75100,
+          "pc": 19300,
+          "mobile": 55000,
+          "total": 74300,
           "comp": "중간",
           "depth": 8.0,
           "keyword": "사과",
           "bidPos": 1220
         },
         {
-          "pc": 2330,
-          "mobile": 9490,
-          "total": 11820,
+          "pc": 2310,
+          "mobile": 9470,
+          "total": 11780,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "부사",
           "bidPos": 740
         },
         {
-          "pc": 1210,
-          "mobile": 8040,
-          "total": 9250,
+          "pc": 1200,
+          "mobile": 7930,
+          "total": 9130,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "청송사과",
           "bidPos": 880
         },
         {
-          "pc": 720,
+          "pc": 710,
           "mobile": 3130,
-          "total": 3850,
+          "total": 3840,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "쥬스",
           "bidPos": 620
         },
         {
-          "pc": 520,
-          "mobile": 2920,
-          "total": 3440,
+          "pc": 510,
+          "mobile": 2880,
+          "total": 3390,
           "comp": "중간",
           "depth": 8.0,
           "keyword": "못난이사과",
@@ -64403,16 +64403,16 @@
         },
         {
           "pc": 590,
-          "mobile": 2190,
-          "total": 2780,
+          "mobile": 2150,
+          "total": 2740,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "부사사과",
           "bidPos": 1010
         },
         {
-          "pc": 300,
-          "mobile": 2420,
+          "pc": 310,
+          "mobile": 2410,
           "total": 2720,
           "comp": "중간",
           "depth": 8.0,
@@ -64421,62 +64421,62 @@
         },
         {
           "pc": 150,
-          "mobile": 1790,
-          "total": 1940,
+          "mobile": 1780,
+          "total": 1930,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "사과당근주스",
           "bidPos": 1510
         },
         {
-          "pc": 490,
-          "mobile": 1420,
-          "total": 1910,
+          "pc": 480,
+          "mobile": 1390,
+          "total": 1870,
           "comp": "중간",
           "depth": 8.0,
           "keyword": "사과10KG",
           "bidPos": 870
         },
         {
-          "pc": 210,
-          "mobile": 1060,
-          "total": 1270,
-          "comp": "높음",
-          "depth": 8.0,
-          "keyword": "패션후르츠퓨레",
-          "bidPos": 750
-        },
-        {
-          "pc": 210,
+          "pc": 200,
           "mobile": 1040,
-          "total": 1250,
+          "total": 1240,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "사과5KG",
           "bidPos": 890
         },
         {
+          "pc": 210,
+          "mobile": 1030,
+          "total": 1240,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "패션후르츠퓨레",
+          "bidPos": 750
+        },
+        {
           "pc": 270,
-          "mobile": 940,
-          "total": 1210,
+          "mobile": 930,
+          "total": 1200,
           "comp": "중간",
           "depth": 6.0,
           "keyword": "청송사과축제",
           "bidPos": 380
         },
         {
-          "pc": 170,
-          "mobile": 1000,
-          "total": 1170,
+          "pc": 180,
+          "mobile": 1010,
+          "total": 1190,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "착즙",
           "bidPos": 420
         },
         {
-          "pc": 110,
-          "mobile": 640,
-          "total": 750,
+          "pc": 100,
+          "mobile": 660,
+          "total": 760,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "홍로사과",
@@ -64484,8 +64484,8 @@
         },
         {
           "pc": 90,
-          "mobile": 650,
-          "total": 740,
+          "mobile": 630,
+          "total": 720,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "맛있는사과",
@@ -64493,8 +64493,8 @@
         },
         {
           "pc": 80,
-          "mobile": 560,
-          "total": 640,
+          "mobile": 550,
+          "total": 630,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "경북사과",
@@ -64502,17 +64502,17 @@
         },
         {
           "pc": 170,
-          "mobile": 420,
-          "total": 590,
+          "mobile": 430,
+          "total": 600,
           "comp": "중간",
           "depth": 6.0,
           "keyword": "다농이네",
           "bidPos": 110
         },
         {
-          "pc": 40,
-          "mobile": 440,
-          "total": 480,
+          "pc": 50,
+          "mobile": 450,
+          "total": 500,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "아빠의주스",
@@ -64520,8 +64520,8 @@
         },
         {
           "pc": 110,
-          "mobile": 330,
-          "total": 440,
+          "mobile": 320,
+          "total": 430,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "사과농장",
@@ -64587,45 +64587,45 @@
       "seed": "사과케일주스",
       "items": [
         {
-          "pc": 12800,
-          "mobile": 43300,
-          "total": 56100,
+          "pc": 12600,
+          "mobile": 43000,
+          "total": 55600,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "다이어트식단",
           "bidPos": 3760
         },
         {
-          "pc": 2530,
+          "pc": 2510,
           "mobile": 18700,
-          "total": 21230,
+          "total": 21210,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "ABC주스",
           "bidPos": 1880
         },
         {
-          "pc": 1110,
-          "mobile": 13600,
-          "total": 14710,
+          "pc": 1090,
+          "mobile": 13500,
+          "total": 14590,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "케일효능",
           "bidPos": 820
         },
         {
-          "pc": 2030,
+          "pc": 2040,
           "mobile": 10700,
-          "total": 12730,
+          "total": 12740,
           "comp": "중간",
           "depth": 7.0,
           "keyword": "CCA주스",
           "bidPos": 1760
         },
         {
-          "pc": 1410,
-          "mobile": 9570,
-          "total": 10980,
+          "pc": 1390,
+          "mobile": 9550,
+          "total": 10940,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "해독주스",
@@ -64633,26 +64633,26 @@
         },
         {
           "pc": 1250,
-          "mobile": 8540,
-          "total": 9790,
+          "mobile": 8480,
+          "total": 9730,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "디톡스주스",
           "bidPos": 2080
         },
         {
-          "pc": 370,
-          "mobile": 7610,
-          "total": 7980,
+          "pc": 360,
+          "mobile": 7540,
+          "total": 7900,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "케일먹는법",
           "bidPos": 800
         },
         {
-          "pc": 700,
-          "mobile": 5570,
-          "total": 6270,
+          "pc": 670,
+          "mobile": 5540,
+          "total": 6210,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "케일주스",
@@ -64660,57 +64660,48 @@
         },
         {
           "pc": 1090,
-          "mobile": 4950,
-          "total": 6040,
+          "mobile": 4960,
+          "total": 6050,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "스무디",
           "bidPos": 1480
         },
         {
-          "pc": 450,
-          "mobile": 2120,
-          "total": 2570,
+          "pc": 460,
+          "mobile": 2130,
+          "total": 2590,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "녹즙",
           "bidPos": 1240
         },
         {
-          "pc": 220,
-          "mobile": 2090,
-          "total": 2310,
+          "pc": 230,
+          "mobile": 2110,
+          "total": 2340,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "해독쥬스",
           "bidPos": 2270
         },
         {
-          "pc": 130,
-          "mobile": 1920,
-          "total": 2050,
-          "comp": "높음",
-          "depth": 9.0,
-          "keyword": "그린주스",
-          "bidPos": 1320
-        },
-        {
-          "pc": 300,
-          "mobile": 1670,
-          "total": 1970,
-          "comp": "높음",
-          "depth": 7.0,
-          "keyword": "그린스무디",
-          "bidPos": 1080
-        },
-        {
-          "pc": 260,
-          "mobile": 1710,
-          "total": 1970,
+          "pc": 250,
+          "mobile": 1750,
+          "total": 2000,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "샐러리주스",
           "bidPos": 1360
+        },
+        {
+          "pc": 300,
+          "mobile": 1650,
+          "total": 1950,
+          "comp": "높음",
+          "depth": 7.0,
+          "keyword": "그린스무디",
+          "bidPos": 1080
         },
         {
           "pc": 400,
@@ -64722,8 +64713,8 @@
           "bidPos": 980
         },
         {
-          "pc": 310,
-          "mobile": 1490,
+          "pc": 300,
+          "mobile": 1500,
           "total": 1800,
           "comp": "높음",
           "depth": 10.0,
@@ -64732,26 +64723,35 @@
         },
         {
           "pc": 150,
-          "mobile": 1280,
-          "total": 1430,
+          "mobile": 1270,
+          "total": 1420,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "키위주스",
           "bidPos": 410
         },
         {
-          "pc": 240,
-          "mobile": 1020,
-          "total": 1260,
+          "pc": 230,
+          "mobile": 1000,
+          "total": 1230,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "클렌징주스",
           "bidPos": 2110
         },
         {
+          "pc": 120,
+          "mobile": 970,
+          "total": 1090,
+          "comp": "높음",
+          "depth": 9.0,
+          "keyword": "그린주스",
+          "bidPos": 1320
+        },
+        {
           "pc": 60,
-          "mobile": 730,
-          "total": 790,
+          "mobile": 720,
+          "total": 780,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "케일사과주스",
@@ -64759,8 +64759,8 @@
         },
         {
           "pc": 60,
-          "mobile": 690,
-          "total": 750,
+          "mobile": 680,
+          "total": 740,
           "comp": "중간",
           "depth": 6.0,
           "keyword": "키위쥬스",
@@ -64768,17 +64768,17 @@
         },
         {
           "pc": 90,
-          "mobile": 610,
-          "total": 700,
+          "mobile": 600,
+          "total": 690,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "녹즙배달",
           "bidPos": 860
         },
         {
-          "pc": 150,
-          "mobile": 470,
-          "total": 620,
+          "pc": 120,
+          "mobile": 460,
+          "total": 580,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "케일즙",
@@ -64817,18 +64817,18 @@
       "seed": "착즙쥬스",
       "items": [
         {
-          "pc": 12800,
-          "mobile": 43300,
-          "total": 56100,
+          "pc": 12600,
+          "mobile": 43000,
+          "total": 55600,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "다이어트식단",
           "bidPos": 3760
         },
         {
-          "pc": 5430,
-          "mobile": 24100,
-          "total": 29530,
+          "pc": 5440,
+          "mobile": 23800,
+          "total": 29240,
           "comp": "높음",
           "depth": 9.0,
           "keyword": "양배추",
@@ -64836,44 +64836,44 @@
         },
         {
           "pc": 4110,
-          "mobile": 22700,
-          "total": 26810,
+          "mobile": 22500,
+          "total": 26610,
           "comp": "중간",
           "depth": 8.0,
           "keyword": "양배추즙",
           "bidPos": 3100
         },
         {
-          "pc": 2220,
+          "pc": 2190,
           "mobile": 22700,
-          "total": 24920,
+          "total": 24890,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "토마토주스",
           "bidPos": 1980
         },
         {
-          "pc": 5710,
-          "mobile": 17600,
-          "total": 23310,
+          "pc": 5660,
+          "mobile": 17400,
+          "total": 23060,
           "comp": "중간",
           "depth": 8.0,
           "keyword": "다이어트도시락",
           "bidPos": 1250
         },
         {
-          "pc": 1480,
-          "mobile": 21100,
-          "total": 22580,
+          "pc": 1490,
+          "mobile": 21200,
+          "total": 22690,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "당근효능",
           "bidPos": 460
         },
         {
-          "pc": 2530,
+          "pc": 2510,
           "mobile": 18700,
-          "total": 21230,
+          "total": 21210,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "ABC주스",
@@ -64890,26 +64890,26 @@
         },
         {
           "pc": 1270,
-          "mobile": 15600,
-          "total": 16870,
+          "mobile": 15800,
+          "total": 17070,
           "comp": "중간",
           "depth": 6.0,
           "keyword": "칼륨많은음식",
           "bidPos": 360
         },
         {
-          "pc": 1620,
-          "mobile": 12300,
-          "total": 13920,
+          "pc": 1640,
+          "mobile": 12400,
+          "total": 14040,
           "comp": "중간",
           "depth": 7.0,
           "keyword": "마시는샐러드",
           "bidPos": 1760
         },
         {
-          "pc": 2030,
+          "pc": 2040,
           "mobile": 10700,
-          "total": 12730,
+          "total": 12740,
           "comp": "중간",
           "depth": 7.0,
           "keyword": "CCA주스",
@@ -64925,18 +64925,18 @@
           "bidPos": 1760
         },
         {
-          "pc": 1690,
-          "mobile": 9610,
-          "total": 11300,
+          "pc": 1710,
+          "mobile": 9730,
+          "total": 11440,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "당근주스",
           "bidPos": 960
         },
         {
-          "pc": 1410,
-          "mobile": 9570,
-          "total": 10980,
+          "pc": 1390,
+          "mobile": 9550,
+          "total": 10940,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "해독주스",
@@ -64944,17 +64944,17 @@
         },
         {
           "pc": 1250,
-          "mobile": 8540,
-          "total": 9790,
+          "mobile": 8480,
+          "total": 9730,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "디톡스주스",
           "bidPos": 2080
         },
         {
-          "pc": 2180,
-          "mobile": 6260,
-          "total": 8440,
+          "pc": 2210,
+          "mobile": 6220,
+          "total": 8430,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "토마토즙",
@@ -64962,17 +64962,17 @@
         },
         {
           "pc": 1480,
-          "mobile": 5930,
-          "total": 7410,
+          "mobile": 6000,
+          "total": 7480,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "말토덱스트린",
           "bidPos": 1110
         },
         {
-          "pc": 700,
-          "mobile": 5570,
-          "total": 6270,
+          "pc": 670,
+          "mobile": 5540,
+          "total": 6210,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "케일주스",
@@ -64980,25 +64980,25 @@
         },
         {
           "pc": 1090,
-          "mobile": 4950,
-          "total": 6040,
+          "mobile": 4960,
+          "total": 6050,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "스무디",
           "bidPos": 1480
         },
         {
-          "pc": 440,
-          "mobile": 5500,
-          "total": 5940,
+          "pc": 430,
+          "mobile": 5540,
+          "total": 5970,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "당근쥬스",
           "bidPos": 1200
         },
         {
-          "pc": 990,
-          "mobile": 4780,
+          "pc": 1000,
+          "mobile": 4770,
           "total": 5770,
           "comp": "중간",
           "depth": 7.0,
@@ -65006,17 +65006,17 @@
           "bidPos": 250
         },
         {
-          "pc": 580,
-          "mobile": 4860,
-          "total": 5440,
+          "pc": 590,
+          "mobile": 4630,
+          "total": 5220,
           "comp": "중간",
           "depth": 8.0,
           "keyword": "양배추즙효능",
           "bidPos": 1310
         },
         {
-          "pc": 410,
-          "mobile": 4190,
+          "pc": 400,
+          "mobile": 4200,
           "total": 4600,
           "comp": "높음",
           "depth": 7.0,
@@ -65025,17 +65025,17 @@
         },
         {
           "pc": 460,
-          "mobile": 4060,
-          "total": 4520,
+          "mobile": 4100,
+          "total": 4560,
           "comp": "중간",
           "depth": 6.0,
           "keyword": "아보카도스무디",
           "bidPos": 190
         },
         {
-          "pc": 860,
-          "mobile": 3650,
-          "total": 4510,
+          "pc": 870,
+          "mobile": 3620,
+          "total": 4490,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "진저샷",
@@ -65047,27 +65047,27 @@
       "seed": "과일쥬스",
       "items": [
         {
-          "pc": 3940,
-          "mobile": 48600,
-          "total": 52540,
+          "pc": 3920,
+          "mobile": 48500,
+          "total": 52420,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "토마토효능",
           "bidPos": 1000
         },
         {
-          "pc": 5540,
-          "mobile": 25800,
-          "total": 31340,
+          "pc": 5510,
+          "mobile": 26000,
+          "total": 31510,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "단백질음료",
           "bidPos": 2600
         },
         {
-          "pc": 5430,
-          "mobile": 24100,
-          "total": 29530,
+          "pc": 5440,
+          "mobile": 23800,
+          "total": 29240,
           "comp": "높음",
           "depth": 9.0,
           "keyword": "양배추",
@@ -65075,53 +65075,53 @@
         },
         {
           "pc": 4110,
-          "mobile": 22700,
-          "total": 26810,
+          "mobile": 22500,
+          "total": 26610,
           "comp": "중간",
           "depth": 8.0,
           "keyword": "양배추즙",
           "bidPos": 3100
         },
         {
-          "pc": 2220,
+          "pc": 2190,
           "mobile": 22700,
-          "total": 24920,
+          "total": 24890,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "토마토주스",
           "bidPos": 1980
         },
         {
-          "pc": 1690,
+          "pc": 1670,
           "mobile": 20100,
-          "total": 21790,
+          "total": 21770,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "변비에좋은음식",
           "bidPos": 1440
         },
         {
-          "pc": 2530,
+          "pc": 2510,
           "mobile": 18700,
-          "total": 21230,
+          "total": 21210,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "ABC주스",
           "bidPos": 1880
         },
         {
-          "pc": 1620,
-          "mobile": 12300,
-          "total": 13920,
+          "pc": 1640,
+          "mobile": 12400,
+          "total": 14040,
           "comp": "중간",
           "depth": 7.0,
           "keyword": "마시는샐러드",
           "bidPos": 1760
         },
         {
-          "pc": 2030,
+          "pc": 2040,
           "mobile": 10700,
-          "total": 12730,
+          "total": 12740,
           "comp": "중간",
           "depth": 7.0,
           "keyword": "CCA주스",
@@ -65137,27 +65137,27 @@
           "bidPos": 1760
         },
         {
-          "pc": 1690,
-          "mobile": 9610,
-          "total": 11300,
+          "pc": 1710,
+          "mobile": 9730,
+          "total": 11440,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "당근주스",
           "bidPos": 960
         },
         {
-          "pc": 1380,
-          "mobile": 9780,
-          "total": 11160,
+          "pc": 1370,
+          "mobile": 9770,
+          "total": 11140,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "라이코펜",
           "bidPos": 1650
         },
         {
-          "pc": 1410,
-          "mobile": 9570,
-          "total": 10980,
+          "pc": 1390,
+          "mobile": 9550,
+          "total": 10940,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "해독주스",
@@ -65165,52 +65165,52 @@
         },
         {
           "pc": 1250,
-          "mobile": 8540,
-          "total": 9790,
+          "mobile": 8480,
+          "total": 9730,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "디톡스주스",
           "bidPos": 2080
         },
         {
-          "pc": 2180,
-          "mobile": 6260,
-          "total": 8440,
+          "pc": 2210,
+          "mobile": 6220,
+          "total": 8430,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "토마토즙",
           "bidPos": 1380
         },
         {
-          "pc": 1000,
-          "mobile": 5330,
-          "total": 6330,
+          "pc": 1010,
+          "mobile": 5380,
+          "total": 6390,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "베타카로틴",
           "bidPos": 1590
         },
         {
-          "pc": 700,
-          "mobile": 5570,
-          "total": 6270,
+          "pc": 670,
+          "mobile": 5540,
+          "total": 6210,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "케일주스",
           "bidPos": 2340
         },
         {
-          "pc": 440,
-          "mobile": 5500,
-          "total": 5940,
+          "pc": 430,
+          "mobile": 5540,
+          "total": 5970,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "당근쥬스",
           "bidPos": 1200
         },
         {
-          "pc": 990,
-          "mobile": 4780,
+          "pc": 1000,
+          "mobile": 4770,
           "total": 5770,
           "comp": "중간",
           "depth": 7.0,
@@ -65218,18 +65218,18 @@
           "bidPos": 250
         },
         {
-          "pc": 550,
-          "mobile": 5040,
-          "total": 5590,
+          "pc": 540,
+          "mobile": 5070,
+          "total": 5610,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "라이코펜효능",
           "bidPos": 970
         },
         {
-          "pc": 580,
-          "mobile": 4860,
-          "total": 5440,
+          "pc": 590,
+          "mobile": 4630,
+          "total": 5220,
           "comp": "중간",
           "depth": 8.0,
           "keyword": "양배추즙효능",
@@ -65237,8 +65237,8 @@
         },
         {
           "pc": 500,
-          "mobile": 4060,
-          "total": 4560,
+          "mobile": 4130,
+          "total": 4630,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "토마토주스효능",
@@ -65246,30 +65246,30 @@
         },
         {
           "pc": 460,
-          "mobile": 4060,
-          "total": 4520,
+          "mobile": 4100,
+          "total": 4560,
           "comp": "중간",
           "depth": 6.0,
           "keyword": "아보카도스무디",
           "bidPos": 190
         },
         {
-          "pc": 490,
-          "mobile": 3140,
-          "total": 3630,
+          "pc": 470,
+          "mobile": 3080,
+          "total": 3550,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "디톡스다이어트",
           "bidPos": 4640
         },
         {
-          "pc": 1350,
-          "mobile": 1910,
-          "total": 3260,
+          "pc": 290,
+          "mobile": 2930,
+          "total": 3220,
           "comp": "높음",
-          "depth": 8.0,
-          "keyword": "스포츠음료",
-          "bidPos": 2500
+          "depth": 10.0,
+          "keyword": "해독주스레시피",
+          "bidPos": 1360
         }
       ]
     },
@@ -65277,9 +65277,9 @@
       "seed": "과일즙",
       "items": [
         {
-          "pc": 5430,
-          "mobile": 24100,
-          "total": 29530,
+          "pc": 5440,
+          "mobile": 23800,
+          "total": 29240,
           "comp": "높음",
           "depth": 9.0,
           "keyword": "양배추",
@@ -65287,39 +65287,48 @@
         },
         {
           "pc": 4110,
-          "mobile": 22700,
-          "total": 26810,
+          "mobile": 22500,
+          "total": 26610,
           "comp": "중간",
           "depth": 8.0,
           "keyword": "양배추즙",
           "bidPos": 3100
         },
         {
-          "pc": 2530,
+          "pc": 2510,
           "mobile": 18700,
-          "total": 21230,
+          "total": 21210,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "ABC주스",
           "bidPos": 1880
         },
         {
-          "pc": 1620,
-          "mobile": 12300,
-          "total": 13920,
+          "pc": 1640,
+          "mobile": 12400,
+          "total": 14040,
           "comp": "중간",
           "depth": 7.0,
           "keyword": "마시는샐러드",
           "bidPos": 1760
         },
         {
-          "pc": 2030,
+          "pc": 2040,
           "mobile": 10700,
-          "total": 12730,
+          "total": 12740,
           "comp": "중간",
           "depth": 7.0,
           "keyword": "CCA주스",
           "bidPos": 1760
+        },
+        {
+          "pc": 720,
+          "mobile": 11000,
+          "total": 11720,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "블루베리주스",
+          "bidPos": 1370
         },
         {
           "pc": 850,
@@ -65331,45 +65340,36 @@
           "bidPos": 1760
         },
         {
-          "pc": 720,
-          "mobile": 10700,
-          "total": 11420,
-          "comp": "중간",
-          "depth": 8.0,
-          "keyword": "블루베리주스",
-          "bidPos": 1370
-        },
-        {
-          "pc": 1380,
-          "mobile": 9780,
-          "total": 11160,
+          "pc": 1370,
+          "mobile": 9770,
+          "total": 11140,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "라이코펜",
           "bidPos": 1650
         },
         {
-          "pc": 1410,
-          "mobile": 9570,
-          "total": 10980,
+          "pc": 1390,
+          "mobile": 9550,
+          "total": 10940,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "해독주스",
           "bidPos": 2660
         },
         {
-          "pc": 1720,
-          "mobile": 8640,
-          "total": 10360,
+          "pc": 1700,
+          "mobile": 8490,
+          "total": 10190,
           "comp": "중간",
           "depth": 8.0,
           "keyword": "블루베리퓨레",
           "bidPos": 2880
         },
         {
-          "pc": 2630,
-          "mobile": 7600,
-          "total": 10230,
+          "pc": 2580,
+          "mobile": 7550,
+          "total": 10130,
           "comp": "높음",
           "depth": 9.0,
           "keyword": "아이스티",
@@ -65377,8 +65377,8 @@
         },
         {
           "pc": 1660,
-          "mobile": 8230,
-          "total": 9890,
+          "mobile": 8180,
+          "total": 9840,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "면역력",
@@ -65386,44 +65386,44 @@
         },
         {
           "pc": 1250,
-          "mobile": 8540,
-          "total": 9790,
+          "mobile": 8480,
+          "total": 9730,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "디톡스주스",
           "bidPos": 2080
         },
         {
-          "pc": 1320,
-          "mobile": 6850,
-          "total": 8170,
+          "pc": 1260,
+          "mobile": 6640,
+          "total": 7900,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "스승의날",
           "bidPos": 1160
         },
         {
-          "pc": 3030,
-          "mobile": 4430,
-          "total": 7460,
+          "pc": 3000,
+          "mobile": 4340,
+          "total": 7340,
           "comp": "높음",
           "depth": 9.0,
           "keyword": "딸기청",
           "bidPos": 1370
         },
         {
-          "pc": 1000,
-          "mobile": 5330,
-          "total": 6330,
+          "pc": 1010,
+          "mobile": 5380,
+          "total": 6390,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "베타카로틴",
           "bidPos": 1590
         },
         {
-          "pc": 700,
-          "mobile": 5570,
-          "total": 6270,
+          "pc": 670,
+          "mobile": 5540,
+          "total": 6210,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "케일주스",
@@ -65431,8 +65431,8 @@
         },
         {
           "pc": 1090,
-          "mobile": 4950,
-          "total": 6040,
+          "mobile": 4960,
+          "total": 6050,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "스무디",
@@ -65440,25 +65440,25 @@
         },
         {
           "pc": 1340,
-          "mobile": 4560,
-          "total": 5900,
+          "mobile": 4530,
+          "total": 5870,
           "comp": "높음",
           "depth": 7.0,
           "keyword": "유통",
           "bidPos": 1280
         },
         {
-          "pc": 720,
-          "mobile": 5160,
-          "total": 5880,
+          "pc": 710,
+          "mobile": 5130,
+          "total": 5840,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "석류즙",
           "bidPos": 1440
         },
         {
-          "pc": 990,
-          "mobile": 4780,
+          "pc": 1000,
+          "mobile": 4770,
           "total": 5770,
           "comp": "중간",
           "depth": 7.0,
@@ -65466,40 +65466,40 @@
           "bidPos": 250
         },
         {
-          "pc": 280,
-          "mobile": 5450,
-          "total": 5730,
-          "comp": "높음",
-          "depth": 10.0,
-          "keyword": "민들레효능",
-          "bidPos": 320
-        },
-        {
-          "pc": 550,
-          "mobile": 5040,
-          "total": 5590,
+          "pc": 540,
+          "mobile": 5070,
+          "total": 5610,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "라이코펜효능",
           "bidPos": 970
         },
         {
-          "pc": 580,
-          "mobile": 4860,
-          "total": 5440,
-          "comp": "중간",
-          "depth": 8.0,
-          "keyword": "양배추즙효능",
-          "bidPos": 1310
+          "pc": 270,
+          "mobile": 5330,
+          "total": 5600,
+          "comp": "높음",
+          "depth": 10.0,
+          "keyword": "민들레효능",
+          "bidPos": 320
         },
         {
           "pc": 650,
-          "mobile": 4630,
-          "total": 5280,
+          "mobile": 4710,
+          "total": 5360,
           "comp": "높음",
           "depth": 7.0,
           "keyword": "블루베리스무디",
           "bidPos": 830
+        },
+        {
+          "pc": 590,
+          "mobile": 4630,
+          "total": 5220,
+          "comp": "중간",
+          "depth": 8.0,
+          "keyword": "양배추즙효능",
+          "bidPos": 1310
         }
       ]
     },
@@ -65507,18 +65507,18 @@
       "seed": "얼음골사과즙",
       "items": [
         {
-          "pc": 1320,
-          "mobile": 6850,
-          "total": 8170,
+          "pc": 1260,
+          "mobile": 6640,
+          "total": 7900,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "스승의날",
           "bidPos": 1160
         },
         {
-          "pc": 720,
+          "pc": 710,
           "mobile": 3130,
-          "total": 3850,
+          "total": 3840,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "쥬스",
@@ -65526,8 +65526,8 @@
         },
         {
           "pc": 190,
-          "mobile": 1320,
-          "total": 1510,
+          "mobile": 1340,
+          "total": 1530,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "즙",
@@ -65535,17 +65535,17 @@
         },
         {
           "pc": 210,
-          "mobile": 1060,
-          "total": 1270,
+          "mobile": 1030,
+          "total": 1240,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "패션후르츠퓨레",
           "bidPos": 750
         },
         {
-          "pc": 170,
-          "mobile": 1000,
-          "total": 1170,
+          "pc": 180,
+          "mobile": 1010,
+          "total": 1190,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "착즙",
@@ -65562,26 +65562,26 @@
         },
         {
           "pc": 170,
-          "mobile": 420,
-          "total": 590,
+          "mobile": 430,
+          "total": 600,
           "comp": "중간",
           "depth": 6.0,
           "keyword": "다농이네",
           "bidPos": 110
         },
         {
-          "pc": 40,
-          "mobile": 440,
-          "total": 480,
+          "pc": 50,
+          "mobile": 450,
+          "total": 500,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "아빠의주스",
           "bidPos": 680
         },
         {
-          "pc": 50,
-          "mobile": 380,
-          "total": 430,
+          "pc": 40,
+          "mobile": 370,
+          "total": 410,
           "comp": "높음",
           "depth": 9.0,
           "keyword": "바나나퓨레",
@@ -65660,9 +65660,9 @@
           "bidPos": 1760
         },
         {
-          "pc": 70,
-          "mobile": 210,
-          "total": 280,
+          "pc": 60,
+          "mobile": 200,
+          "total": 260,
           "comp": "중간",
           "depth": 4.0,
           "keyword": "뚜띠푸르티",
@@ -65670,12 +65670,21 @@
         },
         {
           "pc": 10,
-          "mobile": 250,
-          "total": 260,
+          "mobile": 230,
+          "total": 240,
           "comp": "높음",
           "depth": 7.0,
           "keyword": "착즙사과즙",
           "bidPos": 960
+        },
+        {
+          "pc": 40,
+          "mobile": 200,
+          "total": 240,
+          "comp": "높음",
+          "depth": 7.0,
+          "keyword": "카페디저트종류",
+          "bidPos": 420
         },
         {
           "pc": 20,
@@ -65685,15 +65694,6 @@
           "depth": 8.0,
           "keyword": "사과착즙",
           "bidPos": 910
-        },
-        {
-          "pc": 30,
-          "mobile": 200,
-          "total": 230,
-          "comp": "높음",
-          "depth": 7.0,
-          "keyword": "카페디저트종류",
-          "bidPos": 420
         },
         {
           "pc": 70,
@@ -65727,9 +65727,9 @@
           "mobile": 170,
           "total": 180,
           "comp": "높음",
-          "depth": 8.0,
-          "keyword": "아기사과주스",
-          "bidPos": 930
+          "depth": 3.0,
+          "keyword": "아임사과즙",
+          "bidPos": 250
         }
       ]
     },
@@ -65737,18 +65737,18 @@
       "seed": "100%사과즙",
       "items": [
         {
-          "pc": 1320,
-          "mobile": 6850,
-          "total": 8170,
+          "pc": 1260,
+          "mobile": 6640,
+          "total": 7900,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "스승의날",
           "bidPos": 1160
         },
         {
-          "pc": 720,
+          "pc": 710,
           "mobile": 3130,
-          "total": 3850,
+          "total": 3840,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "쥬스",
@@ -65756,17 +65756,17 @@
         },
         {
           "pc": 150,
-          "mobile": 1790,
-          "total": 1940,
+          "mobile": 1780,
+          "total": 1930,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "사과당근주스",
           "bidPos": 1510
         },
         {
-          "pc": 170,
-          "mobile": 1000,
-          "total": 1170,
+          "pc": 180,
+          "mobile": 1010,
+          "total": 1190,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "착즙",
@@ -65774,17 +65774,17 @@
         },
         {
           "pc": 170,
-          "mobile": 420,
-          "total": 590,
+          "mobile": 430,
+          "total": 600,
           "comp": "중간",
           "depth": 6.0,
           "keyword": "다농이네",
           "bidPos": 110
         },
         {
-          "pc": 40,
-          "mobile": 440,
-          "total": 480,
+          "pc": 50,
+          "mobile": 450,
+          "total": 500,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "아빠의주스",
@@ -65845,31 +65845,40 @@
           "bidPos": 490
         },
         {
-          "pc": 70,
-          "mobile": 210,
-          "total": 280,
+          "pc": 60,
+          "mobile": 200,
+          "total": 260,
           "comp": "중간",
           "depth": 4.0,
           "keyword": "뚜띠푸르티",
           "bidPos": 320
         },
         {
+          "pc": 20,
+          "mobile": 230,
+          "total": 250,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "유기농레몬수",
+          "bidPos": 1790
+        },
+        {
           "pc": 10,
-          "mobile": 250,
-          "total": 260,
+          "mobile": 230,
+          "total": 240,
           "comp": "높음",
           "depth": 7.0,
           "keyword": "착즙사과즙",
           "bidPos": 960
         },
         {
-          "pc": 20,
-          "mobile": 220,
+          "pc": 40,
+          "mobile": 200,
           "total": 240,
           "comp": "높음",
-          "depth": 8.0,
-          "keyword": "유기농레몬수",
-          "bidPos": 1790
+          "depth": 7.0,
+          "keyword": "카페디저트종류",
+          "bidPos": 420
         },
         {
           "pc": 20,
@@ -65879,15 +65888,6 @@
           "depth": 8.0,
           "keyword": "사과착즙",
           "bidPos": 910
-        },
-        {
-          "pc": 30,
-          "mobile": 200,
-          "total": 230,
-          "comp": "높음",
-          "depth": 7.0,
-          "keyword": "카페디저트종류",
-          "bidPos": 420
         },
         {
           "pc": 70,
@@ -65912,18 +65912,18 @@
           "mobile": 170,
           "total": 180,
           "comp": "높음",
-          "depth": 8.0,
-          "keyword": "아기사과주스",
-          "bidPos": 930
-        },
-        {
-          "pc": 10,
-          "mobile": 160,
-          "total": 170,
-          "comp": "높음",
           "depth": 3.0,
           "keyword": "아임사과즙",
           "bidPos": 250
+        },
+        {
+          "pc": 10,
+          "mobile": 170,
+          "total": 180,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "아기사과주스",
+          "bidPos": 930
         },
         {
           "pc": 20,
@@ -65944,15 +65944,6 @@
           "bidPos": 220
         },
         {
-          "pc": 10,
-          "mobile": 130,
-          "total": 140,
-          "comp": "낮음",
-          "depth": 0.0,
-          "keyword": "뽐므드파파",
-          "bidPos": 70
-        },
-        {
           "pc": 20,
           "mobile": 110,
           "total": 130,
@@ -65960,6 +65951,15 @@
           "depth": 8.0,
           "keyword": "키즈음료",
           "bidPos": 2110
+        },
+        {
+          "pc": 10,
+          "mobile": 110,
+          "total": 120,
+          "comp": "낮음",
+          "depth": 0.0,
+          "keyword": "뽐므드파파",
+          "bidPos": 70
         }
       ]
     },
@@ -65967,18 +65967,18 @@
       "seed": "사과즙100포",
       "items": [
         {
-          "pc": 1320,
-          "mobile": 6850,
-          "total": 8170,
+          "pc": 1260,
+          "mobile": 6640,
+          "total": 7900,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "스승의날",
           "bidPos": 1160
         },
         {
-          "pc": 720,
+          "pc": 710,
           "mobile": 3130,
-          "total": 3850,
+          "total": 3840,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "쥬스",
@@ -65986,8 +65986,8 @@
         },
         {
           "pc": 150,
-          "mobile": 1790,
-          "total": 1940,
+          "mobile": 1780,
+          "total": 1930,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "사과당근주스",
@@ -65995,17 +65995,17 @@
         },
         {
           "pc": 190,
-          "mobile": 1320,
-          "total": 1510,
+          "mobile": 1340,
+          "total": 1530,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "즙",
           "bidPos": 1430
         },
         {
-          "pc": 170,
-          "mobile": 1000,
-          "total": 1170,
+          "pc": 180,
+          "mobile": 1010,
+          "total": 1190,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "착즙",
@@ -66013,17 +66013,17 @@
         },
         {
           "pc": 170,
-          "mobile": 420,
-          "total": 590,
+          "mobile": 430,
+          "total": 600,
           "comp": "중간",
           "depth": 6.0,
           "keyword": "다농이네",
           "bidPos": 110
         },
         {
-          "pc": 40,
-          "mobile": 440,
-          "total": 480,
+          "pc": 50,
+          "mobile": 450,
+          "total": 500,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "아빠의주스",
@@ -66084,31 +66084,40 @@
           "bidPos": 490
         },
         {
-          "pc": 70,
-          "mobile": 210,
-          "total": 280,
+          "pc": 60,
+          "mobile": 200,
+          "total": 260,
           "comp": "중간",
           "depth": 4.0,
           "keyword": "뚜띠푸르티",
           "bidPos": 320
         },
         {
+          "pc": 20,
+          "mobile": 230,
+          "total": 250,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "유기농레몬수",
+          "bidPos": 1790
+        },
+        {
           "pc": 10,
-          "mobile": 250,
-          "total": 260,
+          "mobile": 230,
+          "total": 240,
           "comp": "높음",
           "depth": 7.0,
           "keyword": "착즙사과즙",
           "bidPos": 960
         },
         {
-          "pc": 20,
-          "mobile": 220,
+          "pc": 40,
+          "mobile": 200,
           "total": 240,
           "comp": "높음",
-          "depth": 8.0,
-          "keyword": "유기농레몬수",
-          "bidPos": 1790
+          "depth": 7.0,
+          "keyword": "카페디저트종류",
+          "bidPos": 420
         },
         {
           "pc": 20,
@@ -66118,15 +66127,6 @@
           "depth": 8.0,
           "keyword": "사과착즙",
           "bidPos": 910
-        },
-        {
-          "pc": 30,
-          "mobile": 200,
-          "total": 230,
-          "comp": "높음",
-          "depth": 7.0,
-          "keyword": "카페디저트종류",
-          "bidPos": 420
         },
         {
           "pc": 70,
@@ -66160,18 +66160,18 @@
           "mobile": 170,
           "total": 180,
           "comp": "높음",
-          "depth": 8.0,
-          "keyword": "아기사과주스",
-          "bidPos": 930
-        },
-        {
-          "pc": 10,
-          "mobile": 160,
-          "total": 170,
-          "comp": "높음",
           "depth": 3.0,
           "keyword": "아임사과즙",
           "bidPos": 250
+        },
+        {
+          "pc": 10,
+          "mobile": 170,
+          "total": 180,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "아기사과주스",
+          "bidPos": 930
         },
         {
           "pc": 20,
@@ -66197,9 +66197,9 @@
       "seed": "사과잼",
       "items": [
         {
-          "pc": 740,
+          "pc": 750,
           "mobile": 3730,
-          "total": 4470,
+          "total": 4480,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "콩포트",
@@ -66225,8 +66225,8 @@
         },
         {
           "pc": 230,
-          "mobile": 210,
-          "total": 440,
+          "mobile": 220,
+          "total": 450,
           "comp": "중간",
           "depth": 7.0,
           "keyword": "오트리푸드",
@@ -66234,8 +66234,8 @@
         },
         {
           "pc": 60,
-          "mobile": 300,
-          "total": 360,
+          "mobile": 310,
+          "total": 370,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "애플시나몬잼",
@@ -66243,17 +66243,17 @@
         },
         {
           "pc": 40,
-          "mobile": 270,
-          "total": 310,
+          "mobile": 260,
+          "total": 300,
           "comp": "중간",
           "depth": 8.0,
           "keyword": "잼종류",
           "bidPos": 250
         },
         {
-          "pc": 60,
+          "pc": 50,
           "mobile": 230,
-          "total": 290,
+          "total": 280,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "수제잼",
@@ -66261,8 +66261,8 @@
         },
         {
           "pc": 50,
-          "mobile": 190,
-          "total": 240,
+          "mobile": 200,
+          "total": 250,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "무설탕잼",
@@ -66310,9 +66310,9 @@
       "seed": "청송사과즙",
       "items": [
         {
-          "pc": 720,
+          "pc": 710,
           "mobile": 3130,
-          "total": 3850,
+          "total": 3840,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "쥬스",
@@ -66320,17 +66320,17 @@
         },
         {
           "pc": 210,
-          "mobile": 1060,
-          "total": 1270,
+          "mobile": 1030,
+          "total": 1240,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "패션후르츠퓨레",
           "bidPos": 750
         },
         {
-          "pc": 170,
-          "mobile": 1000,
-          "total": 1170,
+          "pc": 180,
+          "mobile": 1010,
+          "total": 1190,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "착즙",
@@ -66338,26 +66338,26 @@
         },
         {
           "pc": 170,
-          "mobile": 420,
-          "total": 590,
+          "mobile": 430,
+          "total": 600,
           "comp": "중간",
           "depth": 6.0,
           "keyword": "다농이네",
           "bidPos": 110
         },
         {
-          "pc": 40,
-          "mobile": 440,
-          "total": 480,
+          "pc": 50,
+          "mobile": 450,
+          "total": 500,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "아빠의주스",
           "bidPos": 680
         },
         {
-          "pc": 50,
-          "mobile": 380,
-          "total": 430,
+          "pc": 40,
+          "mobile": 370,
+          "total": 410,
           "comp": "높음",
           "depth": 9.0,
           "keyword": "바나나퓨레",
@@ -66374,8 +66374,8 @@
         },
         {
           "pc": 20,
-          "mobile": 360,
-          "total": 380,
+          "mobile": 370,
+          "total": 390,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "산지애사과즙",
@@ -66445,9 +66445,9 @@
           "bidPos": 1760
         },
         {
-          "pc": 70,
-          "mobile": 210,
-          "total": 280,
+          "pc": 60,
+          "mobile": 200,
+          "total": 260,
           "comp": "중간",
           "depth": 4.0,
           "keyword": "뚜띠푸르티",
@@ -66455,12 +66455,21 @@
         },
         {
           "pc": 10,
-          "mobile": 250,
-          "total": 260,
+          "mobile": 230,
+          "total": 240,
           "comp": "높음",
           "depth": 7.0,
           "keyword": "착즙사과즙",
           "bidPos": 960
+        },
+        {
+          "pc": 40,
+          "mobile": 200,
+          "total": 240,
+          "comp": "높음",
+          "depth": 7.0,
+          "keyword": "카페디저트종류",
+          "bidPos": 420
         },
         {
           "pc": 20,
@@ -66470,15 +66479,6 @@
           "depth": 8.0,
           "keyword": "사과착즙",
           "bidPos": 910
-        },
-        {
-          "pc": 30,
-          "mobile": 200,
-          "total": 230,
-          "comp": "높음",
-          "depth": 7.0,
-          "keyword": "카페디저트종류",
-          "bidPos": 420
         },
         {
           "pc": 70,
@@ -66503,18 +66503,18 @@
           "mobile": 170,
           "total": 180,
           "comp": "높음",
-          "depth": 8.0,
-          "keyword": "아기사과주스",
-          "bidPos": 930
-        },
-        {
-          "pc": 10,
-          "mobile": 160,
-          "total": 170,
-          "comp": "높음",
           "depth": 3.0,
           "keyword": "아임사과즙",
           "bidPos": 250
+        },
+        {
+          "pc": 10,
+          "mobile": 170,
+          "total": 180,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "아기사과주스",
+          "bidPos": 930
         },
         {
           "pc": 10,
@@ -66540,9 +66540,9 @@
       "seed": "유기농사과쥬스",
       "items": [
         {
-          "pc": 720,
+          "pc": 710,
           "mobile": 3130,
-          "total": 3850,
+          "total": 3840,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "쥬스",
@@ -66550,17 +66550,17 @@
         },
         {
           "pc": 190,
-          "mobile": 1320,
-          "total": 1510,
+          "mobile": 1340,
+          "total": 1530,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "즙",
           "bidPos": 1430
         },
         {
-          "pc": 170,
-          "mobile": 1000,
-          "total": 1170,
+          "pc": 180,
+          "mobile": 1010,
+          "total": 1190,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "착즙",
@@ -66568,17 +66568,17 @@
         },
         {
           "pc": 170,
-          "mobile": 420,
-          "total": 590,
+          "mobile": 430,
+          "total": 600,
           "comp": "중간",
           "depth": 6.0,
           "keyword": "다농이네",
           "bidPos": 110
         },
         {
-          "pc": 40,
-          "mobile": 440,
-          "total": 480,
+          "pc": 50,
+          "mobile": 450,
+          "total": 500,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "아빠의주스",
@@ -66649,8 +66649,8 @@
         },
         {
           "pc": 10,
-          "mobile": 160,
-          "total": 170,
+          "mobile": 170,
+          "total": 180,
           "comp": "높음",
           "depth": 3.0,
           "keyword": "아임사과즙",
@@ -66658,21 +66658,12 @@
         },
         {
           "pc": 10,
-          "mobile": 130,
-          "total": 140,
+          "mobile": 110,
+          "total": 120,
           "comp": "낮음",
           "depth": 0.0,
           "keyword": "뽐므드파파",
           "bidPos": 70
-        },
-        {
-          "pc": 10,
-          "mobile": 80,
-          "total": 90,
-          "comp": "높음",
-          "depth": 7.0,
-          "keyword": "ABC쥬스만들기",
-          "bidPos": 1280
         },
         {
           "pc": 5,
@@ -66718,6 +66709,15 @@
           "depth": 8.0,
           "keyword": "어린이사과주스",
           "bidPos": 1340
+        },
+        {
+          "pc": 5,
+          "mobile": 60,
+          "total": 65,
+          "comp": "높음",
+          "depth": 7.0,
+          "keyword": "ABC쥬스만들기",
+          "bidPos": 1280
         },
         {
           "pc": 5,
@@ -66770,9 +66770,9 @@
       "seed": "사과즙효능",
       "items": [
         {
-          "pc": 720,
+          "pc": 710,
           "mobile": 3130,
-          "total": 3850,
+          "total": 3840,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "쥬스",
@@ -66780,8 +66780,8 @@
         },
         {
           "pc": 150,
-          "mobile": 1790,
-          "total": 1940,
+          "mobile": 1780,
+          "total": 1930,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "사과당근주스",
@@ -66789,17 +66789,17 @@
         },
         {
           "pc": 190,
-          "mobile": 1320,
-          "total": 1510,
+          "mobile": 1340,
+          "total": 1530,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "즙",
           "bidPos": 1430
         },
         {
-          "pc": 170,
-          "mobile": 1000,
-          "total": 1170,
+          "pc": 180,
+          "mobile": 1010,
+          "total": 1190,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "착즙",
@@ -66807,17 +66807,17 @@
         },
         {
           "pc": 170,
-          "mobile": 420,
-          "total": 590,
+          "mobile": 430,
+          "total": 600,
           "comp": "중간",
           "depth": 6.0,
           "keyword": "다농이네",
           "bidPos": 110
         },
         {
-          "pc": 40,
-          "mobile": 440,
-          "total": 480,
+          "pc": 50,
+          "mobile": 450,
+          "total": 500,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "아빠의주스",
@@ -66878,31 +66878,40 @@
           "bidPos": 490
         },
         {
-          "pc": 70,
-          "mobile": 210,
-          "total": 280,
+          "pc": 60,
+          "mobile": 200,
+          "total": 260,
           "comp": "중간",
           "depth": 4.0,
           "keyword": "뚜띠푸르티",
           "bidPos": 320
         },
         {
+          "pc": 20,
+          "mobile": 230,
+          "total": 250,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "유기농레몬수",
+          "bidPos": 1790
+        },
+        {
           "pc": 10,
-          "mobile": 250,
-          "total": 260,
+          "mobile": 230,
+          "total": 240,
           "comp": "높음",
           "depth": 7.0,
           "keyword": "착즙사과즙",
           "bidPos": 960
         },
         {
-          "pc": 20,
-          "mobile": 220,
+          "pc": 40,
+          "mobile": 200,
           "total": 240,
           "comp": "높음",
-          "depth": 8.0,
-          "keyword": "유기농레몬수",
-          "bidPos": 1790
+          "depth": 7.0,
+          "keyword": "카페디저트종류",
+          "bidPos": 420
         },
         {
           "pc": 20,
@@ -66912,15 +66921,6 @@
           "depth": 8.0,
           "keyword": "사과착즙",
           "bidPos": 910
-        },
-        {
-          "pc": 30,
-          "mobile": 200,
-          "total": 230,
-          "comp": "높음",
-          "depth": 7.0,
-          "keyword": "카페디저트종류",
-          "bidPos": 420
         },
         {
           "pc": 70,
@@ -66954,18 +66954,18 @@
           "mobile": 170,
           "total": 180,
           "comp": "높음",
-          "depth": 8.0,
-          "keyword": "아기사과주스",
-          "bidPos": 930
-        },
-        {
-          "pc": 10,
-          "mobile": 160,
-          "total": 170,
-          "comp": "높음",
           "depth": 3.0,
           "keyword": "아임사과즙",
           "bidPos": 250
+        },
+        {
+          "pc": 10,
+          "mobile": 170,
+          "total": 180,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "아기사과주스",
+          "bidPos": 930
         },
         {
           "pc": 20,
@@ -66986,13 +66986,13 @@
           "bidPos": 220
         },
         {
-          "pc": 10,
-          "mobile": 130,
-          "total": 140,
-          "comp": "낮음",
-          "depth": 0.0,
-          "keyword": "뽐므드파파",
-          "bidPos": 70
+          "pc": 20,
+          "mobile": 110,
+          "total": 130,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "키즈음료",
+          "bidPos": 2110
         }
       ]
     },
@@ -67000,9 +67000,9 @@
       "seed": "문경사과즙",
       "items": [
         {
-          "pc": 720,
+          "pc": 710,
           "mobile": 3130,
-          "total": 3850,
+          "total": 3840,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "쥬스",
@@ -67010,17 +67010,17 @@
         },
         {
           "pc": 210,
-          "mobile": 1060,
-          "total": 1270,
+          "mobile": 1030,
+          "total": 1240,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "패션후르츠퓨레",
           "bidPos": 750
         },
         {
-          "pc": 170,
-          "mobile": 1000,
-          "total": 1170,
+          "pc": 180,
+          "mobile": 1010,
+          "total": 1190,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "착즙",
@@ -67028,26 +67028,26 @@
         },
         {
           "pc": 170,
-          "mobile": 420,
-          "total": 590,
+          "mobile": 430,
+          "total": 600,
           "comp": "중간",
           "depth": 6.0,
           "keyword": "다농이네",
           "bidPos": 110
         },
         {
-          "pc": 40,
-          "mobile": 440,
-          "total": 480,
+          "pc": 50,
+          "mobile": 450,
+          "total": 500,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "아빠의주스",
           "bidPos": 680
         },
         {
-          "pc": 50,
-          "mobile": 380,
-          "total": 430,
+          "pc": 40,
+          "mobile": 370,
+          "total": 410,
           "comp": "높음",
           "depth": 9.0,
           "keyword": "바나나퓨레",
@@ -67126,9 +67126,9 @@
           "bidPos": 1760
         },
         {
-          "pc": 70,
-          "mobile": 210,
-          "total": 280,
+          "pc": 60,
+          "mobile": 200,
+          "total": 260,
           "comp": "중간",
           "depth": 4.0,
           "keyword": "뚜띠푸르티",
@@ -67136,12 +67136,21 @@
         },
         {
           "pc": 10,
-          "mobile": 250,
-          "total": 260,
+          "mobile": 230,
+          "total": 240,
           "comp": "높음",
           "depth": 7.0,
           "keyword": "착즙사과즙",
           "bidPos": 960
+        },
+        {
+          "pc": 40,
+          "mobile": 200,
+          "total": 240,
+          "comp": "높음",
+          "depth": 7.0,
+          "keyword": "카페디저트종류",
+          "bidPos": 420
         },
         {
           "pc": 20,
@@ -67151,15 +67160,6 @@
           "depth": 8.0,
           "keyword": "사과착즙",
           "bidPos": 910
-        },
-        {
-          "pc": 30,
-          "mobile": 200,
-          "total": 230,
-          "comp": "높음",
-          "depth": 7.0,
-          "keyword": "카페디저트종류",
-          "bidPos": 420
         },
         {
           "pc": 70,
@@ -67184,18 +67184,18 @@
           "mobile": 170,
           "total": 180,
           "comp": "높음",
-          "depth": 8.0,
-          "keyword": "아기사과주스",
-          "bidPos": 930
-        },
-        {
-          "pc": 10,
-          "mobile": 160,
-          "total": 170,
-          "comp": "높음",
           "depth": 3.0,
           "keyword": "아임사과즙",
           "bidPos": 250
+        },
+        {
+          "pc": 10,
+          "mobile": 170,
+          "total": 180,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "아기사과주스",
+          "bidPos": 930
         },
         {
           "pc": 10,
@@ -67216,13 +67216,13 @@
           "bidPos": 930
         },
         {
-          "pc": 10,
-          "mobile": 130,
-          "total": 140,
-          "comp": "낮음",
-          "depth": 0.0,
-          "keyword": "뽐므드파파",
-          "bidPos": 70
+          "pc": 20,
+          "mobile": 110,
+          "total": 130,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "키즈음료",
+          "bidPos": 2110
         }
       ]
     },
@@ -67230,9 +67230,9 @@
       "seed": "애플주스",
       "items": [
         {
-          "pc": 720,
+          "pc": 710,
           "mobile": 3130,
-          "total": 3850,
+          "total": 3840,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "쥬스",
@@ -67240,8 +67240,8 @@
         },
         {
           "pc": 560,
-          "mobile": 2080,
-          "total": 2640,
+          "mobile": 2090,
+          "total": 2650,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "수입과자",
@@ -67249,17 +67249,17 @@
         },
         {
           "pc": 190,
-          "mobile": 1320,
-          "total": 1510,
+          "mobile": 1340,
+          "total": 1530,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "즙",
           "bidPos": 1430
         },
         {
-          "pc": 170,
-          "mobile": 1000,
-          "total": 1170,
+          "pc": 180,
+          "mobile": 1010,
+          "total": 1190,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "착즙",
@@ -67267,8 +67267,8 @@
         },
         {
           "pc": 170,
-          "mobile": 420,
-          "total": 590,
+          "mobile": 430,
+          "total": 600,
           "comp": "중간",
           "depth": 6.0,
           "keyword": "다농이네",
@@ -67284,9 +67284,9 @@
           "bidPos": 420
         },
         {
-          "pc": 40,
-          "mobile": 440,
-          "total": 480,
+          "pc": 50,
+          "mobile": 450,
+          "total": 500,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "아빠의주스",
@@ -67357,8 +67357,8 @@
         },
         {
           "pc": 10,
-          "mobile": 160,
-          "total": 170,
+          "mobile": 170,
+          "total": 180,
           "comp": "높음",
           "depth": 3.0,
           "keyword": "아임사과즙",
@@ -67366,8 +67366,8 @@
         },
         {
           "pc": 10,
-          "mobile": 130,
-          "total": 140,
+          "mobile": 110,
+          "total": 120,
           "comp": "낮음",
           "depth": 0.0,
           "keyword": "뽐므드파파",
@@ -67460,9 +67460,9 @@
       "seed": "선암파머스",
       "items": [
         {
-          "pc": 720,
+          "pc": 710,
           "mobile": 3130,
-          "total": 3850,
+          "total": 3840,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "쥬스",
@@ -67470,17 +67470,17 @@
         },
         {
           "pc": 190,
-          "mobile": 1320,
-          "total": 1510,
+          "mobile": 1340,
+          "total": 1530,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "즙",
           "bidPos": 1430
         },
         {
-          "pc": 170,
-          "mobile": 1000,
-          "total": 1170,
+          "pc": 180,
+          "mobile": 1010,
+          "total": 1190,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "착즙",
@@ -67488,17 +67488,17 @@
         },
         {
           "pc": 170,
-          "mobile": 420,
-          "total": 590,
+          "mobile": 430,
+          "total": 600,
           "comp": "중간",
           "depth": 6.0,
           "keyword": "다농이네",
           "bidPos": 110
         },
         {
-          "pc": 40,
-          "mobile": 440,
-          "total": 480,
+          "pc": 50,
+          "mobile": 450,
+          "total": 500,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "아빠의주스",
@@ -67560,8 +67560,8 @@
         },
         {
           "pc": 10,
-          "mobile": 160,
-          "total": 170,
+          "mobile": 170,
+          "total": 180,
           "comp": "높음",
           "depth": 3.0,
           "keyword": "아임사과즙",
@@ -67569,8 +67569,8 @@
         },
         {
           "pc": 10,
-          "mobile": 130,
-          "total": 140,
+          "mobile": 110,
+          "total": 120,
           "comp": "낮음",
           "depth": 0.0,
           "keyword": "뽐므드파파",
@@ -67672,9 +67672,9 @@
       "seed": "가공품",
       "items": [
         {
-          "pc": 810,
-          "mobile": 2910,
-          "total": 3720,
+          "pc": 820,
+          "mobile": 2890,
+          "total": 3710,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "석영",
@@ -67682,34 +67682,34 @@
         },
         {
           "pc": 730,
-          "mobile": 2160,
-          "total": 2890,
+          "mobile": 2170,
+          "total": 2900,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "알곤용접",
           "bidPos": 5270
         },
         {
-          "pc": 640,
-          "mobile": 1620,
-          "total": 2260,
+          "pc": 630,
+          "mobile": 1590,
+          "total": 2220,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "QUARTZ",
           "bidPos": 6670
         },
         {
-          "pc": 720,
+          "pc": 740,
           "mobile": 1200,
-          "total": 1920,
+          "total": 1940,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "MCT가공",
           "bidPos": 2960
         },
         {
-          "pc": 680,
-          "mobile": 1240,
+          "pc": 690,
+          "mobile": 1230,
           "total": 1920,
           "comp": "높음",
           "depth": 10.0,
@@ -67727,62 +67727,53 @@
         },
         {
           "pc": 400,
-          "mobile": 1380,
-          "total": 1780,
+          "mobile": 1370,
+          "total": 1770,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "알루미늄용접",
           "bidPos": 7310
         },
         {
-          "pc": 630,
-          "mobile": 800,
-          "total": 1430,
+          "pc": 640,
+          "mobile": 780,
+          "total": 1420,
           "comp": "높음",
           "depth": 8.0,
           "keyword": "아크릴가공",
           "bidPos": 2450
         },
         {
-          "pc": 420,
-          "mobile": 670,
-          "total": 1090,
+          "pc": 430,
+          "mobile": 680,
+          "total": 1110,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "철골",
           "bidPos": 2180
         },
         {
-          "pc": 310,
+          "pc": 300,
           "mobile": 580,
-          "total": 890,
+          "total": 880,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "선반가공",
           "bidPos": 4810
         },
         {
-          "pc": 300,
-          "mobile": 260,
-          "total": 560,
+          "pc": 310,
+          "mobile": 270,
+          "total": 580,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "알루미늄가공",
           "bidPos": 7080
         },
         {
-          "pc": 130,
-          "mobile": 390,
-          "total": 520,
-          "comp": "높음",
-          "depth": 8.0,
-          "keyword": "모세관",
-          "bidPos": 690
-        },
-        {
-          "pc": 160,
+          "pc": 170,
           "mobile": 340,
-          "total": 500,
+          "total": 510,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "선반밀링",
@@ -67790,17 +67781,26 @@
         },
         {
           "pc": 130,
-          "mobile": 300,
-          "total": 430,
+          "mobile": 370,
+          "total": 500,
+          "comp": "높음",
+          "depth": 8.0,
+          "keyword": "모세관",
+          "bidPos": 690
+        },
+        {
+          "pc": 130,
+          "mobile": 290,
+          "total": 420,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "유리관",
           "bidPos": 2050
         },
         {
-          "pc": 170,
+          "pc": 180,
           "mobile": 240,
-          "total": 410,
+          "total": 420,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "금속가공",
@@ -67834,15 +67834,6 @@
           "bidPos": 1700
         },
         {
-          "pc": 70,
-          "mobile": 170,
-          "total": 240,
-          "comp": "높음",
-          "depth": 7.0,
-          "keyword": "FSW",
-          "bidPos": 110
-        },
-        {
           "pc": 130,
           "mobile": 110,
           "total": 240,
@@ -67852,9 +67843,18 @@
           "bidPos": 2550
         },
         {
-          "pc": 90,
-          "mobile": 140,
+          "pc": 70,
+          "mobile": 160,
           "total": 230,
+          "comp": "높음",
+          "depth": 7.0,
+          "keyword": "FSW",
+          "bidPos": 110
+        },
+        {
+          "pc": 80,
+          "mobile": 140,
+          "total": 220,
           "comp": "높음",
           "depth": 10.0,
           "keyword": "석영관",
@@ -67870,8 +67870,8 @@
           "bidPos": 2270
         },
         {
-          "pc": 110,
-          "mobile": 100,
+          "pc": 120,
+          "mobile": 90,
           "total": 210,
           "comp": "높음",
           "depth": 7.0,
@@ -67888,13 +67888,13 @@
           "bidPos": 70
         },
         {
-          "pc": 90,
+          "pc": 80,
           "mobile": 100,
-          "total": 190,
+          "total": 180,
           "comp": "높음",
           "depth": 10.0,
-          "keyword": "기어가공",
-          "bidPos": 1910
+          "keyword": "CNC선반가공",
+          "bidPos": 4350
         }
       ]
     }
