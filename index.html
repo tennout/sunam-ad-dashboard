@@ -2470,49 +2470,31 @@ function _renderMetaFunnel(){
   let worst=-1, worstDrop=-1;
   for(let k=1;k<steps.length;k++){ const prev=steps[k-1][1]; if(prev>0){ const drop=1-(steps[k][1]/prev); if(drop>worstDrop){ worstDrop=drop; worst=k; } } }
   const vsort=steps.map(x=>x[1]).slice().sort((x,y)=>y-x);
-  const second=vsort[1]||vsort[0]||1;
+  const maxV=vsort[0]||1;
   const N=steps.length;
-  const AGRI=[null,1.2,85,2.5];   // 농식품(신선식품 이커머스) 평균 전환율(%)
-  const W=620, plotH=220, topPad=38, botPad=34, lp=18, rp=18;
-  const Hs=plotH+topPad+botPad;
-  const slot=(W-lp-rp)/N, barW=Math.min(66, slot*0.58);
-  const unit=(0.70*plotH)/second;   // 2번째값(클릭)=노출 높이의 70%
-  const baseY=topPad+plotH;
-  const geo=steps.map((st,idx)=>{
-    const val=st[1]; const rawH=val*unit; const trunc=rawH>plotH+1;
-    const h=Math.min(plotH, Math.max(6, rawH));
-    const x=lp+slot*idx+(slot-barW)/2; const topY=topPad+(plotH-h);
-    return {x,topY,h,trunc,val,lbl:st[0]};
-  });
-  function wave(x,w,y){ const n=6, seg=w/n, amp=4, band=6; const t=[],b=[];
-    for(let q=0;q<=n;q++){ t.push((x+seg*q)+','+(y+(q%2?amp:-amp))); }
-    for(let q=n;q>=0;q--){ b.push((x+seg*q)+','+(y+band+(q%2?-amp:amp))); }
-    return t.concat(b).join(' '); }
-  let svg='';
-  geo.forEach((g,idx)=>{
-    const col=(idx===N-1)?'#e11d48':'#2b83f0';
-    svg+=`<rect x="${g.x.toFixed(1)}" y="${g.topY.toFixed(1)}" width="${barW.toFixed(1)}" height="${g.h.toFixed(1)}" rx="4" fill="${col}"></rect>`;
-    svg+=`<text x="${(g.x+barW/2).toFixed(1)}" y="${(g.topY-9).toFixed(1)}" text-anchor="middle" font-size="13" font-weight="800" fill="#1b1d21">${fmtInt(g.val)}</text>`;
-    svg+=`<text x="${(g.x+barW/2).toFixed(1)}" y="${(baseY+22).toFixed(1)}" text-anchor="middle" font-size="12" font-weight="700" fill="#1b1d21">${g.lbl}</text>`;
-    if(g.trunc){ svg+=`<polygon points="${wave(g.x,barW,g.topY+22)}" fill="#ffffff"></polygon>`; }
-  });
-  for(let k=1;k<N;k++){
-    const a=geo[k-1], b=geo[k];
-    const x1=a.x+barW, y1=a.topY, x2=b.x, y2=b.topY;
-    svg+=`<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="#aab2ba" stroke-width="1.5" marker-end="url(#fnlAr)"></line>`;
-    const prev=steps[k-1][1], val=steps[k][1];
-    const rate=prev>0?val/prev*100:0;
-    const bm=AGRI[k];
-    const mx=(x1+x2)/2, my=(y1+y2)/2-9;
-    const tip=`${steps[k-1][0]} → ${steps[k][0]}<br><b>전환율 ${fmtPct(rate,1)}</b> · 이탈 ${fmtPct(Math.max(0,100-rate),1)}`+(bm?`<br><span style='opacity:.55'>농식품 평균 ~${bm}%</span>`:'');
-    svg+=`<g class="ttp" data-tip="${tip}" style="cursor:help"><rect x="${(mx-28).toFixed(1)}" y="${(my-16).toFixed(1)}" width="56" height="30" fill="transparent"></rect><text x="${mx.toFixed(1)}" y="${my.toFixed(1)}" text-anchor="middle" font-size="12" font-weight="700" fill="#4b5058">${fmtPct(rate,0)}</text></g>`;
+  const AGRI=[null,1.2,85,2.5];   // 농식품 평균 전환율(%)
+  const logMax=Math.log(maxV+1)||1;
+  function _bar(k){
+    const val=steps[k][1];
+    const h=Math.max(5, Math.round(Math.log(val+1)/logMax*100));
+    const col=(k===N-1)?'#f04452':'#3182f6';
+    return `<div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%"><div style="font-size:15px;font-weight:700;color:#191f28;letter-spacing:-.3px;margin-bottom:7px">${fmtInt(val)}</div><div style="width:100%;max-width:60px;height:${h}%;min-height:6px;background:${col};border-radius:8px 8px 0 0"></div></div>`;
   }
+  function _gap(k){
+    const prev=steps[k-1][1], val=steps[k][1];
+    const rate=prev>0?val/prev*100:0; const bm=AGRI[k];
+    const tip=`${steps[k-1][0]} → ${steps[k][0]}<br><b>전환율 ${fmtPct(rate,1)}</b> · 이탈 ${fmtPct(Math.max(0,100-rate),1)}`+(bm?`<br><span style='opacity:.55'>농식품 평균 ~${bm}%</span>`:'');
+    return `<div class="ttp" data-tip="${tip}" style="flex:0 0 54px;display:flex;align-items:center;justify-content:center;height:100%;cursor:help"><span style="font-size:12.5px;font-weight:700;color:#8b95a1">${fmtPct(rate,0)}</span></div>`;
+  }
+  function _name(k){ return `<div style="flex:1;text-align:center"><div style="font-size:12px;color:#4e5968;font-weight:600">${steps[k][0]}</div></div>`; }
+  let barsRow=_bar(0), nameRow=_name(0);
+  for(let k=1;k<N;k++){ barsRow+=_gap(k)+_bar(k); nameRow+=`<div style="flex:0 0 54px"></div>`+_name(k); }
   const roas=f.cost?f.rev/f.cost*100:0;
   el.innerHTML = _funnelHead(basisAll?'전체 소재':META_FUNNEL_AD, !basisAll) +
-    `<div style="font-size:11.5px;color:var(--muted);margin-bottom:6px">막대를 잇는 선 위 <b>%</b>는 앞 단계 → 다음 단계로 넘어간 <b>전환율</b>이에요. 선에 마우스를 올리면 이탈율·농식품 평균도 보여요.</div>`+
-    `<svg viewBox="0 0 ${W} ${Hs}" width="100%" preserveAspectRatio="xMidYMid meet" style="display:block;max-height:340px"><defs><marker id="fnlAr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#aab2ba"></path></marker></defs>${svg}</svg>`+
-    `<div style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.6">지출 ${fmtWon(f.cost)} · 매출 ${fmtWon(f.rev)} · ROAS ${_mFmtRoas(roas)}</div>`+
-    `<div style="font-size:11.5px;color:var(--muted);margin-top:4px">장바구니 담기 <b>${fmtInt(f.atc)}</b>회 <span style="opacity:.85">— 구매는 장바구니를 거치지 않는 경우도 있어 별도 참고 지표</span></div>`;
+    `<div style="display:flex;align-items:stretch;height:230px;padding:0 4px">${barsRow}</div>`+
+    `<div style="display:flex;margin-top:10px">${nameRow}</div>`+
+    `<div style="font-size:11.5px;color:#8b95a1;margin-top:14px;line-height:1.6">막대 높이는 <b>로그 스케일</b>이에요 — 노출과 구매의 격차가 워낙 커서 압축해 표시(실제 값은 위 숫자). 막대 사이 <b>%</b>는 전환율이고, 올리면 이탈율·농식품 평균이 떠요.</div>`+
+    `<div style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.6;border-top:1px solid var(--line);padding-top:10px">지출 ${fmtWon(f.cost)} · 매출 ${fmtWon(f.rev)} · ROAS ${_mFmtRoas(roas)} · 장바구니 담기 ${fmtInt(f.atc)}회<span style="opacity:.8"> (구매 경로와 별개일 수 있는 참고 지표)</span></div>`;
 }
 function _funnelHead(name, isOne){
   const nm = name.length>24?name.slice(0,24)+'…':name;
