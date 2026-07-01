@@ -2,7 +2,7 @@
   "meta": {
     "account": "선암파머스",
     "customerId": "1872388",
-    "fetchedAt": "2026-07-01 05:29:08",
+    "fetchedAt": "2026-07-01 05:55:45",
     "rangeStart": "2025-07-02",
     "rangeEnd": "2026-07-01",
     "campaignCount": 9,
@@ -10,8 +10,8 @@
     "creativeCount": 114,
     "hasKeywordTool": true,
     "hasBidEstimate": true,
-    "acctCvr": 7.05,
-    "acctAov": 71144,
+    "acctCvr": 7.06,
+    "acctAov": 71227,
     "bidPosition": 3
   },
   "daily": [
@@ -7309,7 +7309,7 @@
       "date": "2026-07-01",
       "ad": "powerlink",
       "campaign": "cmp-a001-01-000000010084907",
-      "imp": 58,
+      "imp": 84,
       "clk": 2,
       "cost": 347,
       "conv": 1,
@@ -32859,11 +32859,11 @@
       "date": "2026-07-01",
       "ad": "shop",
       "campaign": "cmp-a001-02-000000010110962",
-      "imp": 3066,
-      "clk": 11,
-      "cost": 7614,
-      "conv": 1,
-      "rev": 67000
+      "imp": 3543,
+      "clk": 14,
+      "cost": 9842,
+      "conv": 2,
+      "rev": 167000
     }
   ],
   "kwDaily": [
@@ -56561,7 +56561,7 @@
       "date": "2026-07-01",
       "kw": "선암파머스",
       "ad": "powerlink",
-      "imp": 6,
+      "imp": 7,
       "clk": 1,
       "cost": 220,
       "conv": 1,
