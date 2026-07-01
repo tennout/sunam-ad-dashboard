@@ -2582,6 +2582,12 @@ function refreshHeaderSub(){
     parts.push('네이버 검색광고: 샘플 데이터 (연동 전)');
   }
   if(metaOn) parts.push('메타 연동됨');
+  const dr = (typeof channelDateRange==='function') ? channelDateRange() : null;
+  if(dr && dr.min && dr.max){
+    const d1=new Date(dr.min), d2=new Date(dr.max);
+    const nd=Math.round((d2-d1)/86400000)+1;
+    parts.push(`데이터 기간 <b>${dr.min} ~ ${dr.max}</b> (${nd}일)`);
+  }
   sub.innerHTML = parts.join(' · ');
 }
 function updateChannelStatus(){
@@ -2669,6 +2675,7 @@ function _tryLoadScript(src){
 
 async function loadAccounts(){
   const ok = await _tryLoadScript('./data/bundle.js');
+  try{ await _tryLoadScript('./data/meta_bundle.js'); }catch(e){}
   const b = window.NAVER_ADS_BUNDLE;
   if(ok && b && Array.isArray(b.accounts) && b.accounts.length){
     ACCOUNTS = b.accounts.map(a=>({
@@ -2910,6 +2917,12 @@ function _acctKey(base){ return (typeof CURRENT_ACCT!=='undefined' && CURRENT_AC
 function loadAccountUploads(){
   function ld(key){ try{ const v=localStorage.getItem(key); if(v){ const p=JSON.parse(v); return {data:Array.isArray(p.data)?p.data:[], meta:p.meta||null}; } }catch(e){} return {data:[],meta:null}; }
   const m=ld(_acctKey('sunamfarmers_meta_upload'));    META_UPLOADED_DATA=m.data; META_UPLOADED_META=m.meta;
+  // CSV 업로드가 없으면 API 자동수집(meta_bundle.js)으로 채움
+  if((!META_UPLOADED_DATA || !META_UPLOADED_DATA.length) && window.META_ADS_BUNDLE && Array.isArray(window.META_ADS_BUNDLE.daily) && window.META_ADS_BUNDLE.daily.length){
+    const B=window.META_ADS_BUNDLE;
+    META_UPLOADED_DATA = B.daily.map(r=>({date:r.date, ad:'meta', campaign:r.campaign||'', adname:r.ad||'', imp:r.imp||0, clk:r.clk||0, cost:r.cost||0, conv:r.conv||0, rev:r.rev||0, lpv:r.lpv||0, atc:r.atc||0, freq:r.freq||0, reach:r.reach||0}));
+    META_UPLOADED_META = {source:'api', uploadedAt:(B.generatedAt||''), rows:META_UPLOADED_DATA.length};
+  }
   const d=ld(_acctKey('sunamfarmers_da_upload'));      DA_UPLOADED_DATA=d.data;   DA_UPLOADED_META=d.meta;
   const a=ld(_acctKey('sunamfarmers_meta_ad_upload')); META_AD_DATA=a.data;       META_AD_META=a.meta;
 }
