@@ -689,8 +689,8 @@
           <option value="roas">ROAS 높은순</option><option value="cost">지출 많은순</option><option value="ctr">CTR 높은순</option><option value="conv">구매 많은순</option>
         </select></h2>
       <div style="display:flex;gap:18px;flex-wrap:wrap;align-items:flex-start">
-        <div id="metaFunnelBody" style="flex:1 1 260px;min-width:250px;display:flex;flex-direction:column;justify-content:center"></div>
-        <div id="metaCreativeList" style="flex:1.5 1 380px;min-width:320px"></div>
+        <div id="metaFunnelBody" style="flex:1.6 1 380px;min-width:320px;display:flex;flex-direction:column;justify-content:center"></div>
+        <div id="metaCreativeList" style="flex:1 1 280px;min-width:270px"></div>
       </div>
     </div>
     <div class="panel" id="metaPlacePanel" style="margin-bottom:18px;display:none">
@@ -2464,9 +2464,9 @@ function _renderMetaFunnel(){
     if(!c){ el.innerHTML=_funnelHead(META_FUNNEL_AD,true)+'<div style="font-size:13px;color:var(--muted);padding:10px 0">이 소재의 데이터가 없어요.</div>'; return; }
     f={imp:c.imp||0,clk:c.clk||0,lpv:c.lpv||0,atc:c.atc||0,conv:c.conv||0,rev:c.rev||0,cost:c.cost||0};
   }
-  const steps=[['노출',f.imp],['클릭',f.clk],['랜딩 조회',f.lpv],['장바구니',f.atc],['구매',f.conv]];
-  const meaning=['광고가 화면에 표시된 횟수','광고를 클릭한 횟수','클릭 후 랜딩페이지가 열린 횟수','장바구니에 담은 횟수','구매를 완료한 횟수'];
-  const bench=[null,1.0,80,6,35];
+  const steps=[['노출',f.imp],['클릭',f.clk],['랜딩 조회',f.lpv],['구매',f.conv]];
+  const meaning=['광고가 화면에 표시된 횟수','광고를 클릭한 횟수','클릭 후 랜딩페이지가 열린 횟수','구매를 완료한 횟수'];
+  const bench=[null,1.0,80,2.5];
   let worst=-1, worstDrop=-1;
   for(let k=1;k<steps.length;k++){ const prev=steps[k-1][1]; if(prev>0){ const drop=1-(steps[k][1]/prev); if(drop>worstDrop){ worstDrop=drop; worst=k; } } }
   const vsort=steps.map(x=>x[1]).slice().sort((x,y)=>y-x);
@@ -2484,7 +2484,7 @@ function _renderMetaFunnel(){
     const rate=(prev&&prev>0)?(val/prev*100):null;
     let tip=`<b>${lbl}</b> ${fmtInt(val)} · ${meaning2[k]}`;
     if(trunc) tip+=' · 막대가 커서 중간 생략';
-    const brk = trunc ? `<div style="position:absolute;left:0;right:0;top:26px;height:16px;pointer-events:none"><svg viewBox="0 0 40 16" preserveAspectRatio="none" width="100%" height="16" style="display:block"><polygon points="0,7 6.7,3 13.3,11 20,3 26.7,11 33.3,3 40,7 40,9 33.3,13 26.7,5 20,13 13.3,5 6.7,13 0,9" fill="var(--card,#fff)"></polygon></svg></div>` : '';
+    const brk = trunc ? `<div style="position:absolute;left:-1px;right:-1px;top:24px;height:18px;pointer-events:none"><svg viewBox="0 0 100 20" preserveAspectRatio="none" width="100%" height="18" style="display:block"><polygon points="0,10 12.5,4 25,14 37.5,4 50,14 62.5,4 75,14 87.5,4 100,10 100,15 87.5,9 75,19 62.5,9 50,19 37.5,9 25,19 12.5,9 0,15" fill="#ffffff"></polygon></svg></div>` : '';
     barEls.push(`<div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%"><div style="font-size:12.5px;font-weight:800;margin-bottom:4px;white-space:nowrap">${fmtInt(val)}</div><div class="ttp" data-tip="${tip}" style="position:relative;width:100%;max-width:58px;height:${h}%;min-height:6px;background:${col};border-radius:6px 6px 0 0;cursor:help">${brk}</div></div>`);
     nameEls.push(`<div style="flex:1;text-align:center"><div style="font-size:11.5px;font-weight:700">${lbl}</div></div>`);
   });
@@ -2492,16 +2492,16 @@ function _renderMetaFunnel(){
   function gapChip(k){
     const prev=steps[k-1][1], val=steps[k][1];
     const rate=(prev>0)?(val/prev*100):null;
-    const bm=[null,1.0,80,6,35][k];
+    const bm=[null,1.0,80,2.5][k];
     const bad=(k===worst && worstDrop>0);
-    if(rate==null) return '<div style="flex:0 0 46px"></div>';
-    const vd=bm?(rate>=bm*1.1?'참고보다 좋음':rate<=bm*0.7?'참고보다 낮음':'참고 범위 내'):'';
-    const tip=`${steps[k-1][0]}→${steps[k][0]} 전환율 ${fmtPct(rate,1)}${bm?` · 업계 참고 ~${bm}% · ${vd}`:''}`;
+    if(rate==null) return '<div style="flex:0 0 62px"></div>';
+    const vd=bm?(rate>=bm*1.1?'참고보다 좋음':rate<=bm*0.7?'참고보다 낮음':'참고 범위'):'';
+    const tip=`${steps[k-1][0]} → ${steps[k][0]}<br><b>전환율 ${fmtPct(rate,1)}</b>`+(bm?`<br><span style='opacity:.5'>업계 참고 ~${bm}% · ${vd}</span>`:'');
     const col=bad?'#e11d48':'var(--ink-2)';
-    return `<div style="flex:0 0 46px;display:flex;align-items:center;justify-content:center;height:100%"><span class="ttp" data-tip="${tip}" style="font-size:11px;font-weight:700;color:${col};cursor:help;text-align:center;line-height:1.25">↓<br>${fmtPct(rate,0)}${bad?'<br>⚠️':''}</span></div>`;
+    return `<div class="ttp" data-tip="${tip}" style="flex:0 0 62px;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;cursor:help;border-radius:8px"><span style="font-size:14px;color:${col};line-height:1">↓</span><span style="font-size:11.5px;font-weight:700;color:${col};margin-top:1px">${fmtPct(rate,0)}</span></div>`;
   }
   let barsRow=barEls[0], nameRow=nameEls[0];
-  for(let k=1;k<steps.length;k++){ barsRow+=gapChip(k)+barEls[k]; nameRow+=`<div style="flex:0 0 46px"></div>`+nameEls[k]; }
+  for(let k=1;k<steps.length;k++){ barsRow+=gapChip(k)+barEls[k]; nameRow+=`<div style="flex:0 0 62px"></div>`+nameEls[k]; }
   const roas=f.cost?f.rev/f.cost*100:0;
   const tip = worst>0 ? `이탈 최대 구간: <b>${steps[worst-1][0]}→${steps[worst][0]}</b>. `+(
       steps[worst][0]==='클릭'?'소재(썸네일·문구)가 클릭을 못 끌고 있어요.':
@@ -2511,7 +2511,8 @@ function _renderMetaFunnel(){
   el.innerHTML = _funnelHead(basisAll?'전체 소재':META_FUNNEL_AD, !basisAll) +
     `<div style="display:flex;align-items:stretch;height:300px">${barsRow}</div>`+
     `<div style="display:flex;margin-top:8px;border-top:1px solid var(--line);padding-top:8px">${nameRow}</div>`+
-    `<div style="font-size:12px;color:var(--ink-2);margin-top:12px;line-height:1.6">${tip} <span style="color:var(--muted)">· 지출 ${fmtWon(f.cost)} · 매출 ${fmtWon(f.rev)} · ROAS ${_mFmtRoas(roas)}</span></div>`;
+    `<div style="font-size:12px;color:var(--ink-2);margin-top:12px;line-height:1.6">${tip} <span style="color:var(--muted)">· 지출 ${fmtWon(f.cost)} · 매출 ${fmtWon(f.rev)} · ROAS ${_mFmtRoas(roas)}</span></div>`+
+    `<div style="font-size:11.5px;color:var(--muted);margin-top:6px">장바구니 담기 <b>${fmtInt(f.atc)}</b>회 <span style="opacity:.85">— 구매는 장바구니를 거치지 않는 경우도 있어 별도 참고 지표로 표시</span></div>`;
 }
 function _funnelHead(name, isOne){
   const nm = name.length>24?name.slice(0,24)+'…':name;
@@ -2542,12 +2543,15 @@ function _renderMetaCreativeList(cr){
     const on=(META_FUNNEL_AD===(c.ad||'(이름 없음)'));
     const img=c.thumb?`<img src="${c.thumb}" style="width:44px;height:44px;object-fit:cover;border-radius:6px;background:#eef1f5;flex-shrink:0" loading="lazy" onerror="this.style.visibility='hidden'">`:`<div style="width:44px;height:44px;border-radius:6px;background:#eef1f5;flex-shrink:0"></div>`;
     const fb=(c.freq||0)>=3?'<span style="color:#b91c3c">·피로↑</span>':'';
-    return `<div class="mcrow" data-ad="${_esc(c.ad||'(이름 없음)')}" style="display:flex;align-items:center;gap:9px;padding:7px 8px;border-radius:8px;cursor:pointer;border:1px solid ${on?AC:'transparent'};background:${on?'#eef7f4':'transparent'}">${img}<div style="flex:1;min-width:0"><div style="font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${_esc(c.ad||'(이름 없음)')}</div><div style="font-size:10.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${_esc(c.campaign||'(캠페인 없음)')}</div><div style="font-size:11px;color:var(--ink-2);margin-top:2px">ROAS <b style="color:${roas>=300?'#027a38':roas>0?'#92400e':'var(--muted)'}">${_mFmtRoas(roas)}</b> · 지출 ${fmtWon(c.cost)} · CTR ${fmtPct(ctr)} · 구매 ${fmtInt(c.conv)} ${fb}</div></div></div>`;}).join('');
+    return `<div class="mcrow${on?' mcrow-active':''}" data-ad="${_esc(c.ad||'(이름 없음)')}" style="display:flex;align-items:center;gap:9px;padding:7px 8px;border-radius:8px;cursor:pointer;border:1px solid ${on?AC:'transparent'};background:${on?'#eef7f4':'transparent'}">${img}<div style="flex:1;min-width:0"><div style="font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${_esc(c.ad||'(이름 없음)')}</div><div style="font-size:10.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${_esc(c.campaign||'(캠페인 없음)')}</div><div style="font-size:11px;color:var(--ink-2);margin-top:2px">ROAS <b style="color:${roas>=300?'#027a38':roas>0?'#92400e':'var(--muted)'}">${_mFmtRoas(roas)}</b> · 지출 ${fmtWon(c.cost)} · CTR ${fmtPct(ctr)} · 구매 ${fmtInt(c.conv)} ${fb}</div></div></div>`;}).join('');
   el.innerHTML =
     `<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px"><span style="font-size:12px;color:var(--ink-2);font-weight:700">소재 ${fmtInt(filtered.length)}개</span><select id="metaCampFilter" style="font-size:12px;padding:5px 9px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink-2);font-family:inherit;cursor:pointer;max-width:220px">${campOpts}</select></div>`+
     allRow+
-    `<div style="max-height:440px;overflow:auto;margin-top:4px">${rows||'<div style="font-size:12px;color:var(--muted);padding:10px">소재 데이터가 없어요.</div>'}</div>`+
+    `<div id="metaCreativeScroll" style="max-height:440px;overflow:auto;margin-top:4px;position:relative">${rows||'<div style="font-size:12px;color:var(--muted);padding:10px">소재 데이터가 없어요.</div>'}</div>`+
     `<div style="font-size:11px;color:var(--muted);margin-top:6px">소재를 클릭하면 왼쪽 퍼널이 그 소재로 바뀌어요.</div>`;
+  const _sc=document.getElementById('metaCreativeScroll');
+  const _act=_sc&&_sc.querySelector('.mcrow-active');
+  if(_sc&&_act){ _sc.scrollTop = Math.max(0, _act.offsetTop - _sc.clientHeight/2 + _act.offsetHeight/2); }
 }
 function _renderMetaPlacements(pl){
   const el=document.getElementById('metaPlaceBody'); if(!el) return;
