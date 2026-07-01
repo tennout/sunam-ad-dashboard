@@ -682,6 +682,26 @@
       <div class="opinions" id="metaCampOps"></div>
       <div style="font-size:11.5px;color:var(--muted);margin-top:12px;line-height:1.65">※ <b>업계 참고치</b>는 농식품·신선식품 이커머스의 <b>메타(페이스북·인스타그램) 광고 통상 범위</b>를 추정한 기본값이에요 — CTR 0.8~2.0% · CPC 300~800원 · ROAS 200~500%. 공식 통계가 아니라 일반적인 가늠선이라, 정확한 비교는 <b>내 과거 성과</b>를 기준으로 삼는 게 가장 좋아요.</div>
     </div>
+
+    <div class="panel" id="metaFunnelPanel" style="margin-bottom:18px;display:none">
+      <h2>구매 퍼널 <span class="tag">선택 기간 · 노출→구매 이탈 진단</span></h2>
+      <div id="metaFunnelBody"></div>
+    </div>
+    <div class="panel" id="metaPlacePanel" style="margin-bottom:18px;display:none">
+      <h2>지면별 성과 <span class="tag">피드·릴스·스토리·탐색 (전체 수집 기간)</span></h2>
+      <div id="metaPlaceBody"></div>
+    </div>
+    <div class="panel" id="metaFatiguePanel" style="margin-bottom:18px;display:none">
+      <h2>소재 피로도 <span class="tag">빈도(1인당 평균 노출) · 전체 수집 기간</span></h2>
+      <div id="metaFatigueBody"></div>
+    </div>
+    <div class="panel" id="metaGalleryPanel" style="margin-bottom:18px;display:none">
+      <h2 style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><span>소재 미리보기 <span class="tag">썸네일 + 성과 · 전체 수집 기간</span></span>
+        <select id="metaGalSort" style="font-size:12px;padding:5px 9px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink-2);font-family:inherit;cursor:pointer">
+          <option value="roas">ROAS 높은순</option><option value="cost">지출 많은순</option><option value="ctr">CTR 높은순</option><option value="conv">구매 많은순</option>
+        </select></h2>
+      <div id="metaGalleryBody"></div>
+    </div>
   </div>
 
   <!-- KEYWORD TABLES -->
@@ -2173,6 +2193,7 @@ document.addEventListener('change', e=>{
   if(t.id==='tgtRoas'){ const v=parseInt(t.value,10); TARGET_ROAS=(v>0?v:400); renderKwOpp(); }
   else if(t.id==='inAov'){ const v=parseFloat(t.value); USER_AOV=(v>0?v:null); renderKwOpp(); }
   else if(t.id==='inCvr'){ const v=parseFloat(t.value); USER_CVR=(v>0?v:null); renderKwOpp(); }
+  else if(t.id==='metaGalSort'){ META_GAL_SORT=t.value||'roas'; if(typeof _renderMetaGallery==='function' && window.META_ADS_BUNDLE) _renderMetaGallery(window.META_ADS_BUNDLE.creatives||[]); }
 });
 
 /* ============================================================
@@ -2410,6 +2431,94 @@ function renderMetaCampOpinions(camps, ads, ctx){
   tgt.innerHTML = _opsHTML(ops) + '<div style="font-size:11.5px;color:var(--muted);margin-top:12px;line-height:1.65">※ <b>업계 참고치</b>는 농식품·신선식품 이커머스의 <b>메타 광고 통상 범위</b> 추정값이에요 — CTR 0.8~2.0% · CPC 300~800원 · ROAS 200~500%. 공식 통계가 아니라 가늠선이니, 정확한 비교는 <b>내 과거 성과</b> 기준이 가장 좋아요.</div>';
 }
 
+let META_GAL_SORT='roas';
+function _mFmtRoas(c){ return c>0?fmtPct(c,0):'—'; }
+function renderMetaExtra(){
+  const B=(typeof window!=='undefined')?window.META_ADS_BUNDLE:null;
+  const has=!!(B && (B.placements||B.creatives));
+  ['metaFunnelPanel','metaPlacePanel','metaFatiguePanel','metaGalleryPanel'].forEach(id=>{const el=document.getElementById(id); if(el) el.style.display=has?'':'none';});
+  // 퍼널은 CSV만 있어도 lpv/atc 있으면 표시
+  _renderMetaFunnel();
+  if(!has) return;
+  _renderMetaPlacements(B.placements||[]);
+  _renderMetaFatigue(B.creatives||[]);
+  _renderMetaGallery(B.creatives||[]);
+}
+function _renderMetaFunnel(){
+  const el=document.getElementById('metaFunnelBody'); if(!el) return;
+  const a=dateStr(currentStart), b=dateStr(currentEnd);
+  const f={imp:0,clk:0,lpv:0,atc:0,conv:0,rev:0,cost:0};
+  (META_UPLOADED_DATA||[]).forEach(r=>{ if(r.date<a||r.date>b) return; f.imp+=r.imp;f.clk+=r.clk;f.lpv+=(r.lpv||0);f.atc+=(r.atc||0);f.conv+=r.conv;f.rev+=r.rev;f.cost+=r.cost; });
+  const steps=[['노출',f.imp],['클릭',f.clk],['랜딩 조회',f.lpv],['장바구니',f.atc],['구매',f.conv]];
+  if(f.imp<=0){ el.innerHTML='<div style="font-size:13px;color:var(--muted)">선택 기간에 데이터가 없어요.</div>'; return; }
+  // 단계별 전환율 및 최악 이탈 구간
+  let worst=-1, worstDrop=-1;
+  for(let i=1;i<steps.length;i++){ const prev=steps[i-1][1], cur=steps[i][1]; if(prev>0){ const drop=1-(cur/prev); if(steps[i][1]>=0 && drop>worstDrop && prev>0){ worstDrop=drop; worst=i; } } }
+  const max=steps[0][1]||1;
+  const rows=steps.map((st,i)=>{
+    const [lbl,val]=st; const w=Math.max(2, Math.round(val/max*100));
+    const prev=i>0?steps[i-1][1]:null;
+    const rate=(prev&&prev>0)?(val/prev*100):null;
+    const bad=(i===worst && worstDrop>0);
+    const col=bad?'#e11d48':'#1877f2';
+    return `<div style="margin:7px 0">
+      <div style="display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:3px"><span><b>${lbl}</b> ${fmtInt(val)}</span>${rate!=null?`<span style="color:${bad?'#e11d48':'var(--muted)'}">전 단계의 ${fmtPct(rate,1)}${bad?' · 최대 이탈 ⚠️':''}</span>`:''}</div>
+      <div style="height:16px;background:#eef1f5;border-radius:6px;overflow:hidden"><div style="height:100%;width:${w}%;background:${col}"></div></div>
+    </div>`;
+  }).join('');
+  const roas=f.cost?f.rev/f.cost*100:0;
+  const tip = worst>0 ? `가장 많이 빠지는 구간은 <b>${steps[worst-1][0]}→${steps[worst][0]}</b>예요. `+(
+      steps[worst][0]==='클릭'?'소재(썸네일·문구)가 클릭을 못 끌고 있어요.':
+      steps[worst][0]==='랜딩 조회'?'클릭 후 페이지 로딩·링크를 점검하세요.':
+      steps[worst][0]==='장바구니'?'랜딩페이지 상품 매력·가격을 점검하세요.':
+      steps[worst][0]==='구매'?'장바구니 후 결제 단계(배송비·결제수단)를 점검하세요.':'') : '';
+  el.innerHTML = rows + `<div style="font-size:12px;color:var(--ink-2);margin-top:10px;line-height:1.6">${tip} <span style="color:var(--muted)">· 기간 지출 ${fmtWon(f.cost)} · 매출 ${fmtWon(f.rev)} · ROAS ${_mFmtRoas(roas)}</span></div>`;
+}
+function _renderMetaPlacements(pl){
+  const el=document.getElementById('metaPlaceBody'); if(!el) return;
+  const m={};
+  pl.forEach(p=>{ const k=`${p.platform||'?'} · ${p.position||'?'}`; const o=m[k]||(m[k]={name:k,imp:0,clk:0,cost:0,conv:0,rev:0}); o.imp+=p.imp||0;o.clk+=p.clk||0;o.cost+=p.cost||0;o.conv+=p.conv||0;o.rev+=p.rev||0; });
+  const rows=Object.values(m).filter(o=>o.cost>0||o.imp>0).sort((a,b)=>b.cost-a.cost);
+  if(!rows.length){ el.innerHTML='<div style="font-size:13px;color:var(--muted)">지면 데이터가 없어요.</div>'; return; }
+  const tr=rows.map(o=>{const ctr=o.imp?o.clk/o.imp*100:0,roas=o.cost?o.rev/o.cost*100:0;
+    return `<tr><td style="text-align:left">${_esc(o.name)}</td><td>${fmtInt(o.imp)}</td><td>${fmtInt(o.clk)}</td><td>${fmtPct(ctr)}</td><td>${fmtWon(o.cost)}</td><td>${fmtInt(o.conv)}</td><td>${fmtWon(o.rev)}</td><td><b>${_mFmtRoas(roas)}</b></td></tr>`;}).join('');
+  el.innerHTML=`<div style="overflow-x:auto"><table class="tbl"><thead><tr><th style="text-align:left">지면</th><th>노출</th><th>클릭</th><th>CTR</th><th>지출</th><th>구매</th><th>매출</th><th>ROAS</th></tr></thead><tbody>${tr}</tbody></table></div><div style="font-size:12px;color:var(--ink-2);margin-top:8px">→ ROAS 높은 지면에 예산을 몰고, 낮은 지면은 제외를 검토하세요. (메타 자동배치라 지면별 편차가 큼)</div>`;
+}
+function _renderMetaFatigue(cr){
+  const el=document.getElementById('metaFatigueBody'); if(!el) return;
+  const rows=cr.filter(c=>(c.cost||0)>0 && (c.freq||0)>0).sort((a,b)=>(b.freq||0)-(a.freq||0)).slice(0,12);
+  if(!rows.length){ el.innerHTML='<div style="font-size:13px;color:var(--muted)">빈도 데이터가 없어요.</div>'; return; }
+  const badge=f=> f>=3?['#b91c3c','#fdecec','피로 높음']: f>=2?['#92400e','#fdf6ec','주의']:['#027a38','#eefaf0','양호'];
+  const tr=rows.map(c=>{const [col,bg,lb]=badge(c.freq);const roas=c.cost?c.rev/c.cost*100:0;
+    return `<tr><td style="text-align:left">${_esc(c.ad||'(이름 없음)')}</td><td><b>${(c.freq||0).toFixed(2)}</b></td><td><span style="padding:1px 8px;border-radius:10px;font-size:11px;font-weight:700;color:${col};background:${bg}">${lb}</span></td><td>${fmtInt(c.imp)}</td><td>${fmtWon(c.cost)}</td><td>${_mFmtRoas(roas)}</td></tr>`;}).join('');
+  el.innerHTML=`<div style="overflow-x:auto"><table class="tbl"><thead><tr><th style="text-align:left">소재</th><th>빈도<i class="info-ic ttp" data-tip="빈도 = 1인당 평균 노출 횟수 (노출÷도달). 같은 사람에게 반복 노출될수록 커져요. 보통 3을 넘으면 피로 신호 — CTR 하락·CPM 상승이 오면 소재를 교체하세요.">ⓘ</i></th><th>상태</th><th>노출</th><th>지출</th><th>ROAS</th></tr></thead><tbody>${tr}</tbody></table></div><div style="font-size:12px;color:var(--ink-2);margin-top:8px">→ <b>빈도 3 이상 + 효율 하락</b>이면 소재 교체 시점이에요. 같은 사람에게 계속 같은 광고가 노출되고 있다는 뜻.</div>`;
+  bindInfoTipsRebind();
+}
+function _renderMetaGallery(cr){
+  const el=document.getElementById('metaGalleryBody'); if(!el) return;
+  const withThumb=cr.filter(c=>(c.cost||0)>0);
+  const key=META_GAL_SORT;
+  const sorted=[...withThumb].sort((a,b)=>{
+    if(key==='cost') return (b.cost||0)-(a.cost||0);
+    if(key==='ctr') return ((b.imp?b.clk/b.imp:0)-(a.imp?a.clk/a.imp:0));
+    if(key==='conv') return (b.conv||0)-(a.conv||0);
+    return ((b.cost?b.rev/b.cost:0)-(a.cost?a.rev/a.cost:0));
+  }).slice(0,24);
+  if(!sorted.length){ el.innerHTML='<div style="font-size:13px;color:var(--muted)">소재 데이터가 없어요.</div>'; return; }
+  const cards=sorted.map(c=>{const roas=c.cost?c.rev/c.cost*100:0,ctr=c.imp?c.clk/c.imp*100:0;
+    const img=c.thumb?`<img src="${c.thumb}" style="width:100%;height:120px;object-fit:cover;background:#f0f0f0" loading="lazy" onerror="this.style.display='none';this.parentNode.style.background='#eef1f5'">`:'<div style="height:120px;background:#eef1f5;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:12px">미리보기 없음</div>';
+    const lnk=c.link?`<a href="${c.link}" target="_blank" style="color:#1877f2;font-size:11px">원본 보기 ↗</a>`:'';
+    return `<div style="border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--card)">
+      <div style="position:relative">${img}</div>
+      <div style="padding:8px 10px">
+        <div style="font-size:12px;font-weight:600;line-height:1.4;height:34px;overflow:hidden">${_esc(c.ad||'(이름 없음)')}</div>
+        <div style="font-size:12px;color:var(--ink-2);margin-top:4px">ROAS <b style="color:${roas>=300?'#027a38':roas>0?'#92400e':'var(--muted)'}">${_mFmtRoas(roas)}</b> · 지출 ${fmtWon(c.cost)}</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:2px">CTR ${fmtPct(ctr)} · 구매 ${fmtInt(c.conv)} · 빈도 ${(c.freq||0).toFixed(1)}</div>
+        <div style="margin-top:5px">${lnk}</div>
+      </div></div>`;}).join('');
+  el.innerHTML=`<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px">${cards}</div>`;
+}
+function bindInfoTipsRebind(){ /* .ttp는 위임 바인딩이라 별도 처리 불필요 */ }
 function renderMetaReport(ctx){
   const hasCamp = META_UPLOADED_DATA.some(r=>r.campaign);
   let camps=_metaAgg(META_UPLOADED_DATA,'campaign').filter(o=>o.cost>0||o.imp>0);
@@ -2566,14 +2675,38 @@ function _statusHTML(kind){
   const a=map[kind]||map.none;
   return `<span style="display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;padding:2px 7px;border-radius:999px;background:${a[0]}1a;color:${a[0]};vertical-align:middle"><span style="width:6px;height:6px;border-radius:50%;background:${a[0]}"></span>${a[1]}</span>`;
 }
+function _parseTs(x){ if(!x) return null; const d=new Date(String(x).replace(' ','T')); return isNaN(d)?null:d; }
+// 현재 채널의 마지막 "수집" 시각과 경과일 (자동연동 채널만 미갱신 경고 대상)
+function _freshInfo(){
+  let ts=null, auto=false, label='';
+  if(MAIN_CHANNEL==='META'){
+    const M=(typeof META_UPLOADED_META!=='undefined')?META_UPLOADED_META:null;
+    if(M){ ts=_parseTs(M.uploadedAt); auto=(M.source==='api'); label='메타'; }
+  } else if(MAIN_CHANNEL==='DA'){
+    const D=(typeof DA_UPLOADED_META!=='undefined')?DA_UPLOADED_META:null;
+    if(D){ ts=_parseTs(D.uploadedAt); auto=false; label='디스플레이'; }
+  } else {
+    if(typeof LIVE_FETCHED!=='undefined' && LIVE_FETCHED){ ts=_parseTs(LIVE_FETCHED); auto=true; label='네이버 검색광고'; }
+  }
+  if(!ts) return null;
+  const days=Math.floor((Date.now()-ts.getTime())/86400000);
+  return {ts, days, auto, label};
+}
 function refreshHeaderSub(){
   const sub=document.getElementById('headerSub'); if(!sub) return;
   const a=(typeof CURRENT_ACCT!=='undefined')?CURRENT_ACCT:null;
   const metaOn=(typeof META_UPLOADED_DATA!=='undefined' && META_UPLOADED_DATA.length>0);
   const parts=[];
+  // ── 채널 공통 최종 갱신 시각 + 미갱신 경고 ──
+  const fi=_freshInfo();
+  const lu=document.getElementById('lastUpdate');
+  if(fi){
+    const rel = fi.days<=0 ? '오늘' : (fi.days===1?'어제':`${fi.days}일 전`);
+    if(lu){ lu.textContent = `${fi.ts.toLocaleString('ko-KR')} (${rel})`; lu.style.color = (fi.auto && fi.days>=2)?'var(--red)':''; }
+  }
   if(a && a.status==='ok'){
     parts.push(`네이버 검색광고 · Customer ID ${a.customerId} · 매일 04시 자동 갱신`);
-    if(LIVE_FETCHED){ const fd=new Date(String(LIVE_FETCHED).replace(' ','T')); const days=Math.floor((Date.now()-fd.getTime())/86400000); if(!isNaN(days)&&days>=2) parts.push(`<span style="color:var(--red);font-weight:700">⚠️ ${days}일째 미갱신 — 연동 점검 필요</span>`); }
+    if(fi && fi.auto && MAIN_CHANNEL!=='META' && MAIN_CHANNEL!=='DA' && fi.days>=2) parts.push(`<span style="color:var(--red);font-weight:700">⚠️ ${fi.days}일째 미갱신 — 연동 점검 필요</span>`);
   } else if(a && a.status==='err'){
     parts.push('<span style="color:var(--red);font-weight:700">네이버 검색광고 연동 실패 — API 키 점검</span>');
   } else if(a && a.status==='blank'){
@@ -2581,7 +2714,11 @@ function refreshHeaderSub(){
   } else {
     parts.push('네이버 검색광고: 샘플 데이터 (연동 전)');
   }
-  if(metaOn) parts.push('메타 연동됨');
+  if(metaOn){
+    const mApi=(typeof META_UPLOADED_META!=='undefined' && META_UPLOADED_META && META_UPLOADED_META.source==='api');
+    parts.push(mApi?'메타 실시간 연동':'메타 CSV 연동');
+    if(MAIN_CHANNEL==='META' && mApi && fi && fi.days>=2) parts.push(`<span style="color:var(--red);font-weight:700">⚠️ 메타 ${fi.days}일째 미갱신 — 토큰/연동 점검</span>`);
+  }
   const dr = (typeof channelDateRange==='function') ? channelDateRange() : null;
   if(dr && dr.min && dr.max){
     const d1=new Date(dr.min), d2=new Date(dr.max);
@@ -2595,7 +2732,7 @@ function updateChannelStatus(){
   if(sa){ const st=(typeof CURRENT_ACCT!=='undefined'&&CURRENT_ACCT)?CURRENT_ACCT.status:'sample';
     sa.innerHTML=_statusHTML(st==='ok'?'live':st==='err'?'err':st==='blank'?'none':'sample'); }
   const da=document.getElementById('status-DA'); if(da) da.innerHTML=_statusHTML(DA_UPLOADED_DATA.length?'csv':'none');
-  const me=document.getElementById('status-META'); if(me) me.innerHTML=_statusHTML(META_UPLOADED_DATA.length?'csv':'none');
+  const me=document.getElementById('status-META'); if(me){ const mk=!META_UPLOADED_DATA.length?'none':((META_UPLOADED_META&&META_UPLOADED_META.source==='api')?'live':'csv'); me.innerHTML=_statusHTML(mk); }
 }
 function render(){
   const isMeta = MAIN_CHANNEL==='META';
@@ -2606,6 +2743,7 @@ function render(){
   const oh=document.getElementById('opinionHint'); if(oh) oh.style.display=isMeta?'none':'';
   const mcp=document.getElementById('metaCampOps'); const mcpPanel=mcp&&mcp.closest('.panel'); if(mcpPanel) mcpPanel.style.display='none';
   const mr=document.getElementById('metaReport'); if(mr) mr.style.display=isMeta?'':'none';
+  if(isMeta && typeof renderMetaExtra==='function') renderMetaExtra();
   const tip=document.getElementById('trendInterpPanel'); if(tip) tip.style.display='none';
   const ttw=document.getElementById('trendTimelineWrap'); if(ttw) ttw.style.display=isMeta?'none':'';
   const ttag=document.getElementById('trendTag'); if(ttag) ttag.style.display=isMeta?'none':'';
@@ -2942,8 +3080,11 @@ function updateMetaUploadUI(){
   if(!loaded||!upload) return;
   if(META_UPLOADED_META){
     loaded.style.display=''; upload.style.display='none';
-    document.getElementById('metaFilename').textContent = META_UPLOADED_META.filename||'—';
-    document.getElementById('metaLoadedStats').textContent = `${fmtInt(META_UPLOADED_DATA.length)}행 · 업로드 ${META_UPLOADED_META.uploadedAt||''}`;
+    const _api=(META_UPLOADED_META.source==='api');
+    document.getElementById('metaFilename').textContent = _api ? '🔗 실시간 API 연동 (자동 갱신)' : (META_UPLOADED_META.filename||'—');
+    document.getElementById('metaLoadedStats').textContent = _api
+      ? `${fmtInt(META_UPLOADED_DATA.length)}행 · 최종 수집 ${META_UPLOADED_META.uploadedAt||''}`
+      : `${fmtInt(META_UPLOADED_DATA.length)}행 · 업로드 ${META_UPLOADED_META.uploadedAt||''}`;
   } else {
     loaded.style.display='none'; upload.style.display='';
   }
@@ -2961,7 +3102,7 @@ function applyMetaNoticeUI(){
   const collapsed = hasData ? METANOTICE_COLLAPSED : false;
   body.style.display = collapsed?'none':'';
   caret.textContent = collapsed?'▸ 펼치기':'▾ 접기';
-  if(summ) summ.textContent = (collapsed&&hasData)?('✅ '+(META_UPLOADED_META.filename||'')):'';
+  if(summ) summ.textContent = (collapsed&&hasData)?('✅ '+(META_UPLOADED_META.source==='api'?'실시간 API 연동':(META_UPLOADED_META.filename||''))):'';
 }
 function applyDaNoticeUI(){
   const head=document.getElementById('daNoticeHead');
