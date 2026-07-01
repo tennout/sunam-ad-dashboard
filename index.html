@@ -684,7 +684,7 @@
     </div>
 
     <div class="panel" id="metaFunnelPanel" style="margin-bottom:18px;display:none">
-      <h2 style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><span>구매 퍼널 · 소재별 성과 <span class="tag">퍼널=선택 기간 · 리스트=전체 수집 기간</span></span>
+      <h2 style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><span>구매 퍼널 · 소재별 성과 <span class="tag">퍼널=선택 기간 · 리스트는 기간 전환 가능</span></span>
         <select id="metaGalSort" style="font-size:12px;padding:5px 9px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink-2);font-family:inherit;cursor:pointer">
           <option value="roas">ROAS 높은순</option><option value="cost">지출 많은순</option><option value="ctr">CTR 높은순</option><option value="conv">구매 많은순</option>
         </select></h2>
@@ -2185,8 +2185,9 @@ let KW_OPP_LIMIT = 10;
 document.addEventListener('click', e=>{
   const b=e.target.closest('.kwseed'); if(b){ KW_SEED_SEL = parseInt(b.dataset.i,10)||0; KW_OPP_LIMIT=10; renderKwOpp(); return; }
   const m=e.target.closest('.kwmore'); if(m){ KW_OPP_LIMIT+=10; renderKwOpp(); return; }
-  const mc=e.target.closest('.mcrow'); if(mc){ META_FUNNEL_AD=mc.dataset.ad||'__ALL__'; if(typeof _renderMetaFunnel==='function'){_renderMetaFunnel();} if(typeof _renderMetaCreativeList==='function'&&window.META_ADS_BUNDLE){_renderMetaCreativeList(window.META_ADS_BUNDLE.creatives||[]);} return; }
-  const mr2=e.target.closest('.mcreset'); if(mr2){ META_FUNNEL_AD='__ALL__'; if(typeof _renderMetaFunnel==='function'){_renderMetaFunnel();} if(typeof _renderMetaCreativeList==='function'&&window.META_ADS_BUNDLE){_renderMetaCreativeList(window.META_ADS_BUNDLE.creatives||[]);} return; }
+  const mc=e.target.closest('.mcrow'); if(mc){ META_FUNNEL_AD=mc.dataset.ad||'__ALL__'; if(typeof _renderMetaFunnel==='function'){_renderMetaFunnel();} if(typeof _renderMetaCreativeList==='function'&&window.META_ADS_BUNDLE){_renderMetaCreativeList();} return; }
+  const mr2=e.target.closest('.mcreset'); if(mr2){ META_FUNNEL_AD='__ALL__'; if(typeof _renderMetaFunnel==='function'){_renderMetaFunnel();} if(typeof _renderMetaCreativeList==='function'&&window.META_ADS_BUNDLE){_renderMetaCreativeList();} return; }
+  const mp=e.target.closest('.mlper'); if(mp){ META_LIST_PERIOD=mp.dataset.per||'all'; if(typeof _renderMetaCreativeList==='function') _renderMetaCreativeList(); return; }
   const l=e.target.closest('.kwless'); if(l){ KW_OPP_LIMIT=10; renderKwOpp(); }
 });
 document.addEventListener('change', e=>{
@@ -2194,8 +2195,8 @@ document.addEventListener('change', e=>{
   if(t.id==='tgtRoas'){ const v=parseInt(t.value,10); TARGET_ROAS=(v>0?v:400); renderKwOpp(); }
   else if(t.id==='inAov'){ const v=parseFloat(t.value); USER_AOV=(v>0?v:null); renderKwOpp(); }
   else if(t.id==='inCvr'){ const v=parseFloat(t.value); USER_CVR=(v>0?v:null); renderKwOpp(); }
-  else if(t.id==='metaGalSort'){ META_GAL_SORT=t.value||'roas'; if(typeof _renderMetaCreativeList==='function' && window.META_ADS_BUNDLE) _renderMetaCreativeList(window.META_ADS_BUNDLE.creatives||[]); }
-  else if(t.id==='metaCampFilter'){ META_CAMP_FILTER=t.value||'__ALL__'; if(typeof _renderMetaCreativeList==='function' && window.META_ADS_BUNDLE) _renderMetaCreativeList(window.META_ADS_BUNDLE.creatives||[]); }
+  else if(t.id==='metaGalSort'){ META_GAL_SORT=t.value||'roas'; if(typeof _renderMetaCreativeList==='function' && window.META_ADS_BUNDLE) _renderMetaCreativeList(); }
+  else if(t.id==='metaCampFilter'){ META_CAMP_FILTER=t.value||'__ALL__'; if(typeof _renderMetaCreativeList==='function' && window.META_ADS_BUNDLE) _renderMetaCreativeList(); }
 
 });
 
@@ -2437,6 +2438,7 @@ function renderMetaCampOpinions(camps, ads, ctx){
 let META_GAL_SORT='roas';
 let META_FUNNEL_AD='__ALL__';
 let META_CAMP_FILTER='__ALL__';
+let META_LIST_PERIOD='all';
 function _mFmtRoas(c){ return c>0?fmtPct(c,0):'—'; }
 function renderMetaExtra(){
   const B=(typeof window!=='undefined')?window.META_ADS_BUNDLE:null;
@@ -2444,26 +2446,21 @@ function renderMetaExtra(){
   ['metaFunnelPanel','metaPlacePanel','metaFatiguePanel'].forEach(id=>{const el=document.getElementById(id); if(el) el.style.display=has?'':'none';});
   _renderMetaFunnel();
   if(!has){ const cl=document.getElementById('metaCreativeList'); if(cl) cl.innerHTML=''; return; }
-  _renderMetaCreativeList(B.creatives||[]);
+  _renderMetaCreativeList();
   _renderMetaPlacements(B.placements||[]);
   _renderMetaFatigue(B.creatives||[]);
 }
 function _renderMetaFunnel(){
   const el=document.getElementById('metaFunnelBody'); if(!el) return;
   if(typeof META_FUNNEL_AD==='undefined') META_FUNNEL_AD='__ALL__';
+  const _allSel=(META_FUNNEL_AD==='__ALL__');
+  const _hnm=_allSel?'전체 소재':META_FUNNEL_AD;
   const a=dateStr(currentStart), b=dateStr(currentEnd);
-  let f={imp:0,clk:0,lpv:0,atc:0,conv:0,rev:0,cost:0};
-  let basisAll=(META_FUNNEL_AD==='__ALL__');
-  if(basisAll){
-    const rows=(META_UPLOADED_DATA||[]).filter(r=>r.date>=a && r.date<=b);
-    if(!rows.length){ el.innerHTML=_funnelHead('전체 소재',false)+'<div style="font-size:13px;color:var(--muted);padding:10px 0">선택 기간에 데이터가 없어요.</div>'; return; }
-    rows.forEach(r=>{ f.imp+=r.imp;f.clk+=r.clk;f.lpv+=(r.lpv||0);f.atc+=(r.atc||0);f.conv+=r.conv;f.rev+=r.rev;f.cost+=r.cost; });
-  } else {
-    const B=(typeof window!=='undefined')?window.META_ADS_BUNDLE:null;
-    const c=((B&&B.creatives)||[]).find(x=>(x.ad||'(이름 없음)')===META_FUNNEL_AD);
-    if(!c){ el.innerHTML=_funnelHead(META_FUNNEL_AD,true)+'<div style="font-size:13px;color:var(--muted);padding:10px 0">이 소재의 데이터가 없어요.</div>'; return; }
-    f={imp:c.imp||0,clk:c.clk||0,lpv:c.lpv||0,atc:c.atc||0,conv:c.conv||0,rev:c.rev||0,cost:c.cost||0};
-  }
+  let rows=(META_UPLOADED_DATA||[]).filter(r=>r.date>=a && r.date<=b);
+  if(!_allSel) rows=rows.filter(r=>(r.adname||'(이름 없음)')===META_FUNNEL_AD);
+  if(!rows.length){ el.innerHTML=_funnelHead(_hnm)+'<div style="font-size:13px;color:var(--muted);padding:10px 0">선택 기간에 이 소재의 데이터가 없어요.</div>'; return; }
+  const f={imp:0,clk:0,lpv:0,atc:0,conv:0,rev:0,cost:0};
+  rows.forEach(r=>{ f.imp+=r.imp;f.clk+=r.clk;f.lpv+=(r.lpv||0);f.atc+=(r.atc||0);f.conv+=r.conv;f.rev+=r.rev;f.cost+=r.cost; });
   const steps=[['노출',f.imp],['클릭',f.clk],['랜딩 조회',f.lpv],['구매',f.conv]];
   const meaning=['광고가 화면에 표시된 횟수','광고를 클릭한 횟수','클릭 후 랜딩페이지가 열린 횟수','구매를 완료한 횟수'];
   const bench=[null,1.0,80,2.5];
@@ -2471,7 +2468,7 @@ function _renderMetaFunnel(){
   for(let k=1;k<steps.length;k++){ const prev=steps[k-1][1]; if(prev>0){ const drop=1-(steps[k][1]/prev); if(drop>worstDrop){ worstDrop=drop; worst=k; } } }
   const first=steps[0][1]||1;
   const AGRI=[null,1.2,85,2.5];
-  const W=620, plotH=168, topPad=44, botPad=66, lp=24, rp=24, Hs=plotH+topPad+botPad;
+  const W=620, plotH=168, topPad=44, botPad=66, lp=48, rp=48, Hs=plotH+topPad+botPad;
   const usable=W-lp-rp, step=(N=steps.length)>1?usable/(N-1):usable;
   const pts=steps.map((st,idx)=>{ const r=Math.max(0, Math.min(1, st[1]/first)); return {x:lp+step*idx, y:topPad+plotH*(1-r), r, val:st[1], lbl:st[0]}; });
   const baseY=topPad+plotH;
@@ -2495,20 +2492,31 @@ function _renderMetaFunnel(){
       `<text x="${p.x.toFixed(1)}" y="${(baseY+57).toFixed(1)}" text-anchor="middle" font-size="11" font-weight="700" fill="${col}">${cum>=100?'100%':fmtPct(cum,cum<1?2:1)}</text>`;
   }).join('');
   const roas=f.cost?f.rev/f.cost*100:0;
-  el.innerHTML = _funnelHead(basisAll?'전체 소재':META_FUNNEL_AD, !basisAll) +
-    `<svg viewBox="0 0 ${W} ${Hs}" width="100%" preserveAspectRatio="xMidYMid meet" style="display:block"><polygon points="${area}" fill="#e8f1fe"></polygon><polyline points="${line}" fill="none" stroke="#3182f6" stroke-width="2" stroke-linejoin="round"></polyline>${dots}${chips}${labels}</svg>`+
-    `<div style="font-size:11.5px;color:#8b95a1;margin-top:8px;line-height:1.6">채워진 면적 = 노출 대비 남은 비율(실제 수치). 아래 %는 노출 대비 누적, 상단 칩 %는 단계 전환율 — 칩에 올리면 이탈율·농식품 평균이 떠요.</div>`+
+  el.innerHTML = _funnelHead(_hnm) +
+    `<svg viewBox="0 0 ${W} ${Hs}" width="100%" preserveAspectRatio="xMidYMid meet" style="display:block;overflow:visible"><polygon points="${area}" fill="#e8f1fe"></polygon><polyline points="${line}" fill="none" stroke="#3182f6" stroke-width="2" stroke-linejoin="round"></polyline>${dots}${chips}${labels}</svg>`+
     `<div style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.6;border-top:1px solid var(--line);padding-top:10px">지출 ${fmtWon(f.cost)} · 매출 ${fmtWon(f.rev)} · ROAS ${_mFmtRoas(roas)} · 장바구니 담기 ${fmtInt(f.atc)}회<span style="opacity:.8"> (구매 경로와 별개일 수 있는 참고 지표)</span></div>`;
 }
-function _funnelHead(name, isOne){
-  const nm = name.length>24?name.slice(0,24)+'…':name;
-  return `<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px"><span style="font-size:12px;color:var(--ink-2)">선택: <b>${_esc(nm)}</b>${isOne?' <span style=\'color:var(--muted)\'>(전체 기간)</span>':''}</span>${isOne?'<button class="mcreset" style="border:1px solid var(--line);background:var(--card);border-radius:6px;font-size:11px;padding:3px 8px;cursor:pointer;color:var(--ink-2);font-family:inherit">✕ 전체보기</button>':''}</div>`;
+function _funnelHead(name){
+  const nm = name.length>28?name.slice(0,28)+'…':name;
+  return `<div style="font-size:12px;color:var(--ink-2);margin-bottom:12px">선택: <b>${_esc(nm)}</b></div>`;
 }
-function _renderMetaCreativeList(cr){
+function _renderMetaCreativeList(){
   const el=document.getElementById('metaCreativeList'); if(!el) return;
   if(typeof META_CAMP_FILTER==='undefined') META_CAMP_FILTER='__ALL__';
   if(typeof META_FUNNEL_AD==='undefined') META_FUNNEL_AD='__ALL__';
-  let list=(cr||[]).filter(c=>(c.cost||0)>0);
+  if(typeof META_LIST_PERIOD==='undefined') META_LIST_PERIOD='all';
+  const B=(typeof window!=='undefined')?window.META_ADS_BUNDLE:null;
+  const bcr=((B&&B.creatives)||[]);
+  const meta={}; bcr.forEach(c=>{ meta[c.ad||'(이름 없음)']={thumb:c.thumb,link:c.link,freq:c.freq,campaign:c.campaign}; });
+  let baseList;
+  if(META_LIST_PERIOD==='sel'){
+    const a=dateStr(currentStart), b=dateStr(currentEnd); const m={};
+    (META_UPLOADED_DATA||[]).forEach(r=>{ if(r.date<a||r.date>b) return; const k=r.adname||'(이름 없음)'; const o=m[k]||(m[k]={ad:k,campaign:r.campaign||'',imp:0,clk:0,cost:0,conv:0,rev:0}); o.imp+=r.imp;o.clk+=r.clk;o.cost+=r.cost;o.conv+=r.conv;o.rev+=r.rev; });
+    baseList=Object.values(m).map(o=>{ const t=meta[o.ad]||{}; return Object.assign({}, o, {thumb:t.thumb, link:t.link, freq:t.freq||0, campaign:o.campaign||t.campaign||''}); });
+  } else {
+    baseList=bcr.slice();
+  }
+  let list=baseList.filter(c=>(c.cost||0)>0);
   const camps=[...new Set(list.map(c=>c.campaign||'(캠페인 없음)'))].sort();
   if(META_CAMP_FILTER!=='__ALL__' && !camps.includes(META_CAMP_FILTER)) META_CAMP_FILTER='__ALL__';
   const filtered = META_CAMP_FILTER==='__ALL__' ? list : list.filter(c=>(c.campaign||'(캠페인 없음)')===META_CAMP_FILTER);
@@ -2531,7 +2539,12 @@ function _renderMetaCreativeList(cr){
     const fb=(c.freq||0)>=3?'<span style="color:#b91c3c">·피로↑</span>':'';
     return `<div class="mcrow${on?' mcrow-active':''}" data-ad="${_esc(c.ad||'(이름 없음)')}" style="display:flex;align-items:center;gap:9px;padding:7px 8px;border-radius:8px;cursor:pointer;border:1px solid ${on?AC:'transparent'};background:${on?'#eef7f4':'transparent'}">${img}<div style="flex:1;min-width:0"><div style="font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${_esc(c.ad||'(이름 없음)')}</div><div style="font-size:10.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${_esc(c.campaign||'(캠페인 없음)')}</div><div style="font-size:11px;color:var(--ink-2);margin-top:2px">ROAS <b style="color:${roas>=300?'#027a38':roas>0?'#92400e':'var(--muted)'}">${_mFmtRoas(roas)}</b> · 지출 ${fmtWon(c.cost)} · CTR ${fmtPct(ctr)} · 구매 ${fmtInt(c.conv)} ${fb}</div></div></div>`;}).join('');
   el.innerHTML =
-    `<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px"><span style="font-size:12px;color:var(--ink-2);font-weight:700">소재 ${fmtInt(filtered.length)}개</span><select id="metaCampFilter" style="font-size:12px;padding:5px 9px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink-2);font-family:inherit;cursor:pointer;max-width:220px">${campOpts}</select></div>`+
+    `<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px">`+
+      `<div style="display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden">`+
+        `<button class="mlper" data-per="sel" style="padding:5px 10px;border:none;font-size:11.5px;cursor:pointer;font-family:inherit;background:${META_LIST_PERIOD==='sel'?'#3182f6':'var(--card)'};color:${META_LIST_PERIOD==='sel'?'#fff':'var(--ink-2)'}">선택 기간</button>`+
+        `<button class="mlper" data-per="all" style="padding:5px 10px;border:none;border-left:1px solid var(--line);font-size:11.5px;cursor:pointer;font-family:inherit;background:${META_LIST_PERIOD==='all'?'#3182f6':'var(--card)'};color:${META_LIST_PERIOD==='all'?'#fff':'var(--ink-2)'}">전체 기간</button>`+
+      `</div>`+
+      `<select id="metaCampFilter" style="font-size:12px;padding:5px 9px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink-2);font-family:inherit;cursor:pointer;max-width:180px">${campOpts}</select></div>`+
     allRow+
     `<div id="metaCreativeScroll" style="max-height:330px;overflow:auto;margin-top:4px;position:relative">${rows||'<div style="font-size:12px;color:var(--muted);padding:10px">소재 데이터가 없어요.</div>'}</div>`+
     `<div style="font-size:11px;color:var(--muted);margin-top:6px">소재를 클릭하면 왼쪽 퍼널이 그 소재로 바뀌어요.</div>`;
