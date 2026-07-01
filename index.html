@@ -684,8 +684,14 @@
     </div>
 
     <div class="panel" id="metaFunnelPanel" style="margin-bottom:18px;display:none">
-      <h2>구매 퍼널 <span class="tag">선택 기간 · 노출→구매 이탈 진단</span></h2>
-      <div id="metaFunnelBody"></div>
+      <h2 style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><span>구매 퍼널 · 소재별 성과 <span class="tag">퍼널=선택 기간 · 리스트=전체 수집 기간</span></span>
+        <select id="metaGalSort" style="font-size:12px;padding:5px 9px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink-2);font-family:inherit;cursor:pointer">
+          <option value="roas">ROAS 높은순</option><option value="cost">지출 많은순</option><option value="ctr">CTR 높은순</option><option value="conv">구매 많은순</option>
+        </select></h2>
+      <div style="display:flex;gap:18px;flex-wrap:wrap;align-items:flex-start">
+        <div id="metaFunnelBody" style="flex:1 1 300px;min-width:280px"></div>
+        <div id="metaCreativeList" style="flex:1 1 320px;min-width:300px"></div>
+      </div>
     </div>
     <div class="panel" id="metaPlacePanel" style="margin-bottom:18px;display:none">
       <h2>지면별 성과 <span class="tag">피드·릴스·스토리·탐색 (전체 수집 기간)</span></h2>
@@ -694,13 +700,6 @@
     <div class="panel" id="metaFatiguePanel" style="margin-bottom:18px;display:none">
       <h2>소재 피로도 <span class="tag">빈도(1인당 평균 노출) · 전체 수집 기간</span></h2>
       <div id="metaFatigueBody"></div>
-    </div>
-    <div class="panel" id="metaGalleryPanel" style="margin-bottom:18px;display:none">
-      <h2 style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><span>소재 미리보기 <span class="tag">썸네일 + 성과 · 전체 수집 기간</span></span>
-        <select id="metaGalSort" style="font-size:12px;padding:5px 9px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink-2);font-family:inherit;cursor:pointer">
-          <option value="roas">ROAS 높은순</option><option value="cost">지출 많은순</option><option value="ctr">CTR 높은순</option><option value="conv">구매 많은순</option>
-        </select></h2>
-      <div id="metaGalleryBody"></div>
     </div>
   </div>
 
@@ -2186,6 +2185,8 @@ let KW_OPP_LIMIT = 10;
 document.addEventListener('click', e=>{
   const b=e.target.closest('.kwseed'); if(b){ KW_SEED_SEL = parseInt(b.dataset.i,10)||0; KW_OPP_LIMIT=10; renderKwOpp(); return; }
   const m=e.target.closest('.kwmore'); if(m){ KW_OPP_LIMIT+=10; renderKwOpp(); return; }
+  const mc=e.target.closest('.mcrow'); if(mc){ META_FUNNEL_AD=mc.dataset.ad||'__ALL__'; if(typeof _renderMetaFunnel==='function'){_renderMetaFunnel();} if(typeof _renderMetaCreativeList==='function'&&window.META_ADS_BUNDLE){_renderMetaCreativeList(window.META_ADS_BUNDLE.creatives||[]);} return; }
+  const mr2=e.target.closest('.mcreset'); if(mr2){ META_FUNNEL_AD='__ALL__'; if(typeof _renderMetaFunnel==='function'){_renderMetaFunnel();} if(typeof _renderMetaCreativeList==='function'&&window.META_ADS_BUNDLE){_renderMetaCreativeList(window.META_ADS_BUNDLE.creatives||[]);} return; }
   const l=e.target.closest('.kwless'); if(l){ KW_OPP_LIMIT=10; renderKwOpp(); }
 });
 document.addEventListener('change', e=>{
@@ -2193,8 +2194,8 @@ document.addEventListener('change', e=>{
   if(t.id==='tgtRoas'){ const v=parseInt(t.value,10); TARGET_ROAS=(v>0?v:400); renderKwOpp(); }
   else if(t.id==='inAov'){ const v=parseFloat(t.value); USER_AOV=(v>0?v:null); renderKwOpp(); }
   else if(t.id==='inCvr'){ const v=parseFloat(t.value); USER_CVR=(v>0?v:null); renderKwOpp(); }
-  else if(t.id==='metaGalSort'){ META_GAL_SORT=t.value||'roas'; if(typeof _renderMetaGallery==='function' && window.META_ADS_BUNDLE) _renderMetaGallery(window.META_ADS_BUNDLE.creatives||[]); }
-  else if(t.id==='metaFunnelAd'){ META_FUNNEL_AD=t.value||'__ALL__'; if(typeof _renderMetaFunnel==='function') _renderMetaFunnel(); }
+  else if(t.id==='metaGalSort'){ META_GAL_SORT=t.value||'roas'; if(typeof _renderMetaCreativeList==='function' && window.META_ADS_BUNDLE) _renderMetaCreativeList(window.META_ADS_BUNDLE.creatives||[]); }
+
 });
 
 /* ============================================================
@@ -2438,53 +2439,58 @@ function _mFmtRoas(c){ return c>0?fmtPct(c,0):'—'; }
 function renderMetaExtra(){
   const B=(typeof window!=='undefined')?window.META_ADS_BUNDLE:null;
   const has=!!(B && (B.placements||B.creatives));
-  ['metaFunnelPanel','metaPlacePanel','metaFatiguePanel','metaGalleryPanel'].forEach(id=>{const el=document.getElementById(id); if(el) el.style.display=has?'':'none';});
-  // 퍼널은 CSV만 있어도 lpv/atc 있으면 표시
+  ['metaFunnelPanel','metaPlacePanel','metaFatiguePanel'].forEach(id=>{const el=document.getElementById(id); if(el) el.style.display=has?'':'none';});
   _renderMetaFunnel();
-  if(!has) return;
+  if(!has){ const cl=document.getElementById('metaCreativeList'); if(cl) cl.innerHTML=''; return; }
+  _renderMetaCreativeList(B.creatives||[]);
   _renderMetaPlacements(B.placements||[]);
   _renderMetaFatigue(B.creatives||[]);
-  _renderMetaGallery(B.creatives||[]);
 }
 function _renderMetaFunnel(){
   const el=document.getElementById('metaFunnelBody'); if(!el) return;
   const a=dateStr(currentStart), b=dateStr(currentEnd);
   const rows=(META_UPLOADED_DATA||[]).filter(r=>r.date>=a && r.date<=b);
   if(!rows.length){ el.innerHTML='<div style="font-size:13px;color:var(--muted)">선택 기간에 데이터가 없어요.</div>'; return; }
-  // 소재 목록 (지출순)
-  const adm={};
-  rows.forEach(r=>{ const k=r.adname||'(이름 없음)'; (adm[k]||(adm[k]={c:0})).c+=r.cost; });
-  const adList=Object.keys(adm).sort((x,y)=>adm[y].c-adm[x].c);
   if(typeof META_FUNNEL_AD==='undefined') META_FUNNEL_AD='__ALL__';
-  if(META_FUNNEL_AD!=='__ALL__' && !adList.includes(META_FUNNEL_AD)) META_FUNNEL_AD='__ALL__';
   const sel=rows.filter(r=> META_FUNNEL_AD==='__ALL__' ? true : (r.adname||'(이름 없음)')===META_FUNNEL_AD);
   const f={imp:0,clk:0,lpv:0,atc:0,conv:0,rev:0,cost:0};
   sel.forEach(r=>{ f.imp+=r.imp;f.clk+=r.clk;f.lpv+=(r.lpv||0);f.atc+=(r.atc||0);f.conv+=r.conv;f.rev+=r.rev;f.cost+=r.cost; });
   const steps=[['노출',f.imp],['클릭',f.clk],['랜딩 조회',f.lpv],['장바구니',f.atc],['구매',f.conv]];
-  // 최대 이탈 구간
+  const meaning=['광고가 화면에 표시된 횟수','광고를 클릭한 횟수','클릭 후 랜딩페이지가 열린 횟수','장바구니에 담은 횟수','구매를 완료한 횟수'];
+  const bench=[null,1.0,80,6,35];   // 각 단계로의 전환율 업계 참고치(%) — 노출→클릭(CTR)·클릭→랜딩·랜딩→장바구니·장바구니→구매
   let worst=-1, worstDrop=-1;
   for(let k=1;k<steps.length;k++){ const prev=steps[k-1][1]; if(prev>0){ const drop=1-(steps[k][1]/prev); if(drop>worstDrop){ worstDrop=drop; worst=k; } } }
+  // 두 번째로 큰 값 기준으로 스케일 → 노출 막대는 축 생략(물결)으로 잘라 표시
+  const vsort=steps.map(x=>x[1]).sort((a,b)=>b-a);
+  const scaleRef=vsort[1]||vsort[0]||1;
   const shades=['#1877f2','#2f7de8','#3f74d6','#4a67c4','#e11d48'];
-  const maxV=Math.max(...steps.map(x=>x[1]),1);
-  // 세로 막대(컬럼) 퍼널
-  const barsHtml=steps.map((st,k)=>{
+  const bars=steps.map((st,k)=>{
     const [lbl,val]=st;
-    const h=Math.max(3, Math.round(val/maxV*100));
+    const trunc = val > scaleRef*1.08;
+    const h = trunc ? 100 : Math.max(3, Math.round(val/scaleRef*100));
     const bad=(k===worst && worstDrop>0);
     const col=bad?'#e11d48':shades[k];
+    const prev=k>0?steps[k-1][1]:null;
+    const rate=(prev&&prev>0)?(val/prev*100):null;
+    let tip=`<b>${lbl}</b> ${fmtInt(val)}<br>${meaning[k]}`;
+    if(rate!=null){ const bm=bench[k]; const vd = bm? (rate>=bm*1.1?'참고보다 좋음':rate<=bm*0.7?'참고보다 낮음 ⚠️':'참고 범위'):''; tip+=`<br>전 단계 전환 ${fmtPct(rate,1)}${bm?` · 업계 참고 ~${bm}% (${vd})`:''}`; }
+    if(trunc) tip+='<br><span style="opacity:.85">※ 막대가 너무 커서 중간을 생략했어요</span>';
+    const brk = trunc ? `<svg viewBox="0 0 40 12" preserveAspectRatio="none" style="position:absolute;left:0;top:16px;width:100%;height:11px;display:block"><polygon points="0,6 8,2 16,10 24,2 32,10 40,6 40,13 0,13" fill="var(--card,#fff)"/><polyline points="0,6 8,2 16,10 24,2 32,10 40,6" fill="none" stroke="${col}" stroke-width="1.2"/></svg>` : '';
     return `<div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%">
-        <div style="font-size:13px;font-weight:800;margin-bottom:4px;white-space:nowrap">${fmtInt(val)}</div>
-        <div style="width:100%;max-width:72px;height:${h}%;min-height:6px;background:${col};border-radius:6px 6px 0 0;box-shadow:0 1px 2px rgba(0,0,0,.08)"></div>
+        <div style="font-size:12.5px;font-weight:800;margin-bottom:4px;white-space:nowrap">${fmtInt(val)}</div>
+        <div class="ttp" data-tip="${tip}" style="position:relative;width:100%;max-width:64px;height:${h}%;min-height:6px;background:${col};border-radius:6px 6px 0 0;cursor:help">${brk}</div>
       </div>`;
   }).join('');
-  const labelsHtml=steps.map((st,k)=>{
+  const labs=steps.map((st,k)=>{
     const [lbl,val]=st;
     const prev=k>0?steps[k-1][1]:null;
     const rate=(prev&&prev>0)?(val/prev*100):null;
     const bad=(k===worst && worstDrop>0);
+    let rtip='';
+    if(rate!=null){ const bm=bench[k]; const vd=bm?(rate>=bm*1.1?'참고보다 좋음':rate<=bm*0.7?'참고보다 낮음 ⚠️':'참고 범위 내'):''; rtip=`${steps[k-1][0]}→${lbl} 전환율 <b>${fmtPct(rate,1)}</b>${bm?`<br>업계 참고 ~${bm}% · ${vd}`:''}`; }
     return `<div style="flex:1;text-align:center;padding:0 2px">
         <div style="font-size:12px;font-weight:700">${lbl}</div>
-        <div style="font-size:11px;color:${bad?'#e11d48':'var(--muted)'};margin-top:2px">${rate!=null?('↓ '+fmtPct(rate,1)):'&nbsp;'}${bad?' ⚠️':''}</div>
+        ${rate!=null?`<div class="ttp" data-tip="${rtip}" style="font-size:11px;color:${bad?'#e11d48':'var(--muted)'};margin-top:2px;cursor:help">↓ ${fmtPct(rate,1)}${bad?' ⚠️':''}</div>`:'<div style="font-size:11px;margin-top:2px">&nbsp;</div>'}
       </div>`;
   }).join('');
   const roas=f.cost?f.rev/f.cost*100:0;
@@ -2493,13 +2499,39 @@ function _renderMetaFunnel(){
       steps[worst][0]==='랜딩 조회'?'클릭 후 페이지 로딩·링크를 점검하세요.':
       steps[worst][0]==='장바구니'?'랜딩페이지 상품 매력·가격을 점검하세요.':
       steps[worst][0]==='구매'?'장바구니 후 결제 단계(배송비·결제수단)를 점검하세요.':'') : '';
-  const opts=`<option value="__ALL__"${META_FUNNEL_AD==='__ALL__'?' selected':''}>전체 소재</option>`+
-    adList.slice(0,60).map(nm=>`<option value="${_esc(nm)}"${META_FUNNEL_AD===nm?' selected':''}>${_esc(nm.length>40?nm.slice(0,40)+'…':nm)}</option>`).join('');
-  el.innerHTML =
-    `<div style="display:flex;justify-content:flex-end;margin-bottom:12px"><select id="metaFunnelAd" style="font-size:12px;padding:5px 9px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink-2);font-family:inherit;cursor:pointer;max-width:280px">${opts}</select></div>`+
-    `<div style="display:flex;gap:8px;align-items:flex-end;height:210px">${barsHtml}</div>`+
-    `<div style="display:flex;gap:8px;margin-top:8px;border-top:1px solid var(--line);padding-top:8px">${labelsHtml}</div>`+
+  const selName = META_FUNNEL_AD==='__ALL__' ? '전체 소재' : META_FUNNEL_AD;
+  const head=`<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px"><span style="font-size:12px;color:var(--ink-2)">선택: <b>${_esc(selName.length>26?selName.slice(0,26)+'…':selName)}</b></span>${META_FUNNEL_AD!=='__ALL__'?'<button class="mcreset" style="border:1px solid var(--line);background:var(--card);border-radius:6px;font-size:11px;padding:3px 8px;cursor:pointer;color:var(--ink-2);font-family:inherit">✕ 전체보기</button>':''}</div>`;
+  el.innerHTML = head +
+    `<div style="display:flex;gap:6px;align-items:flex-end;height:190px">${bars}</div>`+
+    `<div style="display:flex;gap:6px;margin-top:8px;border-top:1px solid var(--line);padding-top:8px">${labs}</div>`+
     `<div style="font-size:12px;color:var(--ink-2);margin-top:12px;line-height:1.6">${tip} <span style="color:var(--muted)">· 지출 ${fmtWon(f.cost)} · 매출 ${fmtWon(f.rev)} · ROAS ${_mFmtRoas(roas)}</span></div>`;
+}
+function _renderMetaCreativeList(cr){
+  const el=document.getElementById('metaCreativeList'); if(!el) return;
+  const list=(cr||[]).filter(c=>(c.cost||0)>0);
+  const key=(typeof META_GAL_SORT!=='undefined')?META_GAL_SORT:'roas';
+  list.sort((a,b)=>{
+    if(key==='cost') return (b.cost||0)-(a.cost||0);
+    if(key==='ctr') return ((b.imp?b.clk/b.imp:0)-(a.imp?a.clk/a.imp:0));
+    if(key==='conv') return (b.conv||0)-(a.conv||0);
+    return ((b.cost?b.rev/b.cost:0)-(a.cost?a.rev/a.cost:0));
+  });
+  if(typeof META_FUNNEL_AD==='undefined') META_FUNNEL_AD='__ALL__';
+  const AC='#0d8a7d';
+  const allSel=(META_FUNNEL_AD==='__ALL__');
+  const allRow=`<div class="mcrow" data-ad="__ALL__" style="display:flex;align-items:center;gap:8px;padding:8px;border-radius:8px;cursor:pointer;border:1px solid ${allSel?AC:'transparent'};background:${allSel?'#eef7f4':'transparent'};font-size:12.5px;font-weight:700">전체 소재 (${fmtInt(list.length)}개) — 합산 퍼널</div>`;
+  const rows=list.slice(0,60).map(c=>{
+    const roas=c.cost?c.rev/c.cost*100:0, ctr=c.imp?c.clk/c.imp*100:0;
+    const on=(META_FUNNEL_AD===(c.ad||'(이름 없음)'));
+    const img=c.thumb?`<img src="${c.thumb}" style="width:42px;height:42px;object-fit:cover;border-radius:6px;background:#eef1f5;flex-shrink:0" loading="lazy" onerror="this.style.visibility='hidden'">`:`<div style="width:42px;height:42px;border-radius:6px;background:#eef1f5;flex-shrink:0"></div>`;
+    const fb=(c.freq||0)>=3?'<span style="color:#b91c3c">·피로↑</span>':'';
+    return `<div class="mcrow" data-ad="${_esc(c.ad||'(이름 없음)')}" style="display:flex;align-items:center;gap:9px;padding:7px 8px;border-radius:8px;cursor:pointer;border:1px solid ${on?AC:'transparent'};background:${on?'#eef7f4':'transparent'}">
+      ${img}
+      <div style="flex:1;min-width:0">
+        <div style="font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${_esc(c.ad||'(이름 없음)')}</div>
+        <div style="font-size:11px;color:var(--ink-2);margin-top:2px">ROAS <b style="color:${roas>=300?'#027a38':roas>0?'#92400e':'var(--muted)'}">${_mFmtRoas(roas)}</b> · 지출 ${fmtWon(c.cost)} · CTR ${fmtPct(ctr)} · 구매 ${fmtInt(c.conv)} ${fb}</div>
+      </div></div>`;}).join('');
+  el.innerHTML = allRow + `<div style="max-height:430px;overflow:auto;margin-top:4px">${rows||'<div style="font-size:12px;color:var(--muted);padding:10px">소재 데이터가 없어요.</div>'}</div><div style="font-size:11px;color:var(--muted);margin-top:6px">소재를 클릭하면 왼쪽 퍼널이 그 소재로 바뀌어요.</div>`;
 }
 function _renderMetaPlacements(pl){
   const el=document.getElementById('metaPlaceBody'); if(!el) return;
