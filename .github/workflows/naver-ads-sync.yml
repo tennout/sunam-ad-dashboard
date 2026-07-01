@@ -1,4 +1,4 @@
-name: 네이버 검색광고 데이터 자동 동기화
+name: 광고 데이터 자동 동기화 (네이버 + 메타)
 
 # 이 파일은 저장소의 .github/workflows/ 폴더 안에 두세요.
 # (예: .github/workflows/naver-ads-sync.yml)
@@ -42,6 +42,21 @@ jobs:
       - name: 네이버 검색광고 데이터 수집
         run: python fetch_naver_ads.py --days 90
 
+      - name: 메타 광고 데이터 수집
+        continue-on-error: true   # 메타 실패해도 네이버 데이터는 커밋되게
+        env:
+          META_TOKEN:       ${{ secrets.META_TOKEN }}
+          META_AD_ACCOUNT:  ${{ secrets.META_AD_ACCOUNT }}
+          META_APP_ID:      ${{ secrets.META_APP_ID }}
+          META_APP_SECRET:  ${{ secrets.META_APP_SECRET }}
+          META_ACCOUNT_NAME: 선암파머스
+        run: |
+          if [ -z "$META_TOKEN" ] || [ -z "$META_AD_ACCOUNT" ]; then
+            echo "META_TOKEN / META_AD_ACCOUNT 시크릿이 없어 메타 수집을 건너뜁니다."
+            exit 0
+          fi
+          python fetch_meta_ads.py --days 90
+
       - name: 비밀 파일 정리 (커밋 방지)
         run: rm -f accounts.json
 
@@ -53,6 +68,6 @@ jobs:
           if git diff --staged --quiet; then
             echo "변경 사항 없음 — 커밋 생략"
           else
-            git commit -m "chore: 네이버 광고 데이터 자동 갱신 ($(date -u +%Y-%m-%d))"
+            git commit -m "chore: 광고 데이터 자동 갱신 - 네이버+메타 ($(date -u +%Y-%m-%d))"
             git push
           fi
