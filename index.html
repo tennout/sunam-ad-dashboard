@@ -2469,31 +2469,35 @@ function _renderMetaFunnel(){
   const bench=[null,1.0,80,2.5];
   let worst=-1, worstDrop=-1;
   for(let k=1;k<steps.length;k++){ const prev=steps[k-1][1]; if(prev>0){ const drop=1-(steps[k][1]/prev); if(drop>worstDrop){ worstDrop=drop; worst=k; } } }
-  const vsort=steps.map(x=>x[1]).slice().sort((x,y)=>y-x);
-  const maxV=vsort[0]||1;
-  const N=steps.length;
-  const AGRI=[null,1.2,85,2.5];   // 농식품 평균 전환율(%)
-  const sqMax=Math.sqrt(maxV)||1;
-  function _bar(k){
-    const val=steps[k][1];
-    const h=Math.max(4, Math.round(Math.sqrt(val)/sqMax*100));
-    const col=(k===N-1)?'#f04452':'#3182f6';
-    return `<div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%"><div style="font-size:15px;font-weight:700;color:#191f28;letter-spacing:-.3px;margin-bottom:7px">${fmtInt(val)}</div><div style="width:100%;max-width:60px;height:${h}%;min-height:6px;background:${col};border-radius:8px 8px 0 0"></div></div>`;
-  }
-  function _gap(k){
-    const prev=steps[k-1][1], val=steps[k][1];
-    const rate=prev>0?val/prev*100:0; const bm=AGRI[k];
+  const first=steps[0][1]||1;
+  const AGRI=[null,1.2,85,2.5];
+  const W=620, plotH=168, topPad=44, botPad=66, lp=24, rp=24, Hs=plotH+topPad+botPad;
+  const usable=W-lp-rp, step=(N=steps.length)>1?usable/(N-1):usable;
+  const pts=steps.map((st,idx)=>{ const r=Math.max(0, Math.min(1, st[1]/first)); return {x:lp+step*idx, y:topPad+plotH*(1-r), r, val:st[1], lbl:st[0]}; });
+  const baseY=topPad+plotH;
+  let area=`${pts[0].x.toFixed(1)},${pts[0].y.toFixed(1)}`;
+  for(let k=1;k<pts.length;k++) area+=` ${pts[k].x.toFixed(1)},${pts[k].y.toFixed(1)}`;
+  area+=` ${pts[pts.length-1].x.toFixed(1)},${baseY} ${pts[0].x.toFixed(1)},${baseY}`;
+  let line=pts.map(p=>`${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(' ');
+  let dots=pts.map((p,idx)=>`<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="4" fill="${idx===N-1?'#f04452':'#3182f6'}"></circle>`).join('');
+  let chips='';
+  for(let k=1;k<N;k++){
+    const prev=steps[k-1][1], val=steps[k][1], rate=prev>0?val/prev*100:0, bm=AGRI[k];
+    const cx=(pts[k-1].x+pts[k].x)/2, cy=26;
     const tip=`${steps[k-1][0]} → ${steps[k][0]}<br><b>전환율 ${fmtPct(rate,1)}</b> · 이탈 ${fmtPct(Math.max(0,100-rate),1)}`+(bm?`<br><span style='opacity:.55'>농식품 평균 ~${bm}%</span>`:'');
-    return `<div class="ttp" data-tip="${tip}" style="flex:0 0 54px;display:flex;align-items:center;justify-content:center;height:100%;cursor:help"><span style="font-size:12.5px;font-weight:700;color:#8b95a1">${fmtPct(rate,0)}</span></div>`;
+    chips+=`<g class="ttp" data-tip="${tip}" style="cursor:help"><rect x="${(cx-40).toFixed(1)}" y="${(cy-16).toFixed(1)}" width="80" height="34" rx="9" fill="#ffffff" stroke="#eaedf1"></rect><text x="${cx.toFixed(1)}" y="${(cy-2).toFixed(1)}" text-anchor="middle" font-size="9.5" fill="#8b95a1">${steps[k-1][0]} → ${steps[k][0]}</text><text x="${cx.toFixed(1)}" y="${(cy+12).toFixed(1)}" text-anchor="middle" font-size="12" font-weight="700" fill="#4e5968">${fmtPct(rate,0)}</text></g>`;
   }
-  function _name(k){ return `<div style="flex:1;text-align:center"><div style="font-size:12px;color:#4e5968;font-weight:600">${steps[k][0]}</div></div>`; }
-  let barsRow=_bar(0), nameRow=_name(0);
-  for(let k=1;k<N;k++){ barsRow+=_gap(k)+_bar(k); nameRow+=`<div style="flex:0 0 54px"></div>`+_name(k); }
+  let labels=pts.map((p,idx)=>{
+    const cum=first>0?p.val/first*100:0;
+    const col=idx===N-1?'#f04452':'#3182f6';
+    return `<text x="${p.x.toFixed(1)}" y="${(baseY+22).toFixed(1)}" text-anchor="middle" font-size="12" font-weight="600" fill="#4e5968">${p.lbl}</text>`+
+      `<text x="${p.x.toFixed(1)}" y="${(baseY+42).toFixed(1)}" text-anchor="middle" font-size="14" font-weight="800" fill="#191f28">${fmtInt(p.val)}</text>`+
+      `<text x="${p.x.toFixed(1)}" y="${(baseY+57).toFixed(1)}" text-anchor="middle" font-size="11" font-weight="700" fill="${col}">${cum>=100?'100%':fmtPct(cum,cum<1?2:1)}</text>`;
+  }).join('');
   const roas=f.cost?f.rev/f.cost*100:0;
   el.innerHTML = _funnelHead(basisAll?'전체 소재':META_FUNNEL_AD, !basisAll) +
-    `<div style="display:flex;align-items:stretch;height:320px;padding:0 4px">${barsRow}</div>`+
-    `<div style="display:flex;margin-top:10px">${nameRow}</div>`+
-    `<div style="font-size:11.5px;color:#8b95a1;margin-top:14px;line-height:1.6">막대 높이는 값 차이를 보기 쉽게 <b>제곱근 스케일</b>로 조정했어요(정확한 값은 위 숫자). 막대 사이 <b>%</b>는 전환율이고, 올리면 이탈율·농식품 평균이 떠요.</div>`+
+    `<svg viewBox="0 0 ${W} ${Hs}" width="100%" preserveAspectRatio="xMidYMid meet" style="display:block"><polygon points="${area}" fill="#e8f1fe"></polygon><polyline points="${line}" fill="none" stroke="#3182f6" stroke-width="2" stroke-linejoin="round"></polyline>${dots}${chips}${labels}</svg>`+
+    `<div style="font-size:11.5px;color:#8b95a1;margin-top:8px;line-height:1.6">채워진 면적 = 노출 대비 남은 비율(실제 수치). 아래 %는 노출 대비 누적, 상단 칩 %는 단계 전환율 — 칩에 올리면 이탈율·농식품 평균이 떠요.</div>`+
     `<div style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.6;border-top:1px solid var(--line);padding-top:10px">지출 ${fmtWon(f.cost)} · 매출 ${fmtWon(f.rev)} · ROAS ${_mFmtRoas(roas)} · 장바구니 담기 ${fmtInt(f.atc)}회<span style="opacity:.8"> (구매 경로와 별개일 수 있는 참고 지표)</span></div>`;
 }
 function _funnelHead(name, isOne){
