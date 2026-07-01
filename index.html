@@ -612,7 +612,7 @@
     <div id="secCamp">
     <div class="panel" style="margin-bottom:14px">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:10px;flex-wrap:wrap">
-        <h2 style="margin:0">캠페인별 성과</h2>
+        <h2 style="margin:0">캠페인별 성과 <span class="ttp" data-tip="효율로 자동 진단해요. 각 행에 마우스를 올리면 판정 이유·조언이 떠요.<br><b>양호</b>=ROAS 500%↑ · <b>보통</b>=300~500% · <b>주의</b>=300% 미만 · <b>위험</b>=매출 거의 없음 · <b>관찰</b>=데이터 부족(판단 보류) · <b>유입형</b>=트래픽·인지 목적(ROAS로 평가 안 함)." style="font-size:11px;color:var(--muted);cursor:help;border-bottom:1px dotted var(--muted);font-weight:400">ⓘ 판정</span></h2>
         <select id="metaCampSort" style="font-size:12px;padding:5px 8px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink-2);font-family:inherit;cursor:pointer">
           <option value="cost">지출 많은 순</option>
           <option value="rev">매출 높은 순</option>
@@ -647,7 +647,7 @@
     <div id="secAd">
     <div class="panel" style="margin-bottom:14px">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:10px;flex-wrap:wrap">
-        <h2 style="margin:0">소재(광고)별 성과</h2>
+        <h2 style="margin:0">소재(광고)별 성과 <span class="ttp" data-tip="효율로 자동 진단해요. 각 행에 마우스를 올리면 판정 이유·조언이 떠요.<br><b>양호</b>=ROAS 500%↑ · <b>보통</b>=300~500% · <b>주의</b>=300% 미만 · <b>위험</b>=매출 거의 없음 · <b>관찰</b>=데이터 부족(판단 보류) · <b>유입형</b>=트래픽·인지 목적(ROAS로 평가 안 함)." style="font-size:11px;color:var(--muted);cursor:help;border-bottom:1px dotted var(--muted);font-weight:400">ⓘ 판정</span></h2>
         <div style="display:flex;gap:8px;flex-wrap:wrap">
         <select id="metaAdCampFilter" style="font-size:12px;padding:5px 8px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink-2);font-family:inherit;cursor:pointer"><option value="">전체 캠페인</option></select>
         <select id="metaAdSort" style="font-size:12px;padding:5px 8px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink-2);font-family:inherit;cursor:pointer">
@@ -2604,16 +2604,21 @@ function renderMetaReport(ctx){
   if(hasCamp){
     document.getElementById('metaCampHint').style.display='none';
     document.getElementById('metaCampWrap').style.display='';
-    document.getElementById('metaCampBody').innerHTML = camps.length? camps.map((c,i)=>`<tr data-ci="${i}">
-      <td title="${c.name}">${c.name}${c.dmin?`<br><span style="font-size:11px;color:var(--muted)">게시 ${c.dmin.slice(5)}~${c.dmax.slice(5)}</span>`:''}</td><td>${fmtInt(c.imp)}</td><td>${fmtInt(c.clk)}</td>
+    document.getElementById('metaCampBody').innerHTML = camps.length? camps.map((c,i)=>{
+      const v=(c.name&&c.name!=='(이름 없음)')?_campVerdict(c):null;
+      const badge=v?`<span style="display:inline-block;padding:1px 7px;border-radius:10px;font-size:10.5px;font-weight:700;color:${v.col};background:${v.bg};margin-right:6px;vertical-align:1px">${v.tag}</span>`:'';
+      const tip=v?(`<b>${v.tag}</b> · ROAS ${fmtPct(c.roas,0)} · 지출 ${fmtWon(c.cost)} · 매출 ${fmtWon(c.rev)}<br>${v.msg}`).replace(/"/g,'&quot;'):'';
+      return `<tr data-ci="${i}"${v?` class="ttp" data-tip="${tip}"`:''}>
+      <td title="${c.name}">${badge}${c.name}${c.dmin?`<br><span style="font-size:11px;color:var(--muted)">게시 ${c.dmin.slice(5)}~${c.dmax.slice(5)}</span>`:''}</td><td>${fmtInt(c.imp)}</td><td>${fmtInt(c.clk)}</td>
       <td>${fmtPct(c.ctr)}</td><td>${fmtWon(c.cpc)}</td><td>${fmtWon(c.cost)}</td>
-      <td>${fmtInt(c.conv)}</td><td>${fmtWon(c.rev)}</td><td><b>${fmtPct(c.roas,0)}</b></td></tr>`).join('')
+      <td>${fmtInt(c.conv)}</td><td>${fmtWon(c.rev)}</td><td><b>${fmtPct(c.roas,0)}</b></td></tr>`;
+    }).join('')
       : `<tr><td colspan="9" style="text-align:center;color:var(--muted)">선택 기간 데이터 없음</td></tr>`;
   } else {
     document.getElementById('metaCampHint').style.display='';
     document.getElementById('metaCampWrap').style.display='none';
   }
-  renderCampFeedback(camps);
+  {const _cfp=document.getElementById('metaCampFeedback'); if(_cfp){ const _pp=_cfp.closest('.panel'); if(_pp) _pp.style.display='none'; }}
   let adsForOps=[];
   const hasAd = META_UPLOADED_DATA.some(r=>r.adname);
   const adFbPanel=document.getElementById('metaAdFeedbackPanel');
@@ -2628,14 +2633,18 @@ function renderMetaReport(ctx){
     ads=_sortMeta(ads, META_AD_SORT);
     ads.forEach((a,i)=>a._ai=i);
     adsForOps=ads;
-    document.getElementById('metaAdBody').innerHTML = ads.length? ads.map((c,i)=>`<tr data-ai="${i}">
-      <td title="${c.name}">${c.name}</td><td title="${c.camp}">${c.camp||'—'}</td>
+    document.getElementById('metaAdBody').innerHTML = ads.length? ads.map((c,i)=>{
+      const v=(c.name&&c.name!=='(이름 없음)')?_campVerdict(c):null;
+      const badge=v?`<span style="display:inline-block;padding:1px 7px;border-radius:10px;font-size:10.5px;font-weight:700;color:${v.col};background:${v.bg};margin-right:6px;vertical-align:1px">${v.tag}</span>`:'';
+      const tip=v?(`<b>${v.tag}</b> · ROAS ${fmtPct(c.roas,0)} · 지출 ${fmtWon(c.cost)} · 매출 ${fmtWon(c.rev)}<br>${v.msg}`).replace(/"/g,'&quot;'):'';
+      return `<tr data-ai="${i}"${v?` class="ttp" data-tip="${tip}"`:''}>
+      <td title="${c.name}">${badge}${c.name}</td><td title="${c.camp}">${c.camp||'—'}</td>
       <td>${fmtInt(c.imp)}</td><td>${fmtInt(c.clk)}</td><td>${fmtPct(c.ctr)}</td>
       <td>${fmtWon(c.cost)}</td><td>${fmtInt(c.conv)}</td><td>${fmtWon(c.rev)}</td>
-      <td><b>${fmtPct(c.roas,0)}</b></td></tr>`).join('')
+      <td><b>${fmtPct(c.roas,0)}</b></td></tr>`;
+    }).join('')
       : `<tr><td colspan="9" style="text-align:center;color:var(--muted)">선택 기간 데이터 없음</td></tr>`;
-    if(adFbPanel) adFbPanel.style.display='';
-    renderAdFeedback(ads);
+    if(adFbPanel) adFbPanel.style.display='none';
   } else {
     document.getElementById('metaAdHint').style.display='';
     document.getElementById('metaAdTableWrap').style.display='none';
