@@ -2,7 +2,7 @@
   "meta": {
     "account": "선암파머스",
     "customerId": "1872388",
-    "fetchedAt": "2026-07-01 04:27:26",
+    "fetchedAt": "2026-07-01 04:45:19",
     "rangeStart": "2026-04-03",
     "rangeEnd": "2026-07-01",
     "campaignCount": 9,
@@ -31811,7 +31811,7 @@
       "date": "2026-07-01",
       "kw": "선암파머스",
       "ad": "powerlink",
-      "imp": 4,
+      "imp": 6,
       "clk": 1,
       "cost": 220,
       "conv": 1,
