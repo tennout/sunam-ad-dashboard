@@ -1572,6 +1572,9 @@ function bindGlossaryIcons(){
 let chartRef=null;
 const SERIES_VIS={CTR:true,CPC:true,COST:true,ROAS:true};
 let TREND_DRILL=false; let TREND_SEL_CAMP=new Set(); let TREND_SEL_AD=new Set();
+const _metaCrosshair={ id:'metaCrosshair',
+  afterEvent(chart,args){ const e=args.event; if(e.type==='mousemove'){ chart._cx=e.x; chart._cy=e.y; args.changed=true; } else if(e.type==='mouseout'){ chart._cx=null; chart._cy=null; args.changed=true; } },
+  afterDraw(chart){ const {ctx,chartArea}=chart; if(!chartArea) return; const act=(chart.tooltip&&chart.tooltip._active)||[]; let x=act.length?act[0].element.x:chart._cx; if(x==null||x<chartArea.left||x>chartArea.right) return; ctx.save(); ctx.lineWidth=1; ctx.setLineDash([3,3]); ctx.strokeStyle='rgba(90,100,120,.5)'; ctx.beginPath(); ctx.moveTo(x,chartArea.top); ctx.lineTo(x,chartArea.bottom); ctx.stroke(); const y=chart._cy; if(y!=null&&y>=chartArea.top&&y<=chartArea.bottom){ ctx.beginPath(); ctx.moveTo(chartArea.left,y); ctx.lineTo(chartArea.right,y); ctx.stroke(); } ctx.restore(); } };
 function _afterDrillChange(){ const n=TREND_SEL_CAMP.size+TREND_SEL_AD.size; const info=document.getElementById('trendDrillInfo'); if(info){ info.textContent = n? `선택 ${n}개만 표시 중` : '전체 추이 · 캠페인/소재 행을 클릭해 선택'; } if(typeof renderChart==='function') renderChart(); }
 let SA_ACTIVE={shop:true,powerlink:true,brand:true};
 function _chartDayTotal(d){
@@ -1615,10 +1618,13 @@ function renderChart(){
         {label:'ROAS(%)',   data:ds.ROAS, borderColor:'#7c3aed', backgroundColor:'#7c3aed22', tension:.3, yAxisID:'y2', pointRadius:2, hidden:!SERIES_VIS.ROAS}
       ]
     },
+    plugins:[_metaCrosshair],
     options:{
       responsive:true, maintainAspectRatio:false, resizeDelay:150,
       animation:false,
-      plugins:{legend:{display:false}},
+      interaction:{mode:'index',intersect:false,axis:'x'},
+      hover:{mode:'index',intersect:false},
+      plugins:{legend:{display:false}, tooltip:{enabled:true,mode:'index',intersect:false,position:'nearest',padding:10,titleColor:'#191f28',bodyColor:'#4e5968',backgroundColor:'rgba(255,255,255,.97)',borderColor:'#e6e8eb',borderWidth:1,titleFont:{weight:'700'},bodySpacing:5,usePointStyle:true,caretSize:5}},
       scales:{
         y1:{type:'linear',position:'left',ticks:{callback:v=>Number(v).toFixed(1)+'%'},title:{display:true,text:'CTR(%)'}},
         y2:{type:'linear',position:'right',grid:{drawOnChartArea:false},title:{display:true,text:'CPC(원)·광고비(천원)·ROAS(%)'}}
