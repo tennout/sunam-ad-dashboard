@@ -3596,7 +3596,8 @@ function switchChannel(ch){
   const isMeta = ch==='META';
   const metaHasData = META_UPLOADED_DATA.length>0;
   const daHasData = DA_UPLOADED_DATA.length>0;
-  document.getElementById('metaNotice').style.display    = isMeta ? '' : 'none';
+  const metaApiLive = !!(META_UPLOADED_META && META_UPLOADED_META.source==='api');
+  document.getElementById('metaNotice').style.display    = (isMeta && !metaApiLive) ? '' : 'none';
   document.getElementById('daNotice').style.display      = ch==='DA' ? '' : 'none';
   document.getElementById('naverDataArea').style.display = ((isMeta && !metaHasData) || (ch==='DA' && !daHasData)) ? 'none' : '';
   if(isMeta){
