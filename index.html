@@ -684,14 +684,16 @@
     </div>
 
     <div class="panel" id="metaFunnelPanel" style="margin-bottom:18px;display:none">
-      <h2 style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><span>구매 퍼널 · 소재별 성과 <span class="tag">퍼널=선택 기간 · 리스트는 기간 전환 가능</span></span>
+      <h2 style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><span>구매 퍼널 <span class="tag">선택 기간 · 노출→구매 이탈 진단</span></span>
+        <select id="metaFunnelSel" style="font-size:12px;padding:5px 9px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink-2);font-family:inherit;cursor:pointer;max-width:280px"><option value="__ALL__">전체 소재 (합산)</option></select></h2>
+      <div id="metaFunnelBody" style="margin-top:6px"></div>
+    </div>
+    <div class="panel" id="metaGalleryPanel" style="margin-bottom:18px;display:none">
+      <h2 style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><span>소재 갤러리 <span class="tag">썸네일·성과 · 카드를 누르면 원본 게시물</span></span>
         <select id="metaGalSort" style="font-size:12px;padding:5px 9px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink-2);font-family:inherit;cursor:pointer">
           <option value="roas">ROAS 높은순</option><option value="cost">지출 많은순</option><option value="ctr">CTR 높은순</option><option value="conv">구매 많은순</option>
         </select></h2>
-      <div style="display:flex;gap:18px;flex-wrap:wrap;align-items:stretch">
-        <div id="metaFunnelBody" style="flex:1.6 1 380px;min-width:320px;display:flex;flex-direction:column;justify-content:center"></div>
-        <div id="metaCreativeList" style="flex:1 1 280px;min-width:270px"></div>
-      </div>
+      <div id="metaGalleryBody" style="margin-top:8px"></div>
     </div>
     <div class="panel" id="metaPlacePanel" style="margin-bottom:18px;display:none">
       <h2>지면별 성과 <span class="tag">피드·릴스·스토리·탐색 (전체 수집 기간)</span></h2>
@@ -2187,7 +2189,8 @@ document.addEventListener('click', e=>{
   const m=e.target.closest('.kwmore'); if(m){ KW_OPP_LIMIT+=10; renderKwOpp(); return; }
   const mc=e.target.closest('.mcrow'); if(mc){ META_FUNNEL_AD=mc.dataset.ad||'__ALL__'; if(typeof _renderMetaFunnel==='function'){_renderMetaFunnel();} if(typeof _renderMetaCreativeList==='function'&&window.META_ADS_BUNDLE){_renderMetaCreativeList();} return; }
   const mr2=e.target.closest('.mcreset'); if(mr2){ META_FUNNEL_AD='__ALL__'; if(typeof _renderMetaFunnel==='function'){_renderMetaFunnel();} if(typeof _renderMetaCreativeList==='function'&&window.META_ADS_BUNDLE){_renderMetaCreativeList();} return; }
-  const mp=e.target.closest('.mlper'); if(mp){ META_LIST_PERIOD=mp.dataset.per||'all'; if(typeof _renderMetaCreativeList==='function') _renderMetaCreativeList(); return; }
+  const mp=e.target.closest('.mlper'); if(mp){ META_LIST_PERIOD=mp.dataset.per||'all'; META_GAL_EXPAND=false; if(typeof _renderMetaCreativeList==='function') _renderMetaCreativeList(); return; }
+  const mgm=e.target.closest('.mgmore'); if(mgm){ META_GAL_EXPAND=!META_GAL_EXPAND; if(typeof _renderMetaCreativeList==='function') _renderMetaCreativeList(); return; }
   const l=e.target.closest('.kwless'); if(l){ KW_OPP_LIMIT=10; renderKwOpp(); }
 });
 document.addEventListener('change', e=>{
@@ -2196,6 +2199,7 @@ document.addEventListener('change', e=>{
   else if(t.id==='inAov'){ const v=parseFloat(t.value); USER_AOV=(v>0?v:null); renderKwOpp(); }
   else if(t.id==='inCvr'){ const v=parseFloat(t.value); USER_CVR=(v>0?v:null); renderKwOpp(); }
   else if(t.id==='metaGalSort'){ META_GAL_SORT=t.value||'roas'; if(typeof _renderMetaCreativeList==='function' && window.META_ADS_BUNDLE) _renderMetaCreativeList(); }
+  else if(t.id==='metaFunnelSel'){ META_FUNNEL_AD=t.value||'__ALL__'; if(typeof _renderMetaFunnel==='function') _renderMetaFunnel(); }
   else if(t.id==='metaCampFilter'){ META_CAMP_FILTER=t.value||'__ALL__'; if(typeof _renderMetaCreativeList==='function' && window.META_ADS_BUNDLE) _renderMetaCreativeList(); }
 
 });
@@ -2435,7 +2439,7 @@ function renderMetaCampOpinions(camps, ads, ctx){
   tgt.innerHTML = _opsHTML(ops) + '<div style="font-size:11.5px;color:var(--muted);margin-top:12px;line-height:1.65">※ <b>업계 참고치</b>는 농식품·신선식품 이커머스의 <b>메타 광고 통상 범위</b> 추정값이에요 — CTR 0.8~2.0% · CPC 300~800원 · ROAS 200~500%. 공식 통계가 아니라 가늠선이니, 정확한 비교는 <b>내 과거 성과</b> 기준이 가장 좋아요.</div>';
 }
 
-let META_GAL_SORT='roas';
+let META_GAL_SORT='roas'; let META_GAL_EXPAND=false;
 let META_FUNNEL_AD='__ALL__';
 let META_CAMP_FILTER='__ALL__';
 let META_LIST_PERIOD='all';
@@ -2443,9 +2447,9 @@ function _mFmtRoas(c){ return c>0?fmtPct(c,0):'—'; }
 function renderMetaExtra(){
   const B=(typeof window!=='undefined')?window.META_ADS_BUNDLE:null;
   const has=!!(B && (B.placements||B.creatives));
-  ['metaFunnelPanel','metaPlacePanel','metaFatiguePanel'].forEach(id=>{const el=document.getElementById(id); if(el) el.style.display=has?'':'none';});
+  ['metaFunnelPanel','metaGalleryPanel','metaPlacePanel','metaFatiguePanel'].forEach(id=>{const el=document.getElementById(id); if(el) el.style.display=has?'':'none';});
   _renderMetaFunnel();
-  if(!has){ const cl=document.getElementById('metaCreativeList'); if(cl) cl.innerHTML=''; return; }
+  if(!has){ const cl=document.getElementById('metaGalleryBody'); if(cl) cl.innerHTML=''; return; }
   _renderMetaCreativeList();
   _renderMetaPlacements(B.placements||[]);
   _renderMetaFatigue(B.creatives||[]);
@@ -2453,12 +2457,24 @@ function renderMetaExtra(){
 function _renderMetaFunnel(){
   const el=document.getElementById('metaFunnelBody'); if(!el) return;
   if(typeof META_FUNNEL_AD==='undefined') META_FUNNEL_AD='__ALL__';
+  { const selEl=document.getElementById('metaFunnelSel');
+    if(selEl){ const aa=dateStr(currentStart), bb=dateStr(currentEnd); const agg={};
+      (META_UPLOADED_DATA||[]).forEach(r=>{ if(r.date<aa||r.date>bb) return; const k=r.adname||'(이름 없음)'; agg[k]=(agg[k]||0)+(r.cost||0); });
+      const names=Object.keys(agg).filter(k=>agg[k]>0).sort((x,y)=>agg[y]-agg[x]);
+      if(META_FUNNEL_AD!=='__ALL__' && !names.includes(META_FUNNEL_AD)) META_FUNNEL_AD='__ALL__';
+      selEl.innerHTML='<option value="__ALL__">전체 소재 (합산)</option>'+names.map(n=>`<option value="${_esc(n)}">${_esc(n.length>42?n.slice(0,42)+'…':n)}</option>`).join('');
+      selEl.value=META_FUNNEL_AD;
+    } }
   const _allSel=(META_FUNNEL_AD==='__ALL__');
   const _hnm=_allSel?'전체 소재':META_FUNNEL_AD;
   const a=dateStr(currentStart), b=dateStr(currentEnd);
   let rows=(META_UPLOADED_DATA||[]).filter(r=>r.date>=a && r.date<=b);
   if(!_allSel) rows=rows.filter(r=>(r.adname||'(이름 없음)')===META_FUNNEL_AD);
-  if(!rows.length){ el.innerHTML=_funnelHead(_hnm)+'<div style="font-size:13px;color:var(--muted);padding:10px 0">선택 기간에 이 소재의 데이터가 없어요.</div>'; return; }
+  if(!rows.length){
+    let L=null; (META_UPLOADED_DATA||[]).forEach(r=>{ if((r.adname||'(이름 없음)')!==META_FUNNEL_AD) return; if(!((r.imp||0)>0||(r.cost||0)>0)) return; if(!L)L={dmin:r.date,dmax:r.date}; else{ if(r.date<L.dmin)L.dmin=r.date; if(r.date>L.dmax)L.dmax=r.date; } });
+    const hint=L?`이 소재는 <b>${L.dmin.slice(5)}~${L.dmax.slice(5)}</b>에 운영됐어요. 지금 선택한 기간엔 노출이 없어서 퍼널을 그릴 수 없어요.<br><span style='color:var(--muted)'>상단 날짜 범위를 넓히거나, 아래 갤러리에서 <b>전체 기간</b>으로 보세요.</span>`:'선택 기간에 이 소재의 노출이 없어요.';
+    el.innerHTML=_funnelHead(_hnm)+`<div style="font-size:13px;color:var(--ink-2);padding:12px 0;line-height:1.7">${hint}</div>`; return;
+  }
   const f={imp:0,clk:0,lpv:0,atc:0,conv:0,rev:0,cost:0};
   rows.forEach(r=>{ f.imp+=r.imp;f.clk+=r.clk;f.lpv+=(r.lpv||0);f.atc+=(r.atc||0);f.conv+=r.conv;f.rev+=r.rev;f.cost+=r.cost; });
   const steps=[['노출',f.imp],['클릭',f.clk],['랜딩 조회',f.lpv],['구매',f.conv]];
@@ -2501,56 +2517,80 @@ function _funnelHead(name){
   return `<div style="font-size:12px;color:var(--ink-2);margin-bottom:12px">선택: <b>${_esc(nm)}</b></div>`;
 }
 function _renderMetaCreativeList(){
-  const el=document.getElementById('metaCreativeList'); if(!el) return;
+  const el=document.getElementById('metaGalleryBody'); if(!el) return;
   if(typeof META_CAMP_FILTER==='undefined') META_CAMP_FILTER='__ALL__';
-  if(typeof META_FUNNEL_AD==='undefined') META_FUNNEL_AD='__ALL__';
   if(typeof META_LIST_PERIOD==='undefined') META_LIST_PERIOD='all';
+  if(typeof META_GAL_EXPAND==='undefined') META_GAL_EXPAND=false;
   const B=(typeof window!=='undefined')?window.META_ADS_BUNDLE:null;
   const bcr=((B&&B.creatives)||[]);
   const meta={}; bcr.forEach(c=>{ meta[c.ad||'(이름 없음)']={thumb:c.thumb,link:c.link,freq:c.freq,campaign:c.campaign}; });
-  let baseList;
-  if(META_LIST_PERIOD==='sel'){
-    const a=dateStr(currentStart), b=dateStr(currentEnd); const m={};
-    (META_UPLOADED_DATA||[]).forEach(r=>{ if(r.date<a||r.date>b) return; const k=r.adname||'(이름 없음)'; const o=m[k]||(m[k]={ad:k,campaign:r.campaign||'',imp:0,clk:0,cost:0,conv:0,rev:0}); o.imp+=r.imp;o.clk+=r.clk;o.cost+=r.cost;o.conv+=r.conv;o.rev+=r.rev; });
-    baseList=Object.values(m).map(o=>{ const t=meta[o.ad]||{}; return Object.assign({}, o, {thumb:t.thumb, link:t.link, freq:t.freq||0, campaign:o.campaign||t.campaign||''}); });
-  } else {
-    baseList=bcr.slice();
-  }
-  let list=baseList.filter(c=>(c.cost||0)>0);
+  const a=dateStr(currentStart), b=dateStr(currentEnd);
+  const allAgg={}, perAgg={}, live={};
+  (META_UPLOADED_DATA||[]).forEach(r=>{ const k=r.adname||'(이름 없음)';
+    const o=allAgg[k]||(allAgg[k]={imp:0,clk:0,cost:0,conv:0,rev:0,lpv:0,campaign:r.campaign||''});
+    o.imp+=r.imp;o.clk+=r.clk;o.cost+=r.cost;o.conv+=r.conv;o.rev+=r.rev;o.lpv+=(r.lpv||0); if(!o.campaign&&r.campaign)o.campaign=r.campaign;
+    if((r.imp||0)>0||(r.cost||0)>0){ const L=live[k]||(live[k]={dmin:r.date,dmax:r.date}); if(r.date<L.dmin)L.dmin=r.date; if(r.date>L.dmax)L.dmax=r.date; }
+    if(r.date>=a && r.date<=b){ const q=perAgg[k]||(perAgg[k]={imp:0,clk:0,cost:0,conv:0,rev:0,lpv:0}); q.imp+=r.imp;q.clk+=r.clk;q.cost+=r.cost;q.conv+=r.conv;q.rev+=r.rev;q.lpv+=(r.lpv||0); }
+  });
+  const sel=(META_LIST_PERIOD==='sel');
+  let list=Object.keys(allAgg).filter(k=>(allAgg[k].cost||0)>0||(allAgg[k].imp||0)>0).map(k=>{
+    const src=sel?(perAgg[k]||{imp:0,clk:0,cost:0,conv:0,rev:0,lpv:0}):allAgg[k];
+    const t=meta[k]||{}; const L=live[k]||{};
+    return {ad:k, campaign:allAgg[k].campaign||t.campaign||'(캠페인 없음)', thumb:t.thumb, link:t.link, freq:t.freq||0,
+      imp:src.imp,clk:src.clk,cost:src.cost,conv:src.conv,rev:src.rev,lpv:src.lpv,
+      dmin:L.dmin, dmax:L.dmax, hasData:((src.cost||0)>0||(src.imp||0)>0)};
+  });
   const camps=[...new Set(list.map(c=>c.campaign||'(캠페인 없음)'))].sort();
   if(META_CAMP_FILTER!=='__ALL__' && !camps.includes(META_CAMP_FILTER)) META_CAMP_FILTER='__ALL__';
-  const filtered = META_CAMP_FILTER==='__ALL__' ? list : list.filter(c=>(c.campaign||'(캠페인 없음)')===META_CAMP_FILTER);
+  let filtered = META_CAMP_FILTER==='__ALL__' ? list : list.filter(c=>(c.campaign||'(캠페인 없음)')===META_CAMP_FILTER);
   const key=(typeof META_GAL_SORT!=='undefined')?META_GAL_SORT:'roas';
-  filtered.sort((a,b)=>{
-    if(key==='cost') return (b.cost||0)-(a.cost||0);
-    if(key==='ctr') return ((b.imp?b.clk/b.imp:0)-(a.imp?a.clk/a.imp:0));
-    if(key==='conv') return (b.conv||0)-(a.conv||0);
-    return ((b.cost?b.rev/b.cost:0)-(a.cost?a.rev/a.cost:0));
+  filtered.sort((x,y)=>{
+    if(x.hasData!==y.hasData) return x.hasData?-1:1;
+    if(key==='cost') return (y.cost||0)-(x.cost||0);
+    if(key==='ctr') return ((y.imp?y.clk/y.imp:0)-(x.imp?x.clk/x.imp:0));
+    if(key==='conv') return (y.conv||0)-(x.conv||0);
+    return ((y.cost?y.rev/y.cost:0)-(x.cost?x.rev/x.cost:0));
   });
-  const AC='#0d8a7d';
+  const nData=filtered.filter(c=>c.hasData).length, nEmpty=filtered.length-nData;
   const campOpts=`<option value="__ALL__"${META_CAMP_FILTER==='__ALL__'?' selected':''}>전체 캠페인</option>`+
     camps.map(c=>`<option value="${_esc(c)}"${META_CAMP_FILTER===c?' selected':''}>${_esc(c.length>28?c.slice(0,28)+'…':c)}</option>`).join('');
-  const allSel=(META_FUNNEL_AD==='__ALL__');
-  const allRow=`<div class="mcrow" data-ad="__ALL__" style="display:flex;align-items:center;gap:8px;padding:8px;border-radius:8px;cursor:pointer;border:1px solid ${allSel?AC:'transparent'};background:${allSel?'#eef7f4':'transparent'};font-size:12.5px;font-weight:700">전체 소재 (${fmtInt(filtered.length)}개) — 합산 퍼널</div>`;
-  const rows=filtered.slice(0,80).map(c=>{
-    const roas=c.cost?c.rev/c.cost*100:0, ctr=c.imp?c.clk/c.imp*100:0;
-    const on=(META_FUNNEL_AD===(c.ad||'(이름 없음)'));
-    const img=c.thumb?`<img src="${c.thumb}" style="width:44px;height:44px;object-fit:cover;border-radius:6px;background:#eef1f5;flex-shrink:0" loading="lazy" onerror="this.style.visibility='hidden'">`:`<div style="width:44px;height:44px;border-radius:6px;background:#eef1f5;flex-shrink:0"></div>`;
-    const fb=(c.freq||0)>=3?'<span style="color:#b91c3c">·피로↑</span>':'';
-    return `<div class="mcrow${on?' mcrow-active':''}" data-ad="${_esc(c.ad||'(이름 없음)')}" style="display:flex;align-items:center;gap:9px;padding:7px 8px;border-radius:8px;cursor:pointer;border:1px solid ${on?AC:'transparent'};background:${on?'#eef7f4':'transparent'}">${img}<div style="flex:1;min-width:0"><div style="font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${_esc(c.ad||'(이름 없음)')}</div><div style="font-size:10.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${_esc(c.campaign||'(캠페인 없음)')}</div><div style="font-size:11px;color:var(--ink-2);margin-top:2px">ROAS <b style="color:${roas>=300?'#027a38':roas>0?'#92400e':'var(--muted)'}">${_mFmtRoas(roas)}</b> · 지출 ${fmtWon(c.cost)} · CTR ${fmtPct(ctr)} · 구매 ${fmtInt(c.conv)} ${fb}</div></div></div>`;}).join('');
-  el.innerHTML =
-    `<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px">`+
-      `<div style="display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden">`+
-        `<button class="mlper" data-per="sel" style="padding:5px 10px;border:none;font-size:11.5px;cursor:pointer;font-family:inherit;background:${META_LIST_PERIOD==='sel'?'#3182f6':'var(--card)'};color:${META_LIST_PERIOD==='sel'?'#fff':'var(--ink-2)'}">선택 기간</button>`+
-        `<button class="mlper" data-per="all" style="padding:5px 10px;border:none;border-left:1px solid var(--line);font-size:11.5px;cursor:pointer;font-family:inherit;background:${META_LIST_PERIOD==='all'?'#3182f6':'var(--card)'};color:${META_LIST_PERIOD==='all'?'#fff':'var(--ink-2)'}">전체 기간</button>`+
+  const controls=`<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap">`+
+      `<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">`+
+        `<div style="display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden">`+
+          `<button class="mlper" data-per="sel" style="padding:5px 11px;border:none;font-size:11.5px;cursor:pointer;font-family:inherit;background:${sel?'#3182f6':'var(--card)'};color:${sel?'#fff':'var(--ink-2)'}">선택 기간</button>`+
+          `<button class="mlper" data-per="all" style="padding:5px 11px;border:none;border-left:1px solid var(--line);font-size:11.5px;cursor:pointer;font-family:inherit;background:${!sel?'#3182f6':'var(--card)'};color:${!sel?'#fff':'var(--ink-2)'}">전체 기간</button>`+
+        `</div>`+
+        `<span style="font-size:11.5px;color:var(--muted)">데이터 ${fmtInt(nData)}개${nEmpty?` · 이 기간 노출없음 ${fmtInt(nEmpty)}개`:''}</span>`+
       `</div>`+
-      `<select id="metaCampFilter" style="font-size:12px;padding:5px 9px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink-2);font-family:inherit;cursor:pointer;max-width:180px">${campOpts}</select></div>`+
-    allRow+
-    `<div id="metaCreativeScroll" style="max-height:330px;overflow:auto;margin-top:4px;position:relative">${rows||'<div style="font-size:12px;color:var(--muted);padding:10px">소재 데이터가 없어요.</div>'}</div>`+
-    `<div style="font-size:11px;color:var(--muted);margin-top:6px">소재를 클릭하면 왼쪽 퍼널이 그 소재로 바뀌어요.</div>`;
-  const _sc=document.getElementById('metaCreativeScroll');
-  const _act=_sc&&_sc.querySelector('.mcrow-active');
-  if(_sc&&_act){ _sc.scrollTop = Math.max(0, _act.offsetTop - _sc.clientHeight/2 + _act.offsetHeight/2); }
+      `<select id="metaCampFilter" style="font-size:12px;padding:5px 9px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink-2);font-family:inherit;cursor:pointer;max-width:200px">${campOpts}</select></div>`;
+  if(!filtered.length){ el.innerHTML=controls+'<div style="font-size:13px;color:var(--muted);padding:14px 0">소재 데이터가 없어요.</div>'; return; }
+  const N=8, expanded=!!META_GAL_EXPAND;
+  const showList=expanded?filtered.slice(0,60):filtered.slice(0,N);
+  const cards=showList.map(c=>{
+    const roas=c.cost?c.rev/c.cost*100:0, ctr=c.imp?c.clk/c.imp*100:0;
+    const range=(c.dmin&&c.dmax)?`${c.dmin.slice(5)}~${c.dmax.slice(5)}`:'';
+    const img=c.thumb?`<img src="${_esc(c.thumb)}" style="width:100%;height:130px;object-fit:cover;background:#eef1f5;display:block${c.hasData?'':';filter:grayscale(1);opacity:.55'}" loading="lazy" onerror="this.style.display='none'">`:`<div style="height:130px;background:#eef1f5;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:12px">미리보기 없음</div>`;
+    let badge='';
+    if(c.hasData){ const v=_campVerdict({name:c.ad,roas,ctr,clk:c.clk||0,lpv:c.lpv||0,cost:c.cost||0,rev:c.rev||0,conv:c.conv||0,lowVol:((c.imp||0)<500)});
+      badge=`<span style="position:absolute;top:6px;left:6px;padding:1px 7px;border-radius:9px;font-size:10px;font-weight:700;color:${v.col};background:${v.bg};box-shadow:0 1px 3px rgba(0,0,0,.15)">${v.tag}</span>`; }
+    else { badge=`<span style="position:absolute;top:6px;left:6px;padding:1px 7px;border-radius:9px;font-size:10px;font-weight:700;color:#5f5e5a;background:#efefec;box-shadow:0 1px 3px rgba(0,0,0,.15)">이 기간 노출없음</span>`; }
+    const metricLine=c.hasData
+      ? `<div style="font-size:12px;color:var(--ink-2);margin-top:5px">ROAS <b style="color:${roas>=300?'#027a38':roas>0?'#92400e':'var(--muted)'}">${_mFmtRoas(roas)}</b> · 지출 ${fmtWon(c.cost)}</div><div style="font-size:11px;color:var(--muted);margin-top:2px">CTR ${fmtPct(ctr)} · 구매 ${fmtInt(c.conv)}${(c.freq||0)>=3?" · <span style='color:#b91c3c'>피로↑</span>":''}</div>`
+      : `<div style="font-size:11.5px;color:var(--muted);margin-top:5px;line-height:1.5">선택한 기간엔 노출이 없어요.${range?`<br>게시 기간 <b style='color:var(--ink-2)'>${range}</b>`:''}</div>`;
+    const inner=`<div style="position:relative">${img}${badge}</div>`+
+      `<div style="padding:9px 11px">`+
+        `<div style="font-size:12px;font-weight:600;line-height:1.35;height:33px;overflow:hidden">${_esc(c.ad||'(이름 없음)')}</div>`+
+        `<div style="font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px">${_esc(c.campaign||'(캠페인 없음)')}</div>`+
+        metricLine+
+      `</div>`;
+    const foot=c.link?`<div style="border-top:1px solid var(--line);padding:6px 11px;font-size:11px;color:#3182f6;font-weight:600">원본 게시물 열기 ↗</div>`:`<div style="border-top:1px solid var(--line);padding:6px 11px;font-size:11px;color:var(--muted)">원본 링크 없음</div>`;
+    const cardBase=`display:block;text-decoration:none;color:inherit;border:1px solid var(--line);border-radius:11px;overflow:hidden;background:var(--card)${c.hasData?'':';opacity:.85'}`;
+    return c.link
+      ? `<a href="${_esc(c.link)}" target="_blank" rel="noopener" class="mgcard" style="${cardBase};cursor:pointer;transition:box-shadow .15s,transform .15s" onmouseover="this.style.boxShadow='0 6px 18px rgba(0,0,0,.12)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='none';this.style.transform='none'">${inner}${foot}</a>`
+      : `<div class="mgcard" style="${cardBase}">${inner}${foot}</div>`;
+  }).join('');
+  const more=filtered.length>N?`<div style="text-align:center;margin-top:14px"><button class="mgmore" style="padding:8px 18px;border:1px solid var(--line);border-radius:9px;background:var(--card);color:var(--ink-2);font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit">${expanded?'접기 ▲':'더 보기 ('+fmtInt(filtered.length-N)+'개 더) ▼'}</button></div>`:'';
+  el.innerHTML=controls+`<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px">${cards}</div>`+more;
 }
 function _renderMetaPlacements(pl){
   const el=document.getElementById('metaPlaceBody'); if(!el) return;
