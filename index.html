@@ -2193,6 +2193,7 @@ document.addEventListener('click', e=>{
   const mr2=e.target.closest('.mcreset'); if(mr2){ META_FUNNEL_AD='__ALL__'; if(typeof _renderMetaFunnel==='function'){_renderMetaFunnel();} if(typeof _renderMetaCreativeList==='function'&&window.META_ADS_BUNDLE){_renderMetaCreativeList();} return; }
   const mp=e.target.closest('.mlper'); if(mp){ META_LIST_PERIOD=mp.dataset.per||'all'; META_GAL_EXPAND=false; if(typeof _renderMetaCreativeList==='function') _renderMetaCreativeList(); return; }
   const mgm=e.target.closest('.mgmore'); if(mgm){ META_GAL_EXPAND=!META_GAL_EXPAND; if(typeof _renderMetaGallery==='function') _renderMetaGallery(); return; }
+  const mg2=e.target.closest('.mg2per'); if(mg2){ META_GAL_PERIOD=mg2.dataset.per||'all'; META_GAL_EXPAND=false; if(typeof _renderMetaGallery==='function') _renderMetaGallery(); return; }
   const l=e.target.closest('.kwless'); if(l){ KW_OPP_LIMIT=10; renderKwOpp(); }
 });
 document.addEventListener('change', e=>{
@@ -2203,6 +2204,8 @@ document.addEventListener('change', e=>{
   else if(t.id==='metaGalSort'){ META_GAL_SORT=t.value||'roas'; if(typeof _renderMetaCreativeList==='function' && window.META_ADS_BUNDLE) _renderMetaCreativeList(); }
 
   else if(t.id==='metaCampFilter'){ META_CAMP_FILTER=t.value||'__ALL__'; if(typeof _renderMetaCreativeList==='function' && window.META_ADS_BUNDLE) _renderMetaCreativeList(); }
+  else if(t.id==='metaGal2Camp'){ META_GAL_CAMP=t.value||'__ALL__'; META_GAL_EXPAND=false; if(typeof _renderMetaGallery==='function') _renderMetaGallery(); }
+  else if(t.id==='metaGal2Sort'){ META_GAL_SORT2=t.value||'roas'; META_GAL_EXPAND=false; if(typeof _renderMetaGallery==='function') _renderMetaGallery(); }
 
 });
 
@@ -2441,7 +2444,7 @@ function renderMetaCampOpinions(camps, ads, ctx){
   tgt.innerHTML = _opsHTML(ops) + '<div style="font-size:11.5px;color:var(--muted);margin-top:12px;line-height:1.65">※ <b>업계 참고치</b>는 농식품·신선식품 이커머스의 <b>메타 광고 통상 범위</b> 추정값이에요 — CTR 0.8~2.0% · CPC 300~800원 · ROAS 200~500%. 공식 통계가 아니라 가늠선이니, 정확한 비교는 <b>내 과거 성과</b> 기준이 가장 좋아요.</div>';
 }
 
-let META_GAL_SORT='roas'; let META_GAL_EXPAND=false;
+let META_GAL_SORT='roas'; let META_GAL_EXPAND=false; let META_GAL_PERIOD='all'; let META_GAL_CAMP='__ALL__'; let META_GAL_SORT2='roas';
 let META_FUNNEL_AD='__ALL__';
 let META_CAMP_FILTER='__ALL__';
 let META_LIST_PERIOD='all';
@@ -2453,6 +2456,7 @@ function renderMetaExtra(){
   _renderMetaFunnel();
   if(!has){ const cl=document.getElementById('metaGalleryBody'); if(cl) cl.innerHTML=''; return; }
   _renderMetaCreativeList();
+  _renderMetaGallery();
   _renderMetaPlacements(B.placements||[]);
   _renderMetaFatigue(B.creatives||[]);
 }
@@ -2528,11 +2532,15 @@ function _renderMetaCreativeList(){
     baseList=bcr.slice();
   }
   let list=baseList.filter(c=>(c.cost||0)>0);
+  const _pa=dateStr(currentStart), _pb=dateStr(currentEnd); const _active=new Set();
+  (META_UPLOADED_DATA||[]).forEach(r=>{ if(r.date>=_pa&&r.date<=_pb&&((r.imp||0)>0||(r.cost||0)>0)) _active.add(r.adname||'(이름 없음)'); });
+  list.forEach(c=>{ c._sel=_active.has(c.ad||'(이름 없음)'); });
   const camps=[...new Set(list.map(c=>c.campaign||'(캠페인 없음)'))].sort();
   if(META_CAMP_FILTER!=='__ALL__' && !camps.includes(META_CAMP_FILTER)) META_CAMP_FILTER='__ALL__';
   const filtered = META_CAMP_FILTER==='__ALL__' ? list : list.filter(c=>(c.campaign||'(캠페인 없음)')===META_CAMP_FILTER);
   const key=(typeof META_GAL_SORT!=='undefined')?META_GAL_SORT:'roas';
   filtered.sort((a,b)=>{
+    if(a._sel!==b._sel) return a._sel?-1:1;
     if(key==='cost') return (b.cost||0)-(a.cost||0);
     if(key==='ctr') return ((b.imp?b.clk/b.imp:0)-(a.imp?a.clk/a.imp:0));
     if(key==='conv') return (b.conv||0)-(a.conv||0);
@@ -2548,7 +2556,7 @@ function _renderMetaCreativeList(){
     const on=(META_FUNNEL_AD===(c.ad||'(이름 없음)'));
     const img=c.thumb?`<img src="${c.thumb}" style="width:44px;height:44px;object-fit:cover;border-radius:6px;background:#eef1f5;flex-shrink:0" loading="lazy" onerror="this.style.visibility='hidden'">`:`<div style="width:44px;height:44px;border-radius:6px;background:#eef1f5;flex-shrink:0"></div>`;
     const fb=(c.freq||0)>=3?'<span style="color:#b91c3c">·피로↑</span>':'';
-    return `<div class="mcrow${on?' mcrow-active':''}" data-ad="${_esc(c.ad||'(이름 없음)')}" style="display:flex;align-items:center;gap:9px;padding:7px 8px;border-radius:8px;cursor:pointer;border:1px solid ${on?AC:'transparent'};background:${on?'#eef7f4':'transparent'}">${img}<div style="flex:1;min-width:0"><div style="font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${_esc(c.ad||'(이름 없음)')}</div><div style="font-size:10.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${_esc(c.campaign||'(캠페인 없음)')}</div><div style="font-size:11px;color:var(--ink-2);margin-top:2px">ROAS <b style="color:${roas>=300?'#027a38':roas>0?'#92400e':'var(--muted)'}">${_mFmtRoas(roas)}</b> · 지출 ${fmtWon(c.cost)} · CTR ${fmtPct(ctr)} · 구매 ${fmtInt(c.conv)} ${fb}</div></div></div>`;}).join('');
+    return `<div class="mcrow${on?' mcrow-active':''}" data-ad="${_esc(c.ad||'(이름 없음)')}" style="display:flex;align-items:center;gap:9px;padding:7px 8px;border-radius:8px;cursor:pointer;border:1px solid ${on?AC:'transparent'};background:${on?'#eef7f4':'transparent'};opacity:${c._sel?'1':'.5'}">${img}<div style="flex:1;min-width:0"><div style="font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${_esc(c.ad||'(이름 없음)')}</div><div style="font-size:10.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${_esc(c.campaign||'(캠페인 없음)')}</div><div style="font-size:11px;color:var(--ink-2);margin-top:2px">ROAS <b style="color:${roas>=300?'#027a38':roas>0?'#92400e':'var(--muted)'}">${_mFmtRoas(roas)}</b> · 지출 ${fmtWon(c.cost)} · CTR ${fmtPct(ctr)} · 구매 ${fmtInt(c.conv)} ${fb}</div></div></div>`;}).join('');
   el.innerHTML =
     `<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px">`+
       `<div style="display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden">`+
@@ -2563,12 +2571,12 @@ function _renderMetaCreativeList(){
   const _act=_sc&&_sc.querySelector('.mcrow-active');
   if(_sc&&_act){ _sc.scrollTop = Math.max(0, _act.offsetTop - _sc.clientHeight/2 + _act.offsetHeight/2); }
   }
-  if(typeof _renderMetaGallery==='function') _renderMetaGallery();
 }
 function _renderMetaGallery(){
   const el=document.getElementById('metaGalleryBody'); if(!el) return;
-  if(typeof META_CAMP_FILTER==='undefined') META_CAMP_FILTER='__ALL__';
-  if(typeof META_LIST_PERIOD==='undefined') META_LIST_PERIOD='all';
+  if(typeof META_GAL_CAMP==='undefined') META_GAL_CAMP='__ALL__';
+  if(typeof META_GAL_PERIOD==='undefined') META_GAL_PERIOD='all';
+  if(typeof META_GAL_SORT2==='undefined') META_GAL_SORT2='roas';
   if(typeof META_GAL_EXPAND==='undefined') META_GAL_EXPAND=false;
   const B=(typeof window!=='undefined')?window.META_ADS_BUNDLE:null;
   const bcr=((B&&B.creatives)||[]);
@@ -2581,7 +2589,7 @@ function _renderMetaGallery(){
     if((r.imp||0)>0||(r.cost||0)>0){ const L=live[k]||(live[k]={dmin:r.date,dmax:r.date}); if(r.date<L.dmin)L.dmin=r.date; if(r.date>L.dmax)L.dmax=r.date; }
     if(r.date>=a && r.date<=b){ const q=perAgg[k]||(perAgg[k]={imp:0,clk:0,cost:0,conv:0,rev:0,lpv:0}); q.imp+=r.imp;q.clk+=r.clk;q.cost+=r.cost;q.conv+=r.conv;q.rev+=r.rev;q.lpv+=(r.lpv||0); }
   });
-  const sel=(META_LIST_PERIOD==='sel');
+  const sel=(META_GAL_PERIOD==='sel');
   let list=Object.keys(allAgg).filter(k=>(allAgg[k].cost||0)>0||(allAgg[k].imp||0)>0).map(k=>{
     const src=sel?(perAgg[k]||{imp:0,clk:0,cost:0,conv:0,rev:0,lpv:0}):allAgg[k];
     const t=meta[k]||{}; const L=live[k]||{};
@@ -2590,25 +2598,40 @@ function _renderMetaGallery(){
       dmin:L.dmin, dmax:L.dmax, hasData:((src.cost||0)>0||(src.imp||0)>0)};
   });
   const camps=[...new Set(list.map(c=>c.campaign||'(캠페인 없음)'))].sort();
-  if(META_CAMP_FILTER!=='__ALL__' && !camps.includes(META_CAMP_FILTER)) META_CAMP_FILTER='__ALL__';
-  let filtered = META_CAMP_FILTER==='__ALL__' ? list : list.filter(c=>(c.campaign||'(캠페인 없음)')===META_CAMP_FILTER);
-  const key=(typeof META_GAL_SORT!=='undefined')?META_GAL_SORT:'roas';
+  if(META_GAL_CAMP!=='__ALL__' && !camps.includes(META_GAL_CAMP)) META_GAL_CAMP='__ALL__';
+  let filtered = META_GAL_CAMP==='__ALL__' ? list : list.filter(c=>(c.campaign||'(캠페인 없음)')===META_GAL_CAMP);
+  const key=META_GAL_SORT2;
   filtered.sort((x,y)=>{
     if(x.hasData!==y.hasData) return x.hasData?-1:1;
     if(key==='cost') return (y.cost||0)-(x.cost||0);
     if(key==='ctr') return ((y.imp?y.clk/y.imp:0)-(x.imp?x.clk/x.imp:0));
     if(key==='conv') return (y.conv||0)-(x.conv||0);
+    if(key==='freq') return (y.freq||0)-(x.freq||0);
     return ((y.cost?y.rev/y.cost:0)-(x.cost?x.rev/x.cost:0));
   });
   const nData=filtered.filter(c=>c.hasData).length, nEmpty=filtered.length-nData;
-  const note=`<div style="font-size:11.5px;color:var(--muted);margin-bottom:10px">데이터 ${fmtInt(nData)}개${nEmpty?` · 이 기간 노출없음 ${fmtInt(nEmpty)}개`:''} · 정렬·기간·캠페인 필터는 위 리스트 기준</div>`;
+  const campOpts=`<option value="__ALL__"${META_GAL_CAMP==='__ALL__'?' selected':''}>전체 캠페인</option>`+
+    camps.map(c=>`<option value="${_esc(c)}"${META_GAL_CAMP===c?' selected':''}>${_esc(c.length>26?c.slice(0,26)+'…':c)}</option>`).join('');
+  const sortOpts=[['roas','ROAS 높은순'],['cost','지출 많은순'],['ctr','CTR 높은순'],['conv','구매 많은순'],['freq','피로도 높은순']].map(o=>`<option value="${o[0]}"${META_GAL_SORT2===o[0]?' selected':''}>${o[1]}</option>`).join('');
+  const note=`<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:14px;flex-wrap:wrap">`+
+      `<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">`+
+        `<div style="display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden">`+
+          `<button class="mg2per" data-per="sel" style="padding:6px 12px;border:none;font-size:12px;cursor:pointer;font-family:inherit;background:${sel?'#3182f6':'var(--card)'};color:${sel?'#fff':'var(--ink-2)'}">선택 기간</button>`+
+          `<button class="mg2per" data-per="all" style="padding:6px 12px;border:none;border-left:1px solid var(--line);font-size:12px;cursor:pointer;font-family:inherit;background:${!sel?'#3182f6':'var(--card)'};color:${!sel?'#fff':'var(--ink-2)'}">전체 기간</button>`+
+        `</div>`+
+        `<span style="font-size:11.5px;color:var(--muted)">데이터 ${fmtInt(nData)}개${nEmpty?` · 기간외 ${fmtInt(nEmpty)}개`:''}</span>`+
+      `</div>`+
+      `<div style="display:flex;gap:8px;flex-wrap:wrap">`+
+        `<select id="metaGal2Camp" style="font-size:12px;padding:6px 9px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink-2);font-family:inherit;cursor:pointer;max-width:200px">${campOpts}</select>`+
+        `<select id="metaGal2Sort" style="font-size:12px;padding:6px 9px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink-2);font-family:inherit;cursor:pointer">${sortOpts}</select>`+
+      `</div></div>`;
   if(!filtered.length){ el.innerHTML=note+'<div style="font-size:13px;color:var(--muted);padding:14px 0">소재 데이터가 없어요.</div>'; return; }
-  const N=8, expanded=!!META_GAL_EXPAND;
-  const showList=expanded?filtered.slice(0,60):filtered.slice(0,N);
+  const N=12, expanded=!!META_GAL_EXPAND;
+  const showList=expanded?filtered.slice(0,72):filtered.slice(0,N);
   const cards=showList.map(c=>{
     const roas=c.cost?c.rev/c.cost*100:0, ctr=c.imp?c.clk/c.imp*100:0;
     const range=(c.dmin&&c.dmax)?`${c.dmin.slice(5)}~${c.dmax.slice(5)}`:'';
-    const img=c.thumb?`<img src="${_esc(c.thumb)}" style="width:100%;height:130px;object-fit:cover;background:#eef1f5;display:block${c.hasData?'':';filter:grayscale(1);opacity:.55'}" loading="lazy" onerror="this.style.display='none'">`:`<div style="height:130px;background:#eef1f5;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:12px">미리보기 없음</div>`;
+    const img=c.thumb?`<img src="${_esc(c.thumb)}" style="width:100%;height:150px;object-fit:cover;background:#eef1f5;display:block${c.hasData?'':';filter:grayscale(1);opacity:.55'}" loading="lazy" onerror="this.style.display='none'">`:`<div style="height:130px;background:#eef1f5;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:12px">미리보기 없음</div>`;
     let badge='';
     if(c.hasData){ const v=_campVerdict({name:c.ad,roas,ctr,clk:c.clk||0,lpv:c.lpv||0,cost:c.cost||0,rev:c.rev||0,conv:c.conv||0,lowVol:((c.imp||0)<500)});
       badge=`<span style="position:absolute;top:6px;left:6px;padding:1px 7px;border-radius:9px;font-size:10px;font-weight:700;color:${v.col};background:${v.bg};box-shadow:0 1px 3px rgba(0,0,0,.15)">${v.tag}</span>`; }

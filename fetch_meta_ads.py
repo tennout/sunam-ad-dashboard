@@ -221,7 +221,13 @@ def fetch_creative_previews(acct: str, token: str) -> dict:
     try:
         rows = _get_paged(f"{GRAPH}/{acct}/ads", {
             "access_token": token,
-            "fields": "name,creative{thumbnail_url,image_url,instagram_permalink_url,effective_object_story_id}",
+            # object_story_spec의 picture(고화질), image_url(원본), thumbnail_url(저화질) 순으로 확보
+            "fields": ("name,creative{thumbnail_url,image_url,instagram_permalink_url,"
+                       "effective_object_story_id,object_story_spec{link_data{picture},"
+                       "video_data{image_url}}}"),
+            # 썸네일 요청 크기 확대 (기본 64px → 600px)
+            "thumbnail_width": 600,
+            "thumbnail_height": 600,
             "limit": 200,
         })
     except Exception as e:
@@ -230,7 +236,11 @@ def fetch_creative_previews(acct: str, token: str) -> dict:
     for a in rows:
         name = a.get("name", "")
         cr = a.get("creative") or {}
-        thumb = cr.get("thumbnail_url") or cr.get("image_url") or ""
+        oss = cr.get("object_story_spec") or {}
+        hi = ((oss.get("link_data") or {}).get("picture")
+              or (oss.get("video_data") or {}).get("image_url"))
+        # 고화질(원본) 우선, 없으면 확대 요청한 thumbnail_url
+        thumb = hi or cr.get("image_url") or cr.get("thumbnail_url") or ""
         link = cr.get("instagram_permalink_url") or ""
         if not link and cr.get("effective_object_story_id"):
             link = f"https://www.facebook.com/{cr['effective_object_story_id']}"
