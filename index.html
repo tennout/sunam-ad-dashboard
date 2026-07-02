@@ -64,6 +64,9 @@
   .grid2{display:grid;grid-template-columns:1.3fr 1fr;gap:14px;margin-bottom:18px}
   @media(max-width:1100px){.grid2{grid-template-columns:1fr}}
   #trendGrid{align-items:start}
+  .trow-sel{background:#eaf2ff !important;box-shadow:inset 3px 0 0 #3182f6}
+  #metaReport.drill-on #metaCampBody tr[data-cname],#metaReport.drill-on #metaAdBody tr[data-aname]{cursor:pointer}
+  #metaReport.drill-on #metaCampBody tr[data-cname]:hover,#metaReport.drill-on #metaAdBody tr[data-aname]:hover{background:#f5f9ff}
   .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
   .panel h2{font-size:14px;margin:0 0 10px;font-weight:700;display:flex;align-items:center;gap:8px}
   .panel h2 .tag{font-size:11px;background:#eef2f0;color:var(--ink-2);padding:2px 8px;border-radius:999px;font-weight:600}
@@ -574,7 +577,7 @@
   <!-- TREND CHART + AI OPINION -->
   <div class="grid2" id="trendGrid">
     <div class="panel">
-      <h2>일자별 추이 <span class="tag" id="trendTag">소재 교체·입찰가 변경 이벤트 마커 포함</span></h2>
+      <h2 style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">일자별 추이 <span class="tag" id="trendTag">소재 교체·입찰가 변경 이벤트 마커 포함</span><button id="trendDrill" style="display:none;font-size:11.5px;padding:4px 10px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink-2);cursor:pointer;font-family:inherit;white-space:nowrap">📊 캠페인·소재별 추이</button><span id="trendDrillInfo" style="display:none;font-size:11.5px;color:var(--muted);font-weight:400"></span></h2>
       <div class="legend" id="seriesToggle" style="margin-bottom:8px">
         <button class="series-pill" data-series="CTR"><i class="dot" style="background:#03c75a"></i>CTR(%)</button>
         <button class="series-pill" data-series="CPC"><i class="dot" style="background:#2563eb"></i>CPC(원)</button>
@@ -1568,6 +1571,8 @@ function bindGlossaryIcons(){
    ============================================================ */
 let chartRef=null;
 const SERIES_VIS={CTR:true,CPC:true,COST:true,ROAS:true};
+let TREND_DRILL=false; let TREND_SEL_CAMP=new Set(); let TREND_SEL_AD=new Set();
+function _afterDrillChange(){ const n=TREND_SEL_CAMP.size+TREND_SEL_AD.size; const info=document.getElementById('trendDrillInfo'); if(info){ info.textContent = n? `선택 ${n}개만 표시 중` : '전체 추이 · 캠페인/소재 행을 클릭해 선택'; } if(typeof renderChart==='function') renderChart(); }
 let SA_ACTIVE={shop:true,powerlink:true,brand:true};
 function _chartDayTotal(d){
   if(MAIN_CHANNEL==='SA'){
@@ -1576,6 +1581,11 @@ function _chartDayTotal(d){
     act.forEach(x=>{const r=sumRange(d,d,x);a.imp+=r.imp;a.clk+=r.clk;a.cost+=r.cost;a.conv+=r.conv;a.rev+=r.rev;});
     a.ctr=a.imp?a.clk/a.imp*100:0; a.cpc=a.clk?a.cost/a.clk:0; a.roas=a.cost?a.rev/a.cost*100:0;
     return a;
+  }
+  if(MAIN_CHANNEL==='META' && TREND_DRILL && (TREND_SEL_CAMP.size||TREND_SEL_AD.size)){
+    const ds=dateStr(d); const a={imp:0,clk:0,cost:0,conv:0,rev:0};
+    (META_UPLOADED_DATA||[]).forEach(r=>{ if(r.date!==ds) return; const cn=r.campaign||'(이름 없음)', an=r.adname||'(이름 없음)'; if(TREND_SEL_CAMP.has(cn)||TREND_SEL_AD.has(an)){ a.imp+=r.imp;a.clk+=r.clk;a.cost+=r.cost;a.conv+=r.conv;a.rev+=r.rev; } });
+    a.ctr=a.imp?a.clk/a.imp*100:0; a.cpc=a.clk?a.cost/a.clk:0; a.roas=a.cost?a.rev/a.cost*100:0; return a;
   }
   return sumRange(d,d);
 }
@@ -2187,6 +2197,12 @@ document.getElementById('invFilter').addEventListener('change', e=>{
 let KW_SEED_SEL = 0;
 let KW_OPP_LIMIT = 10;
 document.addEventListener('click', e=>{
+  const _tdBtn=e.target.closest('#trendDrill');
+  if(_tdBtn){ TREND_DRILL=!TREND_DRILL; const info=document.getElementById('trendDrillInfo'); const mr=document.getElementById('metaReport'); if(mr) mr.classList.toggle('drill-on',TREND_DRILL); _tdBtn.style.background=TREND_DRILL?'#eaf2ff':'var(--card)'; _tdBtn.style.borderColor=TREND_DRILL?'#3182f6':'var(--line)'; _tdBtn.style.color=TREND_DRILL?'#1d4ed8':'var(--ink-2)'; if(!TREND_DRILL){ TREND_SEL_CAMP.clear(); TREND_SEL_AD.clear(); document.querySelectorAll('.trow-sel').forEach(x=>x.classList.remove('trow-sel')); } if(info) info.style.display=TREND_DRILL?'':'none'; _afterDrillChange(); return; }
+  if(TREND_DRILL && MAIN_CHANNEL==='META'){
+    const _rc=e.target.closest('tr[data-cname]'); if(_rc && _rc.closest('#metaCampBody')){ const nm=_rc.getAttribute('data-cname'); if(TREND_SEL_CAMP.has(nm))TREND_SEL_CAMP.delete(nm);else TREND_SEL_CAMP.add(nm); _rc.classList.toggle('trow-sel'); _afterDrillChange(); return; }
+    const _ra=e.target.closest('tr[data-aname]'); if(_ra && _ra.closest('#metaAdBody')){ const nm=_ra.getAttribute('data-aname'); if(TREND_SEL_AD.has(nm))TREND_SEL_AD.delete(nm);else TREND_SEL_AD.add(nm); _ra.classList.toggle('trow-sel'); _afterDrillChange(); return; }
+  }
   const b=e.target.closest('.kwseed'); if(b){ KW_SEED_SEL = parseInt(b.dataset.i,10)||0; KW_OPP_LIMIT=10; renderKwOpp(); return; }
   const m=e.target.closest('.kwmore'); if(m){ KW_OPP_LIMIT+=10; renderKwOpp(); return; }
   const mc=e.target.closest('.mcrow'); if(mc){ META_FUNNEL_AD=mc.dataset.ad||'__ALL__'; if(typeof _renderMetaFunnel==='function'){_renderMetaFunnel();} if(typeof _renderMetaCreativeList==='function'&&window.META_ADS_BUNDLE){_renderMetaCreativeList();} return; }
@@ -2686,7 +2702,8 @@ function renderMetaReport(ctx){
       const v=(c.name&&c.name!=='(이름 없음)')?_campVerdict(c):null;
       const badge=v?`<span style="display:inline-block;padding:1px 7px;border-radius:10px;font-size:10.5px;font-weight:700;color:${v.col};background:${v.bg};margin-right:6px;vertical-align:1px">${v.tag}</span>`:'';
       const tip=v?(`<b>${v.tag}</b> · ROAS ${fmtPct(c.roas,0)} · 지출 ${fmtWon(c.cost)} · 매출 ${fmtWon(c.rev)}<br>${v.msg}`).replace(/"/g,'&quot;'):'';
-      return `<tr data-ci="${i}"${v?` class="ttp" data-tip="${tip}"`:''}>
+      const _cls=[v?'ttp':'', (TREND_DRILL&&TREND_SEL_CAMP.has(c.name))?'trow-sel':''].filter(Boolean).join(' ');
+      return `<tr data-ci="${i}" data-cname="${_esc(c.name)}"${_cls?` class="${_cls}"`:''}${v?` data-tip="${tip}"`:''}>
       <td title="${c.name}">${badge}${c.name}${c.dmin?`<br><span style="font-size:11px;color:var(--muted)">게시 ${c.dmin.slice(5)}~${c.dmax.slice(5)}</span>`:''}</td><td>${fmtInt(c.imp)}</td><td>${fmtInt(c.clk)}</td>
       <td>${fmtPct(c.ctr)}</td><td>${fmtWon(c.cpc)}</td><td>${fmtWon(c.cost)}</td>
       <td>${fmtInt(c.conv)}</td><td>${fmtWon(c.rev)}</td><td><b>${fmtPct(c.roas,0)}</b></td></tr>`;
@@ -2715,7 +2732,8 @@ function renderMetaReport(ctx){
       const v=(c.name&&c.name!=='(이름 없음)')?_campVerdict(c):null;
       const badge=v?`<span style="display:inline-block;padding:1px 7px;border-radius:10px;font-size:10.5px;font-weight:700;color:${v.col};background:${v.bg};margin-right:6px;vertical-align:1px">${v.tag}</span>`:'';
       const tip=v?(`<b>${v.tag}</b> · ROAS ${fmtPct(c.roas,0)} · 지출 ${fmtWon(c.cost)} · 매출 ${fmtWon(c.rev)}<br>${v.msg}`).replace(/"/g,'&quot;'):'';
-      return `<tr data-ai="${i}"${v?` class="ttp" data-tip="${tip}"`:''}>
+      const _cls=[v?'ttp':'', (TREND_DRILL&&TREND_SEL_AD.has(c.name))?'trow-sel':''].filter(Boolean).join(' ');
+      return `<tr data-ai="${i}" data-aname="${_esc(c.name)}"${_cls?` class="${_cls}"`:''}${v?` data-tip="${tip}"`:''}>
       <td title="${c.name}">${badge}${c.name}</td><td title="${c.camp}">${c.camp||'—'}</td>
       <td>${fmtInt(c.imp)}</td><td>${fmtInt(c.clk)}</td><td>${fmtPct(c.ctr)}</td>
       <td>${fmtWon(c.cost)}</td><td>${fmtInt(c.conv)}</td><td>${fmtWon(c.rev)}</td>
@@ -2912,6 +2930,10 @@ function render(){
   const tip=document.getElementById('trendInterpPanel'); if(tip) tip.style.display='none';
   const ttw=document.getElementById('trendTimelineWrap'); if(ttw) ttw.style.display=isMeta?'none':'';
   const ttag=document.getElementById('trendTag'); if(ttag) ttag.style.display=isMeta?'none':'';
+  const tdb=document.getElementById('trendDrill'); if(tdb) tdb.style.display=isMeta?'':'none';
+  const tdi=document.getElementById('trendDrillInfo'); const _mrp=document.getElementById('metaReport');
+  if(!isMeta){ TREND_DRILL=false; TREND_SEL_CAMP.clear(); TREND_SEL_AD.clear(); if(tdb){tdb.style.background='var(--card)';tdb.style.borderColor='var(--line)';tdb.style.color='var(--ink-2)';} if(tdi) tdi.style.display='none'; if(_mrp) _mrp.classList.remove('drill-on'); }
+  else if(tdi) tdi.style.display=TREND_DRILL?'':'none';
   const kip=document.getElementById('kwInsightPanel'); if(kip) kip.style.display=(MAIN_CHANNEL==='SA')?'':'none';
   const kop=document.getElementById('kwOppPanel'); if(kop) kop.style.display=(MAIN_CHANNEL==='SA')?'':'none';
   const ctx = renderKPIs();
