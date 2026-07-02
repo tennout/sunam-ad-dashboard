@@ -684,15 +684,17 @@
     </div>
 
     <div class="panel" id="metaFunnelPanel" style="margin-bottom:18px;display:none">
-      <h2 style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><span>구매 퍼널 <span class="tag">선택 기간 · 노출→구매 이탈 진단</span></span>
-        <select id="metaFunnelSel" style="font-size:12px;padding:5px 9px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink-2);font-family:inherit;cursor:pointer;max-width:280px"><option value="__ALL__">전체 소재 (합산)</option></select></h2>
-      <div id="metaFunnelBody" style="margin-top:6px"></div>
-    </div>
-    <div class="panel" id="metaGalleryPanel" style="margin-bottom:18px;display:none">
-      <h2 style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><span>소재 갤러리 <span class="tag">썸네일·성과 · 카드를 누르면 원본 게시물</span></span>
+      <h2 style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><span>구매 퍼널 · 소재별 성과 <span class="tag">퍼널=선택 기간 · 리스트는 기간 전환 가능</span></span>
         <select id="metaGalSort" style="font-size:12px;padding:5px 9px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink-2);font-family:inherit;cursor:pointer">
           <option value="roas">ROAS 높은순</option><option value="cost">지출 많은순</option><option value="ctr">CTR 높은순</option><option value="conv">구매 많은순</option>
         </select></h2>
+      <div style="display:flex;gap:18px;flex-wrap:wrap;align-items:stretch">
+        <div id="metaFunnelBody" style="flex:1.6 1 380px;min-width:320px;display:flex;flex-direction:column;justify-content:center"></div>
+        <div id="metaCreativeList" style="flex:1 1 280px;min-width:270px"></div>
+      </div>
+    </div>
+    <div class="panel" id="metaGalleryPanel" style="margin-bottom:18px;display:none">
+      <h2 style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><span>소재 갤러리 <span class="tag">썸네일 · 카드를 누르면 원본 게시물 · 위 리스트와 동일 조건</span></span></h2>
       <div id="metaGalleryBody" style="margin-top:8px"></div>
     </div>
     <div class="panel" id="metaPlacePanel" style="margin-bottom:18px;display:none">
@@ -2190,7 +2192,7 @@ document.addEventListener('click', e=>{
   const mc=e.target.closest('.mcrow'); if(mc){ META_FUNNEL_AD=mc.dataset.ad||'__ALL__'; if(typeof _renderMetaFunnel==='function'){_renderMetaFunnel();} if(typeof _renderMetaCreativeList==='function'&&window.META_ADS_BUNDLE){_renderMetaCreativeList();} return; }
   const mr2=e.target.closest('.mcreset'); if(mr2){ META_FUNNEL_AD='__ALL__'; if(typeof _renderMetaFunnel==='function'){_renderMetaFunnel();} if(typeof _renderMetaCreativeList==='function'&&window.META_ADS_BUNDLE){_renderMetaCreativeList();} return; }
   const mp=e.target.closest('.mlper'); if(mp){ META_LIST_PERIOD=mp.dataset.per||'all'; META_GAL_EXPAND=false; if(typeof _renderMetaCreativeList==='function') _renderMetaCreativeList(); return; }
-  const mgm=e.target.closest('.mgmore'); if(mgm){ META_GAL_EXPAND=!META_GAL_EXPAND; if(typeof _renderMetaCreativeList==='function') _renderMetaCreativeList(); return; }
+  const mgm=e.target.closest('.mgmore'); if(mgm){ META_GAL_EXPAND=!META_GAL_EXPAND; if(typeof _renderMetaGallery==='function') _renderMetaGallery(); return; }
   const l=e.target.closest('.kwless'); if(l){ KW_OPP_LIMIT=10; renderKwOpp(); }
 });
 document.addEventListener('change', e=>{
@@ -2199,7 +2201,7 @@ document.addEventListener('change', e=>{
   else if(t.id==='inAov'){ const v=parseFloat(t.value); USER_AOV=(v>0?v:null); renderKwOpp(); }
   else if(t.id==='inCvr'){ const v=parseFloat(t.value); USER_CVR=(v>0?v:null); renderKwOpp(); }
   else if(t.id==='metaGalSort'){ META_GAL_SORT=t.value||'roas'; if(typeof _renderMetaCreativeList==='function' && window.META_ADS_BUNDLE) _renderMetaCreativeList(); }
-  else if(t.id==='metaFunnelSel'){ META_FUNNEL_AD=t.value||'__ALL__'; if(typeof _renderMetaFunnel==='function') _renderMetaFunnel(); }
+
   else if(t.id==='metaCampFilter'){ META_CAMP_FILTER=t.value||'__ALL__'; if(typeof _renderMetaCreativeList==='function' && window.META_ADS_BUNDLE) _renderMetaCreativeList(); }
 
 });
@@ -2457,14 +2459,6 @@ function renderMetaExtra(){
 function _renderMetaFunnel(){
   const el=document.getElementById('metaFunnelBody'); if(!el) return;
   if(typeof META_FUNNEL_AD==='undefined') META_FUNNEL_AD='__ALL__';
-  { const selEl=document.getElementById('metaFunnelSel');
-    if(selEl){ const aa=dateStr(currentStart), bb=dateStr(currentEnd); const agg={};
-      (META_UPLOADED_DATA||[]).forEach(r=>{ if(r.date<aa||r.date>bb) return; const k=r.adname||'(이름 없음)'; agg[k]=(agg[k]||0)+(r.cost||0); });
-      const names=Object.keys(agg).filter(k=>agg[k]>0).sort((x,y)=>agg[y]-agg[x]);
-      if(META_FUNNEL_AD!=='__ALL__' && !names.includes(META_FUNNEL_AD)) META_FUNNEL_AD='__ALL__';
-      selEl.innerHTML='<option value="__ALL__">전체 소재 (합산)</option>'+names.map(n=>`<option value="${_esc(n)}">${_esc(n.length>42?n.slice(0,42)+'…':n)}</option>`).join('');
-      selEl.value=META_FUNNEL_AD;
-    } }
   const _allSel=(META_FUNNEL_AD==='__ALL__');
   const _hnm=_allSel?'전체 소재':META_FUNNEL_AD;
   const a=dateStr(currentStart), b=dateStr(currentEnd);
@@ -2517,6 +2511,61 @@ function _funnelHead(name){
   return `<div style="font-size:12px;color:var(--ink-2);margin-bottom:12px">선택: <b>${_esc(nm)}</b></div>`;
 }
 function _renderMetaCreativeList(){
+  const el=document.getElementById('metaCreativeList');
+  if(el){
+  if(typeof META_CAMP_FILTER==='undefined') META_CAMP_FILTER='__ALL__';
+  if(typeof META_FUNNEL_AD==='undefined') META_FUNNEL_AD='__ALL__';
+  if(typeof META_LIST_PERIOD==='undefined') META_LIST_PERIOD='all';
+  const B=(typeof window!=='undefined')?window.META_ADS_BUNDLE:null;
+  const bcr=((B&&B.creatives)||[]);
+  const meta={}; bcr.forEach(c=>{ meta[c.ad||'(이름 없음)']={thumb:c.thumb,link:c.link,freq:c.freq,campaign:c.campaign}; });
+  let baseList;
+  if(META_LIST_PERIOD==='sel'){
+    const a=dateStr(currentStart), b=dateStr(currentEnd); const m={};
+    (META_UPLOADED_DATA||[]).forEach(r=>{ if(r.date<a||r.date>b) return; const k=r.adname||'(이름 없음)'; const o=m[k]||(m[k]={ad:k,campaign:r.campaign||'',imp:0,clk:0,cost:0,conv:0,rev:0}); o.imp+=r.imp;o.clk+=r.clk;o.cost+=r.cost;o.conv+=r.conv;o.rev+=r.rev; });
+    baseList=Object.values(m).map(o=>{ const t=meta[o.ad]||{}; return Object.assign({}, o, {thumb:t.thumb, link:t.link, freq:t.freq||0, campaign:o.campaign||t.campaign||''}); });
+  } else {
+    baseList=bcr.slice();
+  }
+  let list=baseList.filter(c=>(c.cost||0)>0);
+  const camps=[...new Set(list.map(c=>c.campaign||'(캠페인 없음)'))].sort();
+  if(META_CAMP_FILTER!=='__ALL__' && !camps.includes(META_CAMP_FILTER)) META_CAMP_FILTER='__ALL__';
+  const filtered = META_CAMP_FILTER==='__ALL__' ? list : list.filter(c=>(c.campaign||'(캠페인 없음)')===META_CAMP_FILTER);
+  const key=(typeof META_GAL_SORT!=='undefined')?META_GAL_SORT:'roas';
+  filtered.sort((a,b)=>{
+    if(key==='cost') return (b.cost||0)-(a.cost||0);
+    if(key==='ctr') return ((b.imp?b.clk/b.imp:0)-(a.imp?a.clk/a.imp:0));
+    if(key==='conv') return (b.conv||0)-(a.conv||0);
+    return ((b.cost?b.rev/b.cost:0)-(a.cost?a.rev/a.cost:0));
+  });
+  const AC='#0d8a7d';
+  const campOpts=`<option value="__ALL__"${META_CAMP_FILTER==='__ALL__'?' selected':''}>전체 캠페인</option>`+
+    camps.map(c=>`<option value="${_esc(c)}"${META_CAMP_FILTER===c?' selected':''}>${_esc(c.length>28?c.slice(0,28)+'…':c)}</option>`).join('');
+  const allSel=(META_FUNNEL_AD==='__ALL__');
+  const allRow=`<div class="mcrow" data-ad="__ALL__" style="display:flex;align-items:center;gap:8px;padding:8px;border-radius:8px;cursor:pointer;border:1px solid ${allSel?AC:'transparent'};background:${allSel?'#eef7f4':'transparent'};font-size:12.5px;font-weight:700">전체 소재 (${fmtInt(filtered.length)}개) — 합산 퍼널</div>`;
+  const rows=filtered.slice(0,80).map(c=>{
+    const roas=c.cost?c.rev/c.cost*100:0, ctr=c.imp?c.clk/c.imp*100:0;
+    const on=(META_FUNNEL_AD===(c.ad||'(이름 없음)'));
+    const img=c.thumb?`<img src="${c.thumb}" style="width:44px;height:44px;object-fit:cover;border-radius:6px;background:#eef1f5;flex-shrink:0" loading="lazy" onerror="this.style.visibility='hidden'">`:`<div style="width:44px;height:44px;border-radius:6px;background:#eef1f5;flex-shrink:0"></div>`;
+    const fb=(c.freq||0)>=3?'<span style="color:#b91c3c">·피로↑</span>':'';
+    return `<div class="mcrow${on?' mcrow-active':''}" data-ad="${_esc(c.ad||'(이름 없음)')}" style="display:flex;align-items:center;gap:9px;padding:7px 8px;border-radius:8px;cursor:pointer;border:1px solid ${on?AC:'transparent'};background:${on?'#eef7f4':'transparent'}">${img}<div style="flex:1;min-width:0"><div style="font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${_esc(c.ad||'(이름 없음)')}</div><div style="font-size:10.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${_esc(c.campaign||'(캠페인 없음)')}</div><div style="font-size:11px;color:var(--ink-2);margin-top:2px">ROAS <b style="color:${roas>=300?'#027a38':roas>0?'#92400e':'var(--muted)'}">${_mFmtRoas(roas)}</b> · 지출 ${fmtWon(c.cost)} · CTR ${fmtPct(ctr)} · 구매 ${fmtInt(c.conv)} ${fb}</div></div></div>`;}).join('');
+  el.innerHTML =
+    `<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px">`+
+      `<div style="display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden">`+
+        `<button class="mlper" data-per="sel" style="padding:5px 10px;border:none;font-size:11.5px;cursor:pointer;font-family:inherit;background:${META_LIST_PERIOD==='sel'?'#3182f6':'var(--card)'};color:${META_LIST_PERIOD==='sel'?'#fff':'var(--ink-2)'}">선택 기간</button>`+
+        `<button class="mlper" data-per="all" style="padding:5px 10px;border:none;border-left:1px solid var(--line);font-size:11.5px;cursor:pointer;font-family:inherit;background:${META_LIST_PERIOD==='all'?'#3182f6':'var(--card)'};color:${META_LIST_PERIOD==='all'?'#fff':'var(--ink-2)'}">전체 기간</button>`+
+      `</div>`+
+      `<select id="metaCampFilter" style="font-size:12px;padding:5px 9px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink-2);font-family:inherit;cursor:pointer;max-width:180px">${campOpts}</select></div>`+
+    allRow+
+    `<div id="metaCreativeScroll" style="max-height:330px;overflow:auto;margin-top:4px;position:relative">${rows||'<div style="font-size:12px;color:var(--muted);padding:10px">소재 데이터가 없어요.</div>'}</div>`+
+    `<div style="font-size:11px;color:var(--muted);margin-top:6px">소재를 클릭하면 왼쪽 퍼널이 그 소재로 바뀌어요.</div>`;
+  const _sc=document.getElementById('metaCreativeScroll');
+  const _act=_sc&&_sc.querySelector('.mcrow-active');
+  if(_sc&&_act){ _sc.scrollTop = Math.max(0, _act.offsetTop - _sc.clientHeight/2 + _act.offsetHeight/2); }
+  }
+  if(typeof _renderMetaGallery==='function') _renderMetaGallery();
+}
+function _renderMetaGallery(){
   const el=document.getElementById('metaGalleryBody'); if(!el) return;
   if(typeof META_CAMP_FILTER==='undefined') META_CAMP_FILTER='__ALL__';
   if(typeof META_LIST_PERIOD==='undefined') META_LIST_PERIOD='all';
@@ -2552,18 +2601,8 @@ function _renderMetaCreativeList(){
     return ((y.cost?y.rev/y.cost:0)-(x.cost?x.rev/x.cost:0));
   });
   const nData=filtered.filter(c=>c.hasData).length, nEmpty=filtered.length-nData;
-  const campOpts=`<option value="__ALL__"${META_CAMP_FILTER==='__ALL__'?' selected':''}>전체 캠페인</option>`+
-    camps.map(c=>`<option value="${_esc(c)}"${META_CAMP_FILTER===c?' selected':''}>${_esc(c.length>28?c.slice(0,28)+'…':c)}</option>`).join('');
-  const controls=`<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap">`+
-      `<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">`+
-        `<div style="display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden">`+
-          `<button class="mlper" data-per="sel" style="padding:5px 11px;border:none;font-size:11.5px;cursor:pointer;font-family:inherit;background:${sel?'#3182f6':'var(--card)'};color:${sel?'#fff':'var(--ink-2)'}">선택 기간</button>`+
-          `<button class="mlper" data-per="all" style="padding:5px 11px;border:none;border-left:1px solid var(--line);font-size:11.5px;cursor:pointer;font-family:inherit;background:${!sel?'#3182f6':'var(--card)'};color:${!sel?'#fff':'var(--ink-2)'}">전체 기간</button>`+
-        `</div>`+
-        `<span style="font-size:11.5px;color:var(--muted)">데이터 ${fmtInt(nData)}개${nEmpty?` · 이 기간 노출없음 ${fmtInt(nEmpty)}개`:''}</span>`+
-      `</div>`+
-      `<select id="metaCampFilter" style="font-size:12px;padding:5px 9px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink-2);font-family:inherit;cursor:pointer;max-width:200px">${campOpts}</select></div>`;
-  if(!filtered.length){ el.innerHTML=controls+'<div style="font-size:13px;color:var(--muted);padding:14px 0">소재 데이터가 없어요.</div>'; return; }
+  const note=`<div style="font-size:11.5px;color:var(--muted);margin-bottom:10px">데이터 ${fmtInt(nData)}개${nEmpty?` · 이 기간 노출없음 ${fmtInt(nEmpty)}개`:''} · 정렬·기간·캠페인 필터는 위 리스트 기준</div>`;
+  if(!filtered.length){ el.innerHTML=note+'<div style="font-size:13px;color:var(--muted);padding:14px 0">소재 데이터가 없어요.</div>'; return; }
   const N=8, expanded=!!META_GAL_EXPAND;
   const showList=expanded?filtered.slice(0,60):filtered.slice(0,N);
   const cards=showList.map(c=>{
@@ -2590,7 +2629,7 @@ function _renderMetaCreativeList(){
       : `<div class="mgcard" style="${cardBase}">${inner}${foot}</div>`;
   }).join('');
   const more=filtered.length>N?`<div style="text-align:center;margin-top:14px"><button class="mgmore" style="padding:8px 18px;border:1px solid var(--line);border-radius:9px;background:var(--card);color:var(--ink-2);font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit">${expanded?'접기 ▲':'더 보기 ('+fmtInt(filtered.length-N)+'개 더) ▼'}</button></div>`:'';
-  el.innerHTML=controls+`<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px">${cards}</div>`+more;
+  el.innerHTML=note+`<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px">${cards}</div>`+more;
 }
 function _renderMetaPlacements(pl){
   const el=document.getElementById('metaPlaceBody'); if(!el) return;
@@ -2611,30 +2650,6 @@ function _renderMetaFatigue(cr){
     return `<tr><td style="text-align:left">${_esc(c.ad||'(이름 없음)')}</td><td><b>${(c.freq||0).toFixed(2)}</b></td><td><span style="padding:1px 8px;border-radius:10px;font-size:11px;font-weight:700;color:${col};background:${bg}">${lb}</span></td><td>${fmtInt(c.imp)}</td><td>${fmtWon(c.cost)}</td><td>${_mFmtRoas(roas)}</td></tr>`;}).join('');
   el.innerHTML=`<div style="overflow-x:auto"><table class="tbl"><thead><tr><th style="text-align:left">소재</th><th>빈도<i class="info-ic ttp" data-tip="빈도 = 1인당 평균 노출 횟수 (노출÷도달). 같은 사람에게 반복 노출될수록 커져요. 보통 3을 넘으면 피로 신호 — CTR 하락·CPM 상승이 오면 소재를 교체하세요.">ⓘ</i></th><th>상태</th><th>노출</th><th>지출</th><th>ROAS</th></tr></thead><tbody>${tr}</tbody></table></div><div style="font-size:12px;color:var(--ink-2);margin-top:8px">→ <b>빈도 3 이상 + 효율 하락</b>이면 소재 교체 시점이에요. 같은 사람에게 계속 같은 광고가 노출되고 있다는 뜻.</div>`;
   bindInfoTipsRebind();
-}
-function _renderMetaGallery(cr){
-  const el=document.getElementById('metaGalleryBody'); if(!el) return;
-  const withThumb=cr.filter(c=>(c.cost||0)>0);
-  const key=META_GAL_SORT;
-  const sorted=[...withThumb].sort((a,b)=>{
-    if(key==='cost') return (b.cost||0)-(a.cost||0);
-    if(key==='ctr') return ((b.imp?b.clk/b.imp:0)-(a.imp?a.clk/a.imp:0));
-    if(key==='conv') return (b.conv||0)-(a.conv||0);
-    return ((b.cost?b.rev/b.cost:0)-(a.cost?a.rev/a.cost:0));
-  }).slice(0,24);
-  if(!sorted.length){ el.innerHTML='<div style="font-size:13px;color:var(--muted)">소재 데이터가 없어요.</div>'; return; }
-  const cards=sorted.map(c=>{const roas=c.cost?c.rev/c.cost*100:0,ctr=c.imp?c.clk/c.imp*100:0;
-    const img=c.thumb?`<img src="${c.thumb}" style="width:100%;height:120px;object-fit:cover;background:#f0f0f0" loading="lazy" onerror="this.style.display='none';this.parentNode.style.background='#eef1f5'">`:'<div style="height:120px;background:#eef1f5;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:12px">미리보기 없음</div>';
-    const lnk=c.link?`<a href="${c.link}" target="_blank" style="color:#1877f2;font-size:11px">원본 보기 ↗</a>`:'';
-    return `<div style="border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--card)">
-      <div style="position:relative">${img}</div>
-      <div style="padding:8px 10px">
-        <div style="font-size:12px;font-weight:600;line-height:1.4;height:34px;overflow:hidden">${_esc(c.ad||'(이름 없음)')}</div>
-        <div style="font-size:12px;color:var(--ink-2);margin-top:4px">ROAS <b style="color:${roas>=300?'#027a38':roas>0?'#92400e':'var(--muted)'}">${_mFmtRoas(roas)}</b> · 지출 ${fmtWon(c.cost)}</div>
-        <div style="font-size:11px;color:var(--muted);margin-top:2px">CTR ${fmtPct(ctr)} · 구매 ${fmtInt(c.conv)} · 빈도 ${(c.freq||0).toFixed(1)}</div>
-        <div style="margin-top:5px">${lnk}</div>
-      </div></div>`;}).join('');
-  el.innerHTML=`<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px">${cards}</div>`;
 }
 function bindInfoTipsRebind(){ /* .ttp는 위임 바인딩이라 별도 처리 불필요 */ }
 function renderMetaReport(ctx){
