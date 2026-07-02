@@ -1572,6 +1572,7 @@ function bindGlossaryIcons(){
 let chartRef=null;
 const SERIES_VIS={CTR:true,CPC:true,COST:true,ROAS:true};
 let TREND_DRILL=false; let TREND_SEL_CAMP=new Set(); let TREND_SEL_AD=new Set();
+if(window.Chart&&Chart.Tooltip&&Chart.Tooltip.positioners){ Chart.Tooltip.positioners.cursor=function(items,ev){ return {x:ev.x, y:ev.y}; }; }
 const _metaCrosshair={ id:'metaCrosshair',
   afterEvent(chart,args){ const e=args.event; if(e.type==='mousemove'){ chart._cx=e.x; chart._cy=e.y; args.changed=true; } else if(e.type==='mouseout'){ chart._cx=null; chart._cy=null; args.changed=true; } },
   afterDraw(chart){ const {ctx,chartArea}=chart; if(!chartArea) return; const act=(chart.tooltip&&chart.tooltip._active)||[]; let x=act.length?act[0].element.x:chart._cx; if(x==null||x<chartArea.left||x>chartArea.right) return; ctx.save(); ctx.lineWidth=1; ctx.setLineDash([3,3]); ctx.strokeStyle='rgba(90,100,120,.5)'; ctx.beginPath(); ctx.moveTo(x,chartArea.top); ctx.lineTo(x,chartArea.bottom); ctx.stroke(); const y=chart._cy; if(y!=null&&y>=chartArea.top&&y<=chartArea.bottom){ ctx.beginPath(); ctx.moveTo(chartArea.left,y); ctx.lineTo(chartArea.right,y); ctx.stroke(); } ctx.restore(); } };
@@ -1612,10 +1613,10 @@ function renderChart(){
     data:{
       labels,
       datasets:[
-        {label:'CTR(%)',    data:ds.CTR,  borderColor:'#03c75a', backgroundColor:'#03c75a22', tension:.3, yAxisID:'y1', pointRadius:2, hidden:!SERIES_VIS.CTR},
-        {label:'CPC(원)',   data:ds.CPC,  borderColor:'#2563eb', backgroundColor:'#2563eb22', tension:.3, yAxisID:'y2', pointRadius:2, hidden:!SERIES_VIS.CPC},
-        {label:'광고비(천원)',data:ds.COST, borderColor:'#f59e0b', backgroundColor:'#f59e0b22', tension:.3, yAxisID:'y2', pointRadius:2, hidden:!SERIES_VIS.COST},
-        {label:'ROAS(%)',   data:ds.ROAS, borderColor:'#7c3aed', backgroundColor:'#7c3aed22', tension:.3, yAxisID:'y2', pointRadius:2, hidden:!SERIES_VIS.ROAS}
+        {label:'CTR(%)',    data:ds.CTR,  borderColor:'#03c75a', backgroundColor:'#03c75a22', tension:.3, yAxisID:'y1', pointRadius:0, pointHoverRadius:3, hidden:!SERIES_VIS.CTR},
+        {label:'CPC(원)',   data:ds.CPC,  borderColor:'#2563eb', backgroundColor:'#2563eb22', tension:.3, yAxisID:'y2', pointRadius:0, pointHoverRadius:3, hidden:!SERIES_VIS.CPC},
+        {label:'광고비(천원)',data:ds.COST, borderColor:'#f59e0b', backgroundColor:'#f59e0b22', tension:.3, yAxisID:'y2', pointRadius:0, pointHoverRadius:3, hidden:!SERIES_VIS.COST},
+        {label:'ROAS(%)',   data:ds.ROAS, borderColor:'#7c3aed', backgroundColor:'#7c3aed22', tension:.3, yAxisID:'y2', pointRadius:0, pointHoverRadius:3, hidden:!SERIES_VIS.ROAS}
       ]
     },
     plugins:[_metaCrosshair],
@@ -1624,7 +1625,7 @@ function renderChart(){
       animation:false,
       interaction:{mode:'index',intersect:false,axis:'x'},
       hover:{mode:'index',intersect:false},
-      plugins:{legend:{display:false}, tooltip:{enabled:true,mode:'index',intersect:false,position:'nearest',padding:10,titleColor:'#191f28',bodyColor:'#4e5968',backgroundColor:'rgba(255,255,255,.97)',borderColor:'#e6e8eb',borderWidth:1,titleFont:{weight:'700'},bodySpacing:5,usePointStyle:true,caretSize:5}},
+      plugins:{legend:{display:false}, tooltip:{enabled:true,mode:'index',intersect:false,position:'cursor',padding:8,caretPadding:14,titleColor:'#191f28',bodyColor:'#4e5968',backgroundColor:'rgba(255,255,255,.92)',borderColor:'#e6e8eb',borderWidth:1,titleFont:{weight:'700',size:11.5},bodyFont:{size:11},bodySpacing:3,usePointStyle:true,boxWidth:6,boxHeight:6,boxPadding:3,caretSize:4,callbacks:{labelColor:(c)=>{const col=c.dataset.borderColor;return {borderColor:col,backgroundColor:col+'80',borderWidth:1,borderRadius:5};}}}},
       scales:{
         y1:{type:'linear',position:'left',ticks:{callback:v=>Number(v).toFixed(1)+'%'},title:{display:true,text:'CTR(%)'}},
         y2:{type:'linear',position:'right',grid:{drawOnChartArea:false},title:{display:true,text:'CPC(원)·광고비(천원)·ROAS(%)'}}
