@@ -1617,7 +1617,48 @@ if(window.Chart&&Chart.Tooltip&&Chart.Tooltip.positioners){ Chart.Tooltip.positi
 const _metaCrosshair={ id:'metaCrosshair',
   afterEvent(chart,args){ const e=args.event; if(e.type==='mousemove'){ chart._cx=e.x; chart._cy=e.y; args.changed=true; } else if(e.type==='mouseout'){ chart._cx=null; chart._cy=null; args.changed=true; } },
   afterDraw(chart){ const {ctx,chartArea}=chart; if(!chartArea) return; const act=(chart.tooltip&&chart.tooltip._active)||[]; let x=act.length?act[0].element.x:chart._cx; if(x==null||x<chartArea.left||x>chartArea.right) return; ctx.save(); ctx.lineWidth=1; ctx.setLineDash([3,3]); ctx.strokeStyle='rgba(90,100,120,.5)'; ctx.beginPath(); ctx.moveTo(x,chartArea.top); ctx.lineTo(x,chartArea.bottom); ctx.stroke(); const y=chart._cy; if(y!=null&&y>=chartArea.top&&y<=chartArea.bottom){ ctx.beginPath(); ctx.moveTo(chartArea.left,y); ctx.lineTo(chartArea.right,y); ctx.stroke(); } ctx.restore(); } };
-function _afterDrillChange(){ const n=TREND_SEL_CAMP.size+TREND_SEL_AD.size; const info=document.getElementById('trendDrillInfo'); if(info){ info.textContent = n? `선택 ${n}개만 표시 중` : '전체 추이 · 캠페인/소재 행을 클릭해 선택'; } if(typeof renderChart==='function') renderChart(); }
+function _afterDrillChange(){ const n=TREND_SEL_CAMP.size+TREND_SEL_AD.size; const info=document.getElementById('trendDrillInfo'); if(info){ info.textContent = n? `선택 ${n}개만 표시 중` : '전체 추이 · 캠페인/소재 행을 클릭해 선택'; } if(typeof renderChart==='function') renderChart();
+  if(MAIN_CHANNEL==='META'){ if(TREND_DRILL && n){ if(typeof _renderDrillOpinion==='function') _renderDrillOpinion(); } else if(window.__metaOpArgs && typeof renderMetaCampOpinions==='function'){ renderMetaCampOpinions(window.__metaOpArgs.camps, window.__metaOpArgs.ads, window.__metaOpArgs.ctx); } } }
+function _renderDrillOpinion(){
+  const el=document.getElementById('opinions'); if(!el) return;
+  const a=dateStr(currentStart), b=dateStr(currentEnd);
+  const span=Math.round((currentEnd-currentStart)/86400000)+1; const mids=dateStr(addDays(currentStart,Math.floor(span/2)));
+  function agg(pred){ const o={imp:0,clk:0,cost:0,conv:0,rev:0,lpv:0,fCost:0,fRev:0,sCost:0,sRev:0}; (META_UPLOADED_DATA||[]).forEach(r=>{ if(r.date<a||r.date>b||!pred(r)) return; o.imp+=r.imp;o.clk+=r.clk;o.cost+=r.cost;o.conv+=r.conv;o.rev+=r.rev;o.lpv+=(r.lpv||0); if(r.date<mids){o.fCost+=r.cost;o.fRev+=r.rev;}else{o.sCost+=r.cost;o.sRev+=r.rev;} }); o.ctr=o.imp?o.clk/o.imp*100:0;o.cpc=o.clk?o.cost/o.clk:0;o.roas=o.cost?o.rev/o.cost*100:0; return o; }
+  const items=[];
+  TREND_SEL_CAMP.forEach(nm=> items.push({name:nm,d:agg(r=>(r.campaign||'(이름 없음)')===nm)}));
+  TREND_SEL_AD.forEach(nm=> items.push({name:nm,d:agg(r=>(r.adname||'(이름 없음)')===nm)}));
+  if(!items.length){ if(window.__metaOpArgs) renderMetaCampOpinions(window.__metaOpArgs.camps,window.__metaOpArgs.ads,window.__metaOpArgs.ctx); return; }
+  const tot=agg(r=> TREND_SEL_CAMP.has(r.campaign||'(이름 없음)')||TREND_SEL_AD.has(r.adname||'(이름 없음)'));
+  const ops=[];
+  const sev=tot.roas<300?{t:'주의',b:'#e11d48'}:tot.roas<500?{t:'보통',b:'#f59e0b'}:{t:'양호',b:'#03c75a'};
+  const fR=tot.fCost?tot.fRev/tot.fCost*100:0, sR=tot.sCost?tot.sRev/tot.sCost*100:0;
+  const oTrend=(span>=4&&tot.fCost>0&&tot.sCost>0&&fR>0)?(sR-fR)/fR*100:null;
+  const trLine=(oTrend!=null&&Math.abs(oTrend)>=10)?`기간 안에서 효율이 <b>${oTrend>=0?'오르는':'떨어지는'} 추세</b>(${oTrend>=0?'+':''}${Math.round(oTrend)}%)예요. `:'';
+  const ctr2=tot.imp?tot.clk/tot.imp*100:0, reach=tot.clk?Math.min(100,tot.lpv/tot.clk*100):0, buy=tot.lpv?tot.conv/tot.lpv*100:0;
+  ops.push({ic:'🎯',icbg:sev.b,title:`선택 ${items.length}개 합산 진단`,sev:sev.t,sevBg:sev.b,lines:[
+    {tag:'fact',html:`지출 <b>${fmtWon(tot.cost)}</b> · 매출 <b>${fmtWon(tot.rev)}</b> · ROAS <b>${fmtPct(tot.roas,0)}</b> · CTR ${fmtPct(ctr2)} · 구매 ${fmtInt(tot.conv)}`},
+    {tag:'hyp',html: trLine + (tot.roas>=500?'선택 항목 효율이 좋아요 — 확장 여지가 큽니다.':tot.roas>=300?'선택 항목 효율은 무난한 편이에요.':'선택 항목 효율이 목표(400%)에 못 미쳐요.')},
+    {tag:'rec',html: tot.roas>=500?'이 조합의 예산을 늘리고 유사 타겟으로 확장해 보세요.':tot.roas>=300?'상위 항목 비중을 늘려 400%를 넘겨보세요.':'저효율 항목의 소재·타겟을 교체하거나 예산을 줄여보세요.'}
+  ]});
+  if(tot.clk>0){
+    const stages=[{n:'노출→클릭(소재)',low:ctr2<BENCH.meta.CTR[0],h:'소재(첫 이미지·후킹 문구)가 약해요. 신규 소재를 우선 시도하세요.'},{n:'클릭→랜딩 도달',low:tot.lpv>0&&reach<80,h:'랜딩 도달이 적어요. 로딩·링크·모바일 최적화를 점검하세요.'},{n:'랜딩→구매',low:tot.lpv>0&&buy>0&&buy<2,h:'구매 전환이 낮아요. 상세페이지·가격·타겟 적합성을 점검하세요.'}];
+    const weak=stages.find(x=>x.low);
+    const lines=[{tag:'fact',html:`노출 ${fmtInt(tot.imp)} → 클릭 ${fmtInt(tot.clk)} (CTR ${fmtPct(ctr2)})${tot.lpv>0?` → 랜딩 ${fmtInt(tot.lpv)} (도달 ${fmtPct(reach)})`:''} → 구매 ${fmtInt(tot.conv)}`}];
+    if(weak) lines.push({tag:'hyp',html:`가장 약한 구간은 <b>${weak.n}</b>로 보여요.`});
+    lines.push({tag:'rec',html:weak?weak.h:'단계별로 크게 새는 곳은 없어요. 잘되는 소재 변형을 추가해 보세요.'});
+    ops.push({ic:'🧭',icbg:weak?'#f59e0b':'#2563eb',title:'선택 항목 퍼널',sev:weak?'점검':'참고',sevBg:weak?'#f59e0b':'#2563eb',lines});
+  }
+  if(items.length>=2){
+    const ranked=items.filter(x=>x.d.cost>0).sort((x,y)=>y.d.roas-x.d.roas);
+    if(ranked.length>=2){ const top=ranked[0], wor=ranked[ranked.length-1];
+      ops.push({ic:'⚖️',icbg:'#7c3aed',title:'선택 항목 비교',sev:'비교',sevBg:'#7c3aed',lines:[
+        {tag:'fact',html:`효율 1위 <b>${top.name}</b> ${fmtPct(top.d.roas,0)} · 최하 <b>${wor.name}</b> ${fmtPct(wor.d.roas,0)} · 격차 <b>${Math.round(top.d.roas-wor.d.roas)}%p</b>`},
+        {tag:'rec',html:`<b>${wor.name}</b> 예산 일부를 <b>${top.name}</b>로 옮기면 같은 비용으로 더 많은 매출을 기대할 수 있어요.`}
+      ]});
+    }
+  }
+  el.innerHTML='<div style="font-size:11.5px;color:#1d4ed8;background:#eaf2ff;border:1px solid #bcd3ff;border-radius:8px;padding:7px 11px;margin-bottom:10px;line-height:1.5">🎯 추이에서 <b>선택한 항목</b> 기준 의견이에요. (선택 해제하면 전체로 돌아가요)</div>'+_opsHTML(ops);
+}
 let SA_ACTIVE={shop:true,powerlink:true,brand:true};
 function _chartDayTotal(d){
   if(MAIN_CHANNEL==='SA'){
@@ -2386,6 +2427,7 @@ let _rzT; window.addEventListener('resize', ()=>{ clearTimeout(_rzT); _rzT=setTi
   if(window.innerWidth<=1100){ op.style.height=''; } else { const cp=tg.children[0]; if(cp) op.style.height=cp.offsetHeight+'px'; }
 }, 150); });
 function renderMetaCampOpinions(camps, ads, ctx){
+  try{ window.__metaOpArgs={camps:camps,ads:ads,ctx:ctx}; }catch(e){}
   const ops=[]; const cur=ctx.cur, prev=ctx.prev;
   const _et = document.getElementById('opinions') || document.getElementById('metaCampOps');
   if((cur.imp||0)<=0 && (cur.cost||0)<=0){ if(_et) _et.innerHTML='<div style="font-size:13px;color:var(--muted);line-height:1.7">선택한 기간에 데이터가 없어요. 기간을 바꾸거나 최신 CSV를 올려보세요.</div>'; return; }
@@ -2718,15 +2760,46 @@ function _renderMetaGallery(){
   const more=filtered.length>N?`<div style="text-align:center;margin-top:14px"><button class="mgmore" style="padding:8px 18px;border:1px solid var(--line);border-radius:9px;background:var(--card);color:var(--ink-2);font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit">${expanded?'접기 ▲':'더 보기 ('+fmtInt(filtered.length-N)+'개 더) ▼'}</button></div>`:'';
   el.innerHTML=note+`<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px">${cards}</div>`+more;
 }
+function _placeKo(pf,ps){
+  pf=(pf||'').toLowerCase(); ps=(ps||'').toLowerCase();
+  const PF={facebook:'페이스북',instagram:'인스타그램',audience_network:'오디언스 네트워크',messenger:'메신저',threads:'스레드',unknown:'기타'};
+  const pfKo=PF[pf]||pf||'기타';
+  const P={
+    feed:['피드','앱을 켜면 보이는 기본 피드(게시물 사이)에 노출'],
+    facebook_reels:['릴스','릴스(짧은 세로 영상) 사이에 전체화면으로 노출'],
+    reels:['릴스','릴스(짧은 세로 영상) 사이에 전체화면으로 노출'],
+    story:['스토리','스토리 전체화면(세로) 사이에 노출'],
+    stories:['스토리','스토리 전체화면(세로) 사이에 노출'],
+    facebook_stories:['스토리','페이스북 스토리 전체화면에 노출'],
+    explore:['탐색(돋보기)','인스타 돋보기(탐색) 탭·게시물 확대 화면에 노출'],
+    explore_home:['탐색 홈','인스타 돋보기 첫 화면 그리드에 노출'],
+    profile_feed:['프로필 피드','프로필에서 게시물 볼 때 노출'],
+    profile_reels:['프로필 릴스','프로필 릴스 탭에서 노출'],
+    instream_video:['인스트림 영상','다른 영상 시청 중간(중간광고)에 노출'],
+    video_feeds:['동영상 피드','동영상 모아보기 피드에서 노출'],
+    marketplace:['마켓플레이스','페이스북 중고거래(마켓플레이스) 탭에 노출'],
+    search:['검색 결과','페이스북·인스타 검색 결과에 노출'],
+    ig_search:['인스타 검색','인스타 검색 결과에 노출'],
+    right_hand_column:['우측 배너(PC)','PC 페이스북 오른쪽 배너 영역에 노출'],
+    biz_disco_feed:['비즈니스 탐색','관련 비즈니스 게시물 탐색 피드에 노출'],
+    messenger_inbox:['메신저 받은편지함','메신저 채팅 목록 사이에 노출'],
+    an_classic:['제휴 앱 배너','메타 제휴 외부 앱/웹의 배너·전면으로 노출'],
+    rewarded_video:['보상형 영상','제휴 앱에서 리워드형 영상으로 노출']
+  };
+  const hit=P[ps]; const psKo=hit?hit[0]:(ps||'기타');
+  let desc=hit?hit[1]:'해당 위치에 노출';
+  if(pf==='audience_network') desc='메타 밖 제휴 앱·웹사이트 지면에 노출 (효율 편차가 큼)';
+  return {label:`${pfKo} · ${psKo}`, en:`${pf||'?'} · ${ps||'?'}`, tip:`${pfKo} · ${psKo}<br>${desc}`};
+}
 function _renderMetaPlacements(pl){
   const el=document.getElementById('metaPlaceBody'); if(!el) return;
   const m={};
-  pl.forEach(p=>{ const k=`${p.platform||'?'} · ${p.position||'?'}`; const o=m[k]||(m[k]={name:k,imp:0,clk:0,cost:0,conv:0,rev:0}); o.imp+=p.imp||0;o.clk+=p.clk||0;o.cost+=p.cost||0;o.conv+=p.conv||0;o.rev+=p.rev||0; });
+  pl.forEach(p=>{ const k=`${p.platform||'?'}|${p.position||'?'}`; const o=m[k]||(m[k]={pf:p.platform||'',ps:p.position||'',imp:0,clk:0,cost:0,conv:0,rev:0}); o.imp+=p.imp||0;o.clk+=p.clk||0;o.cost+=p.cost||0;o.conv+=p.conv||0;o.rev+=p.rev||0; });
   const rows=Object.values(m).filter(o=>o.cost>0||o.imp>0).sort((a,b)=>b.cost-a.cost);
   if(!rows.length){ el.innerHTML='<div style="font-size:13px;color:var(--muted)">지면 데이터가 없어요.</div>'; return; }
-  const tr=rows.map(o=>{const ctr=o.imp?o.clk/o.imp*100:0,roas=o.cost?o.rev/o.cost*100:0;
-    return `<tr><td style="text-align:left">${_esc(o.name)}</td><td>${fmtInt(o.imp)}</td><td>${fmtInt(o.clk)}</td><td>${fmtPct(ctr)}</td><td>${fmtWon(o.cost)}</td><td>${fmtInt(o.conv)}</td><td>${fmtWon(o.rev)}</td><td><b>${_mFmtRoas(roas)}</b></td></tr>`;}).join('');
-  el.innerHTML=`<div style="overflow-x:auto"><table class="tbl"><thead><tr><th style="text-align:left">지면</th><th>노출</th><th>클릭</th><th>CTR</th><th>지출</th><th>구매</th><th>매출</th><th>ROAS</th></tr></thead><tbody>${tr}</tbody></table></div><div style="font-size:12px;color:var(--ink-2);margin-top:8px">→ ROAS 높은 지면에 예산을 몰고, 낮은 지면은 제외를 검토하세요. (메타 자동배치라 지면별 편차가 큼)</div>`;
+  const tr=rows.map(o=>{const ctr=o.imp?o.clk/o.imp*100:0,roas=o.cost?o.rev/o.cost*100:0; const ko=_placeKo(o.pf,o.ps); const tip=ko.tip.replace(/"/g,'&quot;');
+    return `<tr><td style="text-align:left"><span class="ttp" data-tip="${tip}" style="cursor:help;border-bottom:1px dotted var(--line)">${_esc(ko.label)}</span> <span style="font-size:10px;color:var(--muted)">${_esc(ko.en)}</span></td><td>${fmtInt(o.imp)}</td><td>${fmtInt(o.clk)}</td><td>${fmtPct(ctr)}</td><td>${fmtWon(o.cost)}</td><td>${fmtInt(o.conv)}</td><td>${fmtWon(o.rev)}</td><td><b>${_mFmtRoas(roas)}</b></td></tr>`;}).join('');
+  el.innerHTML=`<div style="overflow-x:auto"><table class="tbl"><thead><tr><th style="text-align:left">지면 <span class="ttp" data-tip="메타는 여러 위치(피드·릴스·스토리 등)에 광고를 자동으로 뿌려요. 각 행에 마우스를 올리면 어디에 어떻게 노출되는지 설명이 떠요." style="cursor:help;font-weight:400;color:var(--muted)">ⓘ</span></th><th>노출</th><th>클릭</th><th>CTR</th><th>지출</th><th>구매</th><th>매출</th><th>ROAS</th></tr></thead><tbody>${tr}</tbody></table></div><div style="font-size:12px;color:var(--ink-2);margin-top:8px">→ ROAS 높은 지면에 예산을 몰고, 낮은 지면은 제외를 검토하세요. (메타 자동배치라 지면별 편차가 큼)</div>`;
 }
 function _renderMetaFatigue(cr){
   const el=document.getElementById('metaFatigueBody'); if(!el) return;
@@ -2795,6 +2868,7 @@ function renderMetaReport(ctx){
     if(adFbPanel) adFbPanel.style.display='none';
   }
   renderMetaCampOpinions(camps, adsForOps, ctx);
+  if(TREND_DRILL && (TREND_SEL_CAMP.size||TREND_SEL_AD.size) && typeof _renderDrillOpinion==='function') _renderDrillOpinion();
 }
 
 function _trendJudge(firstV, secondV){
