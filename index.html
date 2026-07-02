@@ -273,6 +273,43 @@
 </style>
 </head>
 <body>
+<!-- ===== 비밀번호 게이트 (공개 사이트라 UI 차단 수준) ===== -->
+<div id="gate" style="position:fixed;inset:0;z-index:99999;background:#f4f6f8;display:flex;align-items:center;justify-content:center;font-family:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic',sans-serif">
+  <div style="width:340px;max-width:90vw;background:#fff;border:1px solid #e6e8eb;border-radius:16px;padding:26px 24px;box-shadow:0 10px 40px rgba(0,0,0,.10)">
+    <div style="font-size:17px;font-weight:800;color:#191f28;margin-bottom:4px">🔒 선암 광고 대시보드</div>
+    <div style="font-size:12.5px;color:#8a9096;margin-bottom:16px">비밀번호를 입력하세요</div>
+    <input id="gatePw" type="password" placeholder="비밀번호" autocomplete="current-password" style="width:100%;box-sizing:border-box;padding:11px 12px;border:1px solid #e6e8eb;border-radius:10px;font-size:14px;font-family:inherit;outline:none">
+    <div id="gateErr" style="font-size:12px;color:#e11d48;margin-top:8px;display:none">비밀번호가 올바르지 않아요.</div>
+    <label style="display:flex;align-items:center;gap:6px;font-size:12px;color:#4b5058;margin-top:12px;cursor:pointer"><input type="checkbox" id="gateRemember" checked>이 기기에서 24시간 동안 기억</label>
+    <button id="gateBtn" style="width:100%;margin-top:14px;padding:11px;border:none;border-radius:10px;background:#3182f6;color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit">잠금 해제</button>
+    <div style="margin-top:14px;text-align:center"><span id="gateGenToggle" style="font-size:11.5px;color:#8a9096;cursor:pointer;text-decoration:underline">🔧 비밀번호 변경(해시 생성)</span></div>
+    <div id="gateGen" style="display:none;margin-top:12px;border-top:1px solid #eee;padding-top:12px">
+      <div style="font-size:11.5px;color:#8a9096;line-height:1.6;margin-bottom:8px">새 비밀번호를 입력하고 [해시 만들기]를 누른 뒤, 나온 문자열을 index.html의 <b>MASTER_HASH</b> 값에 붙여넣어 저장·커밋하세요. (비번 원문은 코드에 안 남아요)</div>
+      <input id="gateNewPw" type="text" placeholder="새 비밀번호" style="width:100%;box-sizing:border-box;padding:9px 10px;border:1px solid #e6e8eb;border-radius:8px;font-size:13px;font-family:inherit">
+      <button id="gateGenBtn" style="width:100%;margin-top:8px;padding:8px;border:1px solid #e6e8eb;border-radius:8px;background:#fff;font-size:12.5px;cursor:pointer;font-family:inherit">해시 만들기</button>
+      <div id="gateHashOut" style="display:none;margin-top:8px;font-size:11px;word-break:break-all;background:#f4f6f8;border-radius:8px;padding:8px;color:#191f28;user-select:all"></div>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  // 비밀번호(SHA-256). 기본값 = 'sunam2026!' · 게이트의 [비밀번호 변경]으로 새 해시를 만들어 여기에 교체하세요.
+  var MASTER_HASH='849c6510b7d1b74fba1d5b74ea31c007fb497efcf0e3dd73a57f003a82506b77';
+  var KEY='sunam_gate_until';
+  async function sha(t){ var b=await crypto.subtle.digest('SHA-256', new TextEncoder().encode(t)); return Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,'0');}).join(''); }
+  function valid(){ try{ var u=+localStorage.getItem(KEY); return u&&Date.now()<u; }catch(e){ return false; } }
+  function unlock(){ var g=document.getElementById('gate'); if(g) g.remove(); }
+  if(valid()){ unlock(); return; }
+  var pw=document.getElementById('gatePw'), btn=document.getElementById('gateBtn'), err=document.getElementById('gateErr'), rem=document.getElementById('gateRemember');
+  async function tryUnlock(){ var h=await sha(pw.value); if(h===MASTER_HASH){ if(rem.checked){ try{ localStorage.setItem(KEY, String(Date.now()+86400000)); }catch(e){} } unlock(); } else { err.style.display='block'; pw.value=''; pw.focus(); } }
+  btn.addEventListener('click', tryUnlock);
+  pw.addEventListener('keydown', function(e){ if(e.key==='Enter') tryUnlock(); });
+  setTimeout(function(){ pw.focus(); }, 50);
+  document.getElementById('gateGenToggle').addEventListener('click', function(){ var gen=document.getElementById('gateGen'); gen.style.display=(gen.style.display==='none')?'':'none'; });
+  document.getElementById('gateGenBtn').addEventListener('click', async function(){ var v=document.getElementById('gateNewPw').value; if(!v) return; var o=document.getElementById('gateHashOut'); o.textContent=await sha(v); o.style.display='block'; });
+})();
+</script>
+<!-- ===== /게이트 ===== -->
 <div class="wrap">
 
   <!-- HEADER -->
