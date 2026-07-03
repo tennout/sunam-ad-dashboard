@@ -221,8 +221,9 @@ def fetch_creative_previews(acct: str, token: str) -> dict:
     try:
         rows = _get_paged(f"{GRAPH}/{acct}/ads", {
             "access_token": token,
+            # effective_status = 실제 게재 상태(ACTIVE/PAUSED/…), 나머지는 썸네일/링크용
             # object_story_spec의 picture(고화질), image_url(원본), thumbnail_url(저화질) 순으로 확보
-            "fields": ("name,creative{thumbnail_url,image_url,instagram_permalink_url,"
+            "fields": ("name,effective_status,creative{thumbnail_url,image_url,instagram_permalink_url,"
                        "effective_object_story_id,object_story_spec{link_data{picture},"
                        "video_data{image_url}}}"),
             # 썸네일 요청 크기 확대 (기본 64px → 600px)
@@ -244,8 +245,9 @@ def fetch_creative_previews(acct: str, token: str) -> dict:
         link = cr.get("instagram_permalink_url") or ""
         if not link and cr.get("effective_object_story_id"):
             link = f"https://www.facebook.com/{cr['effective_object_story_id']}"
-        if name and (thumb or link):
-            out[name] = {"thumb": thumb, "link": link}
+        if name:
+            out[name] = {"thumb": thumb, "link": link,
+                         "status": a.get("effective_status", "")}
     return out
 
 
@@ -285,6 +287,7 @@ def collect(acct: str, token: str, days: int) -> dict:
         if p:
             c["thumb"] = p.get("thumb", "")
             c["link"] = p.get("link", "")
+            c["status"] = p.get("status", "")
             hit += 1
     print(f"    썸네일 매칭 {hit}개")
 

@@ -2299,6 +2299,7 @@ document.addEventListener('click', e=>{
   const mp=e.target.closest('.mlper'); if(mp){ META_LIST_PERIOD=mp.dataset.per||'all'; META_GAL_EXPAND=false; if(typeof _renderMetaCreativeList==='function') _renderMetaCreativeList(); return; }
   const mgm=e.target.closest('.mgmore'); if(mgm){ META_GAL_EXPAND=!META_GAL_EXPAND; if(typeof _renderMetaGallery==='function') _renderMetaGallery(); return; }
   const mg2=e.target.closest('.mg2per'); if(mg2){ META_GAL_PERIOD=mg2.dataset.per||'all'; META_GAL_EXPAND=false; if(typeof _renderMetaGallery==='function') _renderMetaGallery(); return; }
+  const mg2l=e.target.closest('.mg2live'); if(mg2l){ META_GAL_LIVE=mg2l.dataset.live||'all'; META_GAL_EXPAND=false; if(typeof _renderMetaGallery==='function') _renderMetaGallery(); return; }
   const l=e.target.closest('.kwless'); if(l){ KW_OPP_LIMIT=10; renderKwOpp(); }
 });
 document.addEventListener('change', e=>{
@@ -2550,7 +2551,14 @@ function renderMetaCampOpinions(camps, ads, ctx){
   tgt.innerHTML = _opsHTML(ops) + '<div style="font-size:11.5px;color:var(--muted);margin-top:12px;line-height:1.65">※ <b>업계 참고치</b>는 농식품·신선식품 이커머스의 <b>메타 광고 통상 범위</b> 추정값이에요 — CTR 0.8~2.0% · CPC 300~800원 · ROAS 200~500%. 공식 통계가 아니라 가늠선이니, 정확한 비교는 <b>내 과거 성과</b> 기준이 가장 좋아요.</div>';
 }
 
-let META_GAL_SORT='roas'; let META_GAL_EXPAND=false; let META_GAL_PERIOD='all'; let META_GAL_CAMP='__ALL__'; let META_GAL_SORT2='roas';
+let META_GAL_SORT='roas'; let META_GAL_EXPAND=false; let META_GAL_PERIOD='all'; let META_GAL_CAMP='__ALL__'; let META_GAL_SORT2='roas'; let META_GAL_LIVE='all';
+function _statusKo(st){ st=(st||'').toUpperCase();
+  if(st==='ACTIVE') return {t:'운영중',col:'#027a38',bg:'#eafaf0',live:true};
+  if(st==='PAUSED'||st==='ADSET_PAUSED'||st==='CAMPAIGN_PAUSED') return {t:'일시중지',col:'#5f5e5a',bg:'#efefec',live:false};
+  if(st==='ARCHIVED'||st==='DELETED'||st==='COMPLETED') return {t:'종료',col:'#8a9096',bg:'#f1f3f5',live:false};
+  if(st==='PENDING_REVIEW'||st==='IN_PROCESS'||st==='PENDING_BILLING_INFO') return {t:'검수중',col:'#92400e',bg:'#fdf6ec',live:false};
+  if(st==='DISAPPROVED'||st.indexOf('WITH_ISSUES')>=0) return {t:'이슈',col:'#b91c3c',bg:'#fdecec',live:false};
+  return null; }
 let META_FUNNEL_AD='__ALL__';
 let META_CAMP_FILTER='__ALL__';
 let META_LIST_PERIOD='all';
@@ -2686,7 +2694,8 @@ function _renderMetaGallery(){
   if(typeof META_GAL_EXPAND==='undefined') META_GAL_EXPAND=false;
   const B=(typeof window!=='undefined')?window.META_ADS_BUNDLE:null;
   const bcr=((B&&B.creatives)||[]);
-  const meta={}; bcr.forEach(c=>{ meta[c.ad||'(이름 없음)']={thumb:c.thumb,link:c.link,freq:c.freq,campaign:c.campaign}; });
+  const meta={}; bcr.forEach(c=>{ meta[c.ad||'(이름 없음)']={thumb:c.thumb,link:c.link,freq:c.freq,campaign:c.campaign,status:c.status||''}; });
+  const hasStatus=bcr.some(c=>c.status); if(!hasStatus) META_GAL_LIVE='all';
   const a=dateStr(currentStart), b=dateStr(currentEnd);
   const allAgg={}, perAgg={}, live={};
   (META_UPLOADED_DATA||[]).forEach(r=>{ const k=r.adname||'(이름 없음)';
@@ -2701,11 +2710,12 @@ function _renderMetaGallery(){
     const t=meta[k]||{}; const L=live[k]||{};
     return {ad:k, campaign:allAgg[k].campaign||t.campaign||'(캠페인 없음)', thumb:t.thumb, link:t.link, freq:t.freq||0,
       imp:src.imp,clk:src.clk,cost:src.cost,conv:src.conv,rev:src.rev,lpv:src.lpv,
-      dmin:L.dmin, dmax:L.dmax, hasData:((src.cost||0)>0||(src.imp||0)>0)};
+      status:t.status||'', dmin:L.dmin, dmax:L.dmax, hasData:((src.cost||0)>0||(src.imp||0)>0)};
   });
   const camps=[...new Set(list.map(c=>c.campaign||'(캠페인 없음)'))].sort();
   if(META_GAL_CAMP!=='__ALL__' && !camps.includes(META_GAL_CAMP)) META_GAL_CAMP='__ALL__';
   let filtered = META_GAL_CAMP==='__ALL__' ? list : list.filter(c=>(c.campaign||'(캠페인 없음)')===META_GAL_CAMP);
+  if(META_GAL_LIVE==='live') filtered=filtered.filter(c=>{ const s=_statusKo(c.status); return s&&s.live; });
   const key=META_GAL_SORT2;
   filtered.sort((x,y)=>{
     if(x.hasData!==y.hasData) return x.hasData?-1:1;
@@ -2719,12 +2729,14 @@ function _renderMetaGallery(){
   const campOpts=`<option value="__ALL__"${META_GAL_CAMP==='__ALL__'?' selected':''}>전체 캠페인</option>`+
     camps.map(c=>`<option value="${_esc(c)}"${META_GAL_CAMP===c?' selected':''}>${_esc(c.length>26?c.slice(0,26)+'…':c)}</option>`).join('');
   const sortOpts=[['roas','ROAS 높은순'],['cost','지출 많은순'],['ctr','CTR 높은순'],['conv','구매 많은순'],['freq','피로도 높은순']].map(o=>`<option value="${o[0]}"${META_GAL_SORT2===o[0]?' selected':''}>${o[1]}</option>`).join('');
+  const liveToggle = hasStatus ? (`<div style="display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden">`+`<button class="mg2live" data-live="all" style="padding:6px 12px;border:none;font-size:12px;cursor:pointer;font-family:inherit;background:${META_GAL_LIVE==='all'?'#3182f6':'var(--card)'};color:${META_GAL_LIVE==='all'?'#fff':'var(--ink-2)'}">전체</button>`+`<button class="mg2live" data-live="live" style="padding:6px 12px;border:none;border-left:1px solid var(--line);font-size:12px;cursor:pointer;font-family:inherit;background:${META_GAL_LIVE==='live'?'#027a38':'var(--card)'};color:${META_GAL_LIVE==='live'?'#fff':'var(--ink-2)'}">🟢 운영중만</button>`+`</div>`) : '';
   const note=`<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:14px;flex-wrap:wrap">`+
       `<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">`+
         `<div style="display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden">`+
           `<button class="mg2per" data-per="sel" style="padding:6px 12px;border:none;font-size:12px;cursor:pointer;font-family:inherit;background:${sel?'#3182f6':'var(--card)'};color:${sel?'#fff':'var(--ink-2)'}">선택 기간</button>`+
           `<button class="mg2per" data-per="all" style="padding:6px 12px;border:none;border-left:1px solid var(--line);font-size:12px;cursor:pointer;font-family:inherit;background:${!sel?'#3182f6':'var(--card)'};color:${!sel?'#fff':'var(--ink-2)'}">전체 기간</button>`+
         `</div>`+
+        liveToggle+
         `<span style="font-size:11.5px;color:var(--muted)">데이터 ${fmtInt(nData)}개${nEmpty?` · 기간외 ${fmtInt(nEmpty)}개`:''}</span>`+
       `</div>`+
       `<div style="display:flex;gap:8px;flex-wrap:wrap">`+
@@ -2739,13 +2751,15 @@ function _renderMetaGallery(){
     const range=(c.dmin&&c.dmax)?`${c.dmin.slice(5)}~${c.dmax.slice(5)}`:'';
     const img=c.thumb?`<img src="${_esc(c.thumb)}" style="width:100%;height:150px;object-fit:cover;background:#eef1f5;display:block${c.hasData?'':';filter:grayscale(1);opacity:.55'}" loading="lazy" onerror="this.style.display='none'">`:`<div style="height:130px;background:#eef1f5;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:12px">미리보기 없음</div>`;
     let badge='';
+    let sbadge=''; const _st=_statusKo(c.status);
+    if(_st) sbadge=`<span style="position:absolute;top:6px;right:6px;padding:1px 7px;border-radius:9px;font-size:10px;font-weight:700;color:${_st.col};background:${_st.bg};box-shadow:0 1px 3px rgba(0,0,0,.15)">${_st.t}</span>`;
     if(c.hasData){ const v=_campVerdict({name:c.ad,roas,ctr,clk:c.clk||0,lpv:c.lpv||0,cost:c.cost||0,rev:c.rev||0,conv:c.conv||0,lowVol:((c.imp||0)<500)});
       badge=`<span style="position:absolute;top:6px;left:6px;padding:1px 7px;border-radius:9px;font-size:10px;font-weight:700;color:${v.col};background:${v.bg};box-shadow:0 1px 3px rgba(0,0,0,.15)">${v.tag}</span>`; }
     else { badge=`<span style="position:absolute;top:6px;left:6px;padding:1px 7px;border-radius:9px;font-size:10px;font-weight:700;color:#5f5e5a;background:#efefec;box-shadow:0 1px 3px rgba(0,0,0,.15)">이 기간 노출없음</span>`; }
     const metricLine=c.hasData
       ? `<div style="font-size:12px;color:var(--ink-2);margin-top:5px">ROAS <b style="color:${roas>=300?'#027a38':roas>0?'#92400e':'var(--muted)'}">${_mFmtRoas(roas)}</b> · 지출 ${fmtWon(c.cost)}</div><div style="font-size:11px;color:var(--muted);margin-top:2px">CTR ${fmtPct(ctr)} · 구매 ${fmtInt(c.conv)}${(c.freq||0)>=3?" · <span style='color:#b91c3c'>피로↑</span>":''}</div>`
       : `<div style="font-size:11.5px;color:var(--muted);margin-top:5px;line-height:1.5">선택한 기간엔 노출이 없어요.${range?`<br>게시 기간 <b style='color:var(--ink-2)'>${range}</b>`:''}</div>`;
-    const inner=`<div style="position:relative">${img}${badge}</div>`+
+    const inner=`<div style="position:relative">${img}${badge}${sbadge}</div>`+
       `<div style="padding:9px 11px">`+
         `<div style="font-size:12px;font-weight:600;line-height:1.35;height:33px;overflow:hidden">${_esc(c.ad||'(이름 없음)')}</div>`+
         `<div style="font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px">${_esc(c.campaign||'(캠페인 없음)')}</div>`+
