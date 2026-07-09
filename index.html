@@ -321,6 +321,10 @@
       </div>
     </div>
     <div class="topbar-right no-capture">
+      <div class="no-capture" id="modeSwitch" style="display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-right:4px">
+        <button id="modeAds" style="border:0;padding:7px 14px;font-family:inherit;font-size:12.5px;font-weight:700;cursor:pointer;background:var(--green);color:#fff">📊 광고</button>
+        <button id="modeRev" style="border:0;padding:7px 14px;font-family:inherit;font-size:12.5px;font-weight:700;cursor:pointer;background:transparent;color:var(--ink-2)">💰 매출</button>
+      </div>
       <div class="sub ttp" data-tip="데이터를 마지막으로 받아온 시각이에요.<br>실시간 연동 중이면 자동 수집 시각이 표시되고, 매일 자동 갱신돼요.<br>샘플 데이터는 갱신되지 않아요." style="cursor:help">최종 갱신 <b id="lastUpdate">—</b></div>
       <div class="account-switcher" style="position:relative">
         <button class="glossary-btn" id="exportBtn" title="리포트 이미지로 저장" aria-haspopup="true">📷 리포트 저장 ▾</button>
@@ -526,6 +530,13 @@
     <button class="ch-tab active" data-ch="SA">네이버 검색광고 <span class="ch-status" id="status-SA"></span></button>
     <button class="ch-tab" data-ch="DA">네이버 디스플레이 <span class="ch-status" id="status-DA"></span></button>
     <button class="ch-tab" data-ch="META">메타 <span class="ch-status" id="status-META"></span></button>
+  </div>
+
+  <!-- REVENUE STRIP -->
+  <div id="revStrip" style="display:none;align-items:center;gap:14px;flex-wrap:wrap;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:9px 14px;margin-bottom:14px;font-size:12.5px;color:var(--ink-2)">
+    <b style="color:var(--ink)">💰 매출</b>
+    <span id="revStripBody">불러오는 중…</span>
+    <a href="#" id="revStripMore" style="margin-left:auto;color:var(--blue);font-weight:700;text-decoration:none">자세히 →</a>
   </div>
 
   <!-- DA EXPLORATION NOTICE (DA 탭 활성 시만 보임) -->
@@ -811,7 +822,7 @@
 
 
   <!-- REVENUE (쇼핑몰 매출 · 구글시트 연동) -->
-  <div class="panel" id="revPanel">
+  <div class="panel" id="revPanel" style="display:none">
     <h2 style="margin:0 0 4px">💰 쇼핑몰 매출 <span style="font-size:12px;font-weight:400;color:var(--muted)">자사몰·비즈몰 실결제 기준 · 구글시트 자동 연동</span></h2>
     <div class="sub" id="revStatus" style="margin-bottom:10px">매출 데이터 불러오는 중…</div>
     <div id="revCards" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px"></div>
@@ -3778,10 +3789,39 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
 </script>
 
 <script>
-/* ===== 쇼핑몰 매출 연동 (Google Sheets Apps Script) ===== */
+/* ===== 쇼핑몰 매출 연동 + 광고/매출 모드 전환 ===== */
 (function(){
   var REV_API='https://script.google.com/macros/s/AKfycbzjJB-AL0bL_HojQsZAmr3JdQwLQVlD1CseDJ1-bDHfN40MJD5Kq-VFXHYUxr8XBob13Q/exec';
   var REV_KEY='sunam-dash-2026';
+  var REV_LOADED=false;
+
+  /* ---- 모드 전환 ---- */
+  function setMode(m){
+    var wrap=document.querySelector('.wrap'); if(!wrap) return;
+    if(m==='rev'){
+      Array.prototype.forEach.call(wrap.children,function(el){
+        if(el.classList.contains('topbar')||el.classList.contains('modal-bg')) return;
+        if(el.id==='revPanel'||el.id==='revStrip') return;
+        if(el.dataset.revHidden==='1') return;
+        el.dataset.revPrev=el.style.display||'';
+        el.dataset.revHidden='1';
+        el.style.display='none';
+      });
+      var rp=document.getElementById('revPanel'); if(rp) rp.style.display='block';
+      var rs=document.getElementById('revStrip'); if(rs) rs.style.display='none';
+    } else {
+      Array.prototype.forEach.call(wrap.children,function(el){
+        if(el.dataset.revHidden==='1'){ el.style.display=el.dataset.revPrev||''; delete el.dataset.revHidden; delete el.dataset.revPrev; }
+      });
+      var rp=document.getElementById('revPanel'); if(rp) rp.style.display='none';
+      var rs=document.getElementById('revStrip'); if(rs) rs.style.display=REV_LOADED?'flex':'none';
+    }
+    function paint(id,on){ var b=document.getElementById(id); if(!b) return;
+      b.style.background=on?'var(--green)':'transparent'; b.style.color=on?'#fff':'var(--ink-2)'; }
+    paint('modeAds',m==='ads'); paint('modeRev',m==='rev');
+  }
+
+  /* ---- 데이터 ---- */
   function ds(dt){ var y=dt.getFullYear(),m=('0'+(dt.getMonth()+1)).slice(-2),d=('0'+dt.getDate()).slice(-2); return y+'-'+m+'-'+d; }
   function won(n){ return '\u20a9'+Math.round(n||0).toLocaleString('ko-KR'); }
   function metaCost(from,to){
@@ -3790,12 +3830,12 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
     return s;
   }
   function card(t,v,sub){
-    return '<div style="flex:1;min-width:130px;background:#fafcfb;border:1px solid var(--line);border-radius:12px;padding:10px 14px">'
+    return '<div style="flex:1;min-width:150px;background:#fafcfb;border:1px solid var(--line);border-radius:12px;padding:10px 14px">'
       +'<div style="font-size:11.5px;color:var(--muted)">'+t+'</div>'
       +'<div style="font-size:18px;font-weight:800;margin-top:2px">'+v+'</div>'
       +(sub?'<div style="font-size:11px;color:var(--ink-2);margin-top:2px">'+sub+'</div>':'')+'</div>';
   }
-  function init(){
+  function loadRev(){
     fetch(REV_API+'?key='+REV_KEY).then(function(r){ return r.json(); }).then(function(js){
       var daily=(js&&js.daily)||[];
       var st=document.getElementById('revStatus');
@@ -3803,7 +3843,7 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
       var byDate={}; daily.forEach(function(d){ byDate[d.date]=d; });
       var today=new Date();
       function sum(fromD,toD){
-        var o={rev:0,jasa:0,biz:0,orders:0};
+        var o={jasa:0,biz:0,orders:0};
         daily.forEach(function(d){ if(d.date>=fromD&&d.date<=toD){ o.jasa+=d.jasa||0; o.biz+=d.biz||0; o.orders+=d.orders||0; } });
         o.rev=o.jasa+o.biz; return o;
       }
@@ -3811,10 +3851,11 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
       var d7=ds(new Date(today.getTime()-6*86400000)), d30=ds(new Date(today.getTime()-29*86400000));
       var sT=sum(t,t), sY=sum(y,y), s7=sum(d7,t), s30=sum(d30,t);
       var mc7=metaCost(d7,t);
+      function split(o){ return o.orders+'건 · 자사 '+won(o.jasa)+' / 비즈 '+won(o.biz); }
       var cards=document.getElementById('revCards');
       if(cards){
-        var html=card('오늘',won(sT.rev),sT.orders+'건')+card('어제',won(sY.rev),sY.orders+'건')
-          +card('최근 7일',won(s7.rev),s7.orders+'건')+card('최근 30일',won(s30.rev),s30.orders+'건');
+        var html=card('오늘',won(sT.rev),split(sT))+card('어제',won(sY.rev),split(sY))
+          +card('최근 7일',won(s7.rev),split(s7))+card('최근 30일',won(s30.rev),split(s30));
         if(mc7>0){ html+=card('7일 ROAS(전체)',Math.round(s7.rev/mc7*100)+'%','메타 광고비 '+won(mc7)); }
         cards.innerHTML=html;
       }
@@ -3822,7 +3863,16 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
         var up=js.updated?new Date(js.updated):null;
         st.textContent='마지막 수집: '+(up?up.toLocaleString('ko-KR',{timeZone:'Asia/Seoul'})+' (한국시간)':'-');
       }
-      // 차트: 최근 30일 스택 막대 + 메타 광고비 라인
+      var sb=document.getElementById('revStripBody');
+      if(sb){
+        var txt='오늘 '+won(sT.rev)+' ('+sT.orders+'건) · 최근 7일 '+won(s7.rev);
+        if(mc7>0) txt+=' · 7일 ROAS(전체) '+Math.round(s7.rev/mc7*100)+'%';
+        sb.textContent=txt;
+      }
+      REV_LOADED=true;
+      var rp=document.getElementById('revPanel');
+      var rs=document.getElementById('revStrip');
+      if(rs && rp && rp.style.display==='none') rs.style.display='flex';
       var labels=[],jasa=[],biz=[],mcost=[];
       var mByDate={};
       try{ (META_UPLOADED_DATA||[]).forEach(function(r){ if(r&&r.date) mByDate[r.date]=(mByDate[r.date]||0)+(+r.cost||0); }); }catch(e){}
@@ -3846,7 +3896,18 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
     }).catch(function(e){
       var st=document.getElementById('revStatus');
       if(st) st.textContent='매출 데이터를 불러오지 못했어요 (웹앱 URL/키 확인 필요)';
+      var sb=document.getElementById('revStripBody');
+      if(sb) sb.textContent='매출 연동 실패 — 웹앱 URL/키 확인';
     });
+  }
+
+  function init(){
+    var ba=document.getElementById('modeAds'), br=document.getElementById('modeRev'), more=document.getElementById('revStripMore');
+    if(ba) ba.addEventListener('click',function(){setMode('ads');});
+    if(br) br.addEventListener('click',function(){setMode('rev');});
+    if(more) more.addEventListener('click',function(e){e.preventDefault();setMode('rev');});
+    setMode('ads');
+    loadRev();
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
 })();
