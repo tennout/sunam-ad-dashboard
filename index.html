@@ -316,10 +316,9 @@
   <div class="topbar" style="flex-direction:column;align-items:stretch;gap:12px">
     <div class="no-capture" style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
       <div style="display:flex;align-items:center;gap:12px">
-        <div class="logo">선</div>
-        <div id="modeSwitch" style="display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden">
-          <button id="modeAds" style="border:0;padding:8px 16px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;background:var(--green);color:#fff">광고 운영</button>
-          <button id="modeRev" style="border:0;padding:8px 16px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;background:transparent;color:var(--ink-2)">자사몰 운영</button>
+        <div id="modeSwitch" style="display:flex;gap:2px;background:#eaeeec;border:1px solid var(--line);border-radius:12px;padding:3px">
+          <button id="modeAds" style="border:0;padding:7px 18px;border-radius:9px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;background:#fff;color:var(--ink);box-shadow:0 1px 4px rgba(0,0,0,.10);transition:all .15s">광고 운영</button>
+          <button id="modeRev" style="border:0;padding:7px 18px;border-radius:9px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;background:transparent;color:var(--muted);transition:all .15s">자사몰 운영</button>
         </div>
       </div>
       <div style="display:flex;align-items:center;gap:8px">
@@ -823,13 +822,49 @@
   </div>
 
 
-  <!-- REVENUE (쇼핑몰 매출 · 구글시트 연동) -->
-  <div class="panel" id="revPanel" style="display:none">
-    <h2 style="margin:0 0 4px">쇼핑몰 매출 <span style="font-size:12px;font-weight:400;color:var(--muted)">자사몰·비즈몰 실결제 기준 · 구글시트 자동 연동</span></h2>
-    <div class="sub" id="revStatus" style="margin-bottom:10px">매출 데이터 불러오는 중…</div>
-    <div id="revCards" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px"></div>
-    <div style="height:260px"><canvas id="revChart"></canvas></div>
-    <div class="hint" style="margin-top:6px">매출 = 아임웹 주문 실결제 금액(취소·반품·입금대기 제외), 매일 새벽 자동 갱신. 메타 광고비는 메타 탭에 업로드된 CSV 기준. ROAS(전체) = 기간 매출 ÷ 기간 메타 광고비 — 광고 외 유입 매출도 포함된 참고 지표입니다.</div>
+  <!-- REVENUE (자사몰 운영) -->
+  <div id="revPanel" style="display:none">
+    <div class="ch-tabs">
+      <button class="ch-tab active" data-rt="all" style="border-bottom-color:var(--green)">통합</button>
+      <button class="ch-tab" data-rt="jasa">B2C 자사몰</button>
+      <button class="ch-tab" data-rt="biz">B2B 비즈몰</button>
+    </div>
+    <div class="periodbar">
+      <div class="segs" id="revSegs">
+        <button class="seg" data-days="1">어제</button>
+        <button class="seg active" data-days="7">최근 7일</button>
+        <button class="seg" data-days="14">최근 14일</button>
+        <button class="seg" data-days="30">최근 30일</button>
+        <button class="seg" data-days="60">최근 60일</button>
+      </div>
+      <div class="dr">
+        <span>사용자 지정</span>
+        <input type="date" id="revDStart">~ <input type="date" id="revDEnd">
+        <button id="revApply">적용</button>
+        <span class="current-range" id="revRange">—</span>
+      </div>
+    </div>
+    <div class="kpis" id="revKpis"></div>
+    <div class="panel" style="margin-bottom:14px">
+      <h2 style="margin:0 0 8px">매출 추이 <span style="font-size:12px;font-weight:400;color:var(--muted)" id="revStatus">불러오는 중…</span></h2>
+      <div style="height:280px"><canvas id="revChart"></canvas></div>
+    </div>
+    <div class="panel" id="revBenefit" style="margin-bottom:14px">
+      <h2 style="margin:0 0 8px">쿠폰·포인트 사용 <span style="font-size:12px;font-weight:400;color:var(--muted)">선택 기간 · 혜택 비용 모니터링</span></h2>
+      <div id="revBenefitCards" style="display:flex;gap:10px;flex-wrap:wrap"></div>
+      <div class="hint" style="margin-top:6px">쿠폰별 상세(어떤 쿠폰이 쓰였는지)는 쿠폰 API 연동 시 추가 예정 · 페이백 포인트 회수율은 적립금 사용 주문으로 근사 확인</div>
+    </div>
+    <div class="grid2" id="revJasaExtra" style="display:none">
+      <div class="panel"><h2 style="margin:0 0 8px">멤버십 등급 분포 <span style="font-size:12px;font-weight:400;color:var(--muted)">전체 회원 기준</span></h2><div style="height:240px"><canvas id="revGradeChart"></canvas></div></div>
+      <div class="panel"><h2 style="margin:0 0 8px">월별 가입 코호트 <span style="font-size:12px;font-weight:400;color:var(--muted)">가입 → 30일 내 첫구매 → 90일 내 재구매</span></h2>
+        <div class="scroll"><table><thead><tr><th>가입월</th><th>가입자</th><th>첫구매</th><th>전환율</th><th>재구매율</th></tr></thead><tbody id="revCohortBody"></tbody></table></div>
+      </div>
+    </div>
+    <div class="panel" id="revBizExtra" style="display:none;margin-bottom:14px">
+      <h2 style="margin:0 0 8px">거래처 TOP 10 <span style="font-size:12px;font-weight:400;color:var(--muted)">누적 매출 기준 · 주문자명 단위</span></h2>
+      <div class="scroll"><table><thead><tr><th>거래처(주문자)</th><th>주문수</th><th>누적 매출</th><th>최근 주문일</th></tr></thead><tbody id="revB2bBody"></tbody></table></div>
+    </div>
+    <div class="hint" style="margin:0 0 14px">매출 = 실결제 금액(취소·반품·입금대기 제외) · 구글시트에서 매일 새벽 5시 자동 수집 · 예상 정산액 = 결제수단별 수수료율 적용 근사치</div>
   </div>
 
   <!-- VERIFICATION -->
@@ -3044,10 +3079,17 @@ function refreshHeaderSub(){
   const lu=document.getElementById('lastUpdate');
   if(fi){
     const rel = fi.days<=0 ? '오늘' : (fi.days===1?'어제':`${fi.days}일 전`);
-    if(lu){ lu.textContent = `${fi.ts.toLocaleString('ko-KR',{timeZone:'Asia/Seoul'})} (한국시간 · ${rel})`; lu.style.color = (fi.auto && fi.days>=2)?'var(--red)':''; }
+    if(lu){
+      const _seg=[];
+      try{ if(typeof LIVE_FETCHED!=='undefined'&&LIVE_FETCHED){ const nt=_parseTs(LIVE_FETCHED); if(nt) _seg.push('네이버 '+nt.toLocaleString('ko-KR',{timeZone:'Asia/Seoul'})); } }catch(e){}
+      try{ const MM=(typeof META_UPLOADED_META!=='undefined')?META_UPLOADED_META:null;
+        if(MM&&MM.uploadedAt){ const mt=_parseTs(MM.uploadedAt); _seg.push('메타 '+(mt?mt.toLocaleString('ko-KR',{timeZone:'Asia/Seoul'}):MM.uploadedAt)); } }catch(e){}
+      lu.textContent = _seg.length? _seg.join('  ·  ')+' (한국시간)' : `${fi.ts.toLocaleString('ko-KR',{timeZone:'Asia/Seoul'})} (한국시간 · ${rel})`;
+      lu.style.color = (fi.auto && fi.days>=2)?'var(--red)':'';
+    }
   }
   if(a && a.status==='ok'){
-    parts.push(`네이버 검색광고 · Customer ID ${a.customerId} · 매일 04시 자동 갱신`);
+    parts.push(`네이버 검색광고 · 매일 04시 자동 갱신`);
     if(fi && fi.auto && MAIN_CHANNEL!=='META' && MAIN_CHANNEL!=='DA' && fi.days>=2) parts.push(`<span style="color:var(--red);font-weight:700">⚠️ ${fi.days}일째 미갱신 — 연동 점검 필요</span>`);
   } else if(a && a.status==='err'){
     parts.push('<span style="color:var(--red);font-weight:700">네이버 검색광고 연동 실패 — API 키 점검</span>');
@@ -3207,7 +3249,7 @@ async function switchAccount(acct){
     if(data){
       applyDataset(data); LIVE_FETCHED = (data&&data.meta&&data.meta.fetchedAt) || acct.updatedAt || '';
       badge.className='status-badge live'; badge.textContent='실시간 API';
-      sub.textContent = `${acct.name} · Customer ID ${acct.customerId} · 실시간 API · 매일 자동 갱신`;
+      sub.textContent = `${acct.name} · 실시간 API · 매일 자동 갱신`;
       lu.textContent = data?.meta?.fetchedAt || acct.updatedAt || '—';
     } else {
       applyDataset(null); LIVE_FETCHED='';
@@ -3791,12 +3833,14 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
 </script>
 
 <script>
-/* ===== 쇼핑몰 매출 연동 + 광고/자사몰 모드 전환 ===== */
+/* ===== 쇼핑몰 매출 연동 · 자사몰 운영 뷰 (v2) ===== */
 (function(){
   var REV_API='https://script.google.com/macros/s/AKfycbzjJB-AL0bL_HojQsZAmr3JdQwLQVlD1CseDJ1-bDHfN40MJD5Kq-VFXHYUxr8XBob13Q/exec';
   var REV_KEY='sunam-dash-2026';
-  var REV_LOADED=false, REV_UPDATED=null, ADS_LU_HTML=null, ADS_SUB=null;
+  var RAW=null, RT='all', PD={days:7, custom:null};
+  var REV_UPDATED=null, ADS_LU=null, ADS_SUB=null, CH_REV=null, CH_GRADE=null;
 
+  /* ---------- 모드 전환 ---------- */
   function setMode(m){
     var wrap=document.querySelector('.wrap'); if(!wrap) return;
     var title=document.getElementById('dashTitle');
@@ -3814,114 +3858,292 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
       var rp=document.getElementById('revPanel'); if(rp) rp.style.display='block';
       var rs=document.getElementById('revStrip'); if(rs) rs.style.display='none';
       if(title) title.textContent='선암파머스 자사몰 운영 대시보드';
-      if(sub){ if(ADS_SUB===null) ADS_SUB=sub.textContent; sub.textContent='아임웹 자사몰·비즈몰 · 주문/회원 데이터 매일 새벽 5시 자동 갱신'; }
-      if(lu){ if(ADS_LU_HTML===null) ADS_LU_HTML=lu.textContent;
-        lu.textContent = REV_UPDATED ? REV_UPDATED.toLocaleString('ko-KR',{timeZone:'Asia/Seoul'})+' (한국시간)' : '—'; }
+      if(sub){ if(ADS_SUB===null) ADS_SUB=sub.textContent; sub.textContent='아임웹 자사몰(B2C)·비즈몰(B2B) · 주문/회원 데이터 매일 05시 자동 갱신 · 데이터 기간 최근 130일'; }
+      if(lu){ if(ADS_LU===null) ADS_LU=lu.textContent;
+        lu.textContent = REV_UPDATED ? '구글시트 수집 '+REV_UPDATED.toLocaleString('ko-KR',{timeZone:'Asia/Seoul'})+' (한국시간)' : '—'; }
     } else {
       Array.prototype.forEach.call(wrap.children,function(el){
         if(el.dataset.revHidden==='1'){ el.style.display=el.dataset.revPrev||''; delete el.dataset.revHidden; delete el.dataset.revPrev; }
       });
       var rp=document.getElementById('revPanel'); if(rp) rp.style.display='none';
-      var rs=document.getElementById('revStrip'); if(rs) rs.style.display=REV_LOADED?'flex':'none';
+      var rs=document.getElementById('revStrip'); if(rs) rs.style.display=RAW?'flex':'none';
       if(title) title.textContent='선암파머스 광고 대시보드';
       if(sub&&ADS_SUB!==null){ sub.textContent=ADS_SUB; ADS_SUB=null; }
-      if(lu&&ADS_LU_HTML!==null){ lu.textContent=ADS_LU_HTML; ADS_LU_HTML=null; }
+      if(lu&&ADS_LU!==null){ lu.textContent=ADS_LU; ADS_LU=null; }
     }
     function paint(id,on){ var b=document.getElementById(id); if(!b) return;
-      b.style.background=on?'var(--green)':'transparent'; b.style.color=on?'#fff':'var(--ink-2)'; }
+      b.style.background=on?'#fff':'transparent';
+      b.style.color=on?'var(--ink)':'var(--muted)';
+      b.style.boxShadow=on?'0 1px 4px rgba(0,0,0,.10)':'none'; }
     paint('modeAds',m==='ads'); paint('modeRev',m==='rev');
   }
 
+  /* ---------- 유틸 ---------- */
   function ds(dt){ var y=dt.getFullYear(),m=('0'+(dt.getMonth()+1)).slice(-2),d=('0'+dt.getDate()).slice(-2); return y+'-'+m+'-'+d; }
-  function won(n){ return '\u20a9'+Math.round(n||0).toLocaleString('ko-KR'); }
+  function won(n){ return '₩'+Math.round(n||0).toLocaleString('ko-KR'); }
+  function addD(base,n){ return ds(new Date(new Date(base+'T12:00:00').getTime()+n*86400000)); }
+  function chip(pct,inv){
+    if(pct===null||!isFinite(pct)) return '<span class="chip flat">전기 대비 —</span>';
+    var good = inv ? pct<0 : pct>0;
+    var cls = Math.abs(pct)<1 ? 'flat' : (good?'good':'bad');
+    var sign = pct>=0?'▲':'▼';
+    return '<span class="chip '+cls+'">전기 대비 '+sign+Math.abs(pct).toFixed(1)+'%</span>';
+  }
+  function infoChip(t){ return '<span class="chip flat">'+t+'</span>'; }
   function metaCost(from,to){
     var s=0;
     try{ (META_UPLOADED_DATA||[]).forEach(function(r){ if(r&&r.date&&r.date>=from&&r.date<=to) s+=(+r.cost||0); }); }catch(e){}
     return s;
   }
-  function card(t,v,sub){
-    return '<div style="flex:1;min-width:150px;background:#fafcfb;border:1px solid var(--line);border-radius:12px;padding:10px 14px">'
-      +'<div style="font-size:11.5px;color:var(--muted)">'+t+'</div>'
-      +'<div style="font-size:18px;font-weight:800;margin-top:2px">'+v+'</div>'
-      +(sub?'<div style="font-size:11px;color:var(--ink-2);margin-top:2px">'+sub+'</div>':'')+'</div>';
+
+  function periodRange(){
+    if(PD.custom) return PD.custom;
+    var today=new Date();
+    if(PD.days===1){ var y=ds(new Date(today.getTime()-86400000)); return [y,y]; }
+    return [ds(new Date(today.getTime()-(PD.days-1)*86400000)), ds(today)];
   }
+
+  function sumP(from,to){
+    var o={rev:0,jasa:0,biz:0,ord:0,cancel:0,coupon:0,settle:0,newMem:0,memOrd:0,tierOrd:0,couponOrd:0,point:0,pointOrd:0};
+    if(!RAW) return o;
+    (RAW.daily||[]).forEach(function(r){
+      if(r.date<from||r.date>to) return;
+      var j=r.jasa||0, b=r.biz||0;
+      var jo=(r.jasaOrd!=null)?r.jasaOrd:null, bo=(r.bizOrd!=null)?r.bizOrd:null;
+      if(RT==='jasa'){ o.rev+=j; o.ord+=(jo!=null?jo:0); o.cancel+=(r.jasaCancel||0); o.coupon+=(r.jasaCoupon||0); o.settle+=(r.jasaSettle||0); o.memOrd+=(r.jasaMemOrd||0); o.tierOrd+=(r.jasaTierOrd||0); o.couponOrd+=(r.jasaCouponOrd||0); o.point+=(r.jasaPoint||0); o.pointOrd+=(r.jasaPointOrd||0); }
+      else if(RT==='biz'){ o.rev+=b; o.ord+=(bo!=null?bo:0); o.cancel+=(r.bizCancel||0); o.coupon+=(r.bizCoupon||0); o.settle+=(r.bizSettle||0); o.memOrd+=(r.bizMemOrd||0); o.couponOrd+=(r.bizCouponOrd||0); o.point+=(r.bizPoint||0); o.pointOrd+=(r.bizPointOrd||0); }
+      else { o.rev+=j+b; o.ord+=(jo!=null&&bo!=null)?(jo+bo):(r.orders||0); o.cancel+=(r.jasaCancel||0)+(r.bizCancel||0); o.coupon+=(r.jasaCoupon||0)+(r.bizCoupon||0); o.settle+=(r.jasaSettle||0)+(r.bizSettle||0); o.memOrd+=(r.jasaMemOrd||0)+(r.bizMemOrd||0); o.tierOrd+=(r.jasaTierOrd||0); o.couponOrd+=(r.jasaCouponOrd||0)+(r.bizCouponOrd||0); o.point+=(r.jasaPoint||0)+(r.bizPoint||0); o.pointOrd+=(r.jasaPointOrd||0)+(r.bizPointOrd||0); }
+      o.jasa+=j; o.biz+=b;
+    });
+    if(RAW.members&&RAW.members.daily){
+      RAW.members.daily.forEach(function(r){
+        if(r.date<from||r.date>to) return;
+        if(RT==='jasa') o.newMem+=(r.jasaNew||0);
+        else if(RT==='biz') o.newMem+=(r.bizNew||0);
+        else o.newMem+=(r.jasaNew||0)+(r.bizNew||0);
+      });
+    }
+    return o;
+  }
+
+  /* ---------- 렌더 ---------- */
+  function renderRev(){
+    if(!RAW) return;
+    var pr=periodRange(), from=pr[0], to=pr[1];
+    var len=Math.round((new Date(to)-new Date(from))/86400000)+1;
+    var pFrom=addD(from,-len), pTo=addD(from,-1);
+    var cur=sumP(from,to), prev=sumP(pFrom,pTo);
+    var rr=document.getElementById('revRange');
+    if(rr) rr.textContent='선택 기간 '+from+' ~ '+to+' ('+len+'일) · 비교 기간 '+pFrom+' ~ '+pTo;
+
+    function d(a,b){ return b>0 ? (a-b)/b*100 : null; }
+    var aov=cur.ord?cur.rev/cur.ord:0, pAov=prev.ord?prev.rev/prev.ord:0;
+    var rebuy = RAW.rebuy ? (RT==='biz'?RAW.rebuy.biz:RAW.rebuy.jasa) : null;
+    var hasV2 = RAW.daily && RAW.daily.length && RAW.daily[RAW.daily.length-1].jasaOrd!=null;
+    var kpis=[
+      {label:'매출(실결제)', value:won(cur.rev), tip:'아임웹 자사몰·비즈몰 실결제 합계 · 취소/반품/입금대기 제외 · 구글시트 매일 05시 자동 수집', chips:[chip(d(cur.rev,prev.rev))]},
+      {label:'주문 수', value:cur.ord.toLocaleString('ko-KR')+'건', tip:'기간 내 결제 주문 건수 · 취소/반품/입금대기 제외', chips:[chip(d(cur.ord,prev.ord))]},
+      {label:'객단가', value:won(aov), tip:'매출 ÷ 주문 수 · 선택 기간 기준', chips:[chip(d(aov,pAov))]},
+      (function(){ if(RT==='biz') return {label:'멤버십 주문 비율', value:'—', tip:'멤버십은 자사몰(B2C) 전용 제도', chips:[infoChip('B2B 미적용')]};
+        var ok=RAW.daily&&RAW.daily.length&&RAW.daily[RAW.daily.length-1].jasaTierOrd!=null;
+        var rate=(ok&&cur.ord>0)?cur.tierOrd/cur.ord*100:null;
+        var pRate=(ok&&prev.ord>0)?prev.tierOrd/prev.ord*100:null;
+        return {label:'멤버십 주문 비율', value:rate!=null?rate.toFixed(1)+'%':'—',
+          tip:'그린애플 이상(직전 6개월 실결제 10만원 이상) 회원의 주문 ÷ 전체 주문 · 현재 시점 기준 산정 근사치',
+          chips:rate!=null?[chip(d(rate,pRate))]:[infoChip('웹앱 v4 필요')]};})(),
+      {label:'신규 가입', value:(RAW.members?cur.newMem.toLocaleString('ko-KR')+'명':'—'), tip:(RAW.members&&RAW.members.totals)?('기간 내 회원가입 수 · 아임웹 회원 API · 누적 회원: 자사몰 '+(RAW.members.totals.jasa||0).toLocaleString('ko-KR')+'명 / 비즈몰 '+(RAW.members.totals.biz||0).toLocaleString('ko-KR')+'명'):'', chips:RAW.members?[chip(d(cur.newMem,prev.newMem))]:[infoChip('웹앱 v2 필요')]},
+      {label:(RT==='biz'?'재구매율 (비즈몰)':'재구매율 (자사몰)'), value:(rebuy!=null?(rebuy*100).toFixed(1)+'%':'—'), tip:'첫구매 회원 중 90일 내 2번째 구매 비율 · 주문-회원코드 매칭 · 전체 기간 누적 (기간 필터 미적용)', chips:[infoChip('첫구매 후 90일 · 전체 기간')]},
+      (function(){ if(RT==='biz') return {label:'오가닉 매출 비율', value:'—', tip:'광고는 자사몰(B2C) 대상으로 집행 중', chips:[infoChip('B2B는 광고 미집행 채널')]};
+        function adRev(f,t){ var s=0;
+          try{ (META_UPLOADED_DATA||[]).forEach(function(r){ if(r&&r.date&&r.date>=f&&r.date<=t) s+=(+r.rev||0); }); }catch(e){}
+          try{ if(typeof daily!=='undefined'&&daily&&daily.forEach) daily.forEach(function(r){ if(r&&r.date&&r.date>=f&&r.date<=t&&r.ad!=='brand') s+=(+r.rev||0); }); }catch(e){}
+          return s; }
+        var ar=adRev(from,to), par=adRev(pFrom,pTo);
+        var org=cur.rev>0?Math.max(0,(cur.rev-ar)/cur.rev*100):null;
+        var pOrg=prev.rev>0?Math.max(0,(prev.rev-par)/prev.rev*100):null;
+        return {label:'오가닉 매출 비율', value:org!=null?org.toFixed(1)+'%':'—',
+          tip:'(매출 − 광고 전환매출) ÷ 매출 · 광고 = 메타 전체 + 네이버 일반키워드(쇼핑·파워링크) · 브랜드 키워드 유입은 오가닉 포함 · 어트리뷰션 근사치',
+          chips:org!=null?[chip(d(org,pOrg)),infoChip('광고 기여 '+won(ar))]:[infoChip('데이터 없음')]};})(),
+      (function(){ var mc=metaCost(from,to), pmc=metaCost(pFrom,pTo);
+        var roas=mc>0?cur.rev/mc*100:null, pRoas=pmc>0?prev.rev/pmc*100:null;
+        return {label:'ROAS(전체)', value:roas!=null?Math.round(roas)+'%':'—',
+          tip:'기간 매출 ÷ 기간 메타 광고비 · 광고 외 유입 매출 포함 참고 지표 · 메타 CSV 기준',
+          chips: roas!=null?[chip(d(roas,pRoas)),infoChip('메타 광고비 '+won(mc))]:[infoChip('메타 CSV 업로드 시 표시')]};})()
+    ];
+    var wrap=document.getElementById('revKpis');
+    if(wrap){
+      wrap.innerHTML=kpis.map(function(c){
+        return '<div class="kpi"><div class="label">'+c.label+'</div>'+'<div class="value'+(c.tip?' ttp':'')+'"'+(c.tip?' data-tip="'+c.tip+'" style="cursor:help"':'')+'>'+c.value+'</div>'+'<div class="deltas">'+c.chips.join('')+'</div></div>';
+      }).join('');
+      try{ if(typeof bindEvidenceTooltip==='function') bindEvidenceTooltip(); }catch(e){}
+    }
+
+    // 추이 차트
+    var labels=[],A=[],B=[],M=[],O=[];
+    var byDate={}; (RAW.daily||[]).forEach(function(r){ byDate[r.date]=r; });
+    var mByDate={};
+    try{ (META_UPLOADED_DATA||[]).forEach(function(r){ if(r&&r.date) mByDate[r.date]=(mByDate[r.date]||0)+(+r.cost||0); }); }catch(e){}
+    for(var dd=from; dd<=to; dd=addD(dd,1)){
+      labels.push(dd.slice(5));
+      var rec=byDate[dd]||{};
+      A.push(rec.jasa||0); B.push(rec.biz||0); M.push(mByDate[dd]||0);
+      var jo=(rec.jasaOrd!=null)?rec.jasaOrd:null, bo=(rec.bizOrd!=null)?rec.bizOrd:null;
+      O.push(RT==='jasa'?(jo||0):RT==='biz'?(bo||0):((jo!=null&&bo!=null)?(jo+bo):(rec.orders||0)));
+      if(labels.length>190) break;
+    }
+    var dsets=[];
+    if(RT==='all'){
+      dsets.push({type:'bar',label:'자사몰',data:A,backgroundColor:'#03c75a',stack:'r'});
+      dsets.push({type:'bar',label:'비즈몰',data:B,backgroundColor:'#2563eb',stack:'r'});
+      dsets.push({type:'line',label:'메타 광고비',data:M,borderColor:'#f59e0b',backgroundColor:'#f59e0b',pointRadius:0,borderWidth:2,tension:.3});
+    } else {
+      var col=RT==='jasa'?'#03c75a':'#2563eb';
+      var arr=RT==='jasa'?A:B;
+      dsets.push({type:'bar',label:'매출',data:arr,backgroundColor:col});
+      dsets.push({type:'line',label:'주문수',data:O,borderColor:'#7c3aed',backgroundColor:'#7c3aed',pointRadius:0,borderWidth:2,tension:.3,yAxisID:'y2'});
+    }
+    var cv=document.getElementById('revChart');
+    if(cv&&window.Chart){
+      if(CH_REV) CH_REV.destroy();
+      CH_REV=new Chart(cv,{data:{labels:labels,datasets:dsets},options:{responsive:true,maintainAspectRatio:false,
+        plugins:{legend:{labels:{boxWidth:12,font:{size:11}}},tooltip:{callbacks:{label:function(c){ return c.dataset.label+': '+(c.dataset.label==='주문수'?c.parsed.y+'건':won(c.parsed.y)); }}}},
+        scales:{x:{stacked:RT==='all',ticks:{font:{size:10},maxTicksLimit:16}},
+          y:{stacked:RT==='all',ticks:{font:{size:10},callback:function(v){return (v/10000)+'만';}}},
+          y2:{display:RT!=='all',position:'right',grid:{drawOnChartArea:false},ticks:{font:{size:10}}}}
+      }});
+    }
+
+    // 탭별 부가 섹션
+    var bf=document.getElementById('revBenefit');
+    if(bf){
+      bf.style.display = RT==='biz'?'none':'block';
+      var bc=document.getElementById('revBenefitCards');
+      if(bc){
+        var hasB = RAW.daily&&RAW.daily.length&&RAW.daily[RAW.daily.length-1].jasaCouponOrd!=null;
+        function bcard(t,v,s){ return '<div style="flex:1;min-width:150px;background:#fafcfb;border:1px solid var(--line);border-radius:12px;padding:10px 14px"><div style="font-size:11.5px;color:var(--muted)">'+t+'</div><div style="font-size:17px;font-weight:800;margin-top:2px">'+v+'</div>'+(s?'<div style="font-size:11px;color:var(--ink-2);margin-top:2px">'+s+'</div>':'')+'</div>'; }
+        if(hasB){
+          bc.innerHTML =
+            bcard('쿠폰 사용 주문율', cur.ord>0?(cur.couponOrd/cur.ord*100).toFixed(1)+'%':'—', cur.couponOrd.toLocaleString('ko-KR')+'건')
+            +bcard('쿠폰 할인액', won(cur.coupon), cur.rev>0?'매출 대비 '+(cur.coupon/cur.rev*100).toFixed(1)+'%':'')
+            +bcard('포인트 사용 주문율', cur.ord>0?(cur.pointOrd/cur.ord*100).toFixed(1)+'%':'—', cur.pointOrd.toLocaleString('ko-KR')+'건')
+            +bcard('포인트 사용액', won(cur.point), cur.rev>0?'매출 대비 '+(cur.point/cur.rev*100).toFixed(1)+'%':'');
+        } else {
+          bc.innerHTML='<div style="color:var(--muted);font-size:12.5px">웹앱 v4 배포 후 표시됩니다</div>';
+        }
+      }
+    }
+    var jx=document.getElementById('revJasaExtra'), bx=document.getElementById('revBizExtra');
+    if(jx) jx.style.display = RT==='jasa'?'grid':'none';
+    if(bx) bx.style.display = RT==='biz'?'block':'none';
+    if(RT==='jasa') renderJasaExtra();
+    if(RT==='biz') renderBizExtra();
+  }
+
+  function renderJasaExtra(){
+    if(!RAW) return;
+    var g=RAW.grades||[];
+    var cv=document.getElementById('revGradeChart');
+    if(cv&&window.Chart&&g.length){
+      if(CH_GRADE) CH_GRADE.destroy();
+      var top=g.slice(0,6);
+      CH_GRADE=new Chart(cv,{type:'doughnut',data:{labels:top.map(function(x){return x.name;}),
+        datasets:[{data:top.map(function(x){return x.count;}),backgroundColor:['#03c75a','#84cc16','#f59e0b','#e11d48','#1b2a24','#8a9690']}]},
+        options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{boxWidth:12,font:{size:11}}}}}});
+    }
+    var tb=document.getElementById('revCohortBody');
+    if(tb){
+      var rows=(RAW.cohorts||[]).map(function(c){
+        var cv1=c.joiners?c.buyers/c.joiners*100:0, cv2=c.buyers?c.rebuy/c.buyers*100:0;
+        return '<tr><td>'+c.ym+'</td><td>'+c.joiners+'</td><td>'+c.buyers+'</td><td>'+cv1.toFixed(1)+'%</td><td>'+cv2.toFixed(1)+'%</td></tr>';
+      }).join('');
+      tb.innerHTML=rows||'<tr><td colspan="5" style="color:var(--muted)">웹앱 v2 배포 후 표시됩니다</td></tr>';
+    }
+  }
+
+  function renderBizExtra(){
+    if(!RAW) return;
+    var tb=document.getElementById('revB2bBody');
+    if(tb){
+      var rows=(RAW.b2bTop||[]).map(function(x){
+        return '<tr><td>'+x.name+'</td><td>'+x.orders+'</td><td>'+won(x.rev)+'</td><td>'+(x.last||'—')+'</td></tr>';
+      }).join('');
+      tb.innerHTML=rows||'<tr><td colspan="4" style="color:var(--muted)">웹앱 v2 배포 후 표시됩니다</td></tr>';
+    }
+  }
+
+  /* ---------- 데이터 ---------- */
   function loadRev(){
     fetch(REV_API+'?key='+REV_KEY).then(function(r){ return r.json(); }).then(function(js){
-      var daily=(js&&js.daily)||[];
+      if(!js||!js.daily||!js.daily.length){
+        var st=document.getElementById('revStatus'); if(st) st.textContent='매출 데이터가 아직 비어 있어요.'; return;
+      }
+      RAW=js;
+      REV_UPDATED=js.updated?new Date(js.updated):null;
       var st=document.getElementById('revStatus');
-      if(!daily.length){ if(st) st.textContent='매출 데이터가 아직 비어 있어요.'; return; }
-      REV_UPDATED = js.updated ? new Date(js.updated) : null;
-      var byDate={}; daily.forEach(function(d){ byDate[d.date]=d; });
+      if(st) st.textContent='마지막 수집: '+(REV_UPDATED?REV_UPDATED.toLocaleString('ko-KR',{timeZone:'Asia/Seoul'})+' (한국시간)':'-');
+      // 스트립 (광고 모드 노출)
       var today=new Date();
-      function sum(fromD,toD){
-        var o={jasa:0,biz:0,orders:0};
-        daily.forEach(function(d){ if(d.date>=fromD&&d.date<=toD){ o.jasa+=d.jasa||0; o.biz+=d.biz||0; o.orders+=d.orders||0; } });
-        o.rev=o.jasa+o.biz; return o;
-      }
-      var t=ds(today), y=ds(new Date(today.getTime()-86400000));
-      var d7=ds(new Date(today.getTime()-6*86400000)), d30=ds(new Date(today.getTime()-29*86400000));
-      var sT=sum(t,t), sY=sum(y,y), s7=sum(d7,t), s30=sum(d30,t);
+      var t=ds(today), d7=ds(new Date(today.getTime()-6*86400000));
+      var save=RT; RT='all';
+      var s7=sumP(d7,t), sT=sumP(t,t);
+      RT=save;
       var mc7=metaCost(d7,t);
-      function split(o){ return o.orders+'건 · 자사 '+won(o.jasa)+' / 비즈 '+won(o.biz); }
-      var cards=document.getElementById('revCards');
-      if(cards){
-        var html=card('오늘',won(sT.rev),split(sT))+card('어제',won(sY.rev),split(sY))
-          +card('최근 7일',won(s7.rev),split(s7))+card('최근 30일',won(s30.rev),split(s30));
-        if(mc7>0){ html+=card('7일 ROAS(전체)',Math.round(s7.rev/mc7*100)+'%','메타 광고비 '+won(mc7)); }
-        cards.innerHTML=html;
-      }
-      if(st){
-        st.textContent='마지막 수집: '+(REV_UPDATED?REV_UPDATED.toLocaleString('ko-KR',{timeZone:'Asia/Seoul'})+' (한국시간)':'-');
-      }
       var sb=document.getElementById('revStripBody');
       if(sb){
-        var txt='오늘 '+won(sT.rev)+' ('+sT.orders+'건) · 최근 7일 '+won(s7.rev);
+        var txt='오늘 '+won(sT.rev)+' ('+sT.ord+'건) · 최근 7일 '+won(s7.rev);
         if(mc7>0) txt+=' · 7일 ROAS(전체) '+Math.round(s7.rev/mc7*100)+'%';
         sb.textContent=txt;
       }
-      REV_LOADED=true;
       var rp=document.getElementById('revPanel');
       var rs=document.getElementById('revStrip');
-      if(rs && rp && rp.style.display==='none') rs.style.display='flex';
-      var labels=[],jasa=[],biz=[],mcost=[];
-      var mByDate={};
-      try{ (META_UPLOADED_DATA||[]).forEach(function(r){ if(r&&r.date) mByDate[r.date]=(mByDate[r.date]||0)+(+r.cost||0); }); }catch(e){}
-      for(var i=29;i>=0;i--){
-        var dd=ds(new Date(today.getTime()-i*86400000));
-        labels.push(dd.slice(5));
-        var rec=byDate[dd]||{};
-        jasa.push(rec.jasa||0); biz.push(rec.biz||0); mcost.push(mByDate[dd]||0);
-      }
-      var cv=document.getElementById('revChart');
-      if(cv&&window.Chart){
-        new Chart(cv,{data:{labels:labels,datasets:[
-          {type:'bar',label:'자사몰',data:jasa,backgroundColor:'#03c75a',stack:'rev'},
-          {type:'bar',label:'비즈몰',data:biz,backgroundColor:'#2563eb',stack:'rev'},
-          {type:'line',label:'메타 광고비',data:mcost,borderColor:'#f59e0b',backgroundColor:'#f59e0b',pointRadius:0,borderWidth:2,tension:.3}
-        ]},options:{responsive:true,maintainAspectRatio:false,
-          plugins:{legend:{labels:{boxWidth:12,font:{size:11}}},tooltip:{callbacks:{label:function(c){return c.dataset.label+': '+won(c.parsed.y);}}}},
-          scales:{x:{stacked:true,ticks:{font:{size:10}}},y:{stacked:true,ticks:{font:{size:10},callback:function(v){return (v/10000)+'\ub9cc';}}}}
-        }});
-      }
+      if(rs&&rp&&rp.style.display==='none') rs.style.display='flex';
+      renderRev();
     }).catch(function(e){
       var st=document.getElementById('revStatus');
-      if(st) st.textContent='매출 데이터를 불러오지 못했어요 (웹앱 URL/키 확인 필요)';
+      if(st) st.textContent='매출 데이터를 불러오지 못했어요 (웹앱 URL/키 확인)';
       var sb=document.getElementById('revStripBody');
       if(sb) sb.textContent='매출 연동 실패 — 웹앱 URL/키 확인';
     });
   }
 
+  /* ---------- 초기화 ---------- */
   function init(){
-    // 매출 패널을 wrap 최상위로 이동 (광고 데이터 영역에 갇혀 안 보이던 문제 해결)
     var wrap=document.querySelector('.wrap');
     var rp=document.getElementById('revPanel');
     if(wrap&&rp&&rp.parentElement!==wrap) wrap.appendChild(rp);
-    var rs=document.getElementById('revStrip');
-    if(wrap&&rs&&rs.parentElement!==wrap){ /* 스트립은 원위치 유지 */ }
     var ba=document.getElementById('modeAds'), br=document.getElementById('modeRev'), more=document.getElementById('revStripMore');
     if(ba) ba.addEventListener('click',function(){setMode('ads');});
     if(br) br.addEventListener('click',function(){setMode('rev');});
     if(more) more.addEventListener('click',function(e){e.preventDefault();setMode('rev');});
+    // 탭
+    if(rp){
+      rp.querySelectorAll('.ch-tab[data-rt]').forEach(function(b){
+        b.addEventListener('click',function(){
+          RT=b.dataset.rt;
+          rp.querySelectorAll('.ch-tab[data-rt]').forEach(function(x){ x.classList.toggle('active',x===b); x.style.borderBottomColor=(x===b)?'var(--green)':'transparent'; });
+          renderRev();
+        });
+      });
+    }
+    // 기간
+    var segs=document.getElementById('revSegs');
+    if(segs){
+      segs.querySelectorAll('.seg').forEach(function(b){
+        b.addEventListener('click',function(){
+          PD={days:+b.dataset.days, custom:null};
+          segs.querySelectorAll('.seg').forEach(function(x){ x.classList.toggle('active',x===b); });
+          renderRev();
+        });
+      });
+    }
+    var ap=document.getElementById('revApply');
+    if(ap) ap.addEventListener('click',function(){
+      var s=document.getElementById('revDStart').value, e2=document.getElementById('revDEnd').value;
+      if(!s||!e2||s>e2) return;
+      PD={days:0, custom:[s,e2]};
+      if(segs) segs.querySelectorAll('.seg').forEach(function(x){ x.classList.remove('active'); });
+      renderRev();
+    });
     setMode('ads');
     loadRev();
   }
