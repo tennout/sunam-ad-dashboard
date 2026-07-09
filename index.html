@@ -313,46 +313,48 @@
 <div class="wrap">
 
   <!-- HEADER -->
-  <div class="topbar">
-    <div class="brand">
-      <div>
-        <h1>선암파머스 광고 대시보드 <span class="status-badge" id="dataModeBadge" style="display:none">샘플 데이터</span></h1>
-        <div class="sub" id="headerSub">API 자격증명 연결 전 · 샘플 데이터로 동작 중</div>
-      </div>
-    </div>
-    <div class="topbar-right no-capture">
-      <div class="no-capture" id="modeSwitch" style="display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-right:4px">
-        <button id="modeAds" style="border:0;padding:7px 14px;font-family:inherit;font-size:12.5px;font-weight:700;cursor:pointer;background:var(--green);color:#fff">📊 광고</button>
-        <button id="modeRev" style="border:0;padding:7px 14px;font-family:inherit;font-size:12.5px;font-weight:700;cursor:pointer;background:transparent;color:var(--ink-2)">💰 매출</button>
-      </div>
-      <div class="sub ttp" data-tip="데이터를 마지막으로 받아온 시각이에요.<br>실시간 연동 중이면 자동 수집 시각이 표시되고, 매일 자동 갱신돼요.<br>샘플 데이터는 갱신되지 않아요." style="cursor:help">최종 갱신 <b id="lastUpdate">—</b></div>
-      <div class="account-switcher" style="position:relative">
-        <button class="glossary-btn" id="exportBtn" title="리포트 이미지로 저장" aria-haspopup="true">📷 리포트 저장 ▾</button>
-        <div class="account-menu" id="exportMenu" role="menu">
-          <div class="acc-menu-head">리포트 이미지로 저장</div>
-          <div class="acc-item" id="exportFull"><span class="meta"><span class="n">전체 1장</span><span class="s">화면 전체를 한 장으로</span></span></div>
-          <div class="acc-item" id="exportSplit2"><span class="meta"><span class="n">4분할 (섹션별)</span><span class="s">KPI·추이·캠페인·소재 4장 · 폰 가로용</span></span></div>
+  <div class="topbar" style="flex-direction:column;align-items:stretch;gap:12px">
+    <div class="no-capture" style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+      <div style="display:flex;align-items:center;gap:12px">
+        <div class="logo">선</div>
+        <div id="modeSwitch" style="display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden">
+          <button id="modeAds" style="border:0;padding:8px 16px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;background:var(--green);color:#fff">광고 운영</button>
+          <button id="modeRev" style="border:0;padding:8px 16px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;background:transparent;color:var(--ink-2)">자사몰 운영</button>
         </div>
       </div>
-      <button class="glossary-btn" id="glossaryBtn" title="광고 용어 설명 보기">💡 용어</button>
-      <button class="glossary-btn" id="metaConnectBtn" title="네이버·메타 등 광고 채널 API 연동 가이드">🔗 API 연동</button>
-      <div class="account-switcher">
-        <button class="account-btn" id="accountBtn" aria-haspopup="true" aria-expanded="false">
-          <span class="acc-icon" id="accBtnIcon">선</span>
-          <span class="acc-name-wrap">
-            <span class="acc-name" id="accBtnName">선암파머스</span>
-            <span class="acc-sub" id="accBtnSub">샘플</span>
-          </span>
-          <span class="acc-caret">▾</span>
-        </button>
-        <div class="account-menu" id="accountMenu" role="menu">
-          <div class="acc-menu-head">광고 계정</div>
-          <div id="accountList"></div>
-          <div class="acc-add" id="accAdd">
-            <span class="plus">+</span><span>계정 추가 연결</span>
+      <div style="display:flex;align-items:center;gap:8px">
+        <button class="glossary-btn" id="glossaryBtn" title="광고 용어 설명 보기">용어</button>
+        <button class="glossary-btn" id="metaConnectBtn" title="네이버·메타 등 광고 채널 API 연동 가이드">API 연동</button>
+        <div class="account-switcher">
+          <button class="account-btn" id="accountBtn" aria-haspopup="true" aria-expanded="false">
+            <span class="acc-icon" id="accBtnIcon">선</span>
+            <span class="acc-name-wrap">
+              <span class="acc-name" id="accBtnName">선암파머스</span>
+              <span class="acc-sub" id="accBtnSub">샘플</span>
+            </span>
+            <span class="acc-caret">▾</span>
+          </button>
+          <div class="account-menu" id="accountMenu" role="menu">
+            <div class="acc-menu-head">광고 계정</div>
+            <div id="accountList"></div>
+            <div class="acc-add" id="accAdd">
+              <span class="plus">+</span><span>계정 추가 연결</span>
+            </div>
           </div>
         </div>
       </div>
+    </div>
+    <div class="brand">
+      <div>
+        <h1><span id="dashTitle">선암파머스 광고 대시보드</span> <span class="status-badge" id="dataModeBadge" style="display:none">샘플 데이터</span></h1>
+        <div class="sub" id="headerSub">API 자격증명 연결 전 · 샘플 데이터로 동작 중</div>
+        <div class="sub ttp" data-tip="데이터를 마지막으로 받아온 시각이에요.<br>광고 모드는 광고 데이터 수집 시각, 자사몰 모드는 구글시트 수집 시각이 표시됩니다." style="cursor:help">최종 갱신 <b id="lastUpdate">—</b></div>
+      </div>
+    </div>
+    <!-- 리포트 저장 (기능 코드 참조용 · 숨김) -->
+    <div style="display:none">
+      <button id="exportBtn"></button>
+      <div id="exportMenu"><div id="exportFull"></div><div id="exportSplit2"></div></div>
     </div>
   </div>
 
@@ -534,7 +536,7 @@
 
   <!-- REVENUE STRIP -->
   <div id="revStrip" style="display:none;align-items:center;gap:14px;flex-wrap:wrap;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:9px 14px;margin-bottom:14px;font-size:12.5px;color:var(--ink-2)">
-    <b style="color:var(--ink)">💰 매출</b>
+    <b style="color:var(--ink)">매출</b>
     <span id="revStripBody">불러오는 중…</span>
     <a href="#" id="revStripMore" style="margin-left:auto;color:var(--blue);font-weight:700;text-decoration:none">자세히 →</a>
   </div>
@@ -823,7 +825,7 @@
 
   <!-- REVENUE (쇼핑몰 매출 · 구글시트 연동) -->
   <div class="panel" id="revPanel" style="display:none">
-    <h2 style="margin:0 0 4px">💰 쇼핑몰 매출 <span style="font-size:12px;font-weight:400;color:var(--muted)">자사몰·비즈몰 실결제 기준 · 구글시트 자동 연동</span></h2>
+    <h2 style="margin:0 0 4px">쇼핑몰 매출 <span style="font-size:12px;font-weight:400;color:var(--muted)">자사몰·비즈몰 실결제 기준 · 구글시트 자동 연동</span></h2>
     <div class="sub" id="revStatus" style="margin-bottom:10px">매출 데이터 불러오는 중…</div>
     <div id="revCards" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px"></div>
     <div style="height:260px"><canvas id="revChart"></canvas></div>
@@ -3789,15 +3791,17 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
 </script>
 
 <script>
-/* ===== 쇼핑몰 매출 연동 + 광고/매출 모드 전환 ===== */
+/* ===== 쇼핑몰 매출 연동 + 광고/자사몰 모드 전환 ===== */
 (function(){
   var REV_API='https://script.google.com/macros/s/AKfycbzjJB-AL0bL_HojQsZAmr3JdQwLQVlD1CseDJ1-bDHfN40MJD5Kq-VFXHYUxr8XBob13Q/exec';
   var REV_KEY='sunam-dash-2026';
-  var REV_LOADED=false;
+  var REV_LOADED=false, REV_UPDATED=null, ADS_LU_HTML=null, ADS_SUB=null;
 
-  /* ---- 모드 전환 ---- */
   function setMode(m){
     var wrap=document.querySelector('.wrap'); if(!wrap) return;
+    var title=document.getElementById('dashTitle');
+    var sub=document.getElementById('headerSub');
+    var lu=document.getElementById('lastUpdate');
     if(m==='rev'){
       Array.prototype.forEach.call(wrap.children,function(el){
         if(el.classList.contains('topbar')||el.classList.contains('modal-bg')) return;
@@ -3809,19 +3813,25 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
       });
       var rp=document.getElementById('revPanel'); if(rp) rp.style.display='block';
       var rs=document.getElementById('revStrip'); if(rs) rs.style.display='none';
+      if(title) title.textContent='선암파머스 자사몰 운영 대시보드';
+      if(sub){ if(ADS_SUB===null) ADS_SUB=sub.textContent; sub.textContent='아임웹 자사몰·비즈몰 · 주문/회원 데이터 매일 새벽 5시 자동 갱신'; }
+      if(lu){ if(ADS_LU_HTML===null) ADS_LU_HTML=lu.textContent;
+        lu.textContent = REV_UPDATED ? REV_UPDATED.toLocaleString('ko-KR',{timeZone:'Asia/Seoul'})+' (한국시간)' : '—'; }
     } else {
       Array.prototype.forEach.call(wrap.children,function(el){
         if(el.dataset.revHidden==='1'){ el.style.display=el.dataset.revPrev||''; delete el.dataset.revHidden; delete el.dataset.revPrev; }
       });
       var rp=document.getElementById('revPanel'); if(rp) rp.style.display='none';
       var rs=document.getElementById('revStrip'); if(rs) rs.style.display=REV_LOADED?'flex':'none';
+      if(title) title.textContent='선암파머스 광고 대시보드';
+      if(sub&&ADS_SUB!==null){ sub.textContent=ADS_SUB; ADS_SUB=null; }
+      if(lu&&ADS_LU_HTML!==null){ lu.textContent=ADS_LU_HTML; ADS_LU_HTML=null; }
     }
     function paint(id,on){ var b=document.getElementById(id); if(!b) return;
       b.style.background=on?'var(--green)':'transparent'; b.style.color=on?'#fff':'var(--ink-2)'; }
     paint('modeAds',m==='ads'); paint('modeRev',m==='rev');
   }
 
-  /* ---- 데이터 ---- */
   function ds(dt){ var y=dt.getFullYear(),m=('0'+(dt.getMonth()+1)).slice(-2),d=('0'+dt.getDate()).slice(-2); return y+'-'+m+'-'+d; }
   function won(n){ return '\u20a9'+Math.round(n||0).toLocaleString('ko-KR'); }
   function metaCost(from,to){
@@ -3840,6 +3850,7 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
       var daily=(js&&js.daily)||[];
       var st=document.getElementById('revStatus');
       if(!daily.length){ if(st) st.textContent='매출 데이터가 아직 비어 있어요.'; return; }
+      REV_UPDATED = js.updated ? new Date(js.updated) : null;
       var byDate={}; daily.forEach(function(d){ byDate[d.date]=d; });
       var today=new Date();
       function sum(fromD,toD){
@@ -3860,8 +3871,7 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
         cards.innerHTML=html;
       }
       if(st){
-        var up=js.updated?new Date(js.updated):null;
-        st.textContent='마지막 수집: '+(up?up.toLocaleString('ko-KR',{timeZone:'Asia/Seoul'})+' (한국시간)':'-');
+        st.textContent='마지막 수집: '+(REV_UPDATED?REV_UPDATED.toLocaleString('ko-KR',{timeZone:'Asia/Seoul'})+' (한국시간)':'-');
       }
       var sb=document.getElementById('revStripBody');
       if(sb){
@@ -3902,6 +3912,12 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
   }
 
   function init(){
+    // 매출 패널을 wrap 최상위로 이동 (광고 데이터 영역에 갇혀 안 보이던 문제 해결)
+    var wrap=document.querySelector('.wrap');
+    var rp=document.getElementById('revPanel');
+    if(wrap&&rp&&rp.parentElement!==wrap) wrap.appendChild(rp);
+    var rs=document.getElementById('revStrip');
+    if(wrap&&rs&&rs.parentElement!==wrap){ /* 스트립은 원위치 유지 */ }
     var ba=document.getElementById('modeAds'), br=document.getElementById('modeRev'), more=document.getElementById('revStripMore');
     if(ba) ba.addEventListener('click',function(){setMode('ads');});
     if(br) br.addEventListener('click',function(){setMode('rev');});
