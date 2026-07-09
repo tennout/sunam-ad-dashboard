@@ -865,7 +865,7 @@
       <div class="hint" style="margin-top:6px">쿠폰별 상세(어떤 쿠폰이 쓰였는지)는 쿠폰 API 연동 시 추가 예정 · 페이백 포인트 회수율은 적립금 사용 주문으로 근사 확인</div>
     </div>
     <div class="panel" id="revVoc" style="margin-bottom:14px">
-      <h2 style="margin:0 0 8px">VOC — 후기·문의 <span style="font-size:12px;font-weight:400;color:var(--muted)">고객 목소리 · 품질 조기경보</span></h2>
+      <h2 style="margin:0 0 8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">VOC — 후기·문의 <span style="font-size:12px;font-weight:400;color:var(--muted)">고객 목소리 · 품질 조기경보</span><a href="https://docs.google.com/spreadsheets/d/18Zs1SbKbAAl1enNiswx_G_GmARI4hshum8ErE2m1EI0/edit" target="_blank" style="margin-left:auto;font-size:12px;font-weight:700;color:var(--blue);text-decoration:none;border:1px solid var(--line);border-radius:8px;padding:5px 10px">시트에서 전체 보기</a></h2>
       <div id="revVocCards" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px"></div>
       <div class="grid2">
         <div>
@@ -3867,6 +3867,9 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
   var REV_API='https://script.google.com/macros/s/AKfycbzjJB-AL0bL_HojQsZAmr3JdQwLQVlD1CseDJ1-bDHfN40MJD5Kq-VFXHYUxr8XBob13Q/exec';
   var REV_KEY='sunam-dash-2026';
   var RAW=null, RT='all', PD={days:7, custom:null};
+  var REV_SHEET_URL='https://docs.google.com/spreadsheets/d/18Zs1SbKbAAl1enNiswx_G_GmARI4hshum8ErE2m1EI0/edit';
+  var SITE_URLS={'자사몰':'https://sunamfarmers.kr','비즈몰':'https://sunamfarmers.biz'};
+  function prodLink_(site,prod){ if(!prod||!SITE_URLS[site]) return ''; return ' <a href="'+SITE_URLS[site]+'/allproducts/?idx='+prod+'" target="_blank" style="color:var(--blue);font-weight:700;text-decoration:none">상품 보기 →</a>'; }
   var REV_HASH='9f9514a35129fa61a8abf2a6df25ab259d10ceb3a448b2fa2f9d72f106af6c9c';
   function sha256_(s){ return crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)).then(function(b){ return Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,'0');}).join(''); }); }
   function revAuthed_(){ try{ return Date.now() < +(localStorage.getItem('REV_AUTH_UNTIL')||0); }catch(e){ return false; } }
@@ -4122,14 +4125,14 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
         var lowEl=document.getElementById('revVocLow');
         if(lowEl){
           lowEl.innerHTML=(V.lowRecent&&V.lowRecent.length)?V.lowRecent.map(function(r){
-            return '<div style="padding:7px 0;border-bottom:1px solid var(--line)"><span style="color:var(--red);font-weight:700">'+r.rating+'점</span> · '+r.date+' · '+r.site+'<br>'+(r.body||'')+'</div>';
+            return '<div style="padding:7px 0;border-bottom:1px solid var(--line)"><span style="color:var(--red);font-weight:700">'+r.rating+'점</span> · '+r.date+' · '+r.site+prodLink_(r.site,r.prod)+'<br>'+(r.body||'')+'</div>';
           }).join(''):'<div style="color:var(--muted)">저평점 후기 없음 👍</div>';
         }
         var qnaEl=document.getElementById('revVocQna');
         if(qnaEl){
           qnaEl.innerHTML=(V.recentQna&&V.recentQna.length)?V.recentQna.map(function(r){
             var w=r.status==='WAIT';
-            return '<div style="padding:7px 0;border-bottom:1px solid var(--line)"><span style="font-weight:700;color:'+(w?'var(--red)':'var(--green)')+'">'+(w?'대기':'완료')+'</span> · '+r.date+' · '+r.site+'<br>'+(r.subject||'(제목 없음)')+'</div>';
+            return '<div style="padding:7px 0;border-bottom:1px solid var(--line)"><span style="font-weight:700;color:'+(w?'var(--red)':'var(--green)')+'">'+(w?'대기':'완료')+'</span> · '+r.date+' · '+r.site+prodLink_(r.site,r.prod)+'<br>'+(r.subject||'(제목 없음)')+'</div>';
           }).join(''):'<div style="color:var(--muted)">문의 없음</div>';
         }
       } else {
