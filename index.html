@@ -854,16 +854,40 @@
       <h2 style="margin:0 0 8px">매출 추이 <span style="font-size:12px;font-weight:400;color:var(--muted)" id="revStatus">불러오는 중…</span></h2>
       <div style="height:280px"><canvas id="revChart"></canvas></div>
     </div>
+    <div class="panel" id="revBest" style="margin-bottom:14px">
+      <h2 style="margin:0 0 8px">베스트 상품 TOP 10 <span style="font-size:12px;font-weight:400;color:var(--muted)">선택 기간 · 품목 매출 기준</span> <span id="revBestSum" style="font-size:12px;font-weight:700;color:var(--ink-2)"></span></h2>
+      <div class="scroll"><table><thead><tr><th>#</th><th>상품명</th><th>수량</th><th>품목 매출</th><th>비중</th></tr></thead><tbody id="revBestBody"></tbody></table></div>
+      <div class="hint" style="margin-top:6px">품목 매출 = 상품 단위 금액 합 (배송비·쿠폰 반영 전이라 실결제 매출과 다를 수 있음) · 수집이 진행 중이면 과거 기간은 점차 채워집니다</div>
+    </div>
     <div class="panel" id="revBenefit" style="margin-bottom:14px">
       <h2 style="margin:0 0 8px">쿠폰·포인트 사용 <span style="font-size:12px;font-weight:400;color:var(--muted)">선택 기간 · 혜택 비용 모니터링</span></h2>
       <div id="revBenefitCards" style="display:flex;gap:10px;flex-wrap:wrap"></div>
       <div class="hint" style="margin-top:6px">쿠폰별 상세(어떤 쿠폰이 쓰였는지)는 쿠폰 API 연동 시 추가 예정 · 페이백 포인트 회수율은 적립금 사용 주문으로 근사 확인</div>
+    </div>
+    <div class="panel" id="revVoc" style="margin-bottom:14px">
+      <h2 style="margin:0 0 8px">VOC — 후기·문의 <span style="font-size:12px;font-weight:400;color:var(--muted)">고객 목소리 · 품질 조기경보</span></h2>
+      <div id="revVocCards" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px"></div>
+      <div class="grid2">
+        <div>
+          <div style="font-weight:700;font-size:13px;margin-bottom:6px">저평점 후기 (3점 이하 · 최근 5건)</div>
+          <div id="revVocLow" style="font-size:12.5px;color:var(--ink-2)"></div>
+        </div>
+        <div>
+          <div style="font-weight:700;font-size:13px;margin-bottom:6px">최근 문의 5건</div>
+          <div id="revVocQna" style="font-size:12.5px;color:var(--ink-2)"></div>
+        </div>
+      </div>
+      <div class="hint" style="margin-top:8px">후기·문의는 매일 새벽 수집 · 문의 답변은 아임웹 관리자에서 처리 (반자동 답변 기능은 추후 확장)</div>
     </div>
     <div class="grid2" id="revJasaExtra" style="display:none">
       <div class="panel"><h2 style="margin:0 0 8px">멤버십 등급 분포 <span style="font-size:12px;font-weight:400;color:var(--muted)">전체 회원 기준</span></h2><div style="height:240px"><canvas id="revGradeChart"></canvas></div></div>
       <div class="panel"><h2 style="margin:0 0 8px">월별 가입 코호트 <span style="font-size:12px;font-weight:400;color:var(--muted)">가입 → 30일 내 첫구매 → 90일 내 재구매</span></h2>
         <div class="scroll"><table><thead><tr><th>가입월</th><th>가입자</th><th>첫구매</th><th>전환율</th><th>재구매율</th></tr></thead><tbody id="revCohortBody"></tbody></table></div>
       </div>
+    </div>
+    <div class="panel" id="revDist" style="display:none;margin-bottom:14px">
+      <h2 style="margin:0 0 8px">구매횟수 분포 <span style="font-size:12px;font-weight:400;color:var(--muted)">전체 기간 · 고객 단위</span></h2>
+      <div id="revDistCards" style="display:flex;gap:10px;flex-wrap:wrap"></div>
     </div>
     <div class="panel" id="revBizExtra" style="display:none;margin-bottom:14px">
       <h2 style="margin:0 0 8px">거래처 TOP 10 <span style="font-size:12px;font-weight:400;color:var(--muted)">누적 매출 기준 · 주문자명 단위</span></h2>
@@ -3843,6 +3867,18 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
   var REV_API='https://script.google.com/macros/s/AKfycbzjJB-AL0bL_HojQsZAmr3JdQwLQVlD1CseDJ1-bDHfN40MJD5Kq-VFXHYUxr8XBob13Q/exec';
   var REV_KEY='sunam-dash-2026';
   var RAW=null, RT='all', PD={days:7, custom:null};
+  var REV_HASH='9f9514a35129fa61a8abf2a6df25ab259d10ceb3a448b2fa2f9d72f106af6c9c';
+  function sha256_(s){ return crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)).then(function(b){ return Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,'0');}).join(''); }); }
+  function revAuthed_(){ try{ return Date.now() < +(localStorage.getItem('REV_AUTH_UNTIL')||0); }catch(e){ return false; } }
+  function guardRev_(){
+    if(revAuthed_()){ setMode('rev'); return; }
+    var pw=window.prompt('자사몰 운영 비밀번호를 입력하세요');
+    if(pw==null||pw==='') return;
+    sha256_(pw).then(function(h){
+      if(h===REV_HASH){ try{ localStorage.setItem('REV_AUTH_UNTIL', String(Date.now()+86400000)); }catch(e){} setMode('rev'); }
+      else { alert('비밀번호가 올바르지 않아요.'); }
+    });
+  }
   var REV_UPDATED=null, ADS_LU=null, ADS_SUB=null, CH_REV=null, CH_GRADE=null;
 
   /* ---------- 모드 전환 ---------- */
@@ -4042,6 +4078,85 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
         }
       }
     }
+    // 베스트 상품
+    var bb=document.getElementById('revBestBody');
+    if(bb){
+      var P=RAW.prods;
+      if(P&&P.length){
+        var agg={}, totRev=0;
+        P.forEach(function(r){
+          if(r.date<from||r.date>to) return;
+          if(RT==='jasa'&&r.site!=='자사몰') return;
+          if(RT==='biz'&&r.site!=='비즈몰') return;
+          if(!agg[r.name]) agg[r.name]={name:r.name,qty:0,rev:0};
+          agg[r.name].qty+=r.qty; agg[r.name].rev+=r.rev; totRev+=r.rev;
+        });
+        var kinds=Object.keys(agg).length, totQty=0;
+        Object.keys(agg).forEach(function(k){ totQty+=agg[k].qty; });
+        var bs=document.getElementById('revBestSum');
+        if(bs) bs.textContent = kinds? '· 기간 내 '+kinds+'종 / 총 '+totQty.toLocaleString('ko-KR')+'개 판매' : '';
+        var top=Object.keys(agg).map(function(k){return agg[k];}).sort(function(a,b){return b.rev-a.rev;}).slice(0,10);
+        bb.innerHTML = top.length? top.map(function(x,i){
+          return '<tr><td>'+(i+1)+'</td><td>'+x.name+'</td><td>'+x.qty.toLocaleString('ko-KR')+'</td><td>'+won(x.rev)+'</td><td>'+(totRev>0?(x.rev/totRev*100).toFixed(1):'0')+'%</td></tr>';
+        }).join('') : '<tr><td colspan="5" style="color:var(--muted)">선택 기간에 수집된 품목 데이터가 없습니다 (수집 진행 중)</td></tr>';
+      } else {
+        bb.innerHTML='<tr><td colspan="5" style="color:var(--muted)">웹앱 v6 배포 + 품목 수집(dailySync/backfillProds 실행) 후 표시됩니다</td></tr>';
+      }
+    }
+    // VOC 섹션 (기간 연동 지표 + 최근 리스트)
+    var vp=document.getElementById('revVoc');
+    if(vp){
+      var V=RAW.voc;
+      if(V&&V.ratingDaily){
+        vp.style.display = RT==='biz'?'none':'block';
+        var pc=0, ps=0, plow=0;
+        V.ratingDaily.forEach(function(r){ if(r.date>=from&&r.date<=to){ pc+=r.count; ps+=r.sum; } });
+        var vcards=document.getElementById('revVocCards');
+        function vcard(t,v,s,warn){ return '<div style="flex:1;min-width:140px;background:'+(warn?'#fff5f6':'#fafcfb')+';border:1px solid '+(warn?'#f5c2cb':'var(--line)')+';border-radius:12px;padding:10px 14px"><div style="font-size:11.5px;color:var(--muted)">'+t+'</div><div style="font-size:17px;font-weight:800;margin-top:2px;'+(warn?'color:var(--red)':'')+'">'+v+'</div>'+(s?'<div style="font-size:11px;color:var(--ink-2);margin-top:2px">'+s+'</div>':'')+'</div>'; }
+        if(vcards){
+          vcards.innerHTML =
+            vcard('기간 평균 별점', pc?(ps/pc).toFixed(2)+'점':'—', pc+'건 후기')
+            +vcard('최근 30일 평균 별점', V.avg30!=null?V.avg30.toFixed(2)+'점':'—', V.reviews30+'건 · 저평점 '+V.low30+'건')
+            +vcard('미답변 문의', V.waitCount+'건', V.waitCount>0?'답변 필요':'모두 답변 완료', V.waitCount>0);
+        }
+        var lowEl=document.getElementById('revVocLow');
+        if(lowEl){
+          lowEl.innerHTML=(V.lowRecent&&V.lowRecent.length)?V.lowRecent.map(function(r){
+            return '<div style="padding:7px 0;border-bottom:1px solid var(--line)"><span style="color:var(--red);font-weight:700">'+r.rating+'점</span> · '+r.date+' · '+r.site+'<br>'+(r.body||'')+'</div>';
+          }).join(''):'<div style="color:var(--muted)">저평점 후기 없음 👍</div>';
+        }
+        var qnaEl=document.getElementById('revVocQna');
+        if(qnaEl){
+          qnaEl.innerHTML=(V.recentQna&&V.recentQna.length)?V.recentQna.map(function(r){
+            var w=r.status==='WAIT';
+            return '<div style="padding:7px 0;border-bottom:1px solid var(--line)"><span style="font-weight:700;color:'+(w?'var(--red)':'var(--green)')+'">'+(w?'대기':'완료')+'</span> · '+r.date+' · '+r.site+'<br>'+(r.subject||'(제목 없음)')+'</div>';
+          }).join(''):'<div style="color:var(--muted)">문의 없음</div>';
+        }
+      } else {
+        vp.style.display = RT==='biz'?'none':'block';
+        var vc2=document.getElementById('revVocCards');
+        if(vc2) vc2.innerHTML='<div style="color:var(--muted);font-size:12.5px">웹앱 v5 배포 + 다음 수집(새벽 5시 또는 dailySync 수동 실행) 후 표시됩니다</div>';
+      }
+    }
+    // 구매횟수 분포 (자사몰/비즈몰 탭)
+    var dp=document.getElementById('revDist');
+    if(dp){
+      var D=RAW.dist;
+      dp.style.display = (RT!=='all'&&D)?'block':'none';
+      if(D&&RT!=='all'){
+        var dd=RT==='biz'?D.biz:D.jasa;
+        var tot=dd.once+dd.twice+dd.three;
+        var dc=document.getElementById('revDistCards');
+        function dcard(t,v,s){ return '<div style="flex:1;min-width:140px;background:#fafcfb;border:1px solid var(--line);border-radius:12px;padding:10px 14px"><div style="font-size:11.5px;color:var(--muted)">'+t+'</div><div style="font-size:17px;font-weight:800;margin-top:2px">'+v+'</div>'+(s?'<div style="font-size:11px;color:var(--ink-2);margin-top:2px">'+s+'</div>':'')+'</div>'; }
+        if(dc&&tot>0){
+          dc.innerHTML =
+            dcard('1회 구매', dd.once.toLocaleString('ko-KR')+'명', (dd.once/tot*100).toFixed(1)+'%')
+            +dcard('2회 구매', dd.twice.toLocaleString('ko-KR')+'명', (dd.twice/tot*100).toFixed(1)+'%')
+            +dcard('3회 이상 (단골)', dd.three.toLocaleString('ko-KR')+'명', (dd.three/tot*100).toFixed(1)+'%')
+            +dcard('구매 고객 합계', tot.toLocaleString('ko-KR')+'명', '회원 주문 기준 · 전체 기간');
+        } else if(dc){ dc.innerHTML='<div style="color:var(--muted);font-size:12.5px">웹앱 v5 배포 후 표시됩니다</div>'; }
+      }
+    }
     var jx=document.getElementById('revJasaExtra'), bx=document.getElementById('revBizExtra');
     if(jx) jx.style.display = RT==='jasa'?'grid':'none';
     if(bx) bx.style.display = RT==='biz'?'block':'none';
@@ -4123,8 +4238,8 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
     if(wrap&&rp&&rp.parentElement!==wrap) wrap.appendChild(rp);
     var ba=document.getElementById('modeAds'), br=document.getElementById('modeRev'), more=document.getElementById('revStripMore');
     if(ba) ba.addEventListener('click',function(){setMode('ads');});
-    if(br) br.addEventListener('click',function(){setMode('rev');});
-    if(more) more.addEventListener('click',function(e){e.preventDefault();setMode('rev');});
+    if(br) br.addEventListener('click',function(){guardRev_();});
+    if(more) more.addEventListener('click',function(e){e.preventDefault();guardRev_();});
     // 탭
     if(rp){
       rp.querySelectorAll('.rv-tab[data-rt]').forEach(function(b){
