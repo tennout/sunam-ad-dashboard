@@ -3858,6 +3858,7 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
       var rp=document.getElementById('revPanel'); if(rp) rp.style.display='block';
       var rs=document.getElementById('revStrip'); if(rs) rs.style.display='none';
       if(title) title.textContent='선암파머스 자사몰 운영 대시보드';
+      ['glossaryBtn','metaConnectBtn'].forEach(function(id){ var b=document.getElementById(id); if(b) b.style.display='none'; });
       if(sub){ if(ADS_SUB===null) ADS_SUB=sub.textContent; sub.textContent='아임웹 자사몰(B2C)·비즈몰(B2B) · 주문/회원 데이터 매일 05시 자동 갱신 · 데이터 기간 최근 130일'; }
       if(lu){ if(ADS_LU===null) ADS_LU=lu.textContent;
         lu.textContent = REV_UPDATED ? '구글시트 수집 '+REV_UPDATED.toLocaleString('ko-KR',{timeZone:'Asia/Seoul'})+' (한국시간)' : '—'; }
@@ -3868,6 +3869,7 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
       var rp=document.getElementById('revPanel'); if(rp) rp.style.display='none';
       var rs=document.getElementById('revStrip'); if(rs) rs.style.display=RAW?'flex':'none';
       if(title) title.textContent='선암파머스 광고 대시보드';
+      ['glossaryBtn','metaConnectBtn'].forEach(function(id){ var b=document.getElementById(id); if(b) b.style.display=''; });
       if(sub&&ADS_SUB!==null){ sub.textContent=ADS_SUB; ADS_SUB=null; }
       if(lu&&ADS_LU!==null){ lu.textContent=ADS_LU; ADS_LU=null; }
     }
