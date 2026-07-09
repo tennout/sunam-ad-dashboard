@@ -824,10 +824,15 @@
 
   <!-- REVENUE (자사몰 운영) -->
   <div id="revPanel" style="display:none">
+    <style>
+      .rv-tab{padding:10px 20px;background:transparent;border:none;border-bottom:3px solid transparent;font-family:inherit;font-size:14px;font-weight:700;color:var(--muted);cursor:pointer;margin-bottom:-2px;display:flex;align-items:center;gap:6px;transition:color .15s}
+      .rv-tab:hover{color:var(--ink)}
+      .rv-tab.active{color:var(--ink);border-bottom-color:var(--green)}
+    </style>
     <div class="ch-tabs">
-      <button class="ch-tab active" data-rt="all" style="border-bottom-color:var(--green)">통합</button>
-      <button class="ch-tab" data-rt="jasa">B2C 자사몰</button>
-      <button class="ch-tab" data-rt="biz">B2B 비즈몰</button>
+      <button class="rv-tab active" data-rt="all">통합</button>
+      <button class="rv-tab" data-rt="jasa">B2C 자사몰</button>
+      <button class="rv-tab" data-rt="biz">B2B 비즈몰</button>
     </div>
     <div class="periodbar">
       <div class="segs" id="revSegs">
@@ -3937,6 +3942,9 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
     var cur=sumP(from,to), prev=sumP(pFrom,pTo);
     var rr=document.getElementById('revRange');
     if(rr) rr.textContent='선택 기간 '+from+' ~ '+to+' ('+len+'일) · 비교 기간 '+pFrom+' ~ '+pTo;
+    var di1=document.getElementById('revDStart'), di2=document.getElementById('revDEnd');
+    if(di1) di1.value=from;
+    if(di2) di2.value=to;
 
     function d(a,b){ return b>0 ? (a-b)/b*100 : null; }
     var aov=cur.ord?cur.rev/cur.ord:0, pAov=prev.ord?prev.rev/prev.ord:0;
@@ -4075,7 +4083,7 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
 
   /* ---------- 데이터 ---------- */
   function loadRev(){
-    fetch(REV_API+'?key='+REV_KEY).then(function(r){ return r.json(); }).then(function(js){
+    fetch(REV_API+'?key='+REV_KEY).then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); }).then(function(js){
       if(!js||!js.daily||!js.daily.length){
         var st=document.getElementById('revStatus'); if(st) st.textContent='매출 데이터가 아직 비어 있어요.'; return;
       }
@@ -4102,7 +4110,7 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
       renderRev();
     }).catch(function(e){
       var st=document.getElementById('revStatus');
-      if(st) st.textContent='매출 데이터를 불러오지 못했어요 (웹앱 URL/키 확인)';
+      if(st) st.textContent='매출 데이터를 불러오지 못했어요 — '+((e&&e.message)||'원인 미상')+' (웹앱 URL/키/배포 액세스 확인)';
       var sb=document.getElementById('revStripBody');
       if(sb) sb.textContent='매출 연동 실패 — 웹앱 URL/키 확인';
     });
@@ -4119,10 +4127,10 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
     if(more) more.addEventListener('click',function(e){e.preventDefault();setMode('rev');});
     // 탭
     if(rp){
-      rp.querySelectorAll('.ch-tab[data-rt]').forEach(function(b){
+      rp.querySelectorAll('.rv-tab[data-rt]').forEach(function(b){
         b.addEventListener('click',function(){
           RT=b.dataset.rt;
-          rp.querySelectorAll('.ch-tab[data-rt]').forEach(function(x){ x.classList.toggle('active',x===b); x.style.borderBottomColor=(x===b)?'var(--green)':'transparent'; });
+          rp.querySelectorAll('.rv-tab[data-rt]').forEach(function(x){ x.classList.toggle('active',x===b); });
           renderRev();
         });
       });
