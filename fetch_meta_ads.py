@@ -156,6 +156,20 @@ def _actions_to_map(actions) -> dict:
     return m
 
 
+def _actions_to_map_win(actions, win: str) -> dict:
+    """어트리뷰션 윈도우별 값 (예: 7d_click = 클릭 기여만, 뷰스루 제외)"""
+    m = {}
+    for a in actions or []:
+        t = a.get("action_type")
+        if t is None:
+            continue
+        try:
+            m[t] = float(a.get(win) or 0)
+        except Exception:
+            m[t] = 0.0
+    return m
+
+
 def _pick(m: dict, keys: list) -> float:
     for k in keys:
         if k in m:
@@ -173,6 +187,8 @@ def _num(v, cast=float):
 def _row_metrics(r: dict) -> dict:
     am = _actions_to_map(r.get("actions"))
     vm = _actions_to_map(r.get("action_values"))
+    am_clk = _actions_to_map_win(r.get("actions"), "7d_click")
+    vm_clk = _actions_to_map_win(r.get("action_values"), "7d_click")
     imp = _num(r.get("impressions"), int)
     clk = _num(r.get("clicks"), int)
     cost = round(_num(r.get("spend")))
@@ -186,6 +202,8 @@ def _row_metrics(r: dict) -> dict:
         "atc": int(_pick(am, ACTION_KEYS["atc"])),
         "conv": int(_pick(am, ACTION_KEYS["purchase"])),
         "rev": round(_pick(vm, ACTION_KEYS["purchase"])),
+        "convClk": int(_pick(am_clk, ACTION_KEYS["purchase"])),
+        "revClk": round(_pick(vm_clk, ACTION_KEYS["purchase"])),
         "linkclk": int(_pick(am, ACTION_KEYS["linkclick"])),
     }
 
@@ -206,6 +224,8 @@ def fetch_insights(acct: str, token: str, since: str, until: str,
         "level": level,
         "fields": BASE_FIELDS,
         "time_range": json.dumps({"since": since, "until": until}),
+        # 클릭/뷰스루 분리 — 액션마다 "7d_click", "1d_view" 값이 따로 옴
+        "action_attribution_windows": json.dumps(["7d_click", "1d_view"]),
         "limit": 500,
     }
     if breakdowns:
@@ -314,7 +334,8 @@ def collect(acct: str, token: str, days: int) -> dict:
     print(f"    지면 {len(placements)}개")
 
     # 퍼널 합계 (기간 전체)
-    funnel = {"imp": 0, "clk": 0, "linkclk": 0, "lpv": 0, "atc": 0, "conv": 0, "rev": 0}
+    funnel = {"imp": 0, "clk": 0, "linkclk": 0, "lpv": 0, "atc": 0, "conv": 0, "rev": 0,
+              "convClk": 0, "revClk": 0}
     for c in creatives:
         for k in funnel:
             funnel[k] += c.get(k, 0)

@@ -6,6 +6,7 @@
 <title>선암파머스 광고 대시보드</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js"></script>
 <style>
   :root{
     --bg:#f5f7f6;
@@ -853,50 +854,73 @@
     <div class="panel" style="margin-bottom:14px">
       <h2 style="margin:0 0 8px">매출 추이 <span style="font-size:12px;font-weight:400;color:var(--muted)" id="revStatus">불러오는 중…</span></h2>
       <div style="height:280px"><canvas id="revChart"></canvas></div>
+      <div id="revMix" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px"></div>
+      <div class="hint" style="margin-top:8px">매출 구성: 신규 = 해당 기간이 생애 첫 구매 · 재구매 = 기존 고객의 반복 구매 (안정 매출) · 방문자·유입경로·상품 전환율은 아임웹이 API로 제공하지 않아 관리자 &gt; 통계(유입경로분석·상품전환분석)에서 확인</div>
     </div>
     <div class="panel" id="revBest" style="margin-bottom:14px">
+      <style>
+        #revBest table td, #revBest table th{white-space:nowrap}
+        #revBest table td:nth-child(2){white-space:normal;text-align:left}
+        #revBest table th:nth-child(2){text-align:left}
+        .rv-sort{font-size:12px;padding:5px 8px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink-2);font-family:inherit;cursor:pointer}
+        .rv-pill{border:1px solid var(--line);background:var(--card);border-radius:8px;padding:4px 12px;font-size:12px;font-weight:700;color:var(--muted);cursor:pointer;font-family:inherit}
+        .rv-pill.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+      </style>
       <h2 style="margin:0 0 10px">상품 분석 <span style="font-size:12px;font-weight:400;color:var(--muted)">선택 기간 · 품목 매출 기준</span> <span id="revBestSum" style="font-size:12px;font-weight:700;color:var(--ink-2)"></span></h2>
       <div class="grid2">
         <div>
           <div style="font-weight:700;font-size:13px;margin-bottom:6px;display:flex;align-items:center;gap:8px">
-            <span id="revBestChartTitle">매출 비중 (TOP5 + 기타)</span>
+            <span id="revBestChartTitle">매출 비중</span>
             <a href="#" id="revBestReset" style="display:none;font-size:12px;color:var(--blue);font-weight:700;text-decoration:none">← 전체 비중 보기</a>
           </div>
-          <div style="height:220px"><canvas id="revBestChart"></canvas></div>
-          <div style="font-weight:700;font-size:13px;margin:12px 0 4px">급상승 · 급하락 <span style="font-size:11.5px;font-weight:400;color:var(--muted)">직전 같은 기간 대비 품목 매출 변화</span></div>
-          <div id="revBestMovers" style="font-size:12.5px;color:var(--ink-2)"></div>
+          <div style="height:300px"><canvas id="revBestChart"></canvas></div>
         </div>
         <div>
-          <div style="font-weight:700;font-size:13px;margin-bottom:6px">베스트 상품 TOP 10 <span style="font-size:11.5px;font-weight:400;color:var(--muted)">행 클릭 → 왼쪽에 해당 상품 일별 추이</span></div>
-          <div class="scroll"><table><thead><tr><th>#</th><th style="text-align:left">상품명</th><th>수량</th><th>품목 매출</th><th>비중</th><th>충성율</th></tr></thead><tbody id="revBestBody"></tbody></table></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+            <span style="font-weight:700;font-size:13px">베스트 상품 TOP 10 <span style="font-size:11.5px;font-weight:400;color:var(--muted)">행 클릭 → 왼쪽에 추이</span></span>
+            <select class="rv-sort" id="revBestSort">
+              <option value="rev">매출순</option>
+              <option value="qty">수량순</option>
+              <option value="loyal">충성율순</option>
+            </select>
+          </div>
+          <div class="scroll"><table><thead><tr><th>#</th><th>상품명</th><th>수량</th><th>품목 매출</th><th>비중</th><th>충성율</th></tr></thead><tbody id="revBestBody"></tbody></table></div>
         </div>
       </div>
-      <div class="hint" style="margin-top:8px">품목 매출 = 상품 단위 금액 합 (배송비·쿠폰 반영 전) · 충성율 = 해당 상품 2회 이상 구매 고객 비율(전체 기간) · 수집 진행 중이면 과거 기간은 점차 채워집니다</div>
+      <div class="hint" style="margin-top:8px">품목 매출 = 상품 단위 금액 합 (배송비·쿠폰 반영 전) · 충성율 = 해당 상품 2회 이상 구매 고객 비율(전체 기간)</div>
     </div>
     <div class="panel" id="revBenefit" style="margin-bottom:14px">
       <h2 style="margin:0 0 8px">쿠폰·포인트 사용 <span style="font-size:12px;font-weight:400;color:var(--muted)">선택 기간 · 혜택 비용 모니터링</span></h2>
       <div id="revBenefitCards" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px"></div>
-      <div style="font-weight:700;font-size:13px;margin-bottom:6px">쿠폰별 사용 현황 <span style="font-size:11.5px;font-weight:400;color:var(--muted)">발행·사용은 쿠폰 생성 이후 누적 (아임웹 집계)</span></div>
-      <div class="scroll"><table><thead><tr><th>쿠폰명</th><th>사이트</th><th>발행</th><th>사용</th><th>사용률</th></tr></thead><tbody id="revCouponBody"></tbody></table></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;cursor:pointer" id="revCouponHead">
+        <span style="font-weight:700;font-size:13px">쿠폰별 사용 현황 <span style="font-size:11.5px;font-weight:400;color:var(--muted)">발행·사용은 쿠폰 생성 이후 누적</span> <span id="revCouponCaret" style="font-size:12px;color:var(--ink-2)">▸ 펼치기</span></span>
+        <select class="rv-sort" id="revCouponSort" style="display:none" onclick="event.stopPropagation()">
+          <option value="used">사용순</option>
+          <option value="issued">발행순</option>
+          <option value="rate">사용률순</option>
+        </select>
+      </div>
+      <div id="revCouponWrap" style="display:none" class="scroll"><table><thead><tr><th style="text-align:left">쿠폰명</th><th>사이트</th><th>발행</th><th>사용</th><th>사용률</th></tr></thead><tbody id="revCouponBody"></tbody></table></div>
       <div class="hint" style="margin-top:6px">멤버십 쿠폰사용 비중 = 기간 내 쿠폰 사용 주문 중 그린애플+ 회원 주문 비율 · 페이백 포인트 회수는 포인트 사용 주문율로 근사 확인</div>
     </div>
     <div class="panel" id="revVoc" style="margin-bottom:14px">
-      <h2 style="margin:0 0 8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">VOC — 후기·문의 <span style="font-size:12px;font-weight:400;color:var(--muted)">고객 목소리 · 품질 조기경보</span><a href="https://docs.google.com/spreadsheets/d/18Zs1SbKbAAl1enNiswx_G_GmARI4hshum8ErE2m1EI0/edit" target="_blank" style="margin-left:auto;font-size:12px;font-weight:700;color:var(--blue);text-decoration:none;border:1px solid var(--line);border-radius:8px;padding:5px 10px">시트에서 전체 보기</a></h2>
+      <h2 style="margin:0 0 8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">VOC — 후기·문의 <span style="font-size:12px;font-weight:400;color:var(--muted)">고객 목소리 · 품질 조기경보</span>
+        <a href="https://docs.google.com/spreadsheets/d/18Zs1SbKbAAl1enNiswx_G_GmARI4hshum8ErE2m1EI0/edit" target="_blank" style="margin-left:auto;font-size:12px;font-weight:700;color:var(--blue);text-decoration:none;border:1px solid var(--line);border-radius:8px;padding:5px 10px">시트에서 전체 보기</a></h2>
       <div id="revVocCards" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px"></div>
       <div class="grid2">
         <div>
-          <div style="font-weight:700;font-size:13px;margin-bottom:6px">저평점 후기 (3점 이하 · 최근 5건)</div>
-          <div id="revVocLow" style="font-size:12.5px;color:var(--ink-2)"></div>
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">
+            <button class="rv-pill on" data-vt="low">저평점 (3점 이하)</button>
+            <button class="rv-pill" data-vt="all">전체 후기</button>
+          </div>
+          <div id="revVocLow" style="font-size:12.5px;color:var(--ink-2);height:340px;overflow-y:auto"></div>
         </div>
         <div>
-          <div style="font-weight:700;font-size:13px;margin-bottom:6px">최근 문의 5건</div>
-          <div id="revVocQna" style="font-size:12.5px;color:var(--ink-2)"></div>
+          <div style="font-weight:700;font-size:13px;margin-bottom:10px;padding:4px 0">최근 문의</div>
+          <div id="revVocQna" style="font-size:12.5px;color:var(--ink-2);height:340px;overflow-y:auto"></div>
         </div>
       </div>
-      <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
-        <a href="#" id="revVocMore" style="font-size:12.5px;color:var(--blue);font-weight:700;text-decoration:none">더 보기 (최근 30건) ▼</a>
-        <span class="hint">후기·문의 매일 새벽 수집 · 답변 대기 문의엔 '관리자 답변' 바로가기 표시</span>
-      </div>
+      <div class="hint" style="margin-top:8px">후기·문의 매일 새벽 수집 · 답변 대기 문의엔 '관리자 답변' 바로가기 · 목록은 스크롤로 최근 30건까지</div>
     </div>
     <div class="grid2" id="revJasaExtra" style="display:none">
       <div class="panel"><h2 style="margin:0 0 8px">멤버십 등급 분포 <span style="font-size:12px;font-weight:400;color:var(--muted)">전체 회원 기준</span></h2><div style="height:240px"><canvas id="revGradeChart"></canvas></div></div>
@@ -904,26 +928,48 @@
         <div class="scroll"><table><thead><tr><th>가입월</th><th>가입자</th><th>첫구매</th><th>전환율</th><th>재구매율</th></tr></thead><tbody id="revCohortBody"></tbody></table></div>
       </div>
     </div>
-    <div class="panel" id="revChurn" style="display:none;margin-bottom:14px">
-      <h2 style="margin:0 0 8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">이탈 위험 고객 <span style="font-size:12px;font-weight:400;color:var(--muted)">마지막 구매 후 45~180일 무재구매 (자사몰)</span>
-        <button class="glossary-btn" data-csv="churn" style="margin-left:auto">명단 CSV (연락처 포함)</button></h2>
-      <div id="revChurnSummary" style="font-size:13px;margin-bottom:8px"></div>
-      <div class="scroll"><table><thead><tr><th>고객</th><th>마지막 구매</th><th>경과일</th><th>구매횟수</th><th>누적 구매액</th></tr></thead><tbody id="revChurnBody"></tbody></table></div>
-      <div class="hint" style="margin-top:6px">경과일 짧은 순 상위 10명 표시 · 전체 명단은 CSV로 — 재구매 쿠폰 알림톡 발송 대상 추출용</div>
-    </div>
     <div class="panel" id="revDeep" style="display:none;margin-bottom:14px">
-      <h2 style="margin:0 0 10px">재구매 심층 분석 <span style="font-size:12px;font-weight:400;color:var(--muted)">자사몰 · 전체 기간 · 회원 주문 기준</span></h2>
-      <div style="font-weight:700;font-size:13px;margin-bottom:6px">① 기간별 재구매율 <span style="font-size:11.5px;font-weight:400;color:var(--muted)">첫구매 후 N일 내 재구매 · 성숙 표본만 (첫구매가 N일 이상 지난 고객)</span></div>
-      <div id="revDeepWin" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px"></div>
-      <div style="font-weight:700;font-size:13px;margin-bottom:6px">② 회차 퍼널 — 어디서 이탈하는가 <span style="font-size:11.5px;font-weight:400;color:var(--muted)">n회 구매 고객 중 n+1회로 넘어간 비율 · 중앙 간격 = 재구매까지 걸린 일수</span></div>
-      <div class="scroll" style="margin-bottom:16px"><table><thead><tr><th>구간</th><th>도달 고객</th><th>다음 회차 진입</th><th>전환율</th><th>중앙 간격</th></tr></thead><tbody id="revDeepLadder"></tbody></table></div>
-      <div style="font-weight:700;font-size:13px;margin-bottom:6px">③ 상품별 충성고객 <span style="font-size:11.5px;font-weight:400;color:var(--muted)">같은 상품을 2회 이상 구매한 고객 · 품목 수집 진행에 따라 채워짐</span></div>
-      <div class="scroll"><table><thead><tr><th>상품명</th><th>구매 고객</th><th>반복 구매 고객</th><th>충성율</th></tr></thead><tbody id="revDeepLoyal"></tbody></table></div>
-      <div class="hint" style="margin-top:6px">활용: ①에서 재구매가 몰리는 구간 확인 → ②의 중앙 간격에 맞춰 재구매 쿠폰 알림톡 타이밍 설계 → ③의 충성 상품은 구독 제안 1순위</div>
-    </div>
-    <div class="panel" id="revDist" style="display:none;margin-bottom:14px">
-      <h2 style="margin:0 0 8px">구매횟수 분포 <span style="font-size:12px;font-weight:400;color:var(--muted)">전체 기간 · 고객 단위</span></h2>
-      <div id="revDistCards" style="display:flex;gap:10px;flex-wrap:wrap"></div>
+      <h2 style="margin:0 0 10px">재구매 심층 분석 <span style="font-size:12px;font-weight:400;color:var(--muted)">자사몰 · 회원 주문 기준</span></h2>
+      <div id="revDeepWin" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px"></div>
+      <div class="grid2" style="margin-bottom:16px">
+        <div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+            <span style="font-weight:700;font-size:13px">구매 회차 퍼널 <span style="font-size:11.5px;font-weight:400;color:var(--muted)">막대에 마우스 오버 → 전환·이탈율</span></span>
+            <select class="rv-sort" id="revFunnelSel">
+              <option value="all">전체 기간 첫구매</option>
+              <option value="180">최근 180일 첫구매</option>
+              <option value="90">최근 90일 첫구매</option>
+            </select>
+          </div>
+          <div style="height:280px"><canvas id="revFunnelChart"></canvas></div>
+        </div>
+        <div>
+          <div style="font-weight:700;font-size:13px;margin-bottom:6px">회차별 전환 상세 <span style="font-size:11.5px;font-weight:400;color:var(--muted)">중앙 간격 = 다음 구매까지 걸린 일수</span></div>
+          <div class="scroll"><table><thead><tr><th>구간</th><th>도달</th><th>진입</th><th>전환율</th><th>이탈율</th><th>중앙 간격</th></tr></thead><tbody id="revDeepLadder"></tbody></table></div>
+        </div>
+      </div>
+      <div class="grid2" style="margin-bottom:16px">
+        <div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+            <span style="font-weight:700;font-size:13px">상품별 충성고객 <span style="font-size:11.5px;font-weight:400;color:var(--muted)">같은 상품 2회+ 구매</span></span>
+            <select class="rv-sort" id="revLoyalSort">
+              <option value="repeaters">반복고객순</option>
+              <option value="rate">충성율순</option>
+              <option value="buyers">구매고객순</option>
+            </select>
+          </div>
+          <div class="scroll"><table><thead><tr><th style="text-align:left">상품명</th><th>구매 고객</th><th>반복 구매</th><th>충성율</th></tr></thead><tbody id="revDeepLoyal"></tbody></table></div>
+        </div>
+        <div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+            <span style="font-weight:700;font-size:13px">이탈 위험 고객 <span style="font-size:11.5px;font-weight:400;color:var(--muted)">마지막 구매 후 45~180일 무재구매</span></span>
+            <button class="rv-sort" data-csv="churn">명단 CSV</button>
+          </div>
+          <div id="revChurnSummary" style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:8px"></div>
+          <div class="scroll"><table><thead><tr><th style="text-align:left">고객</th><th>마지막 구매</th><th>경과일</th><th>구매횟수</th><th>누적액</th></tr></thead><tbody id="revChurnBody"></tbody></table></div>
+        </div>
+      </div>
+      <div class="hint">활용: 퍼널의 이탈 구간 × 중앙 간격 = 재구매 쿠폰 알림톡 타이밍 · 이탈 위험 명단 CSV로 발송 대상 추출 · 충성 상품은 구독 제안 1순위</div>
     </div>
     <div class="panel" id="revBizExtra" style="display:none;margin-bottom:14px">
       <h2 style="margin:0 0 8px">거래처 TOP 10 <span style="font-size:12px;font-weight:400;color:var(--muted)">누적 매출 기준 · 주문자명 단위</span></h2>
@@ -3998,15 +4044,15 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
   }
 
   function sumP(from,to){
-    var o={rev:0,jasa:0,biz:0,ord:0,cancel:0,coupon:0,settle:0,newMem:0,memOrd:0,tierOrd:0,couponOrd:0,point:0,pointOrd:0,tierCpn:0};
+    var o={rev:0,jasa:0,biz:0,ord:0,cancel:0,coupon:0,settle:0,newMem:0,memOrd:0,tierOrd:0,couponOrd:0,point:0,pointOrd:0,tierCpn:0,newRev:0,retRev:0,guestRev:0};
     if(!RAW) return o;
     (RAW.daily||[]).forEach(function(r){
       if(r.date<from||r.date>to) return;
       var j=r.jasa||0, b=r.biz||0;
       var jo=(r.jasaOrd!=null)?r.jasaOrd:null, bo=(r.bizOrd!=null)?r.bizOrd:null;
-      if(RT==='jasa'){ o.rev+=j; o.ord+=(jo!=null?jo:0); o.cancel+=(r.jasaCancel||0); o.coupon+=(r.jasaCoupon||0); o.settle+=(r.jasaSettle||0); o.memOrd+=(r.jasaMemOrd||0); o.tierOrd+=(r.jasaTierOrd||0); o.couponOrd+=(r.jasaCouponOrd||0); o.tierCpn+=(r.jasaTierCouponOrd||0); o.point+=(r.jasaPoint||0); o.pointOrd+=(r.jasaPointOrd||0); }
-      else if(RT==='biz'){ o.rev+=b; o.ord+=(bo!=null?bo:0); o.cancel+=(r.bizCancel||0); o.coupon+=(r.bizCoupon||0); o.settle+=(r.bizSettle||0); o.memOrd+=(r.bizMemOrd||0); o.couponOrd+=(r.bizCouponOrd||0); o.point+=(r.bizPoint||0); o.pointOrd+=(r.bizPointOrd||0); }
-      else { o.rev+=j+b; o.ord+=(jo!=null&&bo!=null)?(jo+bo):(r.orders||0); o.cancel+=(r.jasaCancel||0)+(r.bizCancel||0); o.coupon+=(r.jasaCoupon||0)+(r.bizCoupon||0); o.settle+=(r.jasaSettle||0)+(r.bizSettle||0); o.memOrd+=(r.jasaMemOrd||0)+(r.bizMemOrd||0); o.tierOrd+=(r.jasaTierOrd||0); o.couponOrd+=(r.jasaCouponOrd||0)+(r.bizCouponOrd||0); o.tierCpn+=(r.jasaTierCouponOrd||0); o.point+=(r.jasaPoint||0)+(r.bizPoint||0); o.pointOrd+=(r.jasaPointOrd||0)+(r.bizPointOrd||0); }
+      if(RT==='jasa'){ o.rev+=j; o.ord+=(jo!=null?jo:0); o.cancel+=(r.jasaCancel||0); o.coupon+=(r.jasaCoupon||0); o.settle+=(r.jasaSettle||0); o.memOrd+=(r.jasaMemOrd||0); o.tierOrd+=(r.jasaTierOrd||0); o.couponOrd+=(r.jasaCouponOrd||0); o.tierCpn+=(r.jasaTierCouponOrd||0); o.point+=(r.jasaPoint||0); o.pointOrd+=(r.jasaPointOrd||0); o.newRev+=(r.jasaNewRev||0); o.retRev+=(r.jasaRetRev||0); o.guestRev+=(r.jasaGuestRev||0); }
+      else if(RT==='biz'){ o.rev+=b; o.ord+=(bo!=null?bo:0); o.cancel+=(r.bizCancel||0); o.coupon+=(r.bizCoupon||0); o.settle+=(r.bizSettle||0); o.memOrd+=(r.bizMemOrd||0); o.couponOrd+=(r.bizCouponOrd||0); o.point+=(r.bizPoint||0); o.pointOrd+=(r.bizPointOrd||0); o.newRev+=(r.bizNewRev||0); o.retRev+=(r.bizRetRev||0); o.guestRev+=(r.bizGuestRev||0); }
+      else { o.rev+=j+b; o.ord+=(jo!=null&&bo!=null)?(jo+bo):(r.orders||0); o.cancel+=(r.jasaCancel||0)+(r.bizCancel||0); o.coupon+=(r.jasaCoupon||0)+(r.bizCoupon||0); o.settle+=(r.jasaSettle||0)+(r.bizSettle||0); o.memOrd+=(r.jasaMemOrd||0)+(r.bizMemOrd||0); o.tierOrd+=(r.jasaTierOrd||0); o.couponOrd+=(r.jasaCouponOrd||0)+(r.bizCouponOrd||0); o.tierCpn+=(r.jasaTierCouponOrd||0); o.point+=(r.jasaPoint||0)+(r.bizPoint||0); o.pointOrd+=(r.jasaPointOrd||0)+(r.bizPointOrd||0); o.newRev+=(r.jasaNewRev||0)+(r.bizNewRev||0); o.retRev+=(r.jasaRetRev||0)+(r.bizRetRev||0); o.guestRev+=(r.jasaGuestRev||0)+(r.bizGuestRev||0); }
       o.jasa+=j; o.biz+=b;
     });
     if(RAW.members&&RAW.members.daily){
@@ -4018,6 +4064,16 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
       });
     }
     return o;
+  }
+
+  function sumG(from,to){
+    var o={sessions:0,users:0,pv:0,org:0,days:0};
+    if(!window.GA4||!window.GA4.daily) return null;
+    window.GA4.daily.forEach(function(r){
+      if(r.date<from||r.date>to) return;
+      o.sessions+=(r.sessions||0); o.users+=(r.users||0); o.pv+=(r.pv||0); o.org+=(r.orgSessions||0); o.days++;
+    });
+    return o.days?o:null;
   }
 
   /* ---------- 렌더 ---------- */
@@ -4051,9 +4107,9 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
       {label:'신규 가입', value:(RAW.members?cur.newMem.toLocaleString('ko-KR')+'명':'—'), tip:(RAW.members&&RAW.members.totals)?('기간 내 회원가입 수 · 아임웹 회원 API · 누적 회원: 자사몰 '+(RAW.members.totals.jasa||0).toLocaleString('ko-KR')+'명 / 비즈몰 '+(RAW.members.totals.biz||0).toLocaleString('ko-KR')+'명'):'', chips:RAW.members?[chip(d(cur.newMem,prev.newMem))]:[infoChip('웹앱 v2 필요')]},
       {label:(RT==='biz'?'재구매율 (비즈몰)':'재구매율 (자사몰)'), value:(rebuy!=null?(rebuy*100).toFixed(1)+'%':'—'), tip:'첫구매 회원 중 90일 내 2번째 구매 비율 · 주문-회원코드 매칭 · 전체 기간 누적 (기간 필터 미적용)', chips:[infoChip('첫구매 후 90일 · 전체 기간')]},
       (function(){ if(RT==='biz') return {label:'오가닉 매출 비율', value:'—', tip:'비즈몰 랜딩 광고는 구매 전환 추적이 없어 산출 불가', chips:[infoChip('B2B 미적용')]};
-        function adRev(f,t){ var s=0;
-          try{ (META_UPLOADED_DATA||[]).forEach(function(r){ if(r&&r.date&&r.date>=f&&r.date<=t) s+=(+r.rev||0); }); }catch(e){}
-          return s; }
+        function adRev(f,t){ var s=0, sc=0, hasClk=false;
+          try{ (META_UPLOADED_DATA||[]).forEach(function(r){ if(r&&r.date&&r.date>=f&&r.date<=t){ s+=(+r.rev||0); if(r.revClk!=null){ hasClk=true; sc+=(+r.revClk||0); } } }); }catch(e){}
+          return hasClk?sc:s; }  // 클릭 기여(7d_click)만 — 뷰스루 과대귀속 제외. 구버전 데이터는 전체값 폴백
         var ar=adRev(from,to), par=adRev(pFrom,pTo);
         var base=(RT==='all')?cur.jasa:cur.rev, pBase=(RT==='all')?prev.jasa:prev.rev;
         if(base>0&&ar>=base){
@@ -4064,15 +4120,47 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
         var org=base>0?Math.max(0,(base-ar)/base*100):null;
         var pOrg=pBase>0?Math.max(0,(pBase-par)/pBase*100):null;
         return {label:'오가닉 매출 비율', value:org!=null?org.toFixed(1)+'%':'—',
-          tip:'(자사몰 매출 − 메타 전환매출) ÷ 자사몰 매출. 메타만 자사몰 랜딩 · 네이버 광고는 스마트스토어 랜딩이라 제외 · 어트리뷰션 근사치',
-          chips:org!=null?[chip(d(org,pOrg)),infoChip('메타 기여 '+won(ar))]:[infoChip('메타 CSV/연동 시 표시')]};})(),
+          tip:'(자사몰 매출 − 메타 클릭 기여 매출) ÷ 자사몰 매출. 클릭 후 7일 내 구매만 광고 기여로 집계 (뷰스루 제외) · 네이버 광고는 스마트스토어 랜딩이라 제외',
+          chips:org!=null?[chip(d(org,pOrg)),infoChip('메타 클릭 기여 '+won(ar))]:[infoChip('메타 CSV/연동 시 표시')]};})(),
       (function(){ if(RT==='biz') return {label:'ROAS(자사몰)', value:'—', tip:'메타 광고는 자사몰 랜딩 — 비즈몰 매출과 무관', chips:[infoChip('B2B 미적용')]};
         var mc=metaCost(from,to), pmc=metaCost(pFrom,pTo);
         var base=cur.jasa, pBase=prev.jasa;
         var roas=mc>0?base/mc*100:null, pRoas=pmc>0?pBase/pmc*100:null;
         return {label:'ROAS(자사몰)', value:roas!=null?Math.round(roas)+'%':'—',
           tip:'기간 자사몰 매출 ÷ 기간 메타 광고비 · 메타는 자사몰 랜딩 · 광고 외 유입 매출 포함 참고 지표',
-          chips: roas!=null?[chip(d(roas,pRoas)),infoChip('메타 광고비 '+won(mc))]:[infoChip('메타 CSV/연동 시 표시')]};})()
+          chips: roas!=null?[chip(d(roas,pRoas)),infoChip('메타 광고비 '+won(mc))]:[infoChip('메타 CSV/연동 시 표시')]};})(),
+      // ─ 트래픽 4종 (GA4 · 자사몰 사이트 기준) ─
+      (function(){ if(RT==='biz') return {label:'방문자 수', value:'—', tip:'GA4는 자사몰(sunamfarmers.kr)만 추적', chips:[infoChip('B2B 미적용')]};
+        var g=sumG(from,to), pg=sumG(pFrom,pTo);
+        if(!g) return {label:'방문자 수', value:'—', tip:'GA4 연동 시 표시 — 아임웹 관리자에 GA4 측정 ID 등록 + GitHub Secrets에 GA4_PROPERTY_ID·GA4_SA_JSON 추가', chips:[infoChip('GA4 연동 필요')]};
+        return {label:'방문자 수', value:g.users.toLocaleString('ko-KR')+'명',
+          tip:'기간 내 방문 사용자(GA4 totalUsers) · 세션 '+g.sessions.toLocaleString('ko-KR')+'회 · 자사몰 사이트 기준',
+          chips:pg?[chip(d(g.users,pg.users))]:[]};})(),
+      (function(){ if(RT==='biz') return {label:'페이지뷰', value:'—', tip:'GA4는 자사몰만 추적', chips:[infoChip('B2B 미적용')]};
+        var g=sumG(from,to), pg=sumG(pFrom,pTo);
+        if(!g) return {label:'페이지뷰', value:'—', tip:'GA4 연동 시 표시', chips:[infoChip('GA4 연동 필요')]};
+        var ppv=g.sessions>0?(g.pv/g.sessions):null;
+        return {label:'페이지뷰', value:g.pv.toLocaleString('ko-KR'),
+          tip:'기간 내 페이지 조회수 · 세션당 '+(ppv!=null?ppv.toFixed(1)+'p':'—')+' — 낮으면 상세페이지에서 바로 이탈 중',
+          chips:pg?[chip(d(g.pv,pg.pv))]:[]};})(),
+      (function(){ if(RT==='biz') return {label:'구매전환율', value:'—', tip:'GA4는 자사몰만 추적', chips:[infoChip('B2B 미적용')]};
+        var g=sumG(from,to), pg=sumG(pFrom,pTo);
+        if(!g) return {label:'구매전환율', value:'—', tip:'GA4 연동 시 표시 — 자사몰 주문 수 ÷ GA4 세션', chips:[infoChip('GA4 연동 필요')]};
+        var jOrd=0,pjOrd=0;
+        (RAW.daily||[]).forEach(function(r){ if(r.date>=from&&r.date<=to) jOrd+=(r.jasaOrd||0); if(r.date>=pFrom&&r.date<=pTo) pjOrd+=(r.jasaOrd||0); });
+        var cv=g.sessions>0?jOrd/g.sessions*100:null;
+        var pcv=(pg&&pg.sessions>0)?pjOrd/pg.sessions*100:null;
+        return {label:'구매전환율', value:cv!=null?cv.toFixed(2)+'%':'—',
+          tip:'자사몰 주문 수('+jOrd.toLocaleString('ko-KR')+'건) ÷ GA4 세션('+g.sessions.toLocaleString('ko-KR')+'회) · 이커머스 평균 1~3% · 낮으면 상세페이지·결제 과정 점검',
+          chips:cv!=null?[chip(d(cv,pcv))]:[]};})(),
+      (function(){ if(RT==='biz') return {label:'오가닉 트래픽 비율', value:'—', tip:'GA4는 자사몰만 추적', chips:[infoChip('B2B 미적용')]};
+        var g=sumG(from,to), pg=sumG(pFrom,pTo);
+        if(!g) return {label:'오가닉 트래픽 비율', value:'—', tip:'GA4 연동 시 표시 — 유료 광고 외 유입(검색·직접·SNS·추천) 세션 비율', chips:[infoChip('GA4 연동 필요')]};
+        var orp=g.sessions>0?g.org/g.sessions*100:null;
+        var porp=(pg&&pg.sessions>0)?pg.org/pg.sessions*100:null;
+        return {label:'오가닉 트래픽 비율', value:orp!=null?orp.toFixed(1)+'%':'—',
+          tip:'유료 광고(Paid·Display·Cross-network) 외 유입 세션 ÷ 전체 세션 · GA4 채널 그룹 기준 — 매출 오가닉 비율보다 정확한 유입 구조 지표',
+          chips:orp!=null?[chip(d(orp,porp)),infoChip('오가닉 세션 '+g.org.toLocaleString('ko-KR'))]:[]};})()
     ];
     var wrap=document.getElementById('revKpis');
     if(wrap){
@@ -4135,10 +4223,16 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
           // 쿠폰별 사용 현황 (아임웹 누적 집계)
           var ct=document.getElementById('revCouponBody');
           if(ct){
-            var cps=(RAW.coupons||[]).slice().sort(function(a,b){return b.used-a.used;});
+            var cSortEl=document.getElementById('revCouponSort');
+            var cSort=cSortEl?cSortEl.value:'used';
+            var cps=(RAW.coupons||[]).slice().sort(function(a,b){
+              if(cSort==='issued') return b.issued-a.issued;
+              if(cSort==='rate') return (b.issued>0?b.used/b.issued:0)-(a.issued>0?a.used/a.issued:0);
+              return b.used-a.used;
+            });
             ct.innerHTML = cps.length? cps.map(function(c){
               var rate=c.issued>0?(c.used/c.issued*100).toFixed(1)+'%':'—';
-              return '<tr><td>'+c.name+'</td><td>'+c.site+'</td><td>'+c.issued.toLocaleString('ko-KR')+'</td><td>'+c.used.toLocaleString('ko-KR')+'</td><td>'+rate+'</td></tr>';
+              return '<tr><td style="text-align:left">'+c.name+'</td><td>'+c.site+'</td><td>'+c.issued.toLocaleString('ko-KR')+'</td><td>'+c.used.toLocaleString('ko-KR')+'</td><td>'+rate+'</td></tr>';
             }).join('') : '<tr><td colspan="5" style="color:var(--muted)">다음 데이터 수집 후 표시됩니다</td></tr>';
           }
         } else {
@@ -4146,7 +4240,21 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
         }
       }
     }
-    // 상품 분석 (도넛·무버 좌 / TOP10 우)
+    // 매출 구성 (신규 vs 재구매 vs 비회원) — 기간 연동
+    var mixEl=document.getElementById('revMix');
+    if(mixEl){
+      var hasMix = RAW.daily&&RAW.daily.length&&RAW.daily[RAW.daily.length-1].jasaNewRev!=null;
+      if(hasMix&&cur.rev>0){
+        var mixTot=cur.newRev+cur.retRev+cur.guestRev;
+        function mcard(t,v,s,col){ return '<div style="flex:1;min-width:150px;background:#fafcfb;border:1px solid var(--line);border-radius:12px;padding:10px 14px"><div style="font-size:11.5px;color:var(--muted)">'+t+'</div><div style="font-size:17px;font-weight:800;margin-top:2px;color:'+(col||'var(--ink)')+'">'+v+'</div><div style="font-size:11px;color:var(--ink-2);margin-top:2px">'+s+'</div></div>'; }
+        mixEl.innerHTML = mixTot>0?
+          mcard('신규 고객 매출', (cur.newRev/mixTot*100).toFixed(1)+'%', won(cur.newRev)+' · 생애 첫 구매','var(--blue)')
+          +mcard('재구매 고객 매출', (cur.retRev/mixTot*100).toFixed(1)+'%', won(cur.retRev)+' · 기존 고객 반복 구매','var(--green)')
+          +mcard('비회원 매출', (cur.guestRev/mixTot*100).toFixed(1)+'%', won(cur.guestRev)+' · 회원 전환 여지','')
+          : '';
+      } else { mixEl.innerHTML = hasMix?'':'<div style="color:var(--muted);font-size:12px">매출 구성(신규/재구매/비회원)은 다음 데이터 수집 후 표시됩니다</div>'; }
+    }
+    // 상품 분석 (도넛 좌 / TOP10 우)
     (function(){
       var bb=document.getElementById('revBestBody');
       if(!bb) return;
@@ -4166,20 +4274,26 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
         bb.innerHTML='<tr><td colspan="6" style="color:var(--muted)">품목 수집 진행 중 — Actions 실행이 쌓이면 자동으로 채워집니다</td></tr>';
         return;
       }
-      var agg=aggRange(from,to), aggP=aggRange(pFrom,pTo);
-      var list=Object.keys(agg).map(function(k){return agg[k];}).sort(function(a,b){return b.rev-a.rev;});
+      var agg=aggRange(from,to);
+      var loyal={};
+      try{ (RAW.deep&&RAW.deep.prodLoyal||[]).forEach(function(x){ loyal[x.name]=x.rate; }); }catch(e){}
+      var bSortEl=document.getElementById('revBestSort');
+      var bSort=bSortEl?bSortEl.value:'rev';
+      var list=Object.keys(agg).map(function(k){return agg[k];}).sort(function(a,b){
+        if(bSort==='qty') return b.qty-a.qty;
+        if(bSort==='loyal') return (loyal[b.name]||0)-(loyal[a.name]||0);
+        return b.rev-a.rev;
+      });
+      var byRev=Object.keys(agg).map(function(k){return agg[k];}).sort(function(a,b){return b.rev-a.rev;});
       var totRev=0, totQty=0;
       list.forEach(function(x){ totRev+=x.rev; totQty+=x.qty; });
       var bs=document.getElementById('revBestSum');
       if(bs) bs.textContent = list.length? '· 기간 내 '+list.length+'종 / 총 '+totQty.toLocaleString('ko-KR')+'개 판매' : '';
-      // 충성율 맵
-      var loyal={};
-      try{ (RAW.deep&&RAW.deep.prodLoyal||[]).forEach(function(x){ loyal[x.name]=x.rate; }); }catch(e){}
       // TOP10 표
       var top=list.slice(0,10);
       bb.innerHTML = top.length? top.map(function(x,i){
         var ly=(loyal[x.name]!=null)?(loyal[x.name]*100).toFixed(0)+'%':'—';
-        return '<tr data-name="'+x.name.replace(/"/g,'&quot;')+'" style="cursor:pointer"><td>'+(i+1)+'</td><td style="text-align:left">'+x.name+'</td><td>'+x.qty.toLocaleString('ko-KR')+'</td><td>'+won(x.rev)+'</td><td>'+(totRev>0?(x.rev/totRev*100).toFixed(1):'0')+'%</td><td>'+ly+'</td></tr>';
+        return '<tr data-name="'+x.name.replace(/"/g,'&quot;')+'" style="cursor:pointer"><td>'+(i+1)+'</td><td>'+x.name+'</td><td>'+x.qty.toLocaleString('ko-KR')+'</td><td>'+won(x.rev)+'</td><td>'+(totRev>0?(x.rev/totRev*100).toFixed(1):'0')+'%</td><td>'+ly+'</td></tr>';
       }).join('') : '<tr><td colspan="6" style="color:var(--muted)">선택 기간에 수집된 품목 데이터가 없습니다 (수집 진행 중)</td></tr>';
       // 차트 (도넛 or 선택 상품 추이)
       var cvB=document.getElementById('revBestChart');
@@ -4205,44 +4319,45 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
           if(resetEl) resetEl.style.display='inline';
         } else {
           window.BEST_SEL=null;
-          var top5=list.slice(0,5);
-          var etc=totRev-top5.reduce(function(s,x){return s+x.rev;},0);
-          var labels=top5.map(function(x){return x.name.length>14?x.name.slice(0,14)+'…':x.name;});
-          var data=top5.map(function(x){return x.rev;});
-          if(etc>0){ labels.push('기타'); data.push(etc); }
-          window.CH_BEST=new Chart(cvB,{type:'doughnut',data:{labels:labels,
-            datasets:[{data:data,backgroundColor:['#03c75a','#2563eb','#f59e0b','#7c3aed','#e11d48','#c2c9c5']}]},
-            options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{boxWidth:12,font:{size:11}}},
-              tooltip:{callbacks:{label:function(c){ var pct=totRev>0?(c.parsed/totRev*100).toFixed(1):'0'; return c.label+': '+won(c.parsed)+' ('+pct+'%)'; }}}}}});
-          if(titleEl) titleEl.textContent='매출 비중 (TOP5 + 기타)';
+          var topN=byRev.slice(0,7);
+          var etc=totRev-topN.reduce(function(s,x){return s+x.rev;},0);
+          var labels=topN.map(function(x){return x.name.length>12?x.name.slice(0,12)+'…':x.name;});
+          var data=topN.map(function(x){return x.rev;});
+          if(etc>0){ labels.push('기타 ('+(byRev.length-topN.length)+'종)'); data.push(etc); }
+          var cols=['#03c75a','#2563eb','#f59e0b','#7c3aed','#e11d48','#0ea5e9','#84cc16','#c2c9c5'].slice(0,data.length);
+          var dlOpt = window.ChartDataLabels ? {
+            color:'#fff', textAlign:'center',
+            font:function(c){ var pct=totRev>0?data[c.dataIndex]/totRev*100:0; return {weight:'700', size: pct>=12?12:11}; },
+            formatter:function(v,c){
+              var pct=totRev>0?(v/totRev*100):0;
+              if(pct<6) return null;
+              var nm=String(labels[c.dataIndex]).replace(/ \(\d+종\)$/,'');
+              if(pct>=12) return (nm.length>8?nm.slice(0,8)+'…':nm)+'\n'+pct.toFixed(0)+'%';
+              return pct.toFixed(0)+'%';
+            }
+          } : {display:false};
+          window.CH_BEST=new Chart(cvB,{type:'doughnut',
+            plugins: window.ChartDataLabels?[ChartDataLabels]:[],
+            data:{labels:labels, datasets:[{data:data,backgroundColor:cols,borderColor:'#fff',borderWidth:2}]},
+            options:{responsive:true,maintainAspectRatio:false,cutout:'52%',
+              layout:{padding:4},
+              plugins:{
+                legend:{position:'bottom',labels:{boxWidth:10,boxHeight:10,padding:10,font:{size:11}}},
+                datalabels:dlOpt,
+                tooltip:{callbacks:{label:function(c){ var pct=totRev>0?(c.parsed/totRev*100).toFixed(1):'0'; return c.label+': '+won(c.parsed)+' ('+pct+'%)'; }}}
+              }}});
+          if(titleEl) titleEl.textContent='매출 비중 (TOP7 + 기타)';
           if(resetEl) resetEl.style.display='none';
         }
       }
-      // 무버
-      var mv=document.getElementById('revBestMovers');
-      if(mv){
-        var names={};
-        Object.keys(agg).forEach(function(k){names[k]=1;});
-        Object.keys(aggP).forEach(function(k){names[k]=1;});
-        var diffs=Object.keys(names).map(function(k){
-          var c=(agg[k]&&agg[k].rev)||0, p2=(aggP[k]&&aggP[k].rev)||0;
-          return {name:k, diff:c-p2, isNew:p2===0&&c>0, gone:c===0&&p2>0};
-        }).filter(function(x){return x.diff!==0;});
-        var ups=diffs.filter(function(x){return x.diff>0;}).sort(function(a,b){return b.diff-a.diff;}).slice(0,3);
-        var downs=diffs.filter(function(x){return x.diff<0;}).sort(function(a,b){return a.diff-b.diff;}).slice(0,3);
-        var h='';
-        ups.forEach(function(x){ h+='<div style="padding:3px 0"><span style="color:var(--green);font-weight:700">▲</span> '+x.name+' <b>+'+won(x.diff)+'</b>'+(x.isNew?' <span style="font-size:11px;color:var(--muted)">(신규)</span>':'')+'</div>'; });
-        downs.forEach(function(x){ h+='<div style="padding:3px 0"><span style="color:var(--red);font-weight:700">▼</span> '+x.name+' <b>−'+won(-x.diff)+'</b>'+(x.gone?' <span style="font-size:11px;color:var(--muted)">(판매 중단/품절?)</span>':'')+'</div>'; });
-        mv.innerHTML=h||'<span style="color:var(--muted)">변화 없음</span>';
-      }
     })();
-    // VOC 섹션 (기간 연동 지표 + 최근 리스트)
+    // VOC 섹션 (기간 연동 지표 + 후기 탭 + 문의)
     var vp=document.getElementById('revVoc');
     if(vp){
       var V=RAW.voc;
       if(V&&V.ratingDaily){
         vp.style.display = RT==='biz'?'none':'block';
-        var pc=0, ps=0, plow=0;
+        var pc=0, ps=0;
         V.ratingDaily.forEach(function(r){ if(r.date>=from&&r.date<=to){ pc+=r.count; ps+=r.sum; } });
         var vcards=document.getElementById('revVocCards');
         function vcard(t,v,s,warn){ return '<div style="flex:1;min-width:140px;background:'+(warn?'#fff5f6':'#fafcfb')+';border:1px solid '+(warn?'#f5c2cb':'var(--line)')+';border-radius:12px;padding:10px 14px"><div style="font-size:11.5px;color:var(--muted)">'+t+'</div><div style="font-size:17px;font-weight:800;margin-top:2px;'+(warn?'color:var(--red)':'')+'">'+v+'</div>'+(s?'<div style="font-size:11px;color:var(--ink-2);margin-top:2px">'+s+'</div>':'')+'</div>'; }
@@ -4252,35 +4367,33 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
             +vcard('최근 30일 평균 별점', V.avg30!=null?V.avg30.toFixed(2)+'점':'—', V.reviews30+'건 · 저평점 '+V.low30+'건')
             +vcard('미답변 문의', V.waitCount+'건', V.waitCount>0?'답변 필요':'모두 답변 완료', V.waitCount>0);
         }
+        function esc_(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
         function adminLink_(site){ var u=SITE_URLS[site]; return u?' <a href="'+u+'/admin" target="_blank" style="color:var(--violet);font-weight:700;text-decoration:none">관리자 답변 →</a>':''; }
-        function renderVocLists(){
-          var n = window._VOC_MORE ? 30 : 5;
-          var lowEl=document.getElementById('revVocLow');
-          if(lowEl){
-            lowEl.innerHTML=(V.lowRecent&&V.lowRecent.length)?V.lowRecent.slice(0,n).map(function(r){
-              return '<div style="padding:7px 0;border-bottom:1px solid var(--line)"><span style="color:var(--red);font-weight:700">'+r.rating+'점</span> · '+r.date+' · '+r.site+prodLink_(r.site,r.prod)+'<br>'+(r.body||'')+'</div>';
-            }).join(''):'<div style="color:var(--muted)">저평점 후기 없음 👍</div>';
-          }
-          var qnaEl=document.getElementById('revVocQna');
-          if(qnaEl){
-            qnaEl.innerHTML=(V.recentQna&&V.recentQna.length)?V.recentQna.slice(0,n).map(function(r){
-              var w=r.status==='WAIT';
-              return '<div style="padding:7px 0;border-bottom:1px solid var(--line)"><span style="font-weight:700;color:'+(w?'var(--red)':'var(--green)')+'">'+(w?'대기':'완료')+'</span> · '+r.date+' · '+r.site+prodLink_(r.site,r.prod)+(w?adminLink_(r.site):'')+'<br>'+(r.subject||'(제목 없음)')+'</div>';
-            }).join(''):'<div style="color:var(--muted)">문의 없음</div>';
-          }
-          var mb=document.getElementById('revVocMore');
-          if(mb) mb.textContent = window._VOC_MORE ? '접기 ▲' : '더 보기 (최근 30건) ▼';
+        function pnameTag_(r){ return r.pname?' · <span style="color:var(--ink);font-weight:700">'+esc_(String(r.pname).length>22?String(r.pname).slice(0,22)+'…':r.pname)+'</span>':''; }
+        window.VOC_TAB = window.VOC_TAB||'low';
+        vp.querySelectorAll('.rv-pill[data-vt]').forEach(function(p){ p.classList.toggle('on',p.dataset.vt===window.VOC_TAB); });
+        var lowEl=document.getElementById('revVocLow');
+        if(lowEl){
+          var revList = window.VOC_TAB==='all' ? (V.recentReviews||[]) : (V.lowRecent||[]);
+          lowEl.innerHTML = revList.length? revList.map(function(r){
+            var bad=r.rating<=3;
+            return '<div style="padding:8px 0;border-bottom:1px solid var(--line)"><span style="color:'+(bad?'var(--red)':'var(--green)')+';font-weight:700">'+r.rating+'점</span> · '+r.date+' · '+r.site+pnameTag_(r)+prodLink_(r.site,r.prod)+'<br>'+esc_(r.body)+'</div>';
+          }).join('') : '<div style="color:var(--muted);padding:8px 0">'+(window.VOC_TAB==='all'?'수집된 후기가 없습니다 (다음 수집 후 표시)':'저평점 후기 없음 👍')+'</div>';
         }
-        renderVocLists();
-        var mb=document.getElementById('revVocMore');
-        if(mb&&!mb.dataset.bound){ mb.dataset.bound='1'; mb.addEventListener('click',function(e){ e.preventDefault(); window._VOC_MORE=!window._VOC_MORE; renderVocLists(); }); }
+        var qnaEl=document.getElementById('revVocQna');
+        if(qnaEl){
+          qnaEl.innerHTML=(V.recentQna&&V.recentQna.length)?V.recentQna.map(function(r){
+            var w=r.status==='WAIT';
+            return '<div style="padding:8px 0;border-bottom:1px solid var(--line)"><span style="font-weight:700;color:'+(w?'var(--red)':'var(--green)')+'">'+(w?'대기':'완료')+'</span> · '+r.date+' · '+r.site+pnameTag_(r)+prodLink_(r.site,r.prod)+(w?adminLink_(r.site):'')+'<br>'+esc_(r.subject||'(제목 없음)')+'</div>';
+          }).join(''):'<div style="color:var(--muted);padding:8px 0">문의 없음</div>';
+        }
       } else {
         vp.style.display = RT==='biz'?'none':'block';
         var vc2=document.getElementById('revVocCards');
-        if(vc2) vc2.innerHTML='<div style="color:var(--muted);font-size:12.5px">웹앱 v5 배포 + 다음 수집(새벽 5시 또는 dailySync 수동 실행) 후 표시됩니다</div>';
+        if(vc2) vc2.innerHTML='<div style="color:var(--muted);font-size:12.5px">다음 수집(새벽 5시 또는 수동 실행) 후 표시됩니다</div>';
       }
     }
-    // 재구매 심층 분석 (자사몰 탭)
+    // 재구매 심층 분석 (자사몰 탭) — 퍼널 시각화 + 상세 + 충성상품 + 이탈위험
     var dpp=document.getElementById('revDeep');
     if(dpp){
       var DE=RAW.deep;
@@ -4292,62 +4405,81 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
           wEl.innerHTML=['30','60','90','120','180'].map(function(k){
             var w=ws[k]; if(!w) return '';
             return '<div style="flex:1;min-width:110px;background:#fafcfb;border:1px solid var(--line);border-radius:12px;padding:10px 14px">'
-              +'<div style="font-size:11.5px;color:var(--muted)">'+k+'일 내</div>'
+              +'<div style="font-size:11.5px;color:var(--muted)">첫구매 후 '+k+'일 내 재구매</div>'
               +'<div style="font-size:17px;font-weight:800;margin-top:2px">'+(w.rate*100).toFixed(1)+'%</div>'
               +'<div style="font-size:11px;color:var(--ink-2);margin-top:2px">'+w.rebuy+'/'+w.base+'명</div></div>';
           }).join('');
         }
+        // 코호트 선택 (전체 / 최근 180 / 최근 90 첫구매)
+        var fSel=document.getElementById('revFunnelSel');
+        var fKey=fSel?fSel.value:'all';
+        var LD = (DE.ladders&&DE.ladders[fKey]) || {ladder:DE.ladder||[], fivePlus:DE.fivePlus||0};
+        var lad=LD.ladder||[];
+        // 퍼널 세로 바 차트
+        var cvF=document.getElementById('revFunnelChart');
+        if(cvF&&window.Chart&&lad.length){
+          if(window.CH_FUN){ window.CH_FUN.destroy(); window.CH_FUN=null; }
+          var fLabs=['1회 구매','2회 이상','3회 이상','4회 이상','5회 이상'];
+          var fVals=[lad[0]?lad[0].customers:0, lad[1]?lad[1].customers:0, lad[2]?lad[2].customers:0, lad[3]?lad[3].customers:0, LD.fivePlus||0];
+          var fCols=['rgba(3,199,90,1)','rgba(3,199,90,.75)','rgba(3,199,90,.55)','rgba(3,199,90,.38)','rgba(3,199,90,.24)'];
+          var fdl = window.ChartDataLabels ? {anchor:'end',align:'top',offset:-2,color:'#3a4a41',font:{weight:'700',size:11},
+            formatter:function(v,c){ var p=fVals[0]>0?(v/fVals[0]*100).toFixed(0):'0'; return v.toLocaleString('ko-KR')+'명\n('+p+'%)'; }} : {display:false};
+          window.CH_FUN=new Chart(cvF,{type:'bar',
+            plugins: window.ChartDataLabels?[ChartDataLabels]:[],
+            data:{labels:fLabs,datasets:[{data:fVals,backgroundColor:fCols,borderRadius:6,maxBarThickness:64}]},
+            options:{responsive:true,maintainAspectRatio:false,
+              layout:{padding:{top:26}},
+              plugins:{legend:{display:false},datalabels:fdl,
+                tooltip:{callbacks:{
+                  label:function(c){ return c.parsed.y.toLocaleString('ko-KR')+'명'; },
+                  afterLabel:function(c){
+                    var i=c.dataIndex;
+                    if(i===0) return '전체 첫구매 고객';
+                    var prev=fVals[i-1];
+                    if(!prev) return '';
+                    var conv=(fVals[i]/prev*100);
+                    var out=['직전 회차 대비 전환 '+conv.toFixed(1)+'%','이탈 '+(100-conv).toFixed(1)+'%'];
+                    if(i<=4&&lad[i-1]&&lad[i-1].medianGap!=null) out.push('다음 구매까지 중앙 '+lad[i-1].medianGap+'일');
+                    return out;
+                  }}}},
+              scales:{x:{ticks:{font:{size:11,weight:'700'}},grid:{display:false}},
+                y:{beginAtZero:true,ticks:{font:{size:10}},grid:{color:'rgba(0,0,0,.05)'}}}}});
+        }
+        // 상세 표 (전환·이탈·간격)
         var lEl=document.getElementById('revDeepLadder');
         if(lEl){
-          var rows=(DE.ladder||[]).map(function(x){
+          var rows=lad.map(function(x){
             return '<tr><td>'+x.n+'회 → '+(x.n+1)+'회</td><td>'+x.customers.toLocaleString('ko-KR')+'명</td><td>'+x.next.toLocaleString('ko-KR')+'명</td>'
-              +'<td><b>'+(x.rate*100).toFixed(1)+'%</b></td><td>'+(x.medianGap!=null?x.medianGap+'일':'—')+'</td></tr>';
+              +'<td><b style="color:var(--green)">'+(x.rate*100).toFixed(1)+'%</b></td><td style="color:var(--red)">'+((1-x.rate)*100).toFixed(1)+'%</td><td>'+(x.medianGap!=null?x.medianGap+'일':'—')+'</td></tr>';
           }).join('');
-          rows+='<tr><td>5회 이상</td><td colspan="4">'+(DE.fivePlus||0).toLocaleString('ko-KR')+'명 (진성 단골)</td></tr>';
+          rows+='<tr><td>5회 이상</td><td colspan="5">'+(LD.fivePlus||0).toLocaleString('ko-KR')+'명 (진성 단골)</td></tr>';
           lEl.innerHTML=rows;
         }
+        // 상품별 충성고객 (정렬)
         var pEl=document.getElementById('revDeepLoyal');
         if(pEl){
-          pEl.innerHTML=(DE.prodLoyal&&DE.prodLoyal.length)?DE.prodLoyal.map(function(x){
-            return '<tr><td>'+x.name+'</td><td>'+x.buyers+'명</td><td>'+x.repeaters+'명</td><td>'+(x.rate*100).toFixed(1)+'%</td></tr>';
+          var lSortEl=document.getElementById('revLoyalSort');
+          var lSort=lSortEl?lSortEl.value:'repeaters';
+          var pl=(DE.prodLoyal||[]).slice().sort(function(a,b){
+            if(lSort==='rate') return b.rate-a.rate;
+            if(lSort==='buyers') return b.buyers-a.buyers;
+            return b.repeaters-a.repeaters;
+          });
+          pEl.innerHTML=pl.length?pl.map(function(x){
+            return '<tr><td style="text-align:left">'+x.name+'</td><td>'+x.buyers+'명</td><td>'+x.repeaters+'명</td><td>'+(x.rate*100).toFixed(1)+'%</td></tr>';
           }).join(''):'<tr><td colspan="4" style="color:var(--muted)">품목 수집이 쌓이면 표시됩니다</td></tr>';
         }
-      }
-    }
-    // 이탈 위험 고객 (통합·자사몰)
-    var chn=document.getElementById('revChurn');
-    if(chn){
-      var C=RAW.churn;
-      chn.style.display = (RT!=='biz'&&C)?'block':'none';
-      if(C&&RT!=='biz'){
+        // 이탈 위험 고객 (하위 카테고리)
+        var C=RAW.churn;
         var cs=document.getElementById('revChurnSummary');
-        if(cs) cs.innerHTML='현재 <b style="color:var(--red)">'+C.count.toLocaleString('ko-KR')+'명</b>이 이탈 위험 구간에 있습니다.';
+        if(cs) cs.innerHTML = C? '현재 <b style="color:var(--red);font-size:16px">'+C.count.toLocaleString('ko-KR')+'명</b>&nbsp;<span style="font-size:12px;color:var(--muted)">아래는 누적액 상위 10명 · 전체 명단은 CSV</span>' : '';
         var cb=document.getElementById('revChurnBody');
         if(cb){
-          cb.innerHTML=(C.list&&C.list.length)?C.list.slice(0,10).map(function(x){
+          cb.innerHTML=(C&&C.list&&C.list.length)?C.list.slice(0,10).map(function(x){
             var nm=x.name||('회원 '+String(x.code).slice(-4));
-            return '<tr><td>'+nm+'</td><td>'+x.last+'</td><td>'+x.days+'일</td><td>'+x.orders+'회</td><td>'+won(x.total)+'</td></tr>';
+            return '<tr><td style="text-align:left">'+nm+'</td><td>'+x.last+'</td><td>'+x.days+'일</td><td>'+x.orders+'회</td><td>'+won(x.total)+'</td></tr>';
           }).join(''):'<tr><td colspan="5" style="color:var(--muted)">이탈 위험 고객 없음 👍</td></tr>';
         }
-      }
-    }
-    // 구매횟수 분포 (자사몰/비즈몰 탭)
-    var dp=document.getElementById('revDist');
-    if(dp){
-      var D=RAW.dist;
-      dp.style.display = (RT!=='all'&&D)?'block':'none';
-      if(D&&RT!=='all'){
-        var dd=RT==='biz'?D.biz:D.jasa;
-        var tot=dd.once+dd.twice+dd.three;
-        var dc=document.getElementById('revDistCards');
-        function dcard(t,v,s){ return '<div style="flex:1;min-width:140px;background:#fafcfb;border:1px solid var(--line);border-radius:12px;padding:10px 14px"><div style="font-size:11.5px;color:var(--muted)">'+t+'</div><div style="font-size:17px;font-weight:800;margin-top:2px">'+v+'</div>'+(s?'<div style="font-size:11px;color:var(--ink-2);margin-top:2px">'+s+'</div>':'')+'</div>'; }
-        if(dc&&tot>0){
-          dc.innerHTML =
-            dcard('1회 구매', dd.once.toLocaleString('ko-KR')+'명', (dd.once/tot*100).toFixed(1)+'%')
-            +dcard('2회 구매', dd.twice.toLocaleString('ko-KR')+'명', (dd.twice/tot*100).toFixed(1)+'%')
-            +dcard('3회 이상 (단골)', dd.three.toLocaleString('ko-KR')+'명', (dd.three/tot*100).toFixed(1)+'%')
-            +dcard('구매 고객 합계', tot.toLocaleString('ko-KR')+'명', '회원 주문 기준 · 전체 기간');
-        } else if(dc){ dc.innerHTML='<div style="color:var(--muted);font-size:12.5px">웹앱 v5 배포 후 표시됩니다</div>'; }
       }
     }
     var jx=document.getElementById('revJasaExtra'), bx=document.getElementById('revBizExtra');
@@ -4411,6 +4543,12 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
       }
       RAW=js;
       REV_PW=pw; try{ sessionStorage.setItem('REV_PW', pw); }catch(e){}
+      // GA4 트래픽 (선택 — data/ga4_daily.json.enc 있으면 KPI 4종 활성화)
+      fetch('data/ga4_daily.json.enc',{cache:'no-store'})
+        .then(function(r){ if(!r.ok) throw 0; return r.json(); })
+        .then(function(enc){ return decryptDash_(pw, enc); })
+        .then(function(g){ window.GA4=g; renderRev(); })
+        .catch(function(){ window.GA4=null; });
       REV_UPDATED=js.updated?new Date(js.updated):null;
       var st=document.getElementById('revStatus');
       if(st) st.textContent='마지막 수집: '+(REV_UPDATED?REV_UPDATED.toLocaleString('ko-KR',{timeZone:'Asia/Seoul'})+' (한국시간)':'-');
@@ -4500,6 +4638,25 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
     });
     var rstEl=document.getElementById('revBestReset');
     if(rstEl) rstEl.addEventListener('click',function(e){ e.preventDefault(); window.BEST_SEL=null; renderRev(); });
+    var cpnHead=document.getElementById('revCouponHead');
+    if(cpnHead) cpnHead.addEventListener('click',function(){
+      var w=document.getElementById('revCouponWrap'), c=document.getElementById('revCouponCaret'), s=document.getElementById('revCouponSort');
+      var open = w && w.style.display==='none';
+      if(w) w.style.display = open?'block':'none';
+      if(c) c.textContent = open?'▾ 접기':'▸ 펼치기';
+      if(s) s.style.display = open?'inline-block':'none';
+    });
+    ['revBestSort','revCouponSort','revLoyalSort','revFunnelSel'].forEach(function(id){
+      var el=document.getElementById(id);
+      if(el) el.addEventListener('change',function(){ renderRev(); });
+    });
+    var vocPanel=document.getElementById('revVoc');
+    if(vocPanel) vocPanel.addEventListener('click',function(e){
+      var p=e.target.closest?e.target.closest('.rv-pill[data-vt]'):null;
+      if(!p) return;
+      window.VOC_TAB=p.dataset.vt;
+      renderRev();
+    });
     document.querySelectorAll('[data-csv]').forEach(function(b){
       b.addEventListener('click',function(){ csvDl_(b.dataset.csv); });
     });
