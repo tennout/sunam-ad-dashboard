@@ -135,7 +135,8 @@ def fetch_members(site, token):
         else:
             jd = str(jt or '')[:10].replace('.', '-')
         out[str(code)] = {'code': str(code), 'site': site['name'], 'join': jd,
-                          'grade': m.get('member_grade') or ''}
+                          'grade': m.get('member_grade') or '',
+                          'name': m.get('name') or '', 'call': m.get('callnum') or ''}
     return out
 
 def fetch_voc(site, token):
@@ -152,6 +153,16 @@ def fetch_voc(site, token):
                      'prod': str(q.get('prod_no') or ''), 'nick': q.get('nick') or '',
                      'subject': (q.get('subject') or '')[:200], 'body': (q.get('body') or '')[:500]})
     return reviews, qnas
+
+
+def fetch_coupons(site, token):
+    out = []
+    for c in paged('https://api.imweb.me/v2/shop/coupons', token, max_page=20):
+        out.append({'site': site['name'], 'name': c.get('name') or '(이름없음)',
+                    'status': c.get('status') or '',
+                    'issued': int(c.get('type_coupon_create_count') or 0),
+                    'used': int(c.get('type_coupon_use_count') or 0)})
+    return out
 
 def parse_prod_container(container, ono, site_name, date, rows):
     if not isinstance(container, dict):
@@ -173,6 +184,7 @@ def fetch_prods(site, token, order_map, done_set, budget):
     pend = [no for no, o in order_map.items()
             if o['site'] == site['name'] and no not in done_set
             and o['status'] not in ('CANCEL', 'RETURN', 'PAY_WAIT')]
+    pend.sort(key=lambda n: order_map[n].get('date', ''), reverse=True)  # 최신 주문부터
     pend = pend[:budget]
     rows, done = [], []
     for i in range(0, len(pend), 25):
@@ -243,7 +255,7 @@ def build_dash(store):
     def drec(dt):
         return daily.setdefault(dt, {'date': dt, 'jasa': 0, 'biz': 0, 'jasaOrd': 0, 'bizOrd': 0,
             'jasaMemOrd': 0, 'bizMemOrd': 0, 'jasaTierOrd': 0,
-            'jasaCouponOrd': 0, 'bizCouponOrd': 0, 'jasaPoint': 0, 'bizPoint': 0,
+            'jasaCouponOrd': 0, 'bizCouponOrd': 0, 'jasaTierCouponOrd': 0, 'jasaPoint': 0, 'bizPoint': 0,
             'jasaPointOrd': 0, 'bizPointOrd': 0, 'jasaCancel': 0, 'bizCancel': 0,
             'jasaCoupon': 0, 'bizCoupon': 0, 'jasaSettle': 0, 'bizSettle': 0})
     for o in orders.values():
@@ -266,6 +278,8 @@ def build_dash(store):
             r['jasaTierOrd'] += 1
         if o['coupon'] > 0:
             r[pfx + 'CouponOrd'] += 1
+            if is_j and o['member'] in tier:
+                r['jasaTierCouponOrd'] += 1
         if o['point'] > 0:
             r[pfx + 'PointOrd'] += 1
             r[pfx + 'Point'] += o['point']
@@ -389,9 +403,9 @@ def build_dash(store):
                 key=lambda x: x['date'], reverse=True)
     voc = {'ratingDaily': [rd[k] for k in sorted(rd)][-130:],
            'avg30': (s30 / c30) if c30 else None, 'reviews30': c30, 'low30': low30,
-           'lowRecent': lows[:5],
+           'lowRecent': lows[:30],
            'waitCount': sum(1 for q in qnas if q['status'] == 'WAIT'),
-           'recentQna': qs[:5]}
+           'recentQna': qs[:30]}
 
     # CSV용 원본 리스트
     csv = {
@@ -399,15 +413,106 @@ def build_dash(store):
                     o['coupon'], o['point'], o['name'], '회원' if o['member'] else '비회원']
                    for o in sorted(orders.values(), key=lambda x: x['date'], reverse=True)],
         'ordersHead': ['주문번호', '사이트', '주문일', '상태', '결제수단', '실결제', '쿠폰할인', '적립금사용', '주문자', '회원여부'],
-        'members': [[m['code'], m['site'], m['join'], m['grade']] for m in members.values()],
-        'membersHead': ['회원코드', '사이트', '가입일', '쇼핑등급'],
+        'members': [[m['code'], m['site'], m['join'], m['grade'], m.get('name',''), m.get('call','')] for m in members.values()],
+        'membersHead': ['회원코드', '사이트', '가입일', '쇼핑등급', '이름', '연락처'],
         'reviews': [[r['date'], r['site'], r['rating'], r['prod'], r['nick'], r['body']] for r in reviews],
         'reviewsHead': ['작성일', '사이트', '별점', '상품번호', '작성자', '내용'],
         'qnas': [[q['date'], q['site'], q['status'], q['prod'], q['nick'], q['subject'], q['body']] for q in qnas],
         'qnasHead': ['작성일', '사이트', '상태', '상품번호', '작성자', '제목', '내용'],
     }
 
+    # 재구매 심층 분석 (자사몰)
+    def _median(xs):
+        xs = sorted(xs)
+        return xs[len(xs) // 2] if xs else None
+
+    main_pur_lists = list(pur.get(MAIN, {}).values())
+    # ① 윈도우별 재구매율 (첫구매 후 N일 내)
+    windows = {}
+    for w in (30, 60, 90, 120, 180):
+        f = r_ = 0
+        for lst in main_pur_lists:
+            if not lst:
+                continue
+            first = lst[0]['date']
+            try:
+                fd = datetime.date.fromisoformat(first)
+            except Exception:
+                continue
+            # 성숙 표본만: 첫구매가 w일 이상 지난 고객
+            if (today - fd).days < w:
+                continue
+            f += 1
+            for p in lst[1:]:
+                if p['date'] > first and (datetime.date.fromisoformat(p['date']) - fd).days <= w:
+                    r_ += 1
+                    break
+        windows[str(w)] = {'base': f, 'rebuy': r_, 'rate': (r_ / f) if f else 0}
+
+    # ② 회차 퍼널: n회 → n+1회 전환율 + 중앙 간격일
+    ladder = []
+    for n in (1, 2, 3, 4):
+        have_n = [lst for lst in main_pur_lists if len(lst) >= n]
+        have_next = [lst for lst in main_pur_lists if len(lst) >= n + 1]
+        gaps = []
+        for lst in have_next:
+            try:
+                g = (datetime.date.fromisoformat(lst[n]['date']) - datetime.date.fromisoformat(lst[n - 1]['date'])).days
+                if g >= 0:
+                    gaps.append(g)
+            except Exception:
+                pass
+        ladder.append({'n': n, 'customers': len(have_n), 'next': len(have_next),
+                       'rate': (len(have_next) / len(have_n)) if have_n else 0,
+                       'medianGap': _median(gaps)})
+    five_plus = sum(1 for lst in main_pur_lists if len(lst) >= 5)
+
+    # ③ 상품별 충성고객 (자사몰 품목 × 회원)
+    prod_loyal = []
+    try:
+        pmap = {}  # 상품명 -> {member: 구매주문수}
+        for p in prods:
+            if p.get('site') != MAIN or not p.get('name'):
+                continue
+            o = orders.get(str(p.get('no', '')))
+            if not o or not o.get('member'):
+                continue
+            pmap.setdefault(p['name'], {}).setdefault(o['member'], set()).add(o['no'])
+        for name, mm in pmap.items():
+            uniq = len(mm)
+            rep = sum(1 for s in mm.values() if len(s) >= 2)
+            if uniq >= 3:
+                prod_loyal.append({'name': name, 'buyers': uniq, 'repeaters': rep,
+                                   'rate': rep / uniq})
+        prod_loyal.sort(key=lambda x: (-x['repeaters'], -x['rate']))
+        prod_loyal = prod_loyal[:15]
+    except Exception:
+        prod_loyal = []
+
+    # 이탈위험: 자사몰 회원, 마지막 구매 후 45~180일 경과
+    churn = []
+    for code, lst in pur.get(MAIN, {}).items():
+        if not lst:
+            continue
+        last = lst[-1]['date']
+        try:
+            days_gap = (today - datetime.date.fromisoformat(last)).days
+        except Exception:
+            continue
+        if 45 <= days_gap <= 180:
+            mm = members.get(code, {})
+            churn.append({'code': code, 'name': mm.get('name', ''), 'call': mm.get('call', ''),
+                          'last': last, 'days': days_gap, 'orders': len(lst),
+                          'total': round(sum(p['amt'] for p in lst))})
+    churn.sort(key=lambda x: x['days'])
+
+    csv['churn'] = [[c['name'], c['call'], c['last'], c['days'], c['orders'], c['total']] for c in churn]
+    csv['churnHead'] = ['이름', '연락처', '마지막 구매일', '경과일', '구매횟수', '누적 구매액']
+
     return {'updated': datetime.datetime.now(KST).isoformat(),
+            'deep': {'windows': windows, 'ladder': ladder, 'fivePlus': five_plus, 'prodLoyal': prod_loyal},
+            'coupons': store.get('coupons', []),
+            'churn': {'count': len(churn), 'list': churn[:300]},
             'daily': daily_arr, 'prods': prod_arr,
             'members': {'totals': totals, 'daily': mem_arr},
             'rebuy': {'jasa': rebuy(MAIN), 'biz': rebuy('비즈몰')},
@@ -433,9 +538,11 @@ def main():
     now = int(time.time())
     first_run = not store['orders']
     back_days = BACKFILL_DAYS_FIRST if first_run else BACKFILL_DAYS_DAILY
+    if os.environ.get('BACKFILL_DAYS'):
+        back_days = int(os.environ['BACKFILL_DAYS'])
 
     all_members = {}
-    all_reviews, all_qnas = [], []
+    all_reviews, all_qnas, all_coupons = [], [], []
     done_set = set(store.get('prodDone', []))
 
     for site in SITES:
@@ -452,6 +559,9 @@ def main():
         rv, qn = fetch_voc(site, token)
         all_reviews.extend(rv)
         all_qnas.extend(qn)
+
+        print(site['name'], '쿠폰 현황 수집...')
+        all_coupons.extend(fetch_coupons(site, token))
 
         print(site['name'], '품목 수집...')
         rows, done = fetch_prods(site, token, store['orders'], done_set, PROD_BUDGET)
@@ -471,6 +581,7 @@ def main():
     store['reviews'] = _merge_by_idx(store.get('reviews'), all_reviews)
     store['qnas'] = _merge_by_idx(store.get('qnas'), all_qnas)
     store['prodDone'] = sorted(done_set)
+    store['coupons'] = all_coupons
 
     # 회원 스냅샷 (일별 누적)
     today = datetime.datetime.now(KST).date().isoformat()
