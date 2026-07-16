@@ -1,0 +1,42 @@
+# 아임웹(자사몰·비즈몰) 데이터 수집 — 매일 05:00 KST (20:00 UTC)
+# 저장 위치: .github/workflows/imweb_sync.yml
+
+name: imweb-sync
+
+on:
+  schedule:
+    - cron: '0 20 * * *'   # 20:00 UTC = 05:00 KST
+  workflow_dispatch:        # 수동 실행 버튼
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install deps
+        run: pip install requests cryptography
+
+      - name: Fetch Imweb data
+        env:
+          IMWEB_JASA_KEY: ${{ secrets.IMWEB_JASA_KEY }}
+          IMWEB_JASA_SECRET: ${{ secrets.IMWEB_JASA_SECRET }}
+          IMWEB_BIZ_KEY: ${{ secrets.IMWEB_BIZ_KEY }}
+          IMWEB_BIZ_SECRET: ${{ secrets.IMWEB_BIZ_SECRET }}
+          IMWEB_DASH_PASSWORD: ${{ secrets.IMWEB_DASH_PASSWORD }}
+        run: python fetch_imweb.py
+
+      - name: Commit data
+        run: |
+          git config user.name "imweb-sync-bot"
+          git config user.email "actions@github.com"
+          git add data/imweb_store.json.enc data/imweb_dash.json.enc
+          git diff --staged --quiet || git commit -m "chore: imweb data sync $(date -u +%F)"
+          git push

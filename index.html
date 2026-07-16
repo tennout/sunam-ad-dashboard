@@ -849,6 +849,13 @@
         <span class="current-range" id="revRange">—</span>
       </div>
     </div>
+    <div class="no-capture" style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:0 0 12px">
+      <span style="font-size:12px;color:var(--muted)">CSV 다운로드:</span>
+      <button class="glossary-btn" data-csv="orders">주문</button>
+      <button class="glossary-btn" data-csv="members">회원</button>
+      <button class="glossary-btn" data-csv="reviews">후기</button>
+      <button class="glossary-btn" data-csv="qnas">문의</button>
+    </div>
     <div class="kpis" id="revKpis"></div>
     <div class="panel" style="margin-bottom:14px">
       <h2 style="margin:0 0 8px">매출 추이 <span style="font-size:12px;font-weight:400;color:var(--muted)" id="revStatus">불러오는 중…</span></h2>
@@ -3864,23 +3871,26 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
 <script>
 /* ===== 쇼핑몰 매출 연동 · 자사몰 운영 뷰 (v2) ===== */
 (function(){
-  var REV_API='https://script.google.com/macros/s/AKfycbzjJB-AL0bL_HojQsZAmr3JdQwLQVlD1CseDJ1-bDHfN40MJD5Kq-VFXHYUxr8XBob13Q/exec';
-  var REV_KEY='sunam-dash-2026';
+  var DATA_URL='data/imweb_dash.json.enc';
   var RAW=null, RT='all', PD={days:7, custom:null};
   var REV_SHEET_URL='https://docs.google.com/spreadsheets/d/18Zs1SbKbAAl1enNiswx_G_GmARI4hshum8ErE2m1EI0/edit';
   var SITE_URLS={'자사몰':'https://sunamfarmers.kr','비즈몰':'https://sunamfarmers.biz'};
   function prodLink_(site,prod){ if(!prod||!SITE_URLS[site]) return ''; return ' <a href="'+SITE_URLS[site]+'/allproducts/?idx='+prod+'" target="_blank" style="color:var(--blue);font-weight:700;text-decoration:none">상품 보기 →</a>'; }
-  var REV_HASH='9f9514a35129fa61a8abf2a6df25ab259d10ceb3a448b2fa2f9d72f106af6c9c';
-  function sha256_(s){ return crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)).then(function(b){ return Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,'0');}).join(''); }); }
-  function revAuthed_(){ try{ return Date.now() < +(localStorage.getItem('REV_AUTH_UNTIL')||0); }catch(e){ return false; } }
+  function b64buf_(s){ var bin=atob(s), u=new Uint8Array(bin.length); for(var i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i); return u; }
+  function decryptDash_(pw, obj){
+    return crypto.subtle.importKey('raw', new TextEncoder().encode(pw), 'PBKDF2', false, ['deriveKey'])
+      .then(function(km){ return crypto.subtle.deriveKey(
+        {name:'PBKDF2', salt:b64buf_(obj.salt), iterations:(obj.iter||150000), hash:'SHA-256'},
+        km, {name:'AES-GCM', length:256}, false, ['decrypt']); })
+      .then(function(key){ return crypto.subtle.decrypt({name:'AES-GCM', iv:b64buf_(obj.iv)}, key, b64buf_(obj.ct)); })
+      .then(function(pt){ return JSON.parse(new TextDecoder().decode(pt)); });
+  }
+  var REV_PW=null;
   function guardRev_(){
-    if(revAuthed_()){ setMode('rev'); return; }
+    if(RAW){ setMode('rev'); return; }
     var pw=window.prompt('자사몰 운영 비밀번호를 입력하세요');
     if(pw==null||pw==='') return;
-    sha256_(pw).then(function(h){
-      if(h===REV_HASH){ try{ localStorage.setItem('REV_AUTH_UNTIL', String(Date.now()+86400000)); }catch(e){} setMode('rev'); }
-      else { alert('비밀번호가 올바르지 않아요.'); }
-    });
+    loadRev(pw).then(function(ok){ if(ok) setMode('rev'); });
   }
   var REV_UPDATED=null, ADS_LU=null, ADS_SUB=null, CH_REV=null, CH_GRADE=null;
 
@@ -4200,12 +4210,16 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
   }
 
   /* ---------- 데이터 ---------- */
-  function loadRev(){
-    fetch(REV_API+'?key='+REV_KEY).then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); }).then(function(js){
+  function loadRev(pw){
+    return fetch(DATA_URL,{cache:'no-store'})
+      .then(function(r){ if(!r.ok) throw new Error('데이터 파일 없음 (HTTP '+r.status+')'); return r.json(); })
+      .then(function(enc){ return decryptDash_(pw, enc); })
+      .then(function(js){
       if(!js||!js.daily||!js.daily.length){
         var st=document.getElementById('revStatus'); if(st) st.textContent='매출 데이터가 아직 비어 있어요.'; return;
       }
       RAW=js;
+      REV_PW=pw; try{ sessionStorage.setItem('REV_PW', pw); }catch(e){}
       REV_UPDATED=js.updated?new Date(js.updated):null;
       var st=document.getElementById('revStatus');
       if(st) st.textContent='마지막 수집: '+(REV_UPDATED?REV_UPDATED.toLocaleString('ko-KR',{timeZone:'Asia/Seoul'})+' (한국시간)':'-');
@@ -4226,15 +4240,29 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
       var rs=document.getElementById('revStrip');
       if(rs&&rp&&rp.style.display==='none') rs.style.display='flex';
       renderRev();
+      return true;
     }).catch(function(e){
+      var wrong=(e&&(e.name==='OperationError'||/decrypt|cipher/i.test(String(e&&e.message||''))));
+      if(wrong){ try{ sessionStorage.removeItem('REV_PW'); }catch(x){} alert('비밀번호가 올바르지 않아요.'); return false; }
       var st=document.getElementById('revStatus');
-      if(st) st.textContent='매출 데이터를 불러오지 못했어요 — '+((e&&e.message)||'원인 미상')+' (웹앱 URL/키/배포 액세스 확인)';
+      if(st) st.textContent='매출 데이터를 불러오지 못했어요 — '+((e&&e.message)||'원인 미상')+' (data/imweb_dash.json.enc 생성 여부 확인)';
       var sb=document.getElementById('revStripBody');
-      if(sb) sb.textContent='매출 연동 실패 — 웹앱 URL/키 확인';
+      if(sb) sb.textContent='매출 데이터 연동 대기 (Actions 실행 필요)';
+      return false;
     });
   }
 
   /* ---------- 초기화 ---------- */
+  function csvDl_(kind){
+    if(!RAW||!RAW.csv){ alert('데이터가 아직 로드되지 않았어요.'); return; }
+    var head=RAW.csv[kind+'Head']||[], rows=RAW.csv[kind]||[];
+    var esc=function(v){ v=(v==null?'':String(v)); return '"'+v.replace(/"/g,'""')+'"'; };
+    var txt='\uFEFF'+[head].concat(rows).map(function(r){ return r.map(esc).join(','); }).join('\n');
+    var a=document.createElement('a');
+    a.href=URL.createObjectURL(new Blob([txt],{type:'text/csv;charset=utf-8'}));
+    a.download='sunam_'+kind+'_'+new Date().toISOString().slice(0,10)+'.csv';
+    a.click();
+  }
   function init(){
     var wrap=document.querySelector('.wrap');
     var rp=document.getElementById('revPanel');
@@ -4272,8 +4300,11 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
       if(segs) segs.querySelectorAll('.seg').forEach(function(x){ x.classList.remove('active'); });
       renderRev();
     });
+    document.querySelectorAll('[data-csv]').forEach(function(b){
+      b.addEventListener('click',function(){ csvDl_(b.dataset.csv); });
+    });
     setMode('ads');
-    loadRev();
+    try{ var sp=sessionStorage.getItem('REV_PW'); if(sp) loadRev(sp); }catch(e){}
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
 })();
