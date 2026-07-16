@@ -39,10 +39,19 @@ jobs:
           BACKFILL_DAYS: ${{ github.event.inputs.backfill_days }}
         run: python fetch_imweb.py
 
+      - name: Fetch GA4 traffic (Secrets 설정 시에만 동작)
+        continue-on-error: true
+        env:
+          GA4_PROPERTY_ID: ${{ secrets.GA4_PROPERTY_ID }}
+          GA4_SA_JSON: ${{ secrets.GA4_SA_JSON }}
+          IMWEB_DASH_PASSWORD: ${{ secrets.IMWEB_DASH_PASSWORD }}
+        run: python fetch_ga4.py
+
       - name: Commit data
         run: |
           git config user.name "imweb-sync-bot"
           git config user.email "actions@github.com"
           git add data/imweb_store.json.enc data/imweb_dash.json.enc
+          git add data/ga4_daily.json.enc || true
           git diff --staged --quiet || git commit -m "chore: imweb data sync $(date -u +%F)"
           git push
