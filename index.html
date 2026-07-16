@@ -4094,19 +4094,20 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
     var aov=cur.ord?cur.rev/cur.ord:0, pAov=prev.ord?prev.rev/prev.ord:0;
     var rebuy = RAW.rebuy ? (RT==='biz'?RAW.rebuy.biz:RAW.rebuy.jasa) : null;
     var hasV2 = RAW.daily && RAW.daily.length && RAW.daily[RAW.daily.length-1].jasaOrd!=null;
+    var SC = RT==='jasa' ? '자사몰(B2C)' : (RT==='biz' ? '비즈몰(B2B)' : '자사몰+비즈몰 통합');
     var kpis=[
-      {label:'매출(실결제)', value:won(cur.rev), tip:'아임웹 자사몰·비즈몰 실결제 합계 · 취소/반품/입금대기 제외 · 구글시트 매일 05시 자동 수집', chips:[chip(d(cur.rev,prev.rev))]},
-      {label:'주문 수', value:cur.ord.toLocaleString('ko-KR')+'건', tip:'기간 내 결제 주문 건수 · 취소/반품/입금대기 제외', chips:[chip(d(cur.ord,prev.ord))]},
-      {label:'객단가', value:won(aov), tip:'매출 ÷ 주문 수 · 선택 기간 기준', chips:[chip(d(aov,pAov))]},
+      {label:'매출(실결제)', value:won(cur.rev), tip:SC+' 실결제 매출 · 취소/반품/입금대기 제외 · 아임웹 API 매일 05시 자동 수집', chips:[chip(d(cur.rev,prev.rev))]},
+      {label:'주문 수', value:cur.ord.toLocaleString('ko-KR')+'건', tip:SC+' 기간 내 결제 주문 건수 · 취소/반품/입금대기 제외', chips:[chip(d(cur.ord,prev.ord))]},
+      {label:'객단가', value:won(aov), tip:SC+' 매출 ÷ 주문 수 · 선택 기간 기준', chips:[chip(d(aov,pAov))]},
       (function(){ if(RT==='biz') return {label:'멤버십 주문 비율', value:'—', tip:'멤버십은 자사몰(B2C) 전용 제도', chips:[infoChip('B2B 미적용')]};
         var ok=RAW.daily&&RAW.daily.length&&RAW.daily[RAW.daily.length-1].jasaTierOrd!=null;
         var rate=(ok&&cur.ord>0)?cur.tierOrd/cur.ord*100:null;
         var pRate=(ok&&prev.ord>0)?prev.tierOrd/prev.ord*100:null;
         return {label:'멤버십 주문 비율', value:rate!=null?rate.toFixed(1)+'%':'—',
-          tip:'그린애플 이상(직전 6개월 실결제 10만원 이상) 회원의 주문 ÷ 전체 주문 · 현재 시점 기준 산정 근사치',
+          tip:'그린애플 이상(직전 6개월 자사몰 실결제 10만원 이상) 회원의 자사몰 주문 ÷ '+(RT==='all'?'통합(자사+비즈) 전체 주문 — 멤버십은 자사몰 제도라 통합 탭에선 낮게 보임':'자사몰 전체 주문')+' · 현재 시점 등급 기준 근사치',
           chips:rate!=null?[chip(d(rate,pRate))]:[infoChip('웹앱 v4 필요')]};})(),
-      {label:'신규 가입', value:(RAW.members?cur.newMem.toLocaleString('ko-KR')+'명':'—'), tip:(RAW.members&&RAW.members.totals)?('기간 내 회원가입 수 · 아임웹 회원 API · 누적 회원: 자사몰 '+(RAW.members.totals.jasa||0).toLocaleString('ko-KR')+'명 / 비즈몰 '+(RAW.members.totals.biz||0).toLocaleString('ko-KR')+'명'):'', chips:RAW.members?[chip(d(cur.newMem,prev.newMem))]:[infoChip('웹앱 v2 필요')]},
-      {label:(RT==='biz'?'재구매율 (비즈몰)':'재구매율 (자사몰)'), value:(rebuy!=null?(rebuy*100).toFixed(1)+'%':'—'), tip:'첫구매 회원 중 90일 내 2번째 구매 비율 · 주문-회원코드 매칭 · 전체 기간 누적 (기간 필터 미적용)', chips:[infoChip('첫구매 후 90일 · 전체 기간')]},
+      {label:'신규 가입', value:(RAW.members?cur.newMem.toLocaleString('ko-KR')+'명':'—'), tip:(RAW.members&&RAW.members.totals)?(SC+' 기간 내 회원가입 수 · 아임웹 회원 API · 누적 회원: '+(RT==='jasa'?('자사몰 '+(RAW.members.totals.jasa||0).toLocaleString('ko-KR')+'명'):RT==='biz'?('비즈몰 '+(RAW.members.totals.biz||0).toLocaleString('ko-KR')+'명'):('자사몰 '+(RAW.members.totals.jasa||0).toLocaleString('ko-KR')+'명 / 비즈몰 '+(RAW.members.totals.biz||0).toLocaleString('ko-KR')+'명'))):'', chips:RAW.members?[chip(d(cur.newMem,prev.newMem))]:[]},
+      {label:(RT==='biz'?'재구매율 (비즈몰)':'재구매율 (자사몰)'), value:(rebuy!=null?(rebuy*100).toFixed(1)+'%':'—'), tip:(RT==='biz'?'비즈몰':'자사몰')+' 첫구매 회원 중 90일 내 2번째 구매 비율 · 주문-회원코드 매칭 · 전체 기간 누적 (기간 필터 미적용)'+(RT==='all'?' · 통합 탭에서도 자사몰 기준':''), chips:[infoChip('첫구매 후 90일 · 전체 기간')]},
       (function(){ if(RT==='biz') return {label:'오가닉 매출 비율', value:'—', tip:'비즈몰 랜딩 광고는 구매 전환 추적이 없어 산출 불가', chips:[infoChip('B2B 미적용')]};
         // 1순위: GA4 실측 (채널별 구매 매출) — 광고 자기신고가 아닌 사이트 실측
         var g=sumG(from,to), pg=sumG(pFrom,pTo);
@@ -4114,7 +4115,7 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
           var orv=g.orgRev/g.rev*100;
           var porv=(pg&&pg.rev>0)?pg.orgRev/pg.rev*100:null;
           return {label:'오가닉 매출 비율', value:orv.toFixed(1)+'%',
-            tip:'GA4 실측: 유료 광고 외 채널(검색·직접·SNS·추천)에서 발생한 구매 매출 ÷ 전체 구매 매출 · GA4 오가닉 매출 '+won(g.orgRev)+' / 전체 '+won(g.rev),
+            tip:'GA4 실측 — 구매한 그 방문이 어떤 경로로 들어왔는지 기준 · 오가닉 포함: 네이버·구글 검색, 주소 직접 입력·즐겨찾기, 인스타 프로필 등 무료 SNS, 타 사이트 링크, 이메일 · 광고 제외: 메타 유료광고 등 Paid 채널 클릭 유입 · 오가닉 '+won(g.orgRev)+' / 전체 '+won(g.rev)+' (자사몰만 · GA4 매출은 취소 미반영)',
             chips:[chip(d(orv,porv)),infoChip('GA4 실측')]};
         }
         // 2순위: 메타 클릭 기여 역산 (GA4 매출 데이터 없을 때)
@@ -4152,8 +4153,16 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
         if(!g) return {label:'페이지뷰', value:'—', tip:'GA4 연동 시 표시', chips:[infoChip('GA4 연동 필요')]};
         var ppv=g.sessions>0?(g.pv/g.sessions):null;
         return {label:'페이지뷰', value:g.pv.toLocaleString('ko-KR'),
-          tip:'기간 내 페이지 조회수 · 세션당 '+(ppv!=null?ppv.toFixed(1)+'p':'—')+' — 낮으면 상세페이지에서 바로 이탈 중',
+          tip:'기간 내 페이지 조회수 · 세션당 '+(ppv!=null?ppv.toFixed(1)+'p':'—')+' — 낮으면 상세페이지에서 바로 이탈 중 · 자사몰 사이트 기준',
           chips:pg?[chip(d(g.pv,pg.pv))]:[]};})(),
+      (function(){ if(RT==='biz') return {label:'오가닉 트래픽 비율', value:'—', tip:'GA4는 자사몰만 추적', chips:[infoChip('B2B 미적용')]};
+        var g=sumG(from,to), pg=sumG(pFrom,pTo);
+        if(!g) return {label:'오가닉 트래픽 비율', value:'—', tip:'GA4 연동 시 표시 — 유료 광고 외 유입(검색·직접·SNS·추천) 세션 비율', chips:[infoChip('GA4 연동 필요')]};
+        var orp=g.sessions>0?g.org/g.sessions*100:null;
+        var porp=(pg&&pg.sessions>0)?pg.org/pg.sessions*100:null;
+        return {label:'오가닉 트래픽 비율', value:orp!=null?orp.toFixed(1)+'%':'—',
+          tip:'유료 광고(Paid·Display·Cross-network) 외 유입 세션 ÷ 전체 세션 · GA4 채널 그룹 기준 — 매출 오가닉 비율보다 정확한 유입 구조 지표 · 자사몰 사이트 기준',
+          chips:orp!=null?[chip(d(orp,porp)),infoChip('오가닉 세션 '+g.org.toLocaleString('ko-KR'))]:[]};})(),
       (function(){ if(RT==='biz') return {label:'구매전환율', value:'—', tip:'GA4는 자사몰만 추적', chips:[infoChip('B2B 미적용')]};
         var g=sumG(from,to), pg=sumG(pFrom,pTo);
         if(!g) return {label:'구매전환율', value:'—', tip:'GA4 연동 시 표시 — 자사몰 주문 수 ÷ GA4 세션', chips:[infoChip('GA4 연동 필요')]};
@@ -4163,15 +4172,7 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
         var pcv=(pg&&pg.sessions>0)?pjOrd/pg.sessions*100:null;
         return {label:'구매전환율', value:cv!=null?cv.toFixed(2)+'%':'—',
           tip:'자사몰 주문 수('+jOrd.toLocaleString('ko-KR')+'건) ÷ GA4 세션('+g.sessions.toLocaleString('ko-KR')+'회) · 이커머스 평균 1~3% · 낮으면 상세페이지·결제 과정 점검',
-          chips:cv!=null?[chip(d(cv,pcv))]:[]};})(),
-      (function(){ if(RT==='biz') return {label:'오가닉 트래픽 비율', value:'—', tip:'GA4는 자사몰만 추적', chips:[infoChip('B2B 미적용')]};
-        var g=sumG(from,to), pg=sumG(pFrom,pTo);
-        if(!g) return {label:'오가닉 트래픽 비율', value:'—', tip:'GA4 연동 시 표시 — 유료 광고 외 유입(검색·직접·SNS·추천) 세션 비율', chips:[infoChip('GA4 연동 필요')]};
-        var orp=g.sessions>0?g.org/g.sessions*100:null;
-        var porp=(pg&&pg.sessions>0)?pg.org/pg.sessions*100:null;
-        return {label:'오가닉 트래픽 비율', value:orp!=null?orp.toFixed(1)+'%':'—',
-          tip:'유료 광고(Paid·Display·Cross-network) 외 유입 세션 ÷ 전체 세션 · GA4 채널 그룹 기준 — 매출 오가닉 비율보다 정확한 유입 구조 지표',
-          chips:orp!=null?[chip(d(orp,porp)),infoChip('오가닉 세션 '+g.org.toLocaleString('ko-KR'))]:[]};})()
+          chips:cv!=null?[chip(d(cv,pcv))]:[]};})()
     ];
     var wrap=document.getElementById('revKpis');
     if(wrap){
