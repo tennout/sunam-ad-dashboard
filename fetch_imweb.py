@@ -459,9 +459,17 @@ def main():
         done_set.update(done)
         print(site['name'], f'품목 {len(rows)}행 추가')
 
-    store['members'] = all_members
-    store['reviews'] = all_reviews
-    store['qnas'] = all_qnas
+    # 병합 보존: 아임웹에서 삭제(탈퇴·후기삭제)돼도 과거 기록 유지
+    merged_members = dict(store.get('members', {}))
+    merged_members.update(all_members)
+    store['members'] = merged_members
+    def _merge_by_idx(old_list, new_list):
+        m = {(r.get('site',''), r.get('idx','')): r for r in (old_list or [])}
+        for r in new_list:
+            m[(r.get('site',''), r.get('idx',''))] = r
+        return list(m.values())
+    store['reviews'] = _merge_by_idx(store.get('reviews'), all_reviews)
+    store['qnas'] = _merge_by_idx(store.get('qnas'), all_qnas)
     store['prodDone'] = sorted(done_set)
 
     # 회원 스냅샷 (일별 누적)
