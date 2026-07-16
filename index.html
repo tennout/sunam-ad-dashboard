@@ -4056,6 +4056,11 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
           return s; }
         var ar=adRev(from,to), par=adRev(pFrom,pTo);
         var base=(RT==='all')?cur.jasa:cur.rev, pBase=(RT==='all')?prev.jasa:prev.rev;
+        if(base>0&&ar>=base){
+          return {label:'오가닉 매출 비율', value:'측정 불가',
+            tip:'메타 귀속 매출('+won(ar)+')이 기간 자사몰 매출('+won(base)+')을 초과 — 뷰스루 포함 어트리뷰션 과대귀속 상태. GA4 연동 시 정밀 측정 가능',
+            chips:[infoChip('메타 귀속 과대 ('+Math.round(ar/base*100)+'%)')]};
+        }
         var org=base>0?Math.max(0,(base-ar)/base*100):null;
         var pOrg=pBase>0?Math.max(0,(pBase-par)/pBase*100):null;
         return {label:'오가닉 매출 비율', value:org!=null?org.toFixed(1)+'%':'—',
@@ -4362,7 +4367,7 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
       var gTotal=0; top.forEach(function(x){ gTotal+=x.count; });
       function gradeColor(nm,i){
         var s=String(nm).toLowerCase();
-        if(/farmers|기본|미지정|일반/.test(s)) return '#c2c9c5';
+        if(/farmers|파머스|기본|미지정|일반/.test(s)) return '#c2c9c5';
         if(/green|그린/.test(s)) return '#03c75a';
         if(/gold|골드/.test(s)) return '#f59e0b';
         if(/red|레드/.test(s)) return '#e11d48';

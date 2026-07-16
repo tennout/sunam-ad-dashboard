@@ -157,9 +157,19 @@ def fetch_voc(site, token):
 
 def fetch_coupons(site, token):
     out = []
-    for c in paged('https://api.imweb.me/v2/shop/coupons', token, max_page=20):
+    res = api_get('https://api.imweb.me/v2/shop/coupons', token)
+    data = (res or {}).get('data')
+    if isinstance(data, dict):
+        lst = data.get('list') or list(data.values())
+    elif isinstance(data, list):
+        lst = data
+    else:
+        lst = []
+    for c in lst:
+        if not isinstance(c, dict):
+            continue
         out.append({'site': site['name'], 'name': c.get('name') or '(이름없음)',
-                    'status': c.get('status') or '',
+                    'status': str(c.get('status') or ''),
                     'issued': int(c.get('type_coupon_create_count') or 0),
                     'used': int(c.get('type_coupon_use_count') or 0)})
     return out
