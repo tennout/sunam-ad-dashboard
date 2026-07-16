@@ -7,6 +7,11 @@ on:
   schedule:
     - cron: '0 20 * * *'   # 20:00 UTC = 05:00 KST
   workflow_dispatch:        # 수동 실행 버튼
+    inputs:
+      backfill_days:
+        description: '주문 소급 일수 (비우면 기본값)'
+        required: false
+        default: ''
 
 permissions:
   contents: write
@@ -31,6 +36,7 @@ jobs:
           IMWEB_BIZ_KEY: ${{ secrets.IMWEB_BIZ_KEY }}
           IMWEB_BIZ_SECRET: ${{ secrets.IMWEB_BIZ_SECRET }}
           IMWEB_DASH_PASSWORD: ${{ secrets.IMWEB_DASH_PASSWORD }}
+          BACKFILL_DAYS: ${{ github.event.inputs.backfill_days }}
         run: python fetch_imweb.py
 
       - name: Commit data
