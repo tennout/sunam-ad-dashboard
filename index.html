@@ -4067,11 +4067,12 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
   }
 
   function sumG(from,to){
-    var o={sessions:0,users:0,pv:0,org:0,days:0};
+    var o={sessions:0,users:0,pv:0,org:0,rev:0,orgRev:0,trans:0,days:0};
     if(!window.GA4||!window.GA4.daily) return null;
     window.GA4.daily.forEach(function(r){
       if(r.date<from||r.date>to) return;
-      o.sessions+=(r.sessions||0); o.users+=(r.users||0); o.pv+=(r.pv||0); o.org+=(r.orgSessions||0); o.days++;
+      o.sessions+=(r.sessions||0); o.users+=(r.users||0); o.pv+=(r.pv||0); o.org+=(r.orgSessions||0);
+      o.rev+=(r.rev||0); o.orgRev+=(r.orgRev||0); o.trans+=(r.trans||0); o.days++;
     });
     return o.days?o:null;
   }
@@ -4107,14 +4108,24 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
       {label:'신규 가입', value:(RAW.members?cur.newMem.toLocaleString('ko-KR')+'명':'—'), tip:(RAW.members&&RAW.members.totals)?('기간 내 회원가입 수 · 아임웹 회원 API · 누적 회원: 자사몰 '+(RAW.members.totals.jasa||0).toLocaleString('ko-KR')+'명 / 비즈몰 '+(RAW.members.totals.biz||0).toLocaleString('ko-KR')+'명'):'', chips:RAW.members?[chip(d(cur.newMem,prev.newMem))]:[infoChip('웹앱 v2 필요')]},
       {label:(RT==='biz'?'재구매율 (비즈몰)':'재구매율 (자사몰)'), value:(rebuy!=null?(rebuy*100).toFixed(1)+'%':'—'), tip:'첫구매 회원 중 90일 내 2번째 구매 비율 · 주문-회원코드 매칭 · 전체 기간 누적 (기간 필터 미적용)', chips:[infoChip('첫구매 후 90일 · 전체 기간')]},
       (function(){ if(RT==='biz') return {label:'오가닉 매출 비율', value:'—', tip:'비즈몰 랜딩 광고는 구매 전환 추적이 없어 산출 불가', chips:[infoChip('B2B 미적용')]};
+        // 1순위: GA4 실측 (채널별 구매 매출) — 광고 자기신고가 아닌 사이트 실측
+        var g=sumG(from,to), pg=sumG(pFrom,pTo);
+        if(g&&g.rev>0){
+          var orv=g.orgRev/g.rev*100;
+          var porv=(pg&&pg.rev>0)?pg.orgRev/pg.rev*100:null;
+          return {label:'오가닉 매출 비율', value:orv.toFixed(1)+'%',
+            tip:'GA4 실측: 유료 광고 외 채널(검색·직접·SNS·추천)에서 발생한 구매 매출 ÷ 전체 구매 매출 · GA4 오가닉 매출 '+won(g.orgRev)+' / 전체 '+won(g.rev),
+            chips:[chip(d(orv,porv)),infoChip('GA4 실측')]};
+        }
+        // 2순위: 메타 클릭 기여 역산 (GA4 매출 데이터 없을 때)
         function adRev(f,t){ var s=0, sc=0, hasClk=false;
           try{ (META_UPLOADED_DATA||[]).forEach(function(r){ if(r&&r.date&&r.date>=f&&r.date<=t){ s+=(+r.rev||0); if(r.revClk!=null){ hasClk=true; sc+=(+r.revClk||0); } } }); }catch(e){}
-          return hasClk?sc:s; }  // 클릭 기여(7d_click)만 — 뷰스루 과대귀속 제외. 구버전 데이터는 전체값 폴백
+          return hasClk?sc:s; }
         var ar=adRev(from,to), par=adRev(pFrom,pTo);
         var base=(RT==='all')?cur.jasa:cur.rev, pBase=(RT==='all')?prev.jasa:prev.rev;
         if(base>0&&ar>=base){
           return {label:'오가닉 매출 비율', value:'측정 불가',
-            tip:'메타 귀속 매출('+won(ar)+')이 기간 자사몰 매출('+won(base)+')을 초과 — 뷰스루 포함 어트리뷰션 과대귀속 상태. GA4 연동 시 정밀 측정 가능',
+            tip:'메타 귀속 매출('+won(ar)+')이 기간 자사몰 매출('+won(base)+')을 초과 — 어트리뷰션 과대귀속. GA4 구매 이벤트 수집이 시작되면 실측으로 자동 전환됩니다',
             chips:[infoChip('메타 귀속 과대 ('+Math.round(ar/base*100)+'%)')]};
         }
         var org=base>0?Math.max(0,(base-ar)/base*100):null;

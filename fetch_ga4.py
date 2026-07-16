@@ -77,7 +77,8 @@ def run_report(pid: str, token: str) -> list:
         'dateRanges': [{'startDate': f'{DAYS}daysAgo', 'endDate': 'today'}],
         'dimensions': [{'name': 'date'}, {'name': 'sessionDefaultChannelGroup'}],
         'metrics': [{'name': 'sessions'}, {'name': 'totalUsers'},
-                    {'name': 'screenPageViews'}],
+                    {'name': 'screenPageViews'}, {'name': 'purchaseRevenue'},
+                    {'name': 'transactions'}],
         'limit': 100000,
     }
     r = requests.post(f'https://analyticsdata.googleapis.com/v1beta/properties/{pid}:runReport',
@@ -110,12 +111,18 @@ def main():
         sess = int(row['metricValues'][0]['value'] or 0)
         users = int(row['metricValues'][1]['value'] or 0)
         pv = int(row['metricValues'][2]['value'] or 0)
-        r = daily.setdefault(dt, {'date': dt, 'sessions': 0, 'users': 0, 'pv': 0, 'orgSessions': 0})
+        rev = round(float(row['metricValues'][3]['value'] or 0))
+        trans = int(row['metricValues'][4]['value'] or 0)
+        r = daily.setdefault(dt, {'date': dt, 'sessions': 0, 'users': 0, 'pv': 0, 'orgSessions': 0,
+                                  'rev': 0, 'orgRev': 0, 'trans': 0})
         r['sessions'] += sess
         r['users'] += users   # 채널 합산 근사 (교차 채널 중복 소폭 포함)
         r['pv'] += pv
+        r['rev'] += rev
+        r['trans'] += trans
         if grp not in PAID_GROUPS:
             r['orgSessions'] += sess
+            r['orgRev'] += rev
 
     out = {'updated': datetime.datetime.now(datetime.timezone.utc).isoformat(),
            'daily': [daily[k] for k in sorted(daily)]}
