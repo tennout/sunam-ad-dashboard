@@ -99,6 +99,16 @@ def _mvals(row):
 WINDOWS = (7, 14, 30, 60, 130)
 
 
+def norm_page(p):
+    """랜딩 URL 정규화: utm 등 노이즈 제거, 상품 구분자(idx)만 유지"""
+    p = str(p or '')
+    if '?' not in p:
+        return p
+    path, q = p.split('?', 1)
+    keep = [kv for kv in q.split('&') if kv.split('=')[0] in ('idx', 'category')]
+    return path + (('?' + '&'.join(keep)) if keep else '')
+
+
 def dim_report(pid, token, dim, skip_vals=()):
     """구간별 상위 20개 (캠페인·랜딩페이지용)"""
     out = {}
@@ -152,23 +162,33 @@ def main():
     print('캠페인(UTM)별 수집...')
     campaigns = dim_report(pid, token, 'sessionCampaignName', skip_vals=('(not set)',))
     print('랜딩페이지별 수집...')
-    landing = dim_report(pid, token, 'landingPage')
+    landing = {}
+    for w in WINDOWS:
+        agg_l = {}
+        for row in run_report(pid, token, ['landingPagePlusQueryString'], w,
+                              limit=300, order_by_sessions=True):
+            name = norm_page(row['dimensionValues'][0]['value'])
+            sess, users, pv, rev, trans = _mvals(row)
+            a = agg_l.setdefault(name, {'name': name, 'sess': 0, 'rev': 0, 'trans': 0})
+            a['sess'] += sess; a['rev'] += rev; a['trans'] += trans
+        landing[str(w)] = sorted(agg_l.values(), key=lambda x: -x['sess'])[:20]
 
     # 캠페인 × 랜딩페이지 (캠페인 클릭 드릴다운용)
     print('캠페인×랜딩 수집...')
     camp_landing = {}
     for w in WINDOWS:
-        rows3 = run_report(pid, token, ['sessionCampaignName', 'landingPage'],
-                           w, limit=200, order_by_sessions=True)
-        lst = []
+        rows3 = run_report(pid, token, ['sessionCampaignName', 'landingPagePlusQueryString'],
+                           w, limit=500, order_by_sessions=True)
+        agg_c = {}
         for row in rows3:
             camp = row['dimensionValues'][0]['value']
-            page = row['dimensionValues'][1]['value']
+            page = norm_page(row['dimensionValues'][1]['value'])
             if camp == '(not set)':
                 continue
             sess, users, pv, rev, trans = _mvals(row)
-            lst.append({'camp': camp, 'name': page, 'sess': sess, 'rev': rev, 'trans': trans})
-        camp_landing[str(w)] = lst
+            a = agg_c.setdefault((camp, page), {'camp': camp, 'name': page, 'sess': 0, 'rev': 0, 'trans': 0})
+            a['sess'] += sess; a['rev'] += rev; a['trans'] += trans
+        camp_landing[str(w)] = sorted(agg_c.values(), key=lambda x: -x['sess'])[:300]
 
     # 채널 × 소스 상세 (도넛 클릭 드릴다운용)
     print('채널×소스별 수집...')
