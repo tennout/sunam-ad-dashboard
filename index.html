@@ -912,7 +912,7 @@
             <span id="revBestChartTitle">매출 비중</span>
             <a href="#" id="revBestReset" style="display:none;font-size:12px;color:var(--blue);font-weight:700;text-decoration:none">← 전체 비중 보기</a>
           </div>
-          <div style="height:300px"><canvas id="revBestChart"></canvas></div>
+          <div style="height:300px;margin-top:56px"><canvas id="revBestChart"></canvas></div>
         </div>
         <div>
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
@@ -4591,7 +4591,7 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
                 datalabels:dlOpt,
                 tooltip:{callbacks:{label:function(c){ var pct=totRev>0?(c.parsed/totRev*100).toFixed(1):'0'; return c.label+': '+won(c.parsed)+' ('+pct+'%)'; }}}
               }}});
-          if(titleEl) titleEl.textContent='매출 비중 (TOP7 + 기타) — 색 = 오른쪽 표의 ● 상품';
+          if(titleEl) titleEl.textContent='매출 비중 (TOP7)';
           if(resetEl) resetEl.style.display='none';
         }
       }
