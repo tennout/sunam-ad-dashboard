@@ -528,10 +528,10 @@
     <button class="rnav-btn" data-go="__top">개요 (KPI) ↑</button>
     <button class="rnav-btn" data-go="revTraffic">트래픽</button>
     <button class="rnav-btn" data-go="revBest">상품</button>
-    <button class="rnav-btn" data-go="revBenefit">쿠폰·포인트</button>
     <button class="rnav-btn" data-go="revVoc">VOC</button>
-    <button class="rnav-btn" data-go="revDeep">재구매</button>
     <button class="rnav-btn" data-go="revJasaExtra">멤버십</button>
+    <button class="rnav-btn" data-go="revBenefit">쿠폰·포인트</button>
+    <button class="rnav-btn" data-go="revDeep">재구매·이탈</button>
     <button class="rnav-btn" data-go="revBizExtra">거래처</button>
   </div>
   <div class="modal-bg" id="vocFullModal">
@@ -939,33 +939,6 @@
       </div>
       <div class="hint" style="margin-top:8px">품목 매출 = 상품 단위 금액 합 (배송비·쿠폰 반영 전) · 충성율 = 해당 상품 2회 이상 구매 고객 비율(전체 기간)</div>
     </div>
-    <div class="panel" id="revBenefit" style="margin-bottom:14px">
-      <h2 style="margin:0 0 8px">쿠폰·포인트 사용 <span style="font-size:12px;font-weight:400;color:var(--muted)">선택 기간 <b class="selPeriod" style="color:var(--ink-2);font-weight:700"></b> · 혜택 비용 모니터링</span></h2>
-      <div id="revBenefitCards" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px"></div>
-      <div style="display:flex;align-items:center;justify-content:space-between;margin:16px 0 12px">
-        <span style="font-weight:700;font-size:13px">쿠폰별 사용 현황 <span style="font-size:11.5px;font-weight:400;color:var(--muted)">발행·사용은 쿠폰 생성 이후 누적 · 어떤 쿠폰이 실제로 쓰이는가</span></span>
-        <span style="display:flex;gap:8px;align-items:center">
-          <select class="rv-sort" id="revCouponSort">
-            <option value="used">사용순</option>
-            <option value="issued">발행순</option>
-            <option value="rate">사용률순</option>
-          </select>
-          <button class="rv-pill" id="revCouponToggle">▾ 접기</button>
-        </span>
-      </div>
-      <div id="revCouponWrap">
-        <div class="grid2">
-          <div>
-            <div style="font-weight:700;font-size:13px;margin-bottom:10px">많이 쓰인 쿠폰 TOP 8 <span style="font-size:11.5px;font-weight:400;color:var(--muted)">사용 건수 기준</span></div>
-            <div style="height:280px"><canvas id="revCpnChart"></canvas></div>
-          </div>
-          <div>
-            <div class="scroll"><table><thead><tr><th style="text-align:left">쿠폰명</th><th>사이트</th><th>발행</th><th>사용</th><th><span class="ttp" data-tip="사용 ÷ 발행. 낮으면 고객이 쿠폰을 받고도 안 쓴다는 뜻 — 할인 폭·유효기간·안내 부족을 점검하세요." style="border-bottom:1px dotted var(--muted);cursor:help">사용률 ⓘ</span></th></tr></thead><tbody id="revCouponBody"></tbody></table></div>
-          </div>
-        </div>
-      </div>
-      <div class="hint" style="margin-top:6px">멤버십 쿠폰사용 비중 = 기간 내 쿠폰 사용 주문 중 그린애플+ 회원 주문 비율 · 페이백 포인트 회수는 포인트 사용 주문율로 근사 확인</div>
-    </div>
     <div class="panel" id="revVoc" style="margin-bottom:14px">
       <h2 style="margin:0 0 8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">VOC — 후기·문의 <span style="font-size:12px;font-weight:400;color:var(--muted)"><span id="vocSrcTag">고객 목소리 · 품질 조기경보</span> · 선택 기간 <b class="selPeriod" style="color:var(--ink-2);font-weight:700"></b></span>
         <a href="https://docs.google.com/spreadsheets/d/18Zs1SbKbAAl1enNiswx_G_GmARI4hshum8ErE2m1EI0/edit" target="_blank" style="margin-left:auto;font-size:12px;font-weight:700;color:var(--blue);text-decoration:none;border:1px solid var(--line);border-radius:8px;padding:5px 10px">시트에서 전체 보기</a></h2>
@@ -1006,6 +979,33 @@
       <div class="panel"><h2 style="margin:0 0 8px">월별 가입 코호트 <span style="font-size:12px;font-weight:400;color:var(--muted)">가입 → 30일 내 첫구매 → 90일 내 재구매</span></h2>
         <div class="scroll"><table><thead><tr><th>가입월</th><th>가입자</th><th>첫구매</th><th>전환율</th><th>재구매율</th></tr></thead><tbody id="revCohortBody"></tbody></table></div>
       </div>
+    </div>
+    <div class="panel" id="revBenefit" style="margin-bottom:14px">
+      <h2 style="margin:0 0 8px">쿠폰·포인트 사용 <span style="font-size:12px;font-weight:400;color:var(--muted)">선택 기간 <b class="selPeriod" style="color:var(--ink-2);font-weight:700"></b> · 혜택 비용 모니터링</span></h2>
+      <div id="revBenefitCards" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px"></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin:16px 0 12px">
+        <span style="font-weight:700;font-size:13px">쿠폰별 사용 현황 <span style="font-size:11.5px;font-weight:400;color:var(--muted)">발행·사용은 쿠폰 생성 이후 누적 · 어떤 쿠폰이 실제로 쓰이는가</span></span>
+        <span style="display:flex;gap:8px;align-items:center">
+          <select class="rv-sort" id="revCouponSort">
+            <option value="used">사용순</option>
+            <option value="issued">발행순</option>
+            <option value="rate">사용률순</option>
+          </select>
+          <button class="rv-pill" id="revCouponToggle">▾ 접기</button>
+        </span>
+      </div>
+      <div id="revCouponWrap">
+        <div class="grid2">
+          <div>
+            <div style="font-weight:700;font-size:13px;margin-bottom:10px">많이 쓰인 쿠폰 TOP 8 <span style="font-size:11.5px;font-weight:400;color:var(--muted)">사용 건수 기준</span></div>
+            <div style="height:280px"><canvas id="revCpnChart"></canvas></div>
+          </div>
+          <div>
+            <div class="scroll"><table><thead><tr><th style="text-align:left">쿠폰명</th><th>사이트</th><th>발행</th><th>사용</th><th><span class="ttp" data-tip="사용 ÷ 발행. 낮으면 고객이 쿠폰을 받고도 안 쓴다는 뜻 — 할인 폭·유효기간·안내 부족을 점검하세요." style="border-bottom:1px dotted var(--muted);cursor:help">사용률 ⓘ</span></th></tr></thead><tbody id="revCouponBody"></tbody></table></div>
+          </div>
+        </div>
+      </div>
+      <div class="hint" style="margin-top:6px">멤버십 쿠폰사용 비중 = 기간 내 쿠폰 사용 주문 중 그린애플+ 회원 주문 비율 · 페이백 포인트 회수는 포인트 사용 주문율로 근사 확인</div>
     </div>
     <div class="panel" id="revDeep" style="display:none;margin-bottom:14px">
       <h2 style="margin:0 0 10px">재구매 심층 분석 <span style="font-size:12px;font-weight:400;color:var(--muted)">자사몰 · 회원 주문 기준</span></h2>
@@ -4201,18 +4201,26 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
     var hasV2 = RAW.daily && RAW.daily.length && RAW.daily[RAW.daily.length-1].jasaOrd!=null;
     var SC = RT==='jasa' ? '자사몰(B2C)' : (RT==='biz' ? '비즈몰(B2B)' : '자사몰+비즈몰 통합');
     var kpis=[
-      {label:'매출(실결제)', value:won(cur.rev), tip:SC+' 실결제 매출 · 취소/반품/입금대기 제외 · 아임웹 API 매일 05시 자동 수집', chips:[chip(d(cur.rev,prev.rev))]},
-      {label:'주문 수', value:cur.ord.toLocaleString('ko-KR')+'건', tip:SC+' 기간 내 결제 주문 건수 · 취소/반품/입금대기 제외', chips:[chip(d(cur.ord,prev.ord))]},
-      {label:'객단가', value:won(aov), tip:SC+' 매출 ÷ 주문 수 · 선택 기간 기준', chips:[chip(d(aov,pAov))]},
+      {label:'매출(실결제)', value:won(cur.rev), tip:SC+' 실결제 매출 · 취소/반품/입금대기 제외 · 출처: 아임웹 주문 (매일 05시 수집)', chips:[chip(d(cur.rev,prev.rev))]},
+      {label:'주문 수', value:cur.ord.toLocaleString('ko-KR')+'건', tip:SC+' 기간 내 결제 주문 건수 · 취소/반품/입금대기 제외 · 출처: 아임웹 주문', chips:[chip(d(cur.ord,prev.ord))]},
+      {label:'객단가', value:won(aov), tip:SC+' 매출 ÷ 주문 수 · 주문 1건당 평균 결제액 · 출처: 아임웹 주문', chips:[chip(d(aov,pAov))]},
+      (function(){ if(RT==='biz') return {label:'ROAS(자사몰)', value:'—', tip:'메타 광고는 자사몰 랜딩 — 비즈몰 매출과 무관', chips:[infoChip('B2B 미적용')]};
+        var mc=metaCost(from,to), pmc=metaCost(pFrom,pTo);
+        var base=cur.jasa, pBase=prev.jasa;
+        var roas=mc>0?base/mc*100:null, pRoas=pmc>0?pBase/pmc*100:null;
+        return {label:'ROAS(자사몰)', value:roas!=null?Math.round(roas)+'%':'—',
+          tip:'자사몰 전체 매출 ÷ 메타 광고비 × 100 — 광고비 1원당 총매출 (blended ROAS). 광고 직접 전환만이 아닌 오가닉 포함 전체 매출 기준이라 광고비가 남는 장사인지 보는 지표 · 출처: 아임웹 매출 + 메타 광고비',
+          chips: roas!=null?[chip(d(roas,pRoas)),infoChip('메타 광고비 '+won(mc))]:[infoChip('메타 CSV/연동 시 표시')]};})(),
+      // ─ 트래픽 4종 (GA4 · 자사몰 사이트 기준) ─,
+      {label:'신규 가입', value:(RAW.members?cur.newMem.toLocaleString('ko-KR')+'명':'—'), tip:(RAW.members&&RAW.members.totals)?(SC+' 기간 내 회원가입 수 · 출처: 아임웹 회원 · 누적 회원: '+(RT==='jasa'?('자사몰 '+(RAW.members.totals.jasa||0).toLocaleString('ko-KR')+'명'):RT==='biz'?('비즈몰 '+(RAW.members.totals.biz||0).toLocaleString('ko-KR')+'명'):('자사몰 '+(RAW.members.totals.jasa||0).toLocaleString('ko-KR')+'명 / 비즈몰 '+(RAW.members.totals.biz||0).toLocaleString('ko-KR')+'명'))):'', chips:RAW.members?[chip(d(cur.newMem,prev.newMem))]:[]},
       (function(){ if(RT==='biz') return {label:'멤버십 주문 비율', value:'—', tip:'멤버십은 자사몰(B2C) 전용 제도', chips:[infoChip('B2B 미적용')]};
         var ok=RAW.daily&&RAW.daily.length&&RAW.daily[RAW.daily.length-1].jasaTierOrd!=null;
         var rate=(ok&&cur.ord>0)?cur.tierOrd/cur.ord*100:null;
         var pRate=(ok&&prev.ord>0)?prev.tierOrd/prev.ord*100:null;
         return {label:'멤버십 주문 비율', value:rate!=null?rate.toFixed(1)+'%':'—',
-          tip:'그린애플 이상(직전 6개월 자사몰 실결제 10만원 이상) 회원의 자사몰 주문 ÷ '+(RT==='all'?'통합(자사+비즈) 전체 주문 — 멤버십은 자사몰 제도라 통합 탭에선 낮게 보임':'자사몰 전체 주문')+' · 현재 시점 등급 기준 근사치',
+          tip:'그린애플 이상(직전 6개월 자사몰 실결제 10만원 이상) 회원의 자사몰 주문 ÷ '+(RT==='all'?'통합(자사+비즈) 전체 주문 — 멤버십은 자사몰 제도라 통합 탭에선 낮게 보임':'자사몰 전체 주문')+' · 현재 시점 등급 기준 근사치 · 출처: 아임웹 주문+회원',
           chips:rate!=null?[chip(d(rate,pRate))]:[infoChip('웹앱 v4 필요')]};})(),
-      {label:'신규 가입', value:(RAW.members?cur.newMem.toLocaleString('ko-KR')+'명':'—'), tip:(RAW.members&&RAW.members.totals)?(SC+' 기간 내 회원가입 수 · 아임웹 회원 API · 누적 회원: '+(RT==='jasa'?('자사몰 '+(RAW.members.totals.jasa||0).toLocaleString('ko-KR')+'명'):RT==='biz'?('비즈몰 '+(RAW.members.totals.biz||0).toLocaleString('ko-KR')+'명'):('자사몰 '+(RAW.members.totals.jasa||0).toLocaleString('ko-KR')+'명 / 비즈몰 '+(RAW.members.totals.biz||0).toLocaleString('ko-KR')+'명'))):'', chips:RAW.members?[chip(d(cur.newMem,prev.newMem))]:[]},
-      {label:(RT==='biz'?'재구매율 (비즈몰)':'재구매율 (자사몰)'), value:(rebuy!=null?(rebuy*100).toFixed(1)+'%':'—'), tip:(RT==='biz'?'비즈몰':'자사몰')+' 첫구매 회원 중 90일 내 2번째 구매 비율 · 주문-회원코드 매칭 · 전체 기간 누적 (기간 필터 미적용)'+(RT==='all'?' · 통합 탭에서도 자사몰 기준':''), chips:[infoChip('첫구매 후 90일 · 전체 기간')]},
+      {label:(RT==='biz'?'재구매율 (비즈몰)':'재구매율 (자사몰)'), value:(rebuy!=null?(rebuy*100).toFixed(1)+'%':'—'), tip:(RT==='biz'?'비즈몰':'자사몰')+' 첫구매 회원 중 90일 내 2번째 구매 비율 · 주문-회원코드 매칭 · 전체 기간 누적 (기간 필터 미적용)'+(RT==='all'?' · 통합 탭에서도 자사몰 기준':'')+' · 출처: 아임웹 주문', chips:[infoChip('첫구매 후 90일 · 전체 기간')]},
       (function(){ if(RT==='biz') return {label:'오가닉 매출 비율', value:'—', tip:'비즈몰 랜딩 광고는 구매 전환 추적이 없어 산출 불가', chips:[infoChip('B2B 미적용')]};
         // 1순위: GA4 실측 (채널별 구매 매출) — 광고 자기신고가 아닌 사이트 실측
         var g=sumG(from,to), pg=sumG(pFrom,pTo);
@@ -4220,7 +4228,7 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
           var orv=g.orgRev/g.rev*100;
           var porv=(pg&&pg.rev>0)?pg.orgRev/pg.rev*100:null;
           return {label:'오가닉 매출 비율', value:orv.toFixed(1)+'%',
-            tip:'GA4 실측 — 구매한 그 방문이 어떤 경로로 들어왔는지 기준 · 오가닉 포함: 네이버·구글 검색, 주소 직접 입력·즐겨찾기, 인스타 프로필 등 무료 SNS, 타 사이트 링크, 이메일 · 광고 제외: 메타 유료광고 등 Paid 채널 클릭 유입 · 오가닉 '+won(g.orgRev)+' / 전체 '+won(g.rev)+' (자사몰만 · GA4 매출은 취소 미반영)',
+            tip:'GA4 실측 — 구매한 그 방문이 어떤 경로로 들어왔는지 기준 · 오가닉 포함: 네이버·구글 검색, 주소 직접 입력·즐겨찾기, 인스타 프로필 등 무료 SNS, 타 사이트 링크, 이메일 · 광고 제외: 메타 유료광고 등 Paid 채널 클릭 유입 · 오가닉 '+won(g.orgRev)+' / 전체 '+won(g.rev)+' (자사몰만 · GA4 매출은 취소 미반영) · 출처: GA4 실측',
             chips:[chip(d(orv,porv)),infoChip('GA4 실측')]};
         }
         // 2순위: 메타 클릭 기여 역산 (GA4 매출 데이터 없을 때)
@@ -4237,37 +4245,21 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
         var org=base>0?Math.max(0,(base-ar)/base*100):null;
         var pOrg=pBase>0?Math.max(0,(pBase-par)/pBase*100):null;
         return {label:'오가닉 매출 비율', value:org!=null?org.toFixed(1)+'%':'—',
-          tip:'(자사몰 매출 − 메타 클릭 기여 매출) ÷ 자사몰 매출. 클릭 후 7일 내 구매만 광고 기여로 집계 (뷰스루 제외) · 네이버 광고는 스마트스토어 랜딩이라 제외',
+          tip:'(자사몰 매출 − 메타 클릭 기여 매출) ÷ 자사몰 매출. 클릭 후 7일 내 구매만 광고 기여로 집계 (뷰스루 제외) · 출처: 아임웹 매출 + 메타 (근사치)',
           chips:org!=null?[chip(d(org,pOrg)),infoChip('메타 클릭 기여 '+won(ar))]:[infoChip('메타 CSV/연동 시 표시')]};})(),
-      (function(){ if(RT==='biz') return {label:'ROAS(자사몰)', value:'—', tip:'메타 광고는 자사몰 랜딩 — 비즈몰 매출과 무관', chips:[infoChip('B2B 미적용')]};
-        var mc=metaCost(from,to), pmc=metaCost(pFrom,pTo);
-        var base=cur.jasa, pBase=prev.jasa;
-        var roas=mc>0?base/mc*100:null, pRoas=pmc>0?pBase/pmc*100:null;
-        return {label:'ROAS(자사몰)', value:roas!=null?Math.round(roas)+'%':'—',
-          tip:'기간 자사몰 매출 ÷ 기간 메타 광고비 · 메타는 자사몰 랜딩 · 광고 외 유입 매출 포함 참고 지표',
-          chips: roas!=null?[chip(d(roas,pRoas)),infoChip('메타 광고비 '+won(mc))]:[infoChip('메타 CSV/연동 시 표시')]};})(),
-      // ─ 트래픽 4종 (GA4 · 자사몰 사이트 기준) ─
       (function(){ if(RT==='biz') return {label:'방문자 수', value:'—', tip:'GA4는 자사몰(sunamfarmers.kr)만 추적', chips:[infoChip('B2B 미적용')]};
         var g=sumG(from,to), pg=sumG(pFrom,pTo);
         if(!g) return {label:'방문자 수', value:'—', tip:'GA4 연동 시 표시 — 아임웹 관리자에 GA4 측정 ID 등록 + GitHub Secrets에 GA4_PROPERTY_ID·GA4_SA_JSON 추가', chips:[infoChip('GA4 연동 필요')]};
         return {label:'방문자 수', value:g.users.toLocaleString('ko-KR')+'명',
-          tip:'기간 내 방문 사용자(GA4 totalUsers) · 세션 '+g.sessions.toLocaleString('ko-KR')+'회 · 자사몰 사이트 기준',
+          tip:'기간 내 사이트를 방문한 사람 수 · 세션(방문 횟수) '+g.sessions.toLocaleString('ko-KR')+'회 · 자사몰 기준 · 출처: GA4',
           chips:pg?[chip(d(g.users,pg.users))]:[]};})(),
       (function(){ if(RT==='biz') return {label:'페이지뷰', value:'—', tip:'GA4는 자사몰만 추적', chips:[infoChip('B2B 미적용')]};
         var g=sumG(from,to), pg=sumG(pFrom,pTo);
         if(!g) return {label:'페이지뷰', value:'—', tip:'GA4 연동 시 표시', chips:[infoChip('GA4 연동 필요')]};
         var ppv=g.sessions>0?(g.pv/g.sessions):null;
         return {label:'페이지뷰', value:g.pv.toLocaleString('ko-KR'),
-          tip:'기간 내 페이지 조회수 · 세션당 '+(ppv!=null?ppv.toFixed(1)+'p':'—')+' — 낮으면 상세페이지에서 바로 이탈 중 · 자사몰 사이트 기준',
+          tip:'기간 내 페이지 조회수 · 세션당 '+(ppv!=null?ppv.toFixed(1)+'p':'—')+' — 낮으면 상세페이지에서 바로 이탈 중 · 자사몰 기준 · 출처: GA4',
           chips:pg?[chip(d(g.pv,pg.pv))]:[]};})(),
-      (function(){ if(RT==='biz') return {label:'오가닉 트래픽 비율', value:'—', tip:'GA4는 자사몰만 추적', chips:[infoChip('B2B 미적용')]};
-        var g=sumG(from,to), pg=sumG(pFrom,pTo);
-        if(!g) return {label:'오가닉 트래픽 비율', value:'—', tip:'GA4 연동 시 표시 — 유료 광고 외 유입(검색·직접·SNS·추천) 세션 비율', chips:[infoChip('GA4 연동 필요')]};
-        var orp=g.sessions>0?g.org/g.sessions*100:null;
-        var porp=(pg&&pg.sessions>0)?pg.org/pg.sessions*100:null;
-        return {label:'오가닉 트래픽 비율', value:orp!=null?orp.toFixed(1)+'%':'—',
-          tip:'유료 광고(Paid·Display·Cross-network) 외 유입 세션 ÷ 전체 세션 · GA4 채널 그룹 기준 — 매출 오가닉 비율보다 정확한 유입 구조 지표 · 자사몰 사이트 기준',
-          chips:orp!=null?[chip(d(orp,porp)),infoChip('오가닉 세션 '+g.org.toLocaleString('ko-KR'))]:[]};})(),
       (function(){ if(RT==='biz') return {label:'구매전환율', value:'—', tip:'GA4는 자사몰만 추적', chips:[infoChip('B2B 미적용')]};
         var g=sumG(from,to), pg=sumG(pFrom,pTo);
         if(!g) return {label:'구매전환율', value:'—', tip:'GA4 연동 시 표시 — 자사몰 주문 수 ÷ GA4 세션', chips:[infoChip('GA4 연동 필요')]};
@@ -4276,13 +4268,25 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
         var cv=g.sessions>0?jOrd/g.sessions*100:null;
         var pcv=(pg&&pg.sessions>0)?pjOrd/pg.sessions*100:null;
         return {label:'구매전환율', value:cv!=null?cv.toFixed(2)+'%':'—',
-          tip:'자사몰 주문 수('+jOrd.toLocaleString('ko-KR')+'건) ÷ GA4 세션('+g.sessions.toLocaleString('ko-KR')+'회) · 이커머스 평균 1~3% · 낮으면 상세페이지·결제 과정 점검',
-          chips:cv!=null?[chip(d(cv,pcv))]:[]};})()
+          tip:'자사몰 주문 수('+jOrd.toLocaleString('ko-KR')+'건) ÷ GA4 세션('+g.sessions.toLocaleString('ko-KR')+'회) · 이커머스 평균 1~3% · 낮으면 상세페이지·결제 과정 점검 · 출처: 아임웹 주문 ÷ GA4 세션',
+          chips:cv!=null?[chip(d(cv,pcv))]:[]};})(),
+      (function(){ if(RT==='biz') return {label:'오가닉 트래픽 비율', value:'—', tip:'GA4는 자사몰만 추적', chips:[infoChip('B2B 미적용')]};
+        var g=sumG(from,to), pg=sumG(pFrom,pTo);
+        if(!g) return {label:'오가닉 트래픽 비율', value:'—', tip:'GA4 연동 시 표시 — 유료 광고 외 유입(검색·직접·SNS·추천) 세션 비율', chips:[infoChip('GA4 연동 필요')]};
+        var orp=g.sessions>0?g.org/g.sessions*100:null;
+        var porp=(pg&&pg.sessions>0)?pg.org/pg.sessions*100:null;
+        return {label:'오가닉 트래픽 비율', value:orp!=null?orp.toFixed(1)+'%':'—',
+          tip:'유료 광고(Paid·Display·Cross-network) 외 유입 세션 ÷ 전체 세션 · GA4 채널 그룹 기준 — 광고 없이 알아서 찾아온 방문 비율 · 자사몰 기준 · 출처: GA4',
+          chips:orp!=null?[chip(d(orp,porp)),infoChip('오가닉 세션 '+g.org.toLocaleString('ko-KR'))]:[]};})()
     ];
     var wrap=document.getElementById('revKpis');
     if(wrap){
-      wrap.innerHTML=kpis.map(function(c){
-        return '<div class="kpi"><div class="label">'+c.label+'</div>'+'<div class="value'+(c.tip?' ttp':'')+'"'+(c.tip?' data-tip="'+c.tip+'" style="cursor:help"':'')+'>'+c.value+'</div>'+'<div class="deltas">'+c.chips.join('')+'</div></div>';
+      var kpiCats=['매출','매출','매출','매출','고객','고객','고객','고객','트래픽','트래픽','트래픽','트래픽'];
+      wrap.innerHTML=kpis.map(function(c,ci){
+        var cat=kpiCats[ci]||'';
+        return '<div class="kpi" style="position:relative">'
+          +(cat?'<span style="position:absolute;top:10px;right:12px;font-size:9.5px;font-weight:700;letter-spacing:.5px;color:#c3cdc7">'+cat+'</span>':'')
+          +'<div class="label">'+c.label+'</div>'+'<div class="value'+(c.tip?' ttp':'')+'"'+(c.tip?' data-tip="'+c.tip+'" style="cursor:help"':'')+'>'+c.value+'</div>'+'<div class="deltas">'+c.chips.join('')+'</div></div>';
       }).join('');
       try{ if(typeof bindEvidenceTooltip==='function') bindEvidenceTooltip(); }catch(e){}
     }
@@ -4782,7 +4786,11 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
                 return '<a href="'+esc_(t)+'" target="_blank"><img class="voc-thumb" src="'+esc_(t)+'" data-full="'+esc_(t)+'" style="width:44px;height:44px;object-fit:cover;border-radius:7px;border:1px solid var(--line);cursor:zoom-in" loading="lazy"></a>';
               }).join('')+'</div>'):'';
               var qb=r.body?('<span style="color:var(--muted)"> — '+esc_(String(r.body).slice(0,100))+'</span>'):'';
-              return '<div style="padding:8px 0;border-bottom:1px solid var(--line)"><span style="font-weight:700;color:'+(w?'var(--red)':'var(--green)')+'">'+(w?'대기':'완료')+'</span> · '+r.date+' · '+r.site+pnameTag_(r)+prodLink_(r.site,r.prod)+(w?adminLink_(r.site):'')+'<br><b>'+esc_(r.subject||'(제목 없음)')+'</b>'+qb+qi+'</div>';
+              return '<div style="padding:8px 0;border-bottom:1px solid var(--line)">'
+                +'<div style="display:flex;justify-content:space-between;align-items:center;gap:10px">'
+                +'<span><span style="font-weight:700;color:'+(w?'var(--red)':'var(--green)')+'">'+(w?'대기':'완료')+'</span> · '+r.date+' · '+r.site+pnameTag_(r)+'</span>'
+                +'<span style="white-space:nowrap;flex-shrink:0">'+prodLink_(r.site,r.prod)+(w?adminLink_(r.site):'')+'</span>'
+                +'</div><b>'+esc_(r.subject||'(제목 없음)')+'</b>'+qb+qi+'</div>';
             }).join(''):'<div style="color:var(--muted);padding:8px 0">문의 없음</div>';
           } else if(CR){
             // 크리마 리뷰 (사진 포함)
@@ -4796,16 +4804,21 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
                 return '<a href="'+esc_(fullT)+'" target="_blank"><img class="voc-thumb" src="'+esc_(t)+'" data-full="'+esc_(fullT)+'" style="width:44px;height:44px;object-fit:cover;border-radius:7px;border:1px solid var(--line);cursor:zoom-in" loading="lazy"></a>';
               }).join('')+'</div>'):(/photo|video/.test(r.type||'')?'<div style="margin-top:4px;font-size:11px;color:var(--muted)">📷 사진 첨부 리뷰 (이미지 수집 중)</div>':'');
               return '<div style="padding:8px 0;border-bottom:1px solid var(--line)">'
-                +'<span style="color:'+(bad?'var(--red)':'var(--green)')+';font-weight:700">'+(r.score!=null?r.score+'점':'별점 없음')+'</span>'+(r.disp===false?' <span style="font-size:10.5px;background:#fff5f6;color:var(--red);border:1px solid #f5c2cb;border-radius:6px;padding:1px 6px">숨김</span>':'')+' · '+r.date
-                +(pn?' · <span style="color:var(--ink);font-weight:700">'+esc_(pn)+'</span>':'')
-                +(r.prod?prodLink_('자사몰',r.prod):'')
-                +'<br>'+esc_(r.msg)+th+'</div>';
+                +'<div style="display:flex;justify-content:space-between;align-items:center;gap:10px">'
+                +'<span><span style="color:'+(bad?'var(--red)':'var(--green)')+';font-weight:700">'+(r.score!=null?r.score+'점':'별점 없음')+'</span>'+(r.disp===false?' <span style="font-size:10.5px;background:#fff5f6;color:var(--red);border:1px solid #f5c2cb;border-radius:6px;padding:1px 6px">숨김</span>':'')+' · '+r.date
+                +(pn?' · <span style="color:var(--ink);font-weight:700">'+esc_(pn)+'</span>':'')+'</span>'
+                +(r.prod?'<span style="white-space:nowrap;flex-shrink:0">'+prodLink_('자사몰',r.prod)+'</span>':'')
+                +'</div>'+esc_(r.msg)+th+'</div>';
             }).join('') : '<div style="color:var(--muted);padding:8px 0">'+(window.VOC_TAB==='all'?'수집된 후기가 없습니다':'저평점 후기 없음 👍')+'</div>';
           } else {
             var revList = window.VOC_TAB==='all' ? (V.recentReviews||[]) : (V.lowRecent||[]);
             listEl.innerHTML = revList.length? revList.map(function(r){
               var bad=r.rating<=3;
-              return '<div style="padding:8px 0;border-bottom:1px solid var(--line)"><span style="color:'+(bad?'var(--red)':'var(--green)')+';font-weight:700">'+r.rating+'점</span> · '+r.date+' · '+r.site+pnameTag_(r)+prodLink_(r.site,r.prod)+'<br>'+esc_(r.body)+'</div>';
+              return '<div style="padding:8px 0;border-bottom:1px solid var(--line)">'
+                +'<div style="display:flex;justify-content:space-between;align-items:center;gap:10px">'
+                +'<span><span style="color:'+(bad?'var(--red)':'var(--green)')+';font-weight:700">'+r.rating+'점</span> · '+r.date+' · '+r.site+pnameTag_(r)+'</span>'
+                +'<span style="white-space:nowrap;flex-shrink:0">'+prodLink_(r.site,r.prod)+'</span>'
+                +'</div>'+esc_(r.body)+'</div>';
             }).join('') : '<div style="color:var(--muted);padding:8px 0">'+(window.VOC_TAB==='all'?'수집된 후기가 없습니다 (다음 수집 후 표시)':'저평점 후기 없음 👍')+'</div>';
           }
         }
