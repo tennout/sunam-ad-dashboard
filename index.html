@@ -164,13 +164,13 @@
   /* account switcher */
   .topbar-right{display:flex;align-items:center;gap:14px}
   .account-switcher{position:relative}
-  .account-btn{display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px 10px 6px 6px;cursor:pointer;font-family:inherit;font-size:13px;color:var(--ink);transition:background .15s}
+  .account-btn{display:flex;align-items:center;gap:7px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:0 10px 0 5px;height:36px;box-sizing:border-box;cursor:pointer;font-family:inherit;font-size:13px;color:var(--ink);transition:background .15s}
   .account-btn:hover{background:#f0f3f1}
-  .acc-icon{width:28px;height:28px;border-radius:8px;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px}
+  .acc-icon{width:26px;height:26px;border-radius:7px;background:#fdeaea;border:1px solid #f3c1c1;display:flex;align-items:center;justify-content:center;font-size:15px;line-height:1}
   .acc-name-wrap{display:flex;flex-direction:column;align-items:flex-start;line-height:1.2}
-  .acc-name{font-weight:700;font-size:13px}
-  .acc-sub{font-size:10.5px;color:var(--muted)}
-  .acc-caret{color:var(--muted);font-size:11px;margin-left:4px;transition:transform .2s}
+  .acc-name{font-weight:700;font-size:12.5px;line-height:1.15}
+  .acc-sub{font-size:10px;color:var(--muted);line-height:1.15}
+  .acc-caret{color:var(--ink-2);font-size:15px;margin-left:5px;transition:transform .2s}
   .account-btn.open .acc-caret{transform:rotate(180deg)}
   .account-menu{display:none;position:absolute;top:calc(100% + 8px);right:0;background:var(--card);border:1px solid var(--line);border-radius:14px;min-width:280px;box-shadow:0 12px 32px rgba(11,21,18,.14);z-index:50;overflow:hidden}
   .account-menu.open{display:block}
@@ -233,7 +233,7 @@
   /* info icon + glossary */
   .info-ic{display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;border-radius:50%;background:#e3e8e5;color:var(--ink-2);font-size:9.5px;font-weight:800;margin-left:5px;cursor:help;vertical-align:2px;font-style:normal;line-height:1;user-select:none}
   .info-ic:hover{background:var(--blue);color:#fff}
-  .glossary-btn{display:flex;align-items:center;gap:5px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:7px 10px;color:var(--ink-2);font-size:12.5px;cursor:pointer;font-family:inherit;font-weight:600;transition:background .15s}
+  .glossary-btn{display:flex;align-items:center;gap:5px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:0 12px;height:36px;box-sizing:border-box;color:var(--ink-2);font-size:12.5px;cursor:pointer;font-family:inherit;font-weight:600;transition:background .15s}
   .glossary-btn:hover{background:#f0f3f1;color:var(--ink)}
   .glossary-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0 6px}
   @media(max-width:700px){.glossary-grid{grid-template-columns:1fr}}
@@ -325,11 +325,11 @@
       <div style="display:flex;align-items:center;gap:8px">
         <button class="glossary-btn" id="glossaryBtn" title="광고 용어 설명 보기">용어</button>
         <button class="glossary-btn" id="metaConnectBtn" title="네이버·메타 등 광고 채널 API 연동 가이드">API 연동</button>
-        <span id="hdrDivider" style="width:1px;height:22px;background:var(--line);margin:0 4px;align-self:center"></span>
+        <span id="hdrDivider" style="width:1px;height:20px;background:var(--line);margin:0 4px;align-self:center"></span>
         <a class="glossary-btn" id="adCalendarBtn" href="https://docs.google.com/spreadsheets/d/1xNYkMW4uc3oSUGJi5lh7fq7xkManfgJyv4YBgbXvFek/edit?gid=341240343#gid=341240343" target="_blank" title="광고 운영 캘린더 (구글시트)" style="text-decoration:none;color:var(--ink);font-weight:700">📅 광고 운영 캘린더</a>
         <div class="account-switcher">
           <button class="account-btn" id="accountBtn" aria-haspopup="true" aria-expanded="false">
-            <span class="acc-icon" id="accBtnIcon">선</span>
+            <span class="acc-icon" id="accBtnIcon">🍎</span>
             <span class="acc-name-wrap">
               <span class="acc-name" id="accBtnName">선암파머스</span>
               <span class="acc-sub" id="accBtnSub">샘플</span>
@@ -3370,7 +3370,7 @@ async function switchAccount(acct){
   CURRENT_ACCT = acct;
   loadAccountUploads();
   // UI 업데이트
-  document.getElementById('accBtnIcon').textContent = (acct.name||'·').slice(0,1);
+  document.getElementById('accBtnIcon').textContent = '🍎';
   document.getElementById('accBtnName').textContent = acct.name;
   document.getElementById('accBtnSub').textContent  = acct.status==='sample'?'샘플 데이터':(acct.status==='blank'?'데이터 없음':('ID '+acct.customerId));
 
@@ -4022,7 +4022,8 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
       var rp=document.getElementById('revPanel'); if(rp) rp.style.display='block';
       var rs=document.getElementById('revStrip'); if(rs) rs.style.display='none';
       if(title) title.textContent='선암파머스 자사몰 운영 대시보드';
-      ['glossaryBtn','metaConnectBtn','hdrDivider','adCalendarBtn'].forEach(function(id){ var b=document.getElementById(id); if(b) b.style.display='none'; });
+      ['glossaryBtn','metaConnectBtn','hdrDivider'].forEach(function(id){ var b=document.getElementById(id); if(b) b.style.display='none'; });
+      var ac2=document.getElementById('adCalendarBtn'); if(ac2) ac2.style.display='flex';
       if(sub){ if(ADS_SUB===null) ADS_SUB=sub.textContent; sub.textContent='아임웹 자사몰(B2C)·비즈몰(B2B) · 주문/회원 데이터 매일 05시 자동 갱신 · 데이터 기간 최근 130일'; }
       if(lu){ if(ADS_LU===null) ADS_LU=lu.textContent;
         lu.textContent = REV_UPDATED ? '데이터 수집 '+REV_UPDATED.toLocaleString('ko-KR',{timeZone:'Asia/Seoul'})+' (한국시간)' : '—'; }
