@@ -127,6 +127,24 @@ def main():
     token = get_token(app_id, secret)
     today = datetime.date.today()
 
+    # 진단: 포토 리뷰 직접 조회 (photo=1) — 크리마 문의용 증거 로그
+    try:
+        pr = requests.get(f'{API}/v1/reviews', params={
+            'access_token': token, 'limit': 5, 'photo': 1,
+            'start_date': (today - datetime.timedelta(days=44)).isoformat(),
+            'end_date': today.isoformat(), 'date_order_desc': 1}, timeout=30)
+        pj = pr.json() if pr.ok else None
+        if isinstance(pj, list):
+            print(f'[진단] photo=1 조회: {len(pj)}건')
+            for x in pj[:3]:
+                print(f"[진단]  id={x.get('id')} date={str(x.get('created_at'))[:10]} "
+                      f"type={x.get('review_type')} images_count={x.get('images_count')} "
+                      f"images={len(x.get('images') or [])}")
+        else:
+            print(f'[진단] photo=1 조회 실패: HTTP {pr.status_code} {str(pr.text)[:200]}')
+    except Exception as e:
+        print(f'[진단] photo=1 조회 예외: {e}')
+
     # 기존 데이터 로드 (병합·영구 보존)
     prev = {}
     if os.path.exists(OUT):
