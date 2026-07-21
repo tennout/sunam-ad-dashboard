@@ -5256,9 +5256,10 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
     document.querySelectorAll('[data-csv]').forEach(function(b){
       b.addEventListener('click',function(){ csvDl_(b.dataset.csv); });
     });
-    setMode('ads');
     // URL로 탭 지정: …/#store = 자사몰 운영, …/#ads = 광고 운영 (새로고침·즐겨찾기·공유 시 유지)
+    // ※ setMode가 해시를 덮어쓰므로 반드시 setMode('ads')보다 먼저 읽어야 함
     var wantRev=(location.hash==='#store'||location.hash==='#rev'||location.hash==='#jasa');
+    setMode('ads');
     try{
       var sp=sessionStorage.getItem('REV_PW');
       var lastMode=sessionStorage.getItem('DASH_MODE');
