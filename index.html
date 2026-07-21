@@ -4554,10 +4554,10 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
       }
       function pageLink_(p){
         var raw=String(p||'');
-        if(raw.charAt(0)!=='/') return '<span>'+raw+'</span>';
+        if(raw.charAt(0)!=='/') return '<span style="color:var(--muted)">'+raw+'</span>';
         var url=(SITE_URLS['자사몰']||'')+raw;
         var pn=raw.length>26?raw.slice(0,26)+'…':raw;
-        return '<a href="'+url.replace(/"/g,'&quot;')+'" target="_blank" style="color:var(--blue);text-decoration:none" title="새 창으로 열기">'+pn+' ↗</a>';
+        return '<a href="'+url.replace(/"/g,'&quot;')+'" target="_blank" title="새 창으로 열기" style="display:flex;justify-content:space-between;align-items:center;gap:8px;color:var(--ink);text-decoration:none"><span>'+pn+'</span><span style="color:var(--blue);font-weight:700;flex-shrink:0">↗</span></a>';
       }
       function renderLandRight(){
         var wrap=document.getElementById('revTrfLandWrap');

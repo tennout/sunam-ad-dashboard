@@ -166,7 +166,7 @@ def main():
     for w in WINDOWS:
         agg_l = {}
         for row in run_report(pid, token, ['landingPagePlusQueryString'], w,
-                              limit=300, order_by_sessions=True):
+                              limit=10000, order_by_sessions=True):
             name = norm_page(row['dimensionValues'][0]['value'])
             sess, users, pv, rev, trans = _mvals(row)
             a = agg_l.setdefault(name, {'name': name, 'sess': 0, 'rev': 0, 'trans': 0})
@@ -178,7 +178,7 @@ def main():
     camp_landing = {}
     for w in WINDOWS:
         rows3 = run_report(pid, token, ['sessionCampaignName', 'landingPagePlusQueryString'],
-                           w, limit=500, order_by_sessions=True)
+                           w, limit=20000, order_by_sessions=True)
         agg_c = {}
         for row in rows3:
             camp = row['dimensionValues'][0]['value']
