@@ -154,11 +154,26 @@ def main():
     print('랜딩페이지별 수집...')
     landing = dim_report(pid, token, 'landingPage')
 
+    # 채널 × 소스 상세 (도넛 클릭 드릴다운용)
+    print('채널×소스별 수집...')
+    ch_sources = {}
+    for w in WINDOWS:
+        rows2 = run_report(pid, token, ['sessionDefaultChannelGroup', 'sessionSourceMedium'],
+                           w, limit=120, order_by_sessions=True)
+        lst = []
+        for row in rows2:
+            ch = row['dimensionValues'][0]['value']
+            srcm = row['dimensionValues'][1]['value']
+            sess, users, pv, rev, trans = _mvals(row)
+            lst.append({'ch': ch, 'name': srcm, 'sess': sess, 'rev': rev, 'trans': trans})
+        ch_sources[str(w)] = lst
+
     out = {'updated': datetime.datetime.now(datetime.timezone.utc).isoformat(),
            'daily': [daily[k] for k in sorted(daily)],
            'channels': channels,
            'campaigns': campaigns,
-           'landing': landing}
+           'landing': landing,
+           'chSources': ch_sources}
     os.makedirs('data', exist_ok=True)
     with open('data/ga4_daily.json.enc', 'w', encoding='utf-8') as f:
         f.write(encrypt_json(out, pw))

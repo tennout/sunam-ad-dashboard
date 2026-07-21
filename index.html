@@ -325,6 +325,8 @@
       <div style="display:flex;align-items:center;gap:8px">
         <button class="glossary-btn" id="glossaryBtn" title="광고 용어 설명 보기">용어</button>
         <button class="glossary-btn" id="metaConnectBtn" title="네이버·메타 등 광고 채널 API 연동 가이드">API 연동</button>
+        <span id="hdrDivider" style="width:1px;height:22px;background:var(--line);margin:0 4px;align-self:center"></span>
+        <a class="glossary-btn" id="adCalendarBtn" href="https://docs.google.com/spreadsheets/d/1xNYkMW4uc3oSUGJi5lh7fq7xkManfgJyv4YBgbXvFek/edit?gid=341240343#gid=341240343" target="_blank" title="광고 운영 캘린더 (구글시트)" style="text-decoration:none;color:var(--ink);font-weight:700">📅 광고 운영 캘린더</a>
         <div class="account-switcher">
           <button class="account-btn" id="accountBtn" aria-haspopup="true" aria-expanded="false">
             <span class="acc-icon" id="accBtnIcon">선</span>
@@ -862,13 +864,10 @@
       <div id="revTrafficBody">
         <div class="grid2" style="margin-bottom:16px">
           <div>
-            <div style="font-weight:700;font-size:13px;margin-bottom:6px">채널별 유입 비중 <span style="font-size:11.5px;font-weight:400;color:var(--muted)">세션 기준</span></div>
+            <div style="font-weight:700;font-size:13px;margin-bottom:6px">채널별 유입 비중 <span style="font-size:11.5px;font-weight:400;color:var(--muted)">세션 기준 · 조각 클릭 → 오른쪽에 채널 상세</span></div>
             <div style="height:280px"><canvas id="revTrfChart"></canvas></div>
           </div>
-          <div>
-            <div style="font-weight:700;font-size:13px;margin-bottom:6px">채널별 성과 <span style="font-size:11.5px;font-weight:400;color:var(--muted)">어디서 온 손님이 사는가</span></div>
-            <div class="scroll"><table><thead><tr><th style="text-align:left">채널</th><th>세션</th><th>비중</th><th>전환율</th><th>매출</th></tr></thead><tbody id="revTrfBody"></tbody></table></div>
-          </div>
+          <div id="revTrfRight"></div>
         </div>
         <div class="grid2">
           <div>
@@ -4023,7 +4022,7 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
       var rp=document.getElementById('revPanel'); if(rp) rp.style.display='block';
       var rs=document.getElementById('revStrip'); if(rs) rs.style.display='none';
       if(title) title.textContent='선암파머스 자사몰 운영 대시보드';
-      ['glossaryBtn','metaConnectBtn'].forEach(function(id){ var b=document.getElementById(id); if(b) b.style.display='none'; });
+      ['glossaryBtn','metaConnectBtn','hdrDivider','adCalendarBtn'].forEach(function(id){ var b=document.getElementById(id); if(b) b.style.display='none'; });
       if(sub){ if(ADS_SUB===null) ADS_SUB=sub.textContent; sub.textContent='아임웹 자사몰(B2C)·비즈몰(B2B) · 주문/회원 데이터 매일 05시 자동 갱신 · 데이터 기간 최근 130일'; }
       if(lu){ if(ADS_LU===null) ADS_LU=lu.textContent;
         lu.textContent = REV_UPDATED ? '데이터 수집 '+REV_UPDATED.toLocaleString('ko-KR',{timeZone:'Asia/Seoul'})+' (한국시간)' : '—'; }
@@ -4035,6 +4034,8 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
       var rs=document.getElementById('revStrip'); if(rs) rs.style.display=RAW?'flex':'none';
       if(title) title.textContent='선암파머스 광고 대시보드';
       ['glossaryBtn','metaConnectBtn'].forEach(function(id){ var b=document.getElementById(id); if(b) b.style.display=''; });
+      var hd=document.getElementById('hdrDivider'); if(hd) hd.style.display='';
+      var ac=document.getElementById('adCalendarBtn'); if(ac) ac.style.display='flex';
       if(sub&&ADS_SUB!==null){ sub.textContent=ADS_SUB; ADS_SUB=null; }
       if(lu&&ADS_LU!==null){ lu.textContent=ADS_LU; ADS_LU=null; }
     }
@@ -4293,7 +4294,7 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
           : '';
       } else { mixEl.innerHTML = hasMix?'':'<div style="color:var(--muted);font-size:12px">매출 구성(신규/재구매/비회원)은 다음 데이터 수집 후 표시됩니다</div>'; }
     }
-    // 트래픽 분석 (GA4 · 채널/캠페인/랜딩)
+    // 트래픽 분석 (GA4 · 채널/캠페인/랜딩 · 도넛 클릭 드릴다운)
     (function(){
       var tp=document.getElementById('revTraffic');
       if(!tp) return;
@@ -4304,6 +4305,7 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
       if(!G||!G.channels){ tp.style.display='block'; showEmpty('GA4 트래픽 데이터 수집 대기 중 — fetch_ga4.py 새 버전 커밋 + imweb-sync 실행 후 표시됩니다.'); return; }
       tp.style.display='block'; if(body) body.style.display='block'; if(empty) empty.style.display='none';
       var CH_KO={'Organic Search':'자연 검색','Direct':'직접 유입','Organic Social':'SNS (무료)','Paid Social':'메타 광고','Referral':'추천 링크','Email':'이메일','Organic Shopping':'쇼핑 무료 노출','Paid Search':'유료 검색','Display':'디스플레이','Cross-network':'크로스 네트워크','Unassigned':'미분류','Organic Video':'동영상 (무료)'};
+      function koCh(c){ return CH_KO[c]||c; }
       // 채널별 집계 (기간 연동)
       var agg={}, tot={sess:0,rev:0,trans:0};
       G.channels.forEach(function(r){
@@ -4313,35 +4315,83 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
         tot.sess+=r.sess; tot.rev+=r.rev; tot.trans+=r.trans;
       });
       var chList=Object.keys(agg).map(function(k){return {ch:k,sess:agg[k].sess,rev:agg[k].rev,trans:agg[k].trans};}).sort(function(a,b){return b.sess-a.sess;});
-      var tb=document.getElementById('revTrfBody');
-      if(tb){
-        tb.innerHTML=chList.length?chList.map(function(x){
-          var cvr=x.sess>0?(x.trans/x.sess*100).toFixed(2)+'%':'—';
-          return '<tr><td style="text-align:left">'+(CH_KO[x.ch]||x.ch)+'</td><td>'+x.sess.toLocaleString('ko-KR')+'</td><td>'+(tot.sess>0?(x.sess/tot.sess*100).toFixed(1):'0')+'%</td><td>'+cvr+'</td><td>'+won(x.rev)+'</td></tr>';
-        }).join(''):'<tr><td colspan="5" style="color:var(--muted)">선택 기간 데이터 없음</td></tr>';
+      var len2=Math.round((new Date(to)-new Date(from))/86400000)+1;
+      var win=[7,14,30,60,130].filter(function(w){return w>=len2;})[0]||130;
+      if(window.TRF_SEL&&!agg[window.TRF_SEL]) window.TRF_SEL=null;
+      // ── 우측: 전체 채널 표 or 선택 채널 소스 상세
+      var right=document.getElementById('revTrfRight');
+      if(right){
+        var h='';
+        if(window.TRF_SEL){
+          var sel=window.TRF_SEL, sa=agg[sel];
+          var cvrS=sa.sess>0?(sa.trans/sa.sess*100).toFixed(2)+'%':'—';
+          h+='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">'
+            +'<span style="font-weight:700;font-size:13px">'+koCh(sel)+' 상세 <span style="font-size:11.5px;font-weight:400;color:var(--muted)">세션 '+sa.sess.toLocaleString('ko-KR')+' · 전환율 '+cvrS+' · '+won(sa.rev)+'</span></span>'
+            +'<a href="#" id="revTrfReset" style="font-size:12px;color:var(--blue);font-weight:700;text-decoration:none">← 전체 채널</a></div>';
+          var srcs=((G.chSources&&G.chSources[String(win)])||[]).filter(function(x){return x.ch===sel;});
+          if(srcs.length){
+            h+='<div class="scroll"><table><thead><tr><th style="text-align:left">소스 / 매체</th><th>세션</th><th>전환율</th><th>매출</th></tr></thead><tbody>'
+              +srcs.slice(0,12).map(function(x){
+                var cvr=x.sess>0?(x.trans/x.sess*100).toFixed(2)+'%':'—';
+                var nm=String(x.name||'(없음)'); if(nm.length>30) nm=nm.slice(0,30)+'…';
+                return '<tr><td style="text-align:left">'+nm+'</td><td>'+x.sess.toLocaleString('ko-KR')+'</td><td>'+cvr+'</td><td>'+won(x.rev)+'</td></tr>';
+              }).join('')+'</tbody></table></div>'
+              +'<div class="hint" style="margin-top:6px">최근 '+win+'일 기준 · 소스/매체 = 실제 유입처 (예: instagram.com / referral)</div>';
+          } else {
+            // 소스 데이터 없으면 일별 추이로 폴백
+            var days={};
+            G.channels.forEach(function(r){ if(r.ch!==sel||r.date<from||r.date>to) return; var d2=days[r.date]||(days[r.date]={sess:0,rev:0,trans:0}); d2.sess+=r.sess; d2.rev+=r.rev; d2.trans+=r.trans; });
+            var dl=Object.keys(days).sort().reverse();
+            h+='<div class="scroll"><table><thead><tr><th style="text-align:left">날짜</th><th>세션</th><th>구매</th><th>매출</th></tr></thead><tbody>'
+              +dl.slice(0,14).map(function(d3){ var x=days[d3]; return '<tr><td style="text-align:left">'+d3+'</td><td>'+x.sess.toLocaleString('ko-KR')+'</td><td>'+x.trans+'</td><td>'+won(x.rev)+'</td></tr>'; }).join('')
+              +'</tbody></table></div><div class="hint" style="margin-top:6px">소스 상세는 다음 수집부터 표시됩니다 — 지금은 일별 추이</div>';
+          }
+        } else {
+          h+='<div style="font-weight:700;font-size:13px;margin-bottom:6px">채널별 성과 <span style="font-size:11.5px;font-weight:400;color:var(--muted)">행 클릭 → 채널 상세</span></div>'
+            +'<div class="scroll"><table><thead><tr><th style="text-align:left">채널</th><th>세션</th><th>비중</th><th>전환율</th><th>매출</th></tr></thead><tbody>'
+            +(chList.length?chList.map(function(x){
+              var cvr=x.sess>0?(x.trans/x.sess*100).toFixed(2)+'%':'—';
+              return '<tr data-ch="'+x.ch.replace(/"/g,'&quot;')+'" style="cursor:pointer"><td style="text-align:left">'+koCh(x.ch)+'</td><td>'+x.sess.toLocaleString('ko-KR')+'</td><td>'+(tot.sess>0?(x.sess/tot.sess*100).toFixed(1):'0')+'%</td><td>'+cvr+'</td><td>'+won(x.rev)+'</td></tr>';
+            }).join(''):'<tr><td colspan="5" style="color:var(--muted)">선택 기간 데이터 없음</td></tr>')
+            +'</tbody></table></div>';
+        }
+        right.innerHTML=h;
+        var rs=document.getElementById('revTrfReset');
+        if(rs) rs.addEventListener('click',function(e){ e.preventDefault(); window.TRF_SEL=null; renderRev(); });
+        right.querySelectorAll('tr[data-ch]').forEach(function(tr){
+          tr.addEventListener('click',function(){ window.TRF_SEL=tr.dataset.ch; renderRev(); });
+        });
       }
-      // 도넛
+      // ── 도넛 (클릭 = 선택/해제, 선택 조각 강조)
       var cvT=document.getElementById('revTrfChart');
       if(cvT&&window.Chart&&chList.length){
         if(window.CH_TRF){ window.CH_TRF.destroy(); window.CH_TRF=null; }
         var topC=chList.slice(0,6);
         var etcS=tot.sess-topC.reduce(function(s,x){return s+x.sess;},0);
-        var labs=topC.map(function(x){return CH_KO[x.ch]||x.ch;});
+        var keys=topC.map(function(x){return x.ch;});
+        var labs=topC.map(function(x){return koCh(x.ch);});
         var vals=topC.map(function(x){return x.sess;});
-        if(etcS>0){ labs.push('기타'); vals.push(etcS); }
-        var cols=['#03c75a','#2563eb','#f59e0b','#7c3aed','#e11d48','#0ea5e9','#c2c9c5'].slice(0,vals.length);
+        if(etcS>0){ keys.push(null); labs.push('기타'); vals.push(etcS); }
+        var baseCols=['#03c75a','#2563eb','#f59e0b','#7c3aed','#e11d48','#0ea5e9','#c2c9c5'];
+        var cols=keys.map(function(k,i){ var c=baseCols[i%baseCols.length]; return (window.TRF_SEL&&k!==window.TRF_SEL)?c+'55':c; });
+        var offs=keys.map(function(k){ return (window.TRF_SEL&&k===window.TRF_SEL)?14:0; });
         var dl = window.ChartDataLabels ? {color:'#fff',font:{weight:'700',size:11},
           formatter:function(v){ var p=tot.sess>0?v/tot.sess*100:0; return p>=6?p.toFixed(0)+'%':null; }} : {display:false};
         window.CH_TRF=new Chart(cvT,{type:'doughnut',
           plugins: window.ChartDataLabels?[ChartDataLabels]:[],
-          data:{labels:labs,datasets:[{data:vals,backgroundColor:cols,borderColor:'#fff',borderWidth:2}]},
-          options:{responsive:true,maintainAspectRatio:false,cutout:'52%',layout:{padding:4},
+          data:{labels:labs,datasets:[{data:vals,backgroundColor:cols,borderColor:'#fff',borderWidth:2,offset:offs}]},
+          options:{responsive:true,maintainAspectRatio:false,cutout:'52%',layout:{padding:10},
+            onClick:function(e,els){
+              if(!els||!els.length) return;
+              var k=keys[els[0].index];
+              if(k==null) return;
+              window.TRF_SEL = (window.TRF_SEL===k)? null : k;
+              renderRev();
+            },
             plugins:{legend:{position:'bottom',labels:{boxWidth:10,boxHeight:10,padding:10,font:{size:11}}},datalabels:dl,
               tooltip:{callbacks:{label:function(c){ var p=tot.sess>0?(c.parsed/tot.sess*100).toFixed(1):'0'; return c.label+': '+c.parsed.toLocaleString('ko-KR')+'세션 ('+p+'%)'; }}}}}});
       }
-      // 캠페인·랜딩 (최소 포함 구간)
-      var len2=Math.round((new Date(to)-new Date(from))/86400000)+1;
-      var win=[7,14,30,60,130].filter(function(w){return w>=len2;})[0]||130;
+      // ── 캠페인·랜딩
       var wEl=document.getElementById('revTrfCampWin');
       if(wEl) wEl.textContent='최근 '+win+'일 기준';
       function fillDim(elId, data, isLand){
