@@ -518,6 +518,21 @@
   </div>
 
   <!-- GLOSSARY MODAL -->
+  <div id="revNav" style="position:fixed;right:16px;top:50%;transform:translateY(-50%);display:none;flex-direction:column;gap:5px;z-index:60">
+    <style>
+      .rnav-btn{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:7px 12px;font-size:11.5px;font-weight:700;color:var(--ink-2);cursor:pointer;font-family:inherit;text-align:right;box-shadow:0 2px 8px rgba(0,0,0,.06);transition:all .15s;white-space:nowrap}
+      .rnav-btn:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+      @media(max-width:1520px){#revNav{display:none !important}}
+    </style>
+    <button class="rnav-btn" data-go="__top">개요 (KPI) ↑</button>
+    <button class="rnav-btn" data-go="revTraffic">트래픽</button>
+    <button class="rnav-btn" data-go="revBest">상품</button>
+    <button class="rnav-btn" data-go="revBenefit">쿠폰·포인트</button>
+    <button class="rnav-btn" data-go="revVoc">VOC</button>
+    <button class="rnav-btn" data-go="revDeep">재구매</button>
+    <button class="rnav-btn" data-go="revJasaExtra">멤버십</button>
+    <button class="rnav-btn" data-go="revBizExtra">거래처</button>
+  </div>
   <div class="modal-bg" id="glossaryModal">
     <div class="modal" style="max-width:760px">
       <h3>💡 광고 용어 설명</h3>
@@ -860,7 +875,7 @@
       <div class="hint" style="margin-top:8px">매출 구성: 신규 = 해당 기간이 생애 첫 구매 · 재구매 = 기존 고객의 반복 구매 (안정 매출) · 방문자·유입경로·상품 전환율은 아임웹이 API로 제공하지 않아 관리자 &gt; 통계(유입경로분석·상품전환분석)에서 확인</div>
     </div>
     <div class="panel" id="revTraffic" style="margin-bottom:14px">
-      <h2 style="margin:0 0 18px">트래픽 분석 <span style="font-size:12px;font-weight:400;color:var(--muted)">GA4 실측 · 자사몰 사이트 기준</span></h2>
+      <h2 style="margin:0 0 18px">트래픽 분석 <span style="font-size:12px;font-weight:400;color:var(--muted)">GA4 실측 · 자사몰 사이트 기준 · 선택 기간 <b class="selPeriod" style="color:var(--ink-2);font-weight:700"></b></span></h2>
       <div id="revTrafficBody">
         <div class="grid2" style="margin-bottom:28px">
           <div>
@@ -890,8 +905,8 @@
         .rv-pill{border:1px solid var(--line);background:var(--card);border-radius:8px;padding:4px 12px;font-size:12px;font-weight:700;color:var(--muted);cursor:pointer;font-family:inherit}
         .rv-pill.on{background:var(--ink);color:#fff;border-color:var(--ink)}
       </style>
-      <h2 style="margin:0 0 10px">상품 분석 <span style="font-size:12px;font-weight:400;color:var(--muted)">선택 기간 · 품목 매출 기준</span> <span id="revBestSum" style="font-size:12px;font-weight:700;color:var(--ink-2)"></span></h2>
-      <div class="grid2">
+      <h2 style="margin:0 0 10px">상품 분석 <span style="font-size:12px;font-weight:400;color:var(--muted)">선택 기간 <b class="selPeriod" style="color:var(--ink-2);font-weight:700"></b> · 품목 매출 기준</span> <span id="revBestSum" style="font-size:12px;font-weight:700;color:var(--ink-2)"></span></h2>
+      <div class="grid2" style="grid-template-columns:minmax(0,5fr) minmax(0,7fr)">
         <div>
           <div style="font-weight:700;font-size:13px;margin-bottom:6px;display:flex;align-items:center;gap:8px">
             <span id="revBestChartTitle">매출 비중</span>
@@ -908,13 +923,13 @@
               <option value="loyal">충성율순</option>
             </select>
           </div>
-          <div class="scroll"><table><thead><tr><th>#</th><th>상품명</th><th>수량</th><th>품목 매출</th><th>비중</th><th>충성율</th></tr></thead><tbody id="revBestBody"></tbody></table></div>
+          <div class="scroll"><table><thead><tr><th>#</th><th>상품명</th><th>수량</th><th>품목 매출</th><th>비중</th><th><span class="ttp" data-tip="이 상품을 구매한 고객 중 <b>2번 이상</b> 산 고객의 비율 (전체 기간).<br>높을수록 재구매가 잘 되는 단골 상품 — 정기구독·멤버십 제안 1순위입니다." style="border-bottom:1px dotted var(--muted);cursor:help">충성율 ⓘ</span></th></tr></thead><tbody id="revBestBody"></tbody></table></div>
         </div>
       </div>
       <div class="hint" style="margin-top:8px">품목 매출 = 상품 단위 금액 합 (배송비·쿠폰 반영 전) · 충성율 = 해당 상품 2회 이상 구매 고객 비율(전체 기간)</div>
     </div>
     <div class="panel" id="revBenefit" style="margin-bottom:14px">
-      <h2 style="margin:0 0 8px">쿠폰·포인트 사용 <span style="font-size:12px;font-weight:400;color:var(--muted)">선택 기간 · 혜택 비용 모니터링</span></h2>
+      <h2 style="margin:0 0 8px">쿠폰·포인트 사용 <span style="font-size:12px;font-weight:400;color:var(--muted)">선택 기간 <b class="selPeriod" style="color:var(--ink-2);font-weight:700"></b> · 혜택 비용 모니터링</span></h2>
       <div id="revBenefitCards" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px"></div>
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;cursor:pointer" id="revCouponHead">
         <span style="font-weight:700;font-size:13px">쿠폰별 사용 현황 <span style="font-size:11.5px;font-weight:400;color:var(--muted)">발행·사용은 쿠폰 생성 이후 누적</span> <span id="revCouponCaret" style="font-size:12px;color:var(--ink-2)">▸ 펼치기</span></span>
@@ -928,7 +943,7 @@
       <div class="hint" style="margin-top:6px">멤버십 쿠폰사용 비중 = 기간 내 쿠폰 사용 주문 중 그린애플+ 회원 주문 비율 · 페이백 포인트 회수는 포인트 사용 주문율로 근사 확인</div>
     </div>
     <div class="panel" id="revVoc" style="margin-bottom:14px">
-      <h2 style="margin:0 0 8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">VOC — 후기·문의 <span style="font-size:12px;font-weight:400;color:var(--muted)">고객 목소리 · 품질 조기경보</span>
+      <h2 style="margin:0 0 8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">VOC — 후기·문의 <span style="font-size:12px;font-weight:400;color:var(--muted)">고객 목소리 · 품질 조기경보 · 선택 기간 <b class="selPeriod" style="color:var(--ink-2);font-weight:700"></b></span>
         <a href="https://docs.google.com/spreadsheets/d/18Zs1SbKbAAl1enNiswx_G_GmARI4hshum8ErE2m1EI0/edit" target="_blank" style="margin-left:auto;font-size:12px;font-weight:700;color:var(--blue);text-decoration:none;border:1px solid var(--line);border-radius:8px;padding:5px 10px">시트에서 전체 보기</a></h2>
       <div id="revVocCards" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px"></div>
       <div class="grid2">
@@ -982,7 +997,7 @@
               <option value="buyers">구매고객순</option>
             </select>
           </div>
-          <div class="scroll"><table><thead><tr><th style="text-align:left">상품명</th><th>구매 고객</th><th>반복 구매</th><th>충성율</th></tr></thead><tbody id="revDeepLoyal"></tbody></table></div>
+          <div class="scroll"><table><thead><tr><th style="text-align:left">상품명</th><th>구매 고객</th><th>반복 구매</th><th><span class="ttp" data-tip="이 상품을 구매한 고객 중 <b>2번 이상</b> 산 고객의 비율 (전체 기간)." style="border-bottom:1px dotted var(--muted);cursor:help">충성율 ⓘ</span></th></tr></thead><tbody id="revDeepLoyal"></tbody></table></div>
         </div>
         <div>
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
@@ -4019,6 +4034,7 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
         el.style.display='none';
       });
       var rp=document.getElementById('revPanel'); if(rp) rp.style.display='block';
+      var rn=document.getElementById('revNav'); if(rn) rn.style.display='flex';
       var rs=document.getElementById('revStrip'); if(rs) rs.style.display='none';
       if(title) title.textContent='선암파머스 자사몰 운영 대시보드';
       ['glossaryBtn','metaConnectBtn','hdrDivider'].forEach(function(id){ var b=document.getElementById(id); if(b) b.style.display='none'; });
@@ -4031,6 +4047,7 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
         if(el.dataset.revHidden==='1'){ el.style.display=el.dataset.revPrev||''; delete el.dataset.revHidden; delete el.dataset.revPrev; }
       });
       var rp=document.getElementById('revPanel'); if(rp) rp.style.display='none';
+      var rn=document.getElementById('revNav'); if(rn) rn.style.display='none';
       var rs=document.getElementById('revStrip'); if(rs) rs.style.display=RAW?'flex':'none';
       if(title) title.textContent='선암파머스 광고 대시보드';
       ['glossaryBtn','metaConnectBtn'].forEach(function(id){ var b=document.getElementById(id); if(b) b.style.display=''; });
@@ -4112,6 +4129,9 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
     var len=Math.round((new Date(to)-new Date(from))/86400000)+1;
     var pFrom=addD(from,-len), pTo=addD(from,-1);
     var cur=sumP(from,to), prev=sumP(pFrom,pTo);
+    document.querySelectorAll('.selPeriod').forEach(function(el){
+      el.textContent = from.slice(5).replace('-','.')+' ~ '+to.slice(5).replace('-','.');
+    });
     var rr=document.getElementById('revRange');
     if(rr) rr.textContent='선택 기간 '+from+' ~ '+to+' ('+len+'일) · 비교 기간 '+pFrom+' ~ '+pTo;
     var di1=document.getElementById('revDStart'), di2=document.getElementById('revDEnd');
@@ -4712,6 +4732,13 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
     if(bx) bx.style.display = RT==='biz'?'block':'none';
     if(RT==='jasa') renderJasaExtra();
     if(RT==='biz') renderBizExtra();
+    // 플로팅 네비: 현재 탭에서 보이는 섹션만 버튼 노출
+    document.querySelectorAll('#revNav .rnav-btn').forEach(function(b){
+      var id=b.dataset.go;
+      if(id==='__top'){ b.style.display='block'; return; }
+      var el=document.getElementById(id);
+      b.style.display = (el && el.style.display!=='none') ? 'block' : 'none';
+    });
   }
 
   function renderJasaExtra(){
@@ -4863,6 +4890,13 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
     });
     var rstEl=document.getElementById('revBestReset');
     if(rstEl) rstEl.addEventListener('click',function(e){ e.preventDefault(); window.BEST_SEL=null; renderRev(); });
+    var rnav=document.getElementById('revNav');
+    if(rnav) rnav.addEventListener('click',function(e){
+      var b=e.target.closest('.rnav-btn'); if(!b) return;
+      if(b.dataset.go==='__top'){ window.scrollTo({top:0,behavior:'smooth'}); return; }
+      var el=document.getElementById(b.dataset.go);
+      if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+    });
     var cpnHead=document.getElementById('revCouponHead');
     if(cpnHead) cpnHead.addEventListener('click',function(){
       var w=document.getElementById('revCouponWrap'), c=document.getElementById('revCouponCaret'), s=document.getElementById('revCouponSort');
