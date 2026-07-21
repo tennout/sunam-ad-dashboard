@@ -943,9 +943,9 @@
       <h2 style="margin:0 0 8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">VOC — 후기·문의 <span style="font-size:12px;font-weight:400;color:var(--muted)"><span id="vocSrcTag">고객 목소리 · 품질 조기경보</span> · 선택 기간 <b class="selPeriod" style="color:var(--ink-2);font-weight:700"></b></span>
         <a href="https://docs.google.com/spreadsheets/d/18Zs1SbKbAAl1enNiswx_G_GmARI4hshum8ErE2m1EI0/edit" target="_blank" style="margin-left:auto;font-size:12px;font-weight:700;color:var(--blue);text-decoration:none;border:1px solid var(--line);border-radius:8px;padding:5px 10px">시트에서 전체 보기</a></h2>
       <div id="revVocCards" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px"></div>
-      <div class="grid2">
+      <div class="grid2" style="grid-template-columns:minmax(0,5fr) minmax(0,7fr)">
         <div>
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;height:28px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;height:28px">
             <span style="font-weight:700;font-size:13px">별점 추이 <span style="font-size:11.5px;font-weight:400;color:var(--muted)">막대 = 후기 수 · 선 = 평균 별점</span></span>
             <select class="rv-sort" id="revVocRange">
               <option value="auto">대시보드 기간</option>
@@ -959,9 +959,12 @@
         </div>
         <div>
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;height:28px">
-            <span style="display:flex;gap:6px">
-              <button class="rv-pill on" data-vt="low">저평점 후기</button>
-              <button class="rv-pill" data-vt="all">전체 후기</button>
+            <span style="display:flex;align-items:center">
+              <span style="display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden">
+                <button class="rv-pill on" data-vt="low" style="border:none;border-radius:0">저평점 후기</button>
+                <button class="rv-pill" data-vt="all" style="border:none;border-radius:0;border-left:1px solid var(--line)">전체 후기</button>
+              </span>
+              <span style="width:1px;height:18px;background:var(--line);margin:0 10px"></span>
               <button class="rv-pill" data-vt="qna">1:1 문의</button>
             </span>
             <span style="display:flex;gap:6px;align-items:center">
@@ -4333,14 +4336,19 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
       var bc=document.getElementById('revBenefitCards');
       if(bc){
         var hasB = RAW.daily&&RAW.daily.length&&RAW.daily[RAW.daily.length-1].jasaCouponOrd!=null;
-        function bcard(t,v,s){ return '<div style="flex:1;min-width:150px;background:#fafcfb;border:1px solid var(--line);border-radius:12px;padding:10px 14px"><div style="font-size:11.5px;color:var(--muted)">'+t+'</div><div style="font-size:17px;font-weight:800;margin-top:2px">'+v+'</div>'+(s?'<div style="font-size:11px;color:var(--ink-2);margin-top:2px">'+s+'</div>':'')+'</div>'; }
+        function bcard(t,v,s,tip){ return '<div'+(tip?' class="ttp" data-tip="'+tip+'"':'')+' style="flex:1;min-width:150px;background:#fafcfb;border:1px solid var(--line);border-radius:12px;padding:10px 14px'+(tip?';cursor:help':'')+'"><div style="font-size:11.5px;color:var(--muted)">'+t+'</div><div style="font-size:17px;font-weight:800;margin-top:2px">'+v+'</div>'+(s?'<div style="font-size:11px;color:var(--ink-2);margin-top:2px">'+s+'</div>':'')+'</div>'; }
         if(hasB){
           bc.innerHTML =
-            bcard('쿠폰 사용 주문율', cur.ord>0?(cur.couponOrd/cur.ord*100).toFixed(1)+'%':'—', cur.couponOrd.toLocaleString('ko-KR')+'건')
-            +bcard('쿠폰 할인액', won(cur.coupon), cur.rev>0?'매출 대비 '+(cur.coupon/cur.rev*100).toFixed(1)+'%':'')
-            +bcard('포인트 사용 주문율', cur.ord>0?(cur.pointOrd/cur.ord*100).toFixed(1)+'%':'—', cur.pointOrd.toLocaleString('ko-KR')+'건')
-            +bcard('포인트 사용액', won(cur.point), cur.rev>0?'매출 대비 '+(cur.point/cur.rev*100).toFixed(1)+'%':'')
-            +bcard('멤버십 쿠폰사용 비중', cur.couponOrd>0?(cur.tierCpn/cur.couponOrd*100).toFixed(1)+'%':'—', '쿠폰 주문 중 그린애플+ 비중');
+            bcard('쿠폰 사용 주문율', cur.ord>0?(cur.couponOrd/cur.ord*100).toFixed(1)+'%':'—', cur.couponOrd.toLocaleString('ko-KR')+'건',
+              '기간 내 쿠폰을 쓴 주문 비율 · 계산: 쿠폰 사용 주문 ÷ 전체 주문 · 출처: 아임웹 주문')
+            +bcard('쿠폰 할인액', won(cur.coupon), cur.rev>0?'매출 대비 '+(cur.coupon/cur.rev*100).toFixed(1)+'%':'',
+              '기간 내 쿠폰으로 할인해 준 총액 — 프로모션 비용 · 계산: 주문별 쿠폰 할인 합 · 출처: 아임웹 주문')
+            +bcard('포인트 사용 주문율', cur.ord>0?(cur.pointOrd/cur.ord*100).toFixed(1)+'%':'—', cur.pointOrd.toLocaleString('ko-KR')+'건',
+              '기간 내 포인트를 쓴 주문 비율 · 계산: 포인트 사용 주문 ÷ 전체 주문 · 출처: 아임웹 주문')
+            +bcard('포인트 사용액', won(cur.point), cur.rev>0?'매출 대비 '+(cur.point/cur.rev*100).toFixed(1)+'%':'',
+              '기간 내 결제에 쓰인 포인트 총액 · 계산: 주문별 포인트 사용 합 · 출처: 아임웹 주문')
+            +bcard('멤버십 쿠폰사용 비중', cur.couponOrd>0?(cur.tierCpn/cur.couponOrd*100).toFixed(1)+'%':'—', '쿠폰 주문 중 그린애플+ 비중',
+              '쿠폰 쓴 주문 중 그린애플 이상 등급 회원의 비중 — 멤버십 혜택이 잘 쓰이는지 · 계산: 그린애플+ 쿠폰 주문 ÷ 쿠폰 주문 · 출처: 아임웹 주문+회원');
           // 쿠폰별 사용 현황 (아임웹 누적 집계)
           var ct=document.getElementById('revCouponBody');
           if(ct){
@@ -4388,11 +4396,14 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
       var hasMix = RAW.daily&&RAW.daily.length&&RAW.daily[RAW.daily.length-1].jasaNewRev!=null;
       if(hasMix&&cur.rev>0){
         var mixTot=cur.newRev+cur.retRev+cur.guestRev;
-        function mcard(t,v,s,col){ return '<div style="flex:1;min-width:150px;background:#fafcfb;border:1px solid var(--line);border-radius:12px;padding:10px 14px"><div style="font-size:11.5px;color:var(--muted)">'+t+'</div><div style="font-size:17px;font-weight:800;margin-top:2px;color:'+(col||'var(--ink)')+'">'+v+'</div><div style="font-size:11px;color:var(--ink-2);margin-top:2px">'+s+'</div></div>'; }
+        function mcard(t,v,s,col,tip){ return '<div'+(tip?' class="ttp" data-tip="'+tip+'"':'')+' style="flex:1;min-width:150px;background:#fafcfb;border:1px solid var(--line);border-radius:12px;padding:10px 14px'+(tip?';cursor:help':'')+'"><div style="font-size:11.5px;color:var(--muted)">'+t+'</div><div style="font-size:17px;font-weight:800;margin-top:2px;color:'+(col||'var(--ink)')+'">'+v+'</div><div style="font-size:11px;color:var(--ink-2);margin-top:2px">'+s+'</div></div>'; }
         mixEl.innerHTML = mixTot>0?
-          mcard('신규 고객 매출', (cur.newRev/mixTot*100).toFixed(1)+'%', won(cur.newRev)+' · 생애 첫 구매','var(--blue)')
-          +mcard('재구매 고객 매출', (cur.retRev/mixTot*100).toFixed(1)+'%', won(cur.retRev)+' · 기존 고객 반복 구매','var(--green)')
-          +mcard('비회원 매출', (cur.guestRev/mixTot*100).toFixed(1)+'%', won(cur.guestRev)+' · 회원 전환 여지','')
+          mcard('신규 고객 매출', (cur.newRev/mixTot*100).toFixed(1)+'%', won(cur.newRev)+' · 생애 첫 구매','var(--blue)',
+            '기간 내 생애 첫 주문을 한 회원의 매출 비중 · 계산: 신규 매출 ÷ (신규+재구매+비회원) · 출처: 아임웹 주문+회원')
+          +mcard('재구매 고객 매출', (cur.retRev/mixTot*100).toFixed(1)+'%', won(cur.retRev)+' · 기존 고객 반복 구매','var(--green)',
+            '이전에 구매 이력이 있는 회원의 매출 비중 — 높을수록 단골 기반이 튼튼 · 계산: 재구매 매출 ÷ 전체 · 출처: 아임웹 주문+회원')
+          +mcard('비회원 매출', (cur.guestRev/mixTot*100).toFixed(1)+'%', won(cur.guestRev)+' · 회원 전환 여지','',
+            '비회원(게스트) 주문의 매출 비중 — 높으면 회원가입 유도 여지 · 계산: 비회원 매출 ÷ 전체 · 출처: 아임웹 주문')
           : '';
       } else { mixEl.innerHTML = hasMix?'':'<div style="color:var(--muted);font-size:12px">매출 구성(신규/재구매/비회원)은 다음 데이터 수집 후 표시됩니다</div>'; }
     }
@@ -4454,8 +4465,11 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
           h+='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">'
             +'<span style="font-weight:700;font-size:13px">'+koCh(sel)+' 상세 <span class="ttp" data-tip="'+desc.replace(/"/g,'&quot;')+'" style="font-size:11px;color:var(--muted);border-bottom:1px dotted var(--muted);cursor:help;font-weight:400">ⓘ 어떤 유입?</span></span>'
             +'<a href="#" id="revTrfReset" style="font-size:12px;color:var(--blue);font-weight:700;text-decoration:none">← 전체 채널</a></div>';
-          function stat(t,v){ return '<div style="flex:1;min-width:90px;background:#fafcfb;border:1px solid var(--line);border-radius:10px;padding:8px 12px"><div style="font-size:11px;color:var(--muted)">'+t+'</div><div style="font-size:17px;font-weight:800;margin-top:1px">'+v+'</div></div>'; }
-          h+='<div style="display:flex;gap:8px;margin-bottom:10px">'+stat('세션',sa.sess.toLocaleString('ko-KR'))+stat('전환율',cvrS)+stat('매출',won(sa.rev))+'</div>';
+          function stat(t,v,tip){ return '<div'+(tip?' class="ttp" data-tip="'+tip+'"':'')+' style="flex:1;min-width:90px;background:#fafcfb;border:1px solid var(--line);border-radius:10px;padding:8px 12px'+(tip?';cursor:help':'')+'"><div style="font-size:11px;color:var(--muted)">'+t+'</div><div style="font-size:17px;font-weight:800;margin-top:1px">'+v+'</div></div>'; }
+          h+='<div style="display:flex;gap:8px;margin-bottom:10px">'
+            +stat('세션',sa.sess.toLocaleString('ko-KR'),'이 채널로 들어온 방문 횟수 (기간 내) · 출처: GA4')
+            +stat('전환율',cvrS,'이 채널 방문이 구매로 이어진 비율 · 계산: 구매 ÷ 세션 · 출처: GA4')
+            +stat('매출',won(sa.rev),'이 채널 방문에서 발생한 매출 (GA4 귀속 · 취소 미반영이라 아임웹 매출과 다를 수 있음) · 출처: GA4')+'</div>';
           var srcs=((G.chSources&&G.chSources[String(win)])||[]).filter(function(x){return x.ch===sel;});
           if(srcs.length){
             h+='<div class="scroll"><table><thead><tr><th style="text-align:left">소스 / 매체</th><th>세션</th><th>전환율</th><th>매출</th></tr></thead><tbody>'
@@ -4717,19 +4731,24 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
           V.ratingDaily.forEach(function(r){ if(r.date>=vFrom&&r.date<=vTo){ pc+=r.count; ps+=r.sum; } });
         }
         var vcards=document.getElementById('revVocCards');
-        function vcard(t,v,s,warn){ return '<div style="flex:1;min-width:140px;background:'+(warn?'#fff5f6':'#fafcfb')+';border:1px solid '+(warn?'#f5c2cb':'var(--line)')+';border-radius:12px;padding:10px 14px"><div style="font-size:11.5px;color:var(--muted)">'+t+'</div><div style="font-size:17px;font-weight:800;margin-top:2px;'+(warn?'color:var(--red)':'')+'">'+v+'</div>'+(s?'<div style="font-size:11px;color:var(--ink-2);margin-top:2px">'+s+'</div>':'')+'</div>'; }
+        function vcard(t,v,s,warn,tip){ return '<div'+(tip?' class="ttp" data-tip="'+tip+'"':'')+' style="flex:1;min-width:140px;background:'+(warn?'#fff5f6':'#fafcfb')+';border:1px solid '+(warn?'#f5c2cb':'var(--line)')+';border-radius:12px;padding:10px 14px'+(tip?';cursor:help':'')+'"><div style="font-size:11.5px;color:var(--muted)">'+t+'</div><div style="font-size:17px;font-weight:800;margin-top:2px;'+(warn?'color:var(--red)':'')+'">'+v+'</div>'+(s?'<div style="font-size:11px;color:var(--ink-2);margin-top:2px">'+s+'</div>':'')+'</div>'; }
+        var vocSrc=CR?'크리마 리뷰 실측':'아임웹 후기(구글시트)';
         if(vcards){
           vcards.innerHTML =
-            vcard('기간 평균 별점', pc?(ps/pc).toFixed(2)+'점':'—', pc+'건 후기'+(vRange!=='auto'?' · 최근 '+vRange+'일 기준':''))
+            vcard('기간 평균 별점', pc?(ps/pc).toFixed(2)+'점':'—', pc+'건 후기'+(vRange!=='auto'?' · 최근 '+vRange+'일 기준':''), false,
+              '선택 기간에 달린 후기 별점 평균 · 계산: 별점 합 ÷ 후기 수 · 출처: '+vocSrc)
             +(function(){
               if(CR){
                 var d30=addD(ds(new Date()),-29), c30=0,s30=0,l30=0;
                 CR.forEach(function(r){ if(r.date>=d30&&r.score!=null){ c30++; s30+=r.score; if(r.score<=3) l30++; } });
-                return vcard('최근 30일 평균 별점', c30?(s30/c30).toFixed(2)+'점':'—', c30+'건 · 저평점 '+l30+'건 · 크리마 실측');
+                return vcard('최근 30일 평균 별점', c30?(s30/c30).toFixed(2)+'점':'—', c30+'건 · 저평점 '+l30+'건 · 크리마 실측', false,
+                  '대시보드 기간과 무관하게 오늘 기준 최근 30일 후기 평균 — 품질 조기경보용 · 저평점 = 3점 이하 · 출처: '+vocSrc);
               }
-              return vcard('최근 30일 평균 별점', V.avg30!=null?V.avg30.toFixed(2)+'점':'—', V.reviews30+'건 · 저평점 '+V.low30+'건');
+              return vcard('최근 30일 평균 별점', V.avg30!=null?V.avg30.toFixed(2)+'점':'—', V.reviews30+'건 · 저평점 '+V.low30+'건', false,
+                '대시보드 기간과 무관하게 오늘 기준 최근 30일 후기 평균 — 품질 조기경보용 · 저평점 = 3점 이하 · 출처: '+vocSrc);
             })()
-            +vcard('미답변 문의', V.waitCount+'건', V.waitCount>0?'답변 필요':'모두 답변 완료', V.waitCount>0);
+            +vcard('미답변 문의', V.waitCount+'건', V.waitCount>0?'답변 필요':'모두 답변 완료', V.waitCount>0,
+              '아직 관리자 답변이 달리지 않은 1:1 문의 수 · 0건 유지가 목표 · 출처: 아임웹 문의');
         }
         function esc_(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
         function adminLink_(site){ var u=SITE_URLS[site]; return u?' <a href="'+u+'/admin" target="_blank" style="color:var(--violet);font-weight:700;text-decoration:none">관리자 답변 →</a>':''; }
@@ -4839,7 +4858,7 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
           var ws=DE.windows||{};
           wEl.innerHTML=['30','60','90','120','180'].map(function(k){
             var w=ws[k]; if(!w) return '';
-            return '<div style="flex:1;min-width:110px;background:#fafcfb;border:1px solid var(--line);border-radius:12px;padding:10px 14px">'
+            return '<div class="ttp" data-tip="첫구매 고객이 '+k+'일 안에 두 번째 구매까지 간 비율 · 계산: '+k+'일 내 재구매 '+w.rebuy+'명 ÷ 첫구매 후 '+k+'일이 지난 고객 '+w.base+'명 (성숙 표본만) · 출처: 아임웹 주문 전체 기간" style="flex:1;min-width:110px;background:#fafcfb;border:1px solid var(--line);border-radius:12px;padding:10px 14px;cursor:help">'
               +'<div style="font-size:11.5px;color:var(--muted)">첫구매 후 '+k+'일 내 재구매</div>'
               +'<div style="font-size:17px;font-weight:800;margin-top:2px">'+(w.rate*100).toFixed(1)+'%</div>'
               +'<div style="font-size:11px;color:var(--ink-2);margin-top:2px">'+w.rebuy+'/'+w.base+'명</div></div>';
