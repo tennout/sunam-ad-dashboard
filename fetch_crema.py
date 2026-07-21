@@ -122,6 +122,56 @@ def slim(r):
     }
 
 
+WIDGET_API = 'https://review5.cre.ma/api/sunamfarmers.kr/reviews'
+WIDGET_ID = 23   # 자사몰 메인 갤러리(포토 리뷰) 위젯
+WIDGET_HDR = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)',
+              'Referer': 'https://sunamfarmers.kr/'}
+
+
+def fetch_widget_photos():
+    """자사몰 크리마 위젯 공개 API — 포토 리뷰의 이미지 URL + 상품명 확보
+    (공식 API가 이미지 필드를 제공하지 않는 문제의 우회로)"""
+    photos, names = {}, {}
+    page = 1
+    while page <= 40:
+        try:
+            r = requests.get(WIDGET_API, params={'widget_id': WIDGET_ID, 'page': page},
+                             headers=WIDGET_HDR, timeout=30)
+            j = r.json() if r.ok else {}
+        except Exception as e:
+            print(f'위젯 조회 실패(p{page}): {e}')
+            break
+        rows = j.get('reviews') or []
+        if not rows:
+            break
+        for x in rows:
+            rid = str(x.get('id'))
+            thumbs, full = [], ''
+            for img in (x.get('images') or [])[:4]:
+                if not isinstance(img, dict):
+                    continue
+                t = img.get('thumbnail_url') or img.get('gallery_url') or img.get('url')
+                if t:
+                    thumbs.append(t)
+                if not full:
+                    full = img.get('gallery_url') or img.get('url') or ''
+            if thumbs:
+                photos[rid] = {'thumbs': thumbs, 'img': full}
+            pc = str(x.get('product_code') or '')
+            pn = x.get('product_name') or ''
+            if pc and pn:
+                names[pc] = str(pn)[:40]
+        pagy = j.get('pagy') or {}
+        try:
+            if pagy.get('page') and pagy.get('last') and int(pagy['page']) >= int(pagy['last']):
+                break
+        except Exception:
+            pass
+        page += 1
+        time.sleep(0.4)
+    return photos, names
+
+
 def fetch_product_names(token):
     """크리마 Product API — product_code → 상품명 매핑"""
     names = {}
@@ -210,8 +260,8 @@ def main():
         remaining -= span + 1
         time.sleep(0.3)
 
-    # 포토 리뷰 이미지 보강: photo=1로 포토 id 확인 → 상세 조회(/v1/reviews/:id)로 이미지 확보
-    # (목록 API가 review_type·images 필드를 생략하고 응답하는 문제 대응)
+    # 포토 리뷰 표시: photo=1로 포토 id 마킹
+    widget_names = {}
     try:
         photo_ids = []
         end2, rem2 = today, 365
@@ -234,40 +284,22 @@ def main():
             end2 = st2 - datetime.timedelta(days=1)
             rem2 -= span2 + 1
             time.sleep(0.2)
-        need = [p for p in photo_ids if p in prev and not prev[p].get('thumbs')]
-        print(f'포토 리뷰 {len(photo_ids)}건 확인 / 이미지 보강 대상 {len(need)}건')
-        logged = False
-        for p in need[:80]:   # 실행당 최대 80건 (나머진 다음 실행에서)
-            try:
-                dr = requests.get(f'{API}/v1/reviews/{p}', params={'access_token': token}, timeout=30)
-                if not dr.ok:
-                    continue
-                det = dr.json()
-                if isinstance(det, dict):
-                    for wrap in ('review', 'data', 'result'):
-                        if wrap in det and isinstance(det[wrap], dict):
-                            det = det[wrap]
-                            break
-                if not logged:
-                    print(f'[진단] 상세 응답 전체 키: {sorted(det.keys()) if isinstance(det, dict) else type(det)}')
-                    print(f"[진단] 상세: images={len(det.get('images') or [])} "
-                          f"image_urls={len(det.get('image_urls') or [])} type={det.get('review_type')}")
-                    logged = True
-                s = slim(det)
-                if s.get('thumbs'):
-                    s['id'] = s['id'] or prev[p].get('id')
-                    if not s.get('date'):
-                        s['date'] = prev[p].get('date')
-                    prev[p] = s
-                    if not prev[p].get('type') or prev[p]['type'] == 'text':
-                        prev[p]['type'] = 'photo'
-                time.sleep(0.3)
-            except Exception:
-                pass
-        # 이미지 확보 여부와 무관하게 포토 리뷰는 포토로 표시
         for p in photo_ids:
-            if p in prev and not prev[p].get('thumbs') and prev[p].get('type') == 'text':
+            if p in prev and prev[p].get('type') == 'text':
                 prev[p]['type'] = 'photo'
+        print(f'포토 리뷰 {len(photo_ids)}건 마킹')
+
+        # 자사몰 위젯 공개 API에서 이미지 URL + 상품명 병합
+        widget_photos, widget_names = fetch_widget_photos()
+        merged = 0
+        for rid, ph in widget_photos.items():
+            if rid in prev:
+                prev[rid]['thumbs'] = ph['thumbs']
+                prev[rid]['img'] = ph['img']
+                if prev[rid].get('type') == 'text':
+                    prev[rid]['type'] = 'photo'
+                merged += 1
+        print(f'위젯 이미지 병합: 포토 {len(widget_photos)}건 중 {merged}건 매칭 / 상품명 {len(widget_names)}건')
     except Exception as e:
         print(f'포토 보강 실패: {e}')
 
@@ -275,8 +307,10 @@ def main():
                      reverse=True)
     reviews = [r for r in reviews if r.get('disp', True)][:KEEP]
 
-    prod_names = fetch_product_names(token)
-    print(f'크리마 상품명 {len(prod_names)}건')
+    prod_names = dict(fetch_product_names(token))
+    for k, v in widget_names.items():
+        prod_names.setdefault(k, v)
+    print(f'크리마 상품명 {len(prod_names)}건 (위젯 {len(widget_names)}건 포함)')
 
     out = {'updated': datetime.datetime.now(datetime.timezone.utc).isoformat(),
            'total': len(prev), 'reviews': reviews, 'prodNames': prod_names}
