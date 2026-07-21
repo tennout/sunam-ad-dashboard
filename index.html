@@ -872,7 +872,7 @@
         <style>#revTraffic table td, #revTraffic table th{height:37px;box-sizing:border-box;white-space:nowrap} #revTraffic table td:first-child{white-space:normal}</style>
         <div class="grid2" style="border-top:1px solid var(--line);padding-top:20px">
           <div>
-            <div style="font-weight:700;font-size:13px;margin-bottom:12px">캠페인별 성과 (UTM) <span id="revTrfCampWin" style="font-size:11.5px;font-weight:400;color:var(--muted)"></span> <span style="font-size:11.5px;font-weight:400;color:var(--muted)">· 행 클릭 → 오른쪽에 그 캠페인의 랜딩페이지</span></div>
+            <div style="font-weight:700;font-size:13px;margin-bottom:12px;height:22px;line-height:22px;white-space:nowrap;overflow:hidden">캠페인별 성과 (UTM) <span class="ttp" data-tip="행을 클릭하면 오른쪽에 그 캠페인 광고로 들어온 사람들이 도착한 랜딩페이지별 성과가 표시됩니다.<br>(referral)·(direct)·(organic)은 캠페인이 아니라 UTM 없이 들어온 유입 묶음입니다." style="font-size:11px;color:var(--muted);border-bottom:1px dotted var(--muted);cursor:help;font-weight:400">ⓘ</span> <span id="revTrfCampWin" style="font-size:11.5px;font-weight:400;color:var(--muted)"></span></div>
             <div class="scroll"><table><thead><tr><th style="text-align:left">캠페인</th><th>세션</th><th>구매</th><th>전환율</th><th>매출</th></tr></thead><tbody id="revTrfCamp"></tbody></table></div>
           </div>
           <div id="revTrfLandWrap"></div>
@@ -4438,36 +4438,40 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
           });
         });
       }
+      function pageLink_(p){
+        var raw=String(p||'');
+        if(raw.charAt(0)!=='/') return '<span>'+raw+'</span>';
+        var url=(SITE_URLS['자사몰']||'')+raw;
+        var pn=raw.length>26?raw.slice(0,26)+'…':raw;
+        return '<a href="'+url.replace(/"/g,'&quot;')+'" target="_blank" style="color:var(--blue);text-decoration:none" title="새 창으로 열기">'+pn+' ↗</a>';
+      }
       function renderLandRight(){
         var wrap=document.getElementById('revTrfLandWrap');
         if(!wrap) return;
         var h='';
+        var titleStyle='font-weight:700;font-size:13px;margin-bottom:12px;height:22px;line-height:22px;white-space:nowrap;overflow:hidden;display:flex;align-items:center;justify-content:space-between';
         if(window.TRF_CAMP&&G.campLanding){
           var cl=((G.campLanding[String(win)])||[]).filter(function(x){return x.camp===window.TRF_CAMP;});
           var cs={sess:0,rev:0,trans:0};
           cl.forEach(function(x){ cs.sess+=x.sess; cs.rev+=x.rev; cs.trans+=x.trans; });
-          var nm=String(window.TRF_CAMP); if(nm.length>24) nm=nm.slice(0,24)+'…';
-          h+='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">'
-            +'<span style="font-weight:700;font-size:13px">'+nm+' — 랜딩페이지 <span class="ttp" data-tip="이 캠페인 광고를 클릭한 사람들이 도착한 페이지별 성과입니다. 세션은 많은데 전환율이 낮은 페이지가 개선 대상이에요." style="font-size:11px;color:var(--muted);border-bottom:1px dotted var(--muted);cursor:help;font-weight:400">ⓘ</span></span>'
-            +'<a href="#" id="revTrfLandReset" style="font-size:12px;color:var(--blue);font-weight:700;text-decoration:none">← 전체 랜딩</a></div>';
+          var nm=String(window.TRF_CAMP); if(nm.length>22) nm=nm.slice(0,22)+'…';
           var cvrC=cs.sess>0?(cs.trans/cs.sess*100).toFixed(1)+'%':'—';
-          function stat2(t,v){ return '<div style="flex:1;min-width:90px;background:#fafcfb;border:1px solid var(--line);border-radius:10px;padding:8px 12px"><div style="font-size:11px;color:var(--muted)">'+t+'</div><div style="font-size:17px;font-weight:800;margin-top:1px">'+v+'</div></div>'; }
-          h+='<div style="display:flex;gap:8px;margin-bottom:10px">'+stat2('세션',cs.sess.toLocaleString('ko-KR'))+stat2('전환율',cvrC)+stat2('매출',won(cs.rev))+'</div>';
+          h+='<div style="'+titleStyle+'"><span>'+nm+' — 랜딩페이지 <span class="ttp" data-tip="이 캠페인 광고를 클릭한 사람들이 도착한 페이지별 성과입니다. 세션은 많은데 전환율이 낮은 페이지가 개선 대상이에요." style="font-size:11px;color:var(--muted);border-bottom:1px dotted var(--muted);cursor:help;font-weight:400">ⓘ</span></span>'
+            +'<a href="#" id="revTrfLandReset" style="font-size:12px;color:var(--blue);font-weight:700;text-decoration:none">← 전체 랜딩</a></div>';
           h+='<div class="scroll"><table><thead><tr><th style="text-align:left">페이지</th><th>세션</th><th>전환율</th><th>매출</th></tr></thead><tbody>'
-            +(cl.length?cl.slice(0,10).map(function(x){
+            +'<tr style="background:#eefaf3;font-weight:800"><td style="text-align:left">캠페인 합계</td><td style="font-size:13.5px">'+cs.sess.toLocaleString('ko-KR')+'</td><td style="font-size:13.5px">'+cvrC+'</td><td style="font-size:13.5px">'+won(cs.rev)+'</td></tr>'
+            +(cl.length?cl.slice(0,9).map(function(x){
               var cvr=x.sess>0?(x.trans/x.sess*100).toFixed(2)+'%':'—';
-              var pn=String(x.name||'(없음)'); if(pn.length>28) pn=pn.slice(0,28)+'…';
-              return '<tr><td style="text-align:left">'+pn+'</td><td>'+x.sess.toLocaleString('ko-KR')+'</td><td>'+cvr+'</td><td>'+won(x.rev)+'</td></tr>';
+              return '<tr><td style="text-align:left">'+pageLink_(x.name)+'</td><td>'+x.sess.toLocaleString('ko-KR')+'</td><td>'+cvr+'</td><td>'+won(x.rev)+'</td></tr>';
             }).join(''):'<tr><td colspan="4" style="color:var(--muted)">이 캠페인의 랜딩 데이터가 아직 없습니다 (다음 수집부터)</td></tr>')
             +'</tbody></table></div>';
         } else {
-          h+='<div style="font-weight:700;font-size:13px;margin-bottom:12px">랜딩페이지 TOP <span style="font-size:11.5px;font-weight:400;color:var(--muted)">전체 유입 기준 · 세션 많은데 전환 낮으면 개선 대상</span></div>'
+          h+='<div style="'+titleStyle+'"><span>랜딩페이지 TOP <span class="ttp" data-tip="전체 유입 기준, 방문자들이 처음 도착한 페이지별 성과입니다. 세션은 많은데 전환율이 낮으면 상세페이지 개선 대상이에요. 페이지명을 클릭하면 새 창으로 열립니다." style="font-size:11px;color:var(--muted);border-bottom:1px dotted var(--muted);cursor:help;font-weight:400">ⓘ</span></span></div>'
             +'<div class="scroll"><table><thead><tr><th style="text-align:left">페이지</th><th>세션</th><th>전환율</th><th>매출</th></tr></thead><tbody>';
           var lnd=(G.landing&&G.landing[String(win)])||[];
           h+=(lnd.length?lnd.slice(0,10).map(function(x){
             var cvr=x.sess>0?(x.trans/x.sess*100).toFixed(2)+'%':'—';
-            var pn=String(x.name||'(없음)'); if(pn.length>28) pn=pn.slice(0,28)+'…';
-            return '<tr><td style="text-align:left">'+pn+'</td><td>'+x.sess.toLocaleString('ko-KR')+'</td><td>'+cvr+'</td><td>'+won(x.rev)+'</td></tr>';
+            return '<tr><td style="text-align:left">'+pageLink_(x.name)+'</td><td>'+x.sess.toLocaleString('ko-KR')+'</td><td>'+cvr+'</td><td>'+won(x.rev)+'</td></tr>';
           }).join(''):'<tr><td colspan="4" style="color:var(--muted)">데이터 수집 대기</td></tr>')+'</tbody></table></div>';
         }
         wrap.innerHTML=h;
