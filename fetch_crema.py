@@ -253,7 +253,16 @@ def main():
         start = end - datetime.timedelta(days=span)
         rows = fetch_range(token, start, end)
         for r in rows:
-            prev[str(r.get('id'))] = slim(r)
+            rid = str(r.get('id'))
+            s = slim(r)
+            old = prev.get(rid)
+            # 공식 API엔 이미지가 없으므로, 이전에 위젯에서 확보한 사진은 보존
+            if old and not s['thumbs'] and old.get('thumbs'):
+                s['thumbs'] = old['thumbs']
+                s['img'] = old.get('img', '')
+                if s.get('type') == 'text':
+                    s['type'] = old.get('type', 'text')
+            prev[rid] = s
         fetched += len(rows)
         print(f'  {start} ~ {end}: {len(rows)}건')
         end = start - datetime.timedelta(days=1)
@@ -306,6 +315,14 @@ def main():
     reviews = sorted(prev.values(), key=lambda x: (x.get('date') or '', x.get('id') or 0),
                      reverse=True)
     reviews = reviews[:KEEP]   # 미진열 리뷰도 유지 (대시보드에서 '숨김' 표시)
+
+    # 누락 점검 로그 (Actions 로그에서 바로 확인용)
+    n_hid = sum(1 for r in reviews if r.get('disp') is False)
+    n_low = sum(1 for r in reviews if r.get('score') is not None and r['score'] <= 3)
+    n_img = sum(1 for r in reviews if r.get('thumbs'))
+    n_miss = sum(1 for r in reviews if r.get('type') == 'photo' and not r.get('thumbs'))
+    print(f'[점검] 숨김 {n_hid}건 / 저평점(3점이하) {n_low}건 / 사진 보유 {n_img}건 '
+          f'/ 사진 있어야 하는데 미확보 {n_miss}건 (숨김 리뷰는 위젯 미노출로 이미지 확보 불가)')
 
     prod_names = dict(fetch_product_names(token))
     for k, v in widget_names.items():
