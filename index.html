@@ -860,22 +860,22 @@
       <div class="hint" style="margin-top:8px">매출 구성: 신규 = 해당 기간이 생애 첫 구매 · 재구매 = 기존 고객의 반복 구매 (안정 매출) · 방문자·유입경로·상품 전환율은 아임웹이 API로 제공하지 않아 관리자 &gt; 통계(유입경로분석·상품전환분석)에서 확인</div>
     </div>
     <div class="panel" id="revTraffic" style="margin-bottom:14px">
-      <h2 style="margin:0 0 10px">트래픽 분석 <span style="font-size:12px;font-weight:400;color:var(--muted)">GA4 실측 · 자사몰 사이트 기준</span></h2>
+      <h2 style="margin:0 0 18px">트래픽 분석 <span style="font-size:12px;font-weight:400;color:var(--muted)">GA4 실측 · 자사몰 사이트 기준</span></h2>
       <div id="revTrafficBody">
-        <div class="grid2" style="margin-bottom:16px">
+        <div class="grid2" style="margin-bottom:28px">
           <div>
-            <div style="font-weight:700;font-size:13px;margin-bottom:6px">채널별 유입 비중 <span style="font-size:11.5px;font-weight:400;color:var(--muted)">세션 기준 · 조각 클릭 → 오른쪽에 채널 상세</span></div>
+            <div style="font-weight:700;font-size:13px;margin-bottom:12px">채널별 유입 비중 <span style="font-size:11.5px;font-weight:400;color:var(--muted)">세션 기준 · 조각 클릭 → 오른쪽에 채널 상세</span></div>
             <div style="height:280px"><canvas id="revTrfChart"></canvas></div>
           </div>
           <div id="revTrfRight"></div>
         </div>
-        <div class="grid2">
+        <div class="grid2" style="border-top:1px solid var(--line);padding-top:20px">
           <div>
-            <div style="font-weight:700;font-size:13px;margin-bottom:6px">캠페인별 성과 (UTM) <span id="revTrfCampWin" style="font-size:11.5px;font-weight:400;color:var(--muted)"></span></div>
+            <div style="font-weight:700;font-size:13px;margin-bottom:12px">캠페인별 성과 (UTM) <span id="revTrfCampWin" style="font-size:11.5px;font-weight:400;color:var(--muted)"></span></div>
             <div class="scroll"><table><thead><tr><th style="text-align:left">캠페인</th><th>세션</th><th>구매</th><th>전환율</th><th>매출</th></tr></thead><tbody id="revTrfCamp"></tbody></table></div>
           </div>
           <div>
-            <div style="font-weight:700;font-size:13px;margin-bottom:6px">랜딩페이지 TOP <span style="font-size:11.5px;font-weight:400;color:var(--muted)">세션 많은데 전환 낮으면 개선 대상</span></div>
+            <div style="font-weight:700;font-size:13px;margin-bottom:12px">랜딩페이지 TOP <span style="font-size:11.5px;font-weight:400;color:var(--muted)">세션 많은데 전환 낮으면 개선 대상</span></div>
             <div class="scroll"><table><thead><tr><th style="text-align:left">페이지</th><th>세션</th><th>전환율</th><th>매출</th></tr></thead><tbody id="revTrfLand"></tbody></table></div>
           </div>
         </div>
@@ -4306,6 +4306,19 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
       if(!G||!G.channels){ tp.style.display='block'; showEmpty('GA4 트래픽 데이터 수집 대기 중 — fetch_ga4.py 새 버전 커밋 + imweb-sync 실행 후 표시됩니다.'); return; }
       tp.style.display='block'; if(body) body.style.display='block'; if(empty) empty.style.display='none';
       var CH_KO={'Organic Search':'자연 검색','Direct':'직접 유입','Organic Social':'SNS (무료)','Paid Social':'메타 광고','Referral':'추천 링크','Email':'이메일','Organic Shopping':'쇼핑 무료 노출','Paid Search':'유료 검색','Display':'디스플레이','Cross-network':'크로스 네트워크','Unassigned':'미분류','Organic Video':'동영상 (무료)'};
+      var CH_DESC={
+        'Paid Social':'인스타그램·페이스북에 집행한 <b>유료 광고를 클릭</b>해 들어온 방문입니다.',
+        'Organic Search':'네이버·구글 등에 <b>직접 검색해서</b> 들어온 방문입니다 (광고 아님). 브랜드 인지도·SEO의 성과예요.',
+        'Direct':'주소를 직접 입력하거나 <b>즐겨찾기·저장된 링크</b>로 바로 들어온 방문입니다. 단골·재방문 고객이 많아요.',
+        'Organic Social':'인스타·페북·카카오 등에서 <b>광고가 아닌</b> 게시물·프로필 링크·공유로 들어온 방문입니다.',
+        'Referral':'<b>다른 사이트의 링크</b>(블로그·카페·카카오 로그인 리다이렉트 등)를 타고 들어온 방문입니다.',
+        'Email':'이메일 안의 링크로 들어온 방문입니다.',
+        'Unassigned':'유입 경로 정보가 <b>없는</b> 방문입니다. 일부 앱 내 브라우저·개인정보 보호 브라우저에서 발생해요.',
+        'Paid Search':'검색광고를 클릭해 들어온 방문입니다.',
+        'Organic Shopping':'쇼핑 서비스의 무료 노출로 들어온 방문입니다.',
+        'Organic Video':'유튜브 등 동영상 플랫폼에서 무료로 들어온 방문입니다.',
+        'Display':'배너(디스플레이) 광고로 들어온 방문입니다.',
+        'Cross-network':'구글 광고가 여러 지면에 섞여 나간 유입입니다.'};
       function koCh(c){ return CH_KO[c]||c; }
       // 채널별 집계 (기간 연동)
       var agg={}, tot={sess:0,rev:0,trans:0};
@@ -4319,16 +4332,29 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
       var len2=Math.round((new Date(to)-new Date(from))/86400000)+1;
       var win=[7,14,30,60,130].filter(function(w){return w>=len2;})[0]||130;
       if(window.TRF_SEL&&!agg[window.TRF_SEL]) window.TRF_SEL=null;
-      // ── 우측: 전체 채널 표 or 선택 채널 소스 상세
+      var topC=chList.slice(0,6);
+      var etcS=tot.sess-topC.reduce(function(s,x){return s+x.sess;},0);
+      var keys=topC.map(function(x){return x.ch;});
+      var labs=topC.map(function(x){return koCh(x.ch);});
+      var vals=topC.map(function(x){return x.sess;});
+      if(etcS>0){ keys.push(null); labs.push('기타'); vals.push(etcS); }
+      var baseCols=['#03c75a','#2563eb','#f59e0b','#7c3aed','#e11d48','#0ea5e9','#c2c9c5'];
+      function selCols(){ return keys.map(function(k,i){ var c=baseCols[i%baseCols.length]; return (window.TRF_SEL&&k!==window.TRF_SEL)?c+'55':c; }); }
+      function selOffs(){ return keys.map(function(k){ return (window.TRF_SEL&&k===window.TRF_SEL)?14:0; }); }
+      // ── 우측 렌더 (전체 표 or 채널 상세)
       var right=document.getElementById('revTrfRight');
-      if(right){
+      function renderRight(){
+        if(!right) return;
         var h='';
         if(window.TRF_SEL){
           var sel=window.TRF_SEL, sa=agg[sel];
-          var cvrS=sa.sess>0?(sa.trans/sa.sess*100).toFixed(2)+'%':'—';
-          h+='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">'
-            +'<span style="font-weight:700;font-size:13px">'+koCh(sel)+' 상세 <span style="font-size:11.5px;font-weight:400;color:var(--muted)">세션 '+sa.sess.toLocaleString('ko-KR')+' · 전환율 '+cvrS+' · '+won(sa.rev)+'</span></span>'
+          var cvrS=sa.sess>0?(sa.trans/sa.sess*100).toFixed(1)+'%':'—';
+          var desc=(CH_DESC[sel]||'')+'<br><span style="color:#9aa5a0">전체 채널로 돌아가려면 조각을 다시 클릭하거나 ← 전체 채널을 누르세요.</span>';
+          h+='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">'
+            +'<span style="font-weight:700;font-size:13px">'+koCh(sel)+' 상세 <span class="ttp" data-tip="'+desc.replace(/"/g,'&quot;')+'" style="font-size:11px;color:var(--muted);border-bottom:1px dotted var(--muted);cursor:help;font-weight:400">ⓘ 어떤 유입?</span></span>'
             +'<a href="#" id="revTrfReset" style="font-size:12px;color:var(--blue);font-weight:700;text-decoration:none">← 전체 채널</a></div>';
+          function stat(t,v){ return '<div style="flex:1;min-width:90px;background:#fafcfb;border:1px solid var(--line);border-radius:10px;padding:8px 12px"><div style="font-size:11px;color:var(--muted)">'+t+'</div><div style="font-size:17px;font-weight:800;margin-top:1px">'+v+'</div></div>'; }
+          h+='<div style="display:flex;gap:8px;margin-bottom:10px">'+stat('세션',sa.sess.toLocaleString('ko-KR'))+stat('전환율',cvrS)+stat('매출',won(sa.rev))+'</div>';
           var srcs=((G.chSources&&G.chSources[String(win)])||[]).filter(function(x){return x.ch===sel;});
           if(srcs.length){
             h+='<div class="scroll"><table><thead><tr><th style="text-align:left">소스 / 매체</th><th>세션</th><th>전환율</th><th>매출</th></tr></thead><tbody>'
@@ -4339,56 +4365,58 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
               }).join('')+'</tbody></table></div>'
               +'<div class="hint" style="margin-top:6px">최근 '+win+'일 기준 · 소스/매체 = 실제 유입처 (예: instagram.com / referral)</div>';
           } else {
-            // 소스 데이터 없으면 일별 추이로 폴백
             var days={};
             G.channels.forEach(function(r){ if(r.ch!==sel||r.date<from||r.date>to) return; var d2=days[r.date]||(days[r.date]={sess:0,rev:0,trans:0}); d2.sess+=r.sess; d2.rev+=r.rev; d2.trans+=r.trans; });
-            var dl=Object.keys(days).sort().reverse();
+            var dl2=Object.keys(days).sort().reverse();
             h+='<div class="scroll"><table><thead><tr><th style="text-align:left">날짜</th><th>세션</th><th>구매</th><th>매출</th></tr></thead><tbody>'
-              +dl.slice(0,14).map(function(d3){ var x=days[d3]; return '<tr><td style="text-align:left">'+d3+'</td><td>'+x.sess.toLocaleString('ko-KR')+'</td><td>'+x.trans+'</td><td>'+won(x.rev)+'</td></tr>'; }).join('')
+              +dl2.slice(0,14).map(function(d3){ var x=days[d3]; return '<tr><td style="text-align:left">'+d3+'</td><td>'+x.sess.toLocaleString('ko-KR')+'</td><td>'+x.trans+'</td><td>'+won(x.rev)+'</td></tr>'; }).join('')
               +'</tbody></table></div><div class="hint" style="margin-top:6px">소스 상세는 다음 수집부터 표시됩니다 — 지금은 일별 추이</div>';
           }
         } else {
-          h+='<div style="font-weight:700;font-size:13px;margin-bottom:6px">채널별 성과 <span style="font-size:11.5px;font-weight:400;color:var(--muted)">행 클릭 → 채널 상세</span></div>'
+          h+='<div style="font-weight:700;font-size:13px;margin-bottom:12px">채널별 성과 <span style="font-size:11.5px;font-weight:400;color:var(--muted)">행 클릭 → 채널 상세 · 채널명에 마우스 → 설명</span></div>'
             +'<div class="scroll"><table><thead><tr><th style="text-align:left">채널</th><th>세션</th><th>비중</th><th>전환율</th><th>매출</th></tr></thead><tbody>'
             +(chList.length?chList.map(function(x){
               var cvr=x.sess>0?(x.trans/x.sess*100).toFixed(2)+'%':'—';
-              return '<tr data-ch="'+x.ch.replace(/"/g,'&quot;')+'" style="cursor:pointer"><td style="text-align:left">'+koCh(x.ch)+'</td><td>'+x.sess.toLocaleString('ko-KR')+'</td><td>'+(tot.sess>0?(x.sess/tot.sess*100).toFixed(1):'0')+'%</td><td>'+cvr+'</td><td>'+won(x.rev)+'</td></tr>';
+              var tip=(CH_DESC[x.ch]||'').replace(/"/g,'&quot;');
+              return '<tr data-ch="'+x.ch.replace(/"/g,'&quot;')+'" style="cursor:pointer"><td style="text-align:left"><span class="ttp" data-tip="'+tip+'">'+koCh(x.ch)+'</span></td><td>'+x.sess.toLocaleString('ko-KR')+'</td><td>'+(tot.sess>0?(x.sess/tot.sess*100).toFixed(1):'0')+'%</td><td>'+cvr+'</td><td>'+won(x.rev)+'</td></tr>';
             }).join(''):'<tr><td colspan="5" style="color:var(--muted)">선택 기간 데이터 없음</td></tr>')
             +'</tbody></table></div>';
         }
         right.innerHTML=h;
         var rs=document.getElementById('revTrfReset');
-        if(rs) rs.addEventListener('click',function(e){ e.preventDefault(); window.TRF_SEL=null; renderRev(); });
+        if(rs) rs.addEventListener('click',function(e){ e.preventDefault(); setSel(null); });
         right.querySelectorAll('tr[data-ch]').forEach(function(tr){
-          tr.addEventListener('click',function(){ window.TRF_SEL=tr.dataset.ch; renderRev(); });
+          tr.addEventListener('click',function(){ setSel(tr.dataset.ch); });
         });
       }
-      // ── 도넛 (클릭 = 선택/해제, 선택 조각 강조)
+      // ── 선택 변경: 도넛은 제자리 갱신 (다시 안 그림)
+      function setSel(k){
+        window.TRF_SEL = (k&&window.TRF_SEL!==k)? k : null;
+        if(window.CH_TRF){
+          window.CH_TRF.data.datasets[0].backgroundColor=selCols();
+          window.CH_TRF.data.datasets[0].offset=selOffs();
+          window.CH_TRF.update('none');
+        }
+        renderRight();
+      }
+      renderRight();
+      // ── 도넛 (renderRev 시에만 새로 생성)
       var cvT=document.getElementById('revTrfChart');
       if(cvT&&window.Chart&&chList.length){
         if(window.CH_TRF){ window.CH_TRF.destroy(); window.CH_TRF=null; }
-        var topC=chList.slice(0,6);
-        var etcS=tot.sess-topC.reduce(function(s,x){return s+x.sess;},0);
-        var keys=topC.map(function(x){return x.ch;});
-        var labs=topC.map(function(x){return koCh(x.ch);});
-        var vals=topC.map(function(x){return x.sess;});
-        if(etcS>0){ keys.push(null); labs.push('기타'); vals.push(etcS); }
-        var baseCols=['#03c75a','#2563eb','#f59e0b','#7c3aed','#e11d48','#0ea5e9','#c2c9c5'];
-        var cols=keys.map(function(k,i){ var c=baseCols[i%baseCols.length]; return (window.TRF_SEL&&k!==window.TRF_SEL)?c+'55':c; });
-        var offs=keys.map(function(k){ return (window.TRF_SEL&&k===window.TRF_SEL)?14:0; });
         var dl = window.ChartDataLabels ? {color:'#fff',font:{weight:'700',size:11},
           formatter:function(v){ var p=tot.sess>0?v/tot.sess*100:0; return p>=6?p.toFixed(0)+'%':null; }} : {display:false};
         window.CH_TRF=new Chart(cvT,{type:'doughnut',
           plugins: window.ChartDataLabels?[ChartDataLabels]:[],
-          data:{labels:labs,datasets:[{data:vals,backgroundColor:cols,borderColor:'#fff',borderWidth:2,offset:offs}]},
+          data:{labels:labs,datasets:[{data:vals,backgroundColor:selCols(),borderColor:'#fff',borderWidth:2,offset:selOffs()}]},
           options:{responsive:true,maintainAspectRatio:false,cutout:'52%',layout:{padding:10},
             onClick:function(e,els){
               if(!els||!els.length) return;
               var k=keys[els[0].index];
               if(k==null) return;
-              window.TRF_SEL = (window.TRF_SEL===k)? null : k;
-              renderRev();
+              setSel(k);
             },
+            onHover:function(e,els){ e.native.target.style.cursor = els.length?'pointer':'default'; },
             plugins:{legend:{position:'bottom',labels:{boxWidth:10,boxHeight:10,padding:10,font:{size:11}}},datalabels:dl,
               tooltip:{callbacks:{label:function(c){ var p=tot.sess>0?(c.parsed/tot.sess*100).toFixed(1):'0'; return c.label+': '+c.parsed.toLocaleString('ko-KR')+'세션 ('+p+'%)'; }}}}}});
       }
