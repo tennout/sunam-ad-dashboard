@@ -4512,6 +4512,9 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
         return b.rev-a.rev;
       });
       var byRev=Object.keys(agg).map(function(k){return agg[k];}).sort(function(a,b){return b.rev-a.rev;});
+      var donutCols=['#03c75a','#2563eb','#f59e0b','#7c3aed','#e11d48','#0ea5e9','#84cc16'];
+      var colorMap={};
+      byRev.slice(0,7).forEach(function(x,i){ colorMap[x.name]=donutCols[i]; });
       var totRev=0, totQty=0;
       list.forEach(function(x){ totRev+=x.rev; totQty+=x.qty; });
       var bs=document.getElementById('revBestSum');
@@ -4520,7 +4523,8 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
       var top=list.slice(0,10);
       bb.innerHTML = top.length? top.map(function(x,i){
         var ly=(loyal[x.name]!=null)?(loyal[x.name]*100).toFixed(0)+'%':'—';
-        return '<tr data-name="'+x.name.replace(/"/g,'&quot;')+'" style="cursor:pointer"><td>'+(i+1)+'</td><td>'+x.name+'</td><td>'+x.qty.toLocaleString('ko-KR')+'</td><td>'+won(x.rev)+'</td><td>'+(totRev>0?(x.rev/totRev*100).toFixed(1):'0')+'%</td><td>'+ly+'</td></tr>';
+        var dot=colorMap[x.name]?'<span style="display:inline-block;width:9px;height:9px;border-radius:3px;background:'+colorMap[x.name]+';margin-right:6px"></span>':'<span style="display:inline-block;width:9px;height:9px;border-radius:3px;background:#e3e8e5;margin-right:6px"></span>';
+        return '<tr data-name="'+x.name.replace(/"/g,'&quot;')+'" style="cursor:pointer"><td>'+(i+1)+'</td><td>'+dot+x.name+'</td><td>'+x.qty.toLocaleString('ko-KR')+'</td><td>'+won(x.rev)+'</td><td>'+(totRev>0?(x.rev/totRev*100).toFixed(1):'0')+'%</td><td>'+ly+'</td></tr>';
       }).join('') : '<tr><td colspan="6" style="color:var(--muted)">선택 기간에 수집된 품목 데이터가 없습니다 (수집 진행 중)</td></tr>';
       // 차트 (도넛 or 선택 상품 추이)
       var cvB=document.getElementById('revBestChart');
@@ -4548,32 +4552,25 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
           window.BEST_SEL=null;
           var topN=byRev.slice(0,7);
           var etc=totRev-topN.reduce(function(s,x){return s+x.rev;},0);
-          var labels=topN.map(function(x){return x.name.length>12?x.name.slice(0,12)+'…':x.name;});
+          var labels=topN.map(function(x){return x.name;});
           var data=topN.map(function(x){return x.rev;});
-          if(etc>0){ labels.push('기타 ('+(byRev.length-topN.length)+'종)'); data.push(etc); }
-          var cols=['#03c75a','#2563eb','#f59e0b','#7c3aed','#e11d48','#0ea5e9','#84cc16','#c2c9c5'].slice(0,data.length);
+          var cols=topN.map(function(x){return colorMap[x.name];});
+          if(etc>0){ labels.push('기타 ('+(byRev.length-topN.length)+'종)'); data.push(etc); cols.push('#e3e8e5'); }
           var dlOpt = window.ChartDataLabels ? {
-            color:'#fff', textAlign:'center',
-            font:function(c){ var pct=totRev>0?data[c.dataIndex]/totRev*100:0; return {weight:'700', size: pct>=12?12:11}; },
-            formatter:function(v,c){
-              var pct=totRev>0?(v/totRev*100):0;
-              if(pct<6) return null;
-              var nm=String(labels[c.dataIndex]).replace(/ \(\d+종\)$/,'');
-              if(pct>=12) return (nm.length>8?nm.slice(0,8)+'…':nm)+'\n'+pct.toFixed(0)+'%';
-              return pct.toFixed(0)+'%';
-            }
+            color:'#fff', font:{weight:'700',size:12},
+            formatter:function(v){ var pct=totRev>0?(v/totRev*100):0; return pct>=5?pct.toFixed(0)+'%':null; }
           } : {display:false};
           window.CH_BEST=new Chart(cvB,{type:'doughnut',
             plugins: window.ChartDataLabels?[ChartDataLabels]:[],
             data:{labels:labels, datasets:[{data:data,backgroundColor:cols,borderColor:'#fff',borderWidth:2}]},
             options:{responsive:true,maintainAspectRatio:false,cutout:'52%',
-              layout:{padding:4},
+              layout:{padding:8},
               plugins:{
-                legend:{position:'bottom',labels:{boxWidth:10,boxHeight:10,padding:10,font:{size:11}}},
+                legend:{display:false},
                 datalabels:dlOpt,
                 tooltip:{callbacks:{label:function(c){ var pct=totRev>0?(c.parsed/totRev*100).toFixed(1):'0'; return c.label+': '+won(c.parsed)+' ('+pct+'%)'; }}}
               }}});
-          if(titleEl) titleEl.textContent='매출 비중 (TOP7 + 기타)';
+          if(titleEl) titleEl.textContent='매출 비중 (TOP7 + 기타) — 색 = 오른쪽 표의 ● 상품';
           if(resetEl) resetEl.style.display='none';
         }
       }
