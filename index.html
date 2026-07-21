@@ -4676,7 +4676,9 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
         var vRange=vRangeEl?vRangeEl.value:'auto';
         var vFrom=from, vTo=to;
         if(vRange!=='auto'){ vTo=ds(new Date()); vFrom=addD(vTo,-(parseInt(vRange,10)-1)); }
-        var crPmap=RAW.prodNames||{};
+        var crPmap={};
+        try{ if(window.CREMA&&window.CREMA.prodNames) crPmap=Object.assign({},window.CREMA.prodNames); }catch(e){}
+        try{ var _rp=RAW.prodNames||{}; Object.keys(_rp).forEach(function(k){ if(!crPmap[k]) crPmap[k]=_rp[k]; }); }catch(e){}
         try{ (RAW.prods||[]).forEach(function(p){ if(p.prod&&p.name&&!crPmap[String(p.prod)]) crPmap[String(p.prod)]=p.name; }); }catch(e){}
         var VP=CR?(window.VOC_PROD||''):'';
         function inSel(r){ return !VP||String(r.prod)===String(VP); }

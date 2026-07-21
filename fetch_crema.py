@@ -93,11 +93,20 @@ def slim(r):
     thumbs = []
     full = ''
     for img in (r.get('images') or [])[:4]:
+        if not isinstance(img, dict):
+            continue
         t = img.get('thumbnail_url') or img.get('gallery_url') or img.get('url')
         if t:
             thumbs.append(t)
         if not full:
             full = img.get('gallery_url') or img.get('url') or ''
+    # 대체 필드: image_urls (문자열 배열)
+    if not thumbs:
+        for u in (r.get('image_urls') or [])[:4]:
+            if isinstance(u, str) and u:
+                thumbs.append(u)
+                if not full:
+                    full = u
     return {
         'id': r.get('id'),
         'date': str(r.get('created_at') or '')[:10],
@@ -111,6 +120,32 @@ def slim(r):
         'cmts': r.get('comments_count') or 0,
         'disp': bool(r.get('display', True)),
     }
+
+
+def fetch_product_names(token):
+    """크리마 Product API — product_code → 상품명 매핑"""
+    names = {}
+    page = 1
+    while page <= 30:
+        try:
+            r = requests.get(f'{API}/v1/products',
+                             params={'access_token': token, 'limit': 100, 'page': page},
+                             timeout=60)
+            rows = r.json() if r.ok else []
+        except Exception:
+            break
+        if not isinstance(rows, list) or not rows:
+            break
+        for x in rows:
+            code = str(x.get('code') or '')
+            nm = x.get('name') or ''
+            if code and nm:
+                names[code] = str(nm)[:40]
+        if len(rows) < 100:
+            break
+        page += 1
+        time.sleep(0.3)
+    return names
 
 
 def main():
@@ -136,6 +171,8 @@ def main():
         pj = pr.json() if pr.ok else None
         if isinstance(pj, list):
             print(f'[진단] photo=1 조회: {len(pj)}건')
+            if pj:
+                print(f'[진단] 목록 응답 전체 키: {sorted(pj[0].keys())}')
             for x in pj[:3]:
                 print(f"[진단]  id={x.get('id')} date={str(x.get('created_at'))[:10]} "
                       f"type={x.get('review_type')} images_count={x.get('images_count')} "
@@ -206,9 +243,15 @@ def main():
                 if not dr.ok:
                     continue
                 det = dr.json()
+                if isinstance(det, dict):
+                    for wrap in ('review', 'data', 'result'):
+                        if wrap in det and isinstance(det[wrap], dict):
+                            det = det[wrap]
+                            break
                 if not logged:
-                    print(f"[진단] 상세 응답 필드: images={len(det.get('images') or [])} "
-                          f"type={det.get('review_type')}")
+                    print(f'[진단] 상세 응답 전체 키: {sorted(det.keys()) if isinstance(det, dict) else type(det)}')
+                    print(f"[진단] 상세: images={len(det.get('images') or [])} "
+                          f"image_urls={len(det.get('image_urls') or [])} type={det.get('review_type')}")
                     logged = True
                 s = slim(det)
                 if s.get('thumbs'):
@@ -232,8 +275,11 @@ def main():
                      reverse=True)
     reviews = [r for r in reviews if r.get('disp', True)][:KEEP]
 
+    prod_names = fetch_product_names(token)
+    print(f'크리마 상품명 {len(prod_names)}건')
+
     out = {'updated': datetime.datetime.now(datetime.timezone.utc).isoformat(),
-           'total': len(prev), 'reviews': reviews}
+           'total': len(prev), 'reviews': reviews, 'prodNames': prod_names}
     os.makedirs('data', exist_ok=True)
     with open(OUT, 'w', encoding='utf-8') as f:
         f.write(encrypt_json(out, pw))
