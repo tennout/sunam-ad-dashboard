@@ -4005,6 +4005,7 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
   /* ---------- 모드 전환 ---------- */
   function setMode(m){
     var wrap=document.querySelector('.wrap'); if(!wrap) return;
+    try{ sessionStorage.setItem('DASH_MODE', m); }catch(e){}
     var title=document.getElementById('dashTitle');
     var sub=document.getElementById('headerSub');
     var lu=document.getElementById('lastUpdate');
@@ -4885,7 +4886,11 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
       b.addEventListener('click',function(){ csvDl_(b.dataset.csv); });
     });
     setMode('ads');
-    try{ var sp=sessionStorage.getItem('REV_PW'); if(sp) loadRev(sp); }catch(e){}
+    try{
+      var sp=sessionStorage.getItem('REV_PW');
+      var lastMode=sessionStorage.getItem('DASH_MODE');
+      if(sp) loadRev(sp).then(function(){ if(lastMode==='rev'&&RAW) setMode('rev'); });
+    }catch(e){}
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
 })();
