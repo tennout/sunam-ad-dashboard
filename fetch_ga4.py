@@ -72,19 +72,47 @@ def get_access_token(sa: dict) -> str:
     return r.json()['access_token']
 
 
-def run_report(pid: str, token: str) -> list:
+def run_report(pid: str, token: str, dims: list, days: int, limit: int = 100000,
+               order_by_sessions: bool = False) -> list:
     body = {
-        'dateRanges': [{'startDate': f'{DAYS}daysAgo', 'endDate': 'today'}],
-        'dimensions': [{'name': 'date'}, {'name': 'sessionDefaultChannelGroup'}],
+        'dateRanges': [{'startDate': f'{days}daysAgo', 'endDate': 'today'}],
+        'dimensions': [{'name': d} for d in dims],
         'metrics': [{'name': 'sessions'}, {'name': 'totalUsers'},
                     {'name': 'screenPageViews'}, {'name': 'purchaseRevenue'},
                     {'name': 'transactions'}],
-        'limit': 100000,
+        'limit': limit,
     }
+    if order_by_sessions:
+        body['orderBys'] = [{'metric': {'metricName': 'sessions'}, 'desc': True}]
     r = requests.post(f'https://analyticsdata.googleapis.com/v1beta/properties/{pid}:runReport',
                       headers={'Authorization': f'Bearer {token}'}, json=body, timeout=60)
     r.raise_for_status()
     return r.json().get('rows', [])
+
+
+def _mvals(row):
+    v = row['metricValues']
+    return (int(v[0]['value'] or 0), int(v[1]['value'] or 0), int(v[2]['value'] or 0),
+            round(float(v[3]['value'] or 0)), int(v[4]['value'] or 0))
+
+
+WINDOWS = (7, 14, 30, 60, 130)
+
+
+def dim_report(pid, token, dim, skip_vals=()):
+    """구간별 상위 20개 (캠페인·랜딩페이지용)"""
+    out = {}
+    for w in WINDOWS:
+        rows = run_report(pid, token, [dim], w, limit=20, order_by_sessions=True)
+        lst = []
+        for row in rows:
+            name = row['dimensionValues'][0]['value']
+            if name in skip_vals:
+                continue
+            sess, users, pv, rev, trans = _mvals(row)
+            lst.append({'name': name, 'sess': sess, 'rev': rev, 'trans': trans})
+        out[str(w)] = lst
+    return out
 
 
 def main():
@@ -100,19 +128,15 @@ def main():
 
     sa = json.loads(sa_raw)
     token = get_access_token(sa)
-    rows = run_report(pid, token)
+    rows = run_report(pid, token, ['date', 'sessionDefaultChannelGroup'], DAYS)
     print(f'GA4 행 {len(rows)}건 수신')
 
-    daily = {}
+    daily, channels = {}, []
     for row in rows:
         d8 = row['dimensionValues'][0]['value']          # YYYYMMDD
         grp = row['dimensionValues'][1]['value']
         dt = f'{d8[:4]}-{d8[4:6]}-{d8[6:]}'
-        sess = int(row['metricValues'][0]['value'] or 0)
-        users = int(row['metricValues'][1]['value'] or 0)
-        pv = int(row['metricValues'][2]['value'] or 0)
-        rev = round(float(row['metricValues'][3]['value'] or 0))
-        trans = int(row['metricValues'][4]['value'] or 0)
+        sess, users, pv, rev, trans = _mvals(row)
         r = daily.setdefault(dt, {'date': dt, 'sessions': 0, 'users': 0, 'pv': 0, 'orgSessions': 0,
                                   'rev': 0, 'orgRev': 0, 'trans': 0})
         r['sessions'] += sess
@@ -123,9 +147,18 @@ def main():
         if grp not in PAID_GROUPS:
             r['orgSessions'] += sess
             r['orgRev'] += rev
+        channels.append({'date': dt, 'ch': grp, 'sess': sess, 'rev': rev, 'trans': trans})
+
+    print('캠페인(UTM)별 수집...')
+    campaigns = dim_report(pid, token, 'sessionCampaignName', skip_vals=('(not set)',))
+    print('랜딩페이지별 수집...')
+    landing = dim_report(pid, token, 'landingPage')
 
     out = {'updated': datetime.datetime.now(datetime.timezone.utc).isoformat(),
-           'daily': [daily[k] for k in sorted(daily)]}
+           'daily': [daily[k] for k in sorted(daily)],
+           'channels': channels,
+           'campaigns': campaigns,
+           'landing': landing}
     os.makedirs('data', exist_ok=True)
     with open('data/ga4_daily.json.enc', 'w', encoding='utf-8') as f:
         f.write(encrypt_json(out, pw))
