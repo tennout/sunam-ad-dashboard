@@ -173,6 +173,61 @@ def main():
         remaining -= span + 1
         time.sleep(0.3)
 
+    # 포토 리뷰 이미지 보강: photo=1로 포토 id 확인 → 상세 조회(/v1/reviews/:id)로 이미지 확보
+    # (목록 API가 review_type·images 필드를 생략하고 응답하는 문제 대응)
+    try:
+        photo_ids = []
+        end2, rem2 = today, 365
+        while rem2 > 0:
+            span2 = min(CHUNK_DAYS, rem2)
+            st2 = end2 - datetime.timedelta(days=span2)
+            page = 1
+            while page <= 30:
+                r2 = requests.get(f'{API}/v1/reviews', params={
+                    'access_token': token, 'limit': 100, 'page': page, 'photo': 1,
+                    'start_date': st2.isoformat(), 'end_date': end2.isoformat()}, timeout=60)
+                rows2 = r2.json() if r2.ok else []
+                if not isinstance(rows2, list) or not rows2:
+                    break
+                photo_ids += [str(x.get('id')) for x in rows2 if x.get('id') is not None]
+                if len(rows2) < 100:
+                    break
+                page += 1
+                time.sleep(0.3)
+            end2 = st2 - datetime.timedelta(days=1)
+            rem2 -= span2 + 1
+            time.sleep(0.2)
+        need = [p for p in photo_ids if p in prev and not prev[p].get('thumbs')]
+        print(f'포토 리뷰 {len(photo_ids)}건 확인 / 이미지 보강 대상 {len(need)}건')
+        logged = False
+        for p in need[:80]:   # 실행당 최대 80건 (나머진 다음 실행에서)
+            try:
+                dr = requests.get(f'{API}/v1/reviews/{p}', params={'access_token': token}, timeout=30)
+                if not dr.ok:
+                    continue
+                det = dr.json()
+                if not logged:
+                    print(f"[진단] 상세 응답 필드: images={len(det.get('images') or [])} "
+                          f"type={det.get('review_type')}")
+                    logged = True
+                s = slim(det)
+                if s.get('thumbs'):
+                    s['id'] = s['id'] or prev[p].get('id')
+                    if not s.get('date'):
+                        s['date'] = prev[p].get('date')
+                    prev[p] = s
+                    if not prev[p].get('type') or prev[p]['type'] == 'text':
+                        prev[p]['type'] = 'photo'
+                time.sleep(0.3)
+            except Exception:
+                pass
+        # 이미지 확보 여부와 무관하게 포토 리뷰는 포토로 표시
+        for p in photo_ids:
+            if p in prev and not prev[p].get('thumbs') and prev[p].get('type') == 'text':
+                prev[p]['type'] = 'photo'
+    except Exception as e:
+        print(f'포토 보강 실패: {e}')
+
     reviews = sorted(prev.values(), key=lambda x: (x.get('date') or '', x.get('id') or 0),
                      reverse=True)
     reviews = [r for r in reviews if r.get('disp', True)][:KEEP]

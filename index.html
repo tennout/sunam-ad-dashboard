@@ -4676,8 +4676,8 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
         var vRange=vRangeEl?vRangeEl.value:'auto';
         var vFrom=from, vTo=to;
         if(vRange!=='auto'){ vTo=ds(new Date()); vFrom=addD(vTo,-(parseInt(vRange,10)-1)); }
-        var crPmap={};
-        try{ (RAW.prods||[]).forEach(function(p){ if(p.prod&&p.name) crPmap[String(p.prod)]=p.name; }); }catch(e){}
+        var crPmap=RAW.prodNames||{};
+        try{ (RAW.prods||[]).forEach(function(p){ if(p.prod&&p.name&&!crPmap[String(p.prod)]) crPmap[String(p.prod)]=p.name; }); }catch(e){}
         var VP=CR?(window.VOC_PROD||''):'';
         function inSel(r){ return !VP||String(r.prod)===String(VP); }
         var pc=0, ps=0;
@@ -4764,7 +4764,7 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
               var th=(r.thumbs&&r.thumbs.length)?('<div style="display:flex;gap:4px;margin-top:5px">'+r.thumbs.slice(0,4).map(function(t,ti){
                 var fullT=(ti===0&&r.img)?r.img:t;
                 return '<a href="'+esc_(fullT)+'" target="_blank"><img class="voc-thumb" src="'+esc_(t)+'" data-full="'+esc_(fullT)+'" style="width:44px;height:44px;object-fit:cover;border-radius:7px;border:1px solid var(--line);cursor:zoom-in" loading="lazy"></a>';
-              }).join('')+'</div>'):'';
+              }).join('')+'</div>'):(/photo|video/.test(r.type||'')?'<div style="margin-top:4px;font-size:11px;color:var(--muted)">📷 사진 첨부 리뷰 (이미지 수집 중)</div>':'');
               return '<div style="padding:8px 0;border-bottom:1px solid var(--line)">'
                 +'<span style="color:'+(bad?'var(--red)':'var(--green)')+';font-weight:700">'+(r.score!=null?r.score+'점':'별점 없음')+'</span> · '+r.date
                 +(pn?' · <span style="color:var(--ink);font-weight:700">'+esc_(pn)+'</span>':'')
