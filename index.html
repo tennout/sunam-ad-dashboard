@@ -975,10 +975,13 @@
           <div style="height:340px"><canvas id="revVocChart"></canvas></div>
         </div>
         <div>
-          <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;height:28px">
-            <button class="rv-pill on" data-vt="low">저평점 후기</button>
-            <button class="rv-pill" data-vt="all">전체 후기</button>
-            <button class="rv-pill" data-vt="qna">문의</button>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;height:28px">
+            <span style="display:flex;gap:6px">
+              <button class="rv-pill on" data-vt="low">저평점 후기</button>
+              <button class="rv-pill" data-vt="all">전체 후기</button>
+              <button class="rv-pill" data-vt="qna">문의</button>
+            </span>
+            <select class="rv-sort" id="revVocProd" style="display:none;max-width:190px"></select>
           </div>
           <div id="revVocList" style="font-size:12.5px;color:var(--ink-2);height:340px;overflow-y:auto;overflow-x:hidden;word-break:break-word;overflow-wrap:anywhere;padding-right:6px"></div>
         </div>
@@ -4673,9 +4676,13 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
         var vRange=vRangeEl?vRangeEl.value:'auto';
         var vFrom=from, vTo=to;
         if(vRange!=='auto'){ vTo=ds(new Date()); vFrom=addD(vTo,-(parseInt(vRange,10)-1)); }
+        var crPmap={};
+        try{ (RAW.prods||[]).forEach(function(p){ if(p.prod&&p.name) crPmap[String(p.prod)]=p.name; }); }catch(e){}
+        var VP=CR?(window.VOC_PROD||''):'';
+        function inSel(r){ return !VP||String(r.prod)===String(VP); }
         var pc=0, ps=0;
         if(CR){
-          CR.forEach(function(r){ if(r.date>=vFrom&&r.date<=vTo&&r.score!=null){ pc++; ps+=r.score; } });
+          CR.forEach(function(r){ if(r.date>=vFrom&&r.date<=vTo&&r.score!=null&&inSel(r)){ pc++; ps+=r.score; } });
         } else {
           V.ratingDaily.forEach(function(r){ if(r.date>=vFrom&&r.date<=vTo){ pc+=r.count; ps+=r.sum; } });
         }
@@ -4699,6 +4706,21 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
         function pnameTag_(r){ return r.pname?' · <span style="color:var(--ink);font-weight:700">'+esc_(String(r.pname).length>22?String(r.pname).slice(0,22)+'…':r.pname)+'</span>':''; }
         window.VOC_TAB = window.VOC_TAB||'low';
         vp.querySelectorAll('.rv-pill[data-vt]').forEach(function(p){ p.classList.toggle('on',p.dataset.vt===window.VOC_TAB); });
+        // 상품별 필터 (크리마 연동 시)
+        var prodSel=document.getElementById('revVocProd');
+        if(prodSel){
+          if(CR){
+            prodSel.style.display='inline-block';
+            var cnt={};
+            CR.forEach(function(r){ if(r.prod) cnt[r.prod]=(cnt[r.prod]||0)+1; });
+            var opts=Object.keys(cnt).sort(function(a,b){return cnt[b]-cnt[a];}).slice(0,15);
+            var curP=window.VOC_PROD||'';
+            prodSel.innerHTML='<option value="">전체 상품</option>'+opts.map(function(p){
+              var nm=crPmap[String(p)]||('상품 '+p); if(nm.length>16) nm=nm.slice(0,16)+'…';
+              return '<option value="'+esc_(String(p))+'"'+(String(p)===String(curP)?' selected':'')+'>'+esc_(nm)+' ('+cnt[p]+')</option>';
+            }).join('');
+          } else prodSel.style.display='none';
+        }
         // 별점 추이 차트 (기간 연동)
         var cvV=document.getElementById('revVocChart');
         if(cvV&&window.Chart){
@@ -4706,7 +4728,7 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
           var vd;
           if(CR){
             var byD2={};
-            CR.forEach(function(r){ if(r.date<vFrom||r.date>vTo||r.score==null) return; var d4=byD2[r.date]||(byD2[r.date]={date:r.date,count:0,sum:0}); d4.count++; d4.sum+=r.score; });
+            CR.forEach(function(r){ if(r.date<vFrom||r.date>vTo||r.score==null||!inSel(r)) return; var d4=byD2[r.date]||(byD2[r.date]={date:r.date,count:0,sum:0}); d4.count++; d4.sum+=r.score; });
             vd=Object.keys(byD2).sort().map(function(k){return byD2[k];});
           } else {
             vd=(V.ratingDaily||[]).filter(function(r){return r.date>=vFrom&&r.date<=vTo;});
@@ -4734,9 +4756,7 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
             }).join(''):'<div style="color:var(--muted);padding:8px 0">문의 없음</div>';
           } else if(CR){
             // 크리마 리뷰 (사진 포함)
-            var crPmap={};
-            try{ (RAW.prods||[]).forEach(function(p){ if(p.prod&&p.name) crPmap[String(p.prod)]=p.name; }); }catch(e){}
-            var crList = CR.filter(function(r){ return window.VOC_TAB==='all' ? true : (r.score!=null&&r.score<=3); }).slice(0,30);
+            var crList = CR.filter(function(r){ return inSel(r) && (window.VOC_TAB==='all' ? true : (r.score!=null&&r.score<=3)); }).slice(0,30);
             listEl.innerHTML = crList.length? crList.map(function(r){
               var bad=r.score!=null&&r.score<=3;
               var pn=crPmap[String(r.prod)]||'';
@@ -5110,6 +5130,8 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
       document.addEventListener('mousemove',function(e){ if(pv.style.display==='block'&&e.target.closest&&e.target.closest('.voc-thumb')) move(e); });
       document.addEventListener('mouseout',function(e){ if(e.target.closest&&e.target.closest('.voc-thumb')) pv.style.display='none'; });
     })();
+    var vocProdSel=document.getElementById('revVocProd');
+    if(vocProdSel) vocProdSel.addEventListener('change',function(){ window.VOC_PROD=vocProdSel.value; renderRev(); });
     ['revBestSort','revCouponSort','revLoyalSort','revFunnelSel','revPRebuySel','revVocRange'].forEach(function(id){
       var el=document.getElementById(id);
       if(el) el.addEventListener('change',function(){ renderRev(); });
