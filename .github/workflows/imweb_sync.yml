@@ -47,11 +47,20 @@ jobs:
           IMWEB_DASH_PASSWORD: ${{ secrets.IMWEB_DASH_PASSWORD }}
         run: python fetch_ga4.py
 
+      - name: Fetch CREMA reviews (Secrets 설정 시에만 동작)
+        continue-on-error: true
+        env:
+          CREMA_APP_ID: ${{ secrets.CREMA_APP_ID }}
+          CREMA_SECRET: ${{ secrets.CREMA_SECRET }}
+          IMWEB_DASH_PASSWORD: ${{ secrets.IMWEB_DASH_PASSWORD }}
+        run: python fetch_crema.py
+
       - name: Commit data
         run: |
           git config user.name "imweb-sync-bot"
           git config user.email "actions@github.com"
           git add data/imweb_store.json.enc data/imweb_dash.json.enc
           git add data/ga4_daily.json.enc || true
+          git add data/crema_reviews.json.enc || true
           git diff --staged --quiet || git commit -m "chore: imweb data sync $(date -u +%F)"
           git push
