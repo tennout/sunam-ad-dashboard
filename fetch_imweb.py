@@ -602,8 +602,9 @@ def build_dash(store):
     except Exception:
         prod_rebuy = []
 
-    # 이탈위험: 자사몰 회원, 마지막 구매 후 45~180일 경과
+    # 이탈위험: 자사몰 회원, 마지막 구매 후 45~180일 경과 (+활성·휴면 카운트)
     churn = []
+    churn_ctx = {'active': 0, 'risk': 0, 'dormant': 0}
     for code, lst in pur.get(MAIN, {}).items():
         if not lst:
             continue
@@ -612,20 +613,59 @@ def build_dash(store):
             days_gap = (today - datetime.date.fromisoformat(last)).days
         except Exception:
             continue
-        if 45 <= days_gap <= 180:
+        if days_gap < 45:
+            churn_ctx['active'] += 1
+        elif days_gap <= 180:
+            churn_ctx['risk'] += 1
             mm = members.get(code, {})
             churn.append({'code': code, 'name': mm.get('name', ''), 'call': mm.get('call', ''),
                           'last': last, 'days': days_gap, 'orders': len(lst),
                           'total': round(sum(p['amt'] for p in lst))})
+        else:
+            churn_ctx['dormant'] += 1
     churn.sort(key=lambda x: x['days'])
+
+    # 재구매 리마인드 발송 대상: 1회만 구매 & 지금이 리마인드 적기(중앙 간격 -7일 ~ +21일)
+    remind = []
+    try:
+        def _targets(mm2, gap):
+            lo, hi = max(1, gap - 7), gap + 21
+            t = []
+            for mem, dates in mm2.items():
+                ds = sorted(dates)
+                if len(ds) != 1:
+                    continue
+                try:
+                    dgap = (today - datetime.date.fromisoformat(ds[0])).days
+                except Exception:
+                    continue
+                if lo <= dgap <= hi:
+                    m3 = members.get(mem, {})
+                    t.append({'name': m3.get('name', ''), 'call': m3.get('call', ''),
+                              'date': ds[0], 'days': dgap})
+            t.sort(key=lambda x: abs(x['days'] - gap))
+            return t[:80]
+        g_all = ladder[0].get('medianGap') if ladder else None
+        if g_all:
+            allmm = {}
+            for code, lst in pur.get(MAIN, {}).items():
+                allmm[code] = set(p['date'] for p in lst if p.get('date'))
+            remind.append({'prod': '전체 (모든 상품)', 'gap': g_all, 'rate': None,
+                           'targets': _targets(allmm, g_all)})
+        for x in sorted([p for p in prod_rebuy if p['all'].get('gap') and p['all']['buyers'] >= 5],
+                        key=lambda p: -p['all']['buyers'])[:5]:
+            remind.append({'prod': x['name'], 'gap': x['all']['gap'], 'rate': x['all']['rate'],
+                           'targets': _targets(pdmap.get(x['name'], {}), x['all']['gap'])})
+    except Exception:
+        remind = []
 
     csv['churn'] = [[c['name'], c['call'], c['last'], c['days'], c['orders'], c['total']] for c in churn]
     csv['churnHead'] = ['이름', '연락처', '마지막 구매일', '경과일', '구매횟수', '누적 구매액']
 
     return {'updated': datetime.datetime.now(KST).isoformat(),
-            'deep': {'windows': windows, 'ladder': ladder, 'fivePlus': five_plus, 'ladders': ladders, 'prodLoyal': prod_loyal, 'prodRebuy': prod_rebuy},
+            'deep': {'windows': windows, 'ladder': ladder, 'fivePlus': five_plus, 'ladders': ladders, 'prodLoyal': prod_loyal, 'prodRebuy': prod_rebuy, 'remind': remind},
             'coupons': store.get('coupons', []),
-            'churn': {'count': len(churn), 'list': churn[:300]},
+            'churn': {'count': len(churn), 'list': churn[:1000], 'ctx': churn_ctx},
             'daily': daily_arr, 'prods': prod_arr, 'prodNames': pname_map,
             'members': {'totals': totals, 'daily': mem_arr},
             'rebuy': {'jasa': rebuy(MAIN), 'biz': rebuy('비즈몰')},

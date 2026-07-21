@@ -1049,24 +1049,48 @@
               <option value="rep">재구매수순</option>
             </select>
           </div>
-          <div class="scroll"><table><thead><tr><th style="text-align:left">상품명</th><th>구매 고객</th><th>재구매</th><th>재구매율</th><th><span class="ttp" data-tip="첫구매 → 두 번째 구매까지 걸린 일수의 중앙값. 재구매 쿠폰 발송 타이밍의 기준입니다." style="border-bottom:1px dotted var(--muted);cursor:help">재구매 간격 ⓘ</span></th><th><span class="ttp" data-tip="첫구매 후 90일이 지난 고객 중 90일 안에 같은 상품을 재구매한 비율 — 기간을 통제한 공정 비교 지표." style="border-bottom:1px dotted var(--muted);cursor:help">90일 ⓘ</span></th></tr></thead><tbody id="revDeepLoyal"></tbody></table></div>
+          <div class="scroll" style="height:300px"><table><thead><tr><th style="text-align:left">상품명</th><th>구매 고객</th><th>재구매</th><th>재구매율</th><th><span class="ttp" data-tip="첫구매 → 두 번째 구매까지 걸린 일수의 중앙값. 재구매 쿠폰 발송 타이밍의 기준입니다." style="border-bottom:1px dotted var(--muted);cursor:help">재구매 간격 ⓘ</span></th><th><span class="ttp" data-tip="첫구매 후 90일이 지난 고객 중 90일 안에 같은 상품을 재구매한 비율 — 기간을 통제한 공정 비교 지표." style="border-bottom:1px dotted var(--muted);cursor:help">90일 ⓘ</span></th></tr></thead><tbody id="revDeepLoyal"></tbody></table></div>
         </div>
       </div>
-      <div class="grid2" style="margin-bottom:4px">
+      <div class="grid2" style="margin-bottom:16px;border-top:1px solid var(--line);padding-top:18px">
         <div>
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-            <span style="font-weight:700;font-size:13px">이탈 위험 고객 <span style="font-size:11.5px;font-weight:400;color:var(--muted)">마지막 구매 후 45~180일 무재구매</span></span>
-            <button class="rv-sort" data-csv="churn">명단 CSV</button>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;height:28px">
+            <span style="font-weight:700;font-size:13px">이탈 위험 고객 <span class="ttp" data-tip="마지막 구매 후 45~180일 동안 재구매가 없는 자사몰 회원 · 45일 미만 = 활성, 180일 초과 = 휴면 · 출처: 아임웹 주문+회원" style="font-size:11px;color:var(--muted);border-bottom:1px dotted var(--muted);cursor:help;font-weight:400">ⓘ</span> <span style="font-size:11.5px;font-weight:400;color:var(--muted)">막대 클릭 → 오른쪽 명단 필터</span></span>
           </div>
-          <div id="revChurnSummary" style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:8px"></div>
-          <div class="scroll"><table><thead><tr><th style="text-align:left">고객</th><th>마지막 구매</th><th>경과일</th><th>구매횟수</th><th>누적액</th></tr></thead><tbody id="revChurnBody"></tbody></table></div>
+          <div id="revChurnSummary" style="margin-bottom:8px;font-size:12.5px;line-height:1.7"></div>
+          <div style="height:250px"><canvas id="revChurnChart"></canvas></div>
         </div>
         <div>
-          <div style="font-weight:700;font-size:13px;margin-bottom:10px">재구매 캠페인 타이밍 가이드 <span style="font-size:11.5px;font-weight:400;color:var(--muted)">데이터 기반 알림톡 발송 시점</span></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;height:28px">
+            <span id="revChurnListTitle" style="font-weight:700;font-size:13px">위험 고객 명단</span>
+            <span style="display:flex;gap:6px;align-items:center">
+              <select class="rv-sort" id="revChurnSort">
+                <option value="total">누적액 높은순</option>
+                <option value="days">경과일 적은순</option>
+                <option value="orders">구매횟수 많은순</option>
+              </select>
+              <button class="rv-pill" id="revChurnCsv">명단 CSV ↓</button>
+            </span>
+          </div>
+          <div class="scroll" style="height:300px"><table><thead><tr><th style="text-align:left">고객</th><th>마지막 구매</th><th>경과일</th><th>구매횟수</th><th>누적액</th></tr></thead><tbody id="revChurnBody"></tbody></table></div>
+        </div>
+      </div>
+      <div class="grid2" style="margin-bottom:4px;border-top:1px solid var(--line);padding-top:18px">
+        <div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;height:28px">
+            <span style="font-weight:700;font-size:13px">재구매 캠페인 타이밍 <span class="ttp" data-tip="상품별 첫구매 → 재구매 중앙 간격을 근거로 리마인드(알림톡·쿠폰) 발송 시점을 제안 · 발송 대상 = 그 상품을 1회만 구매했고 지금이 간격 -7일 ~ +21일 구간인 고객 · 출처: 아임웹 주문+회원" style="font-size:11px;color:var(--muted);border-bottom:1px dotted var(--muted);cursor:help;font-weight:400">ⓘ</span> <span style="font-size:11.5px;font-weight:400;color:var(--muted)">카드 클릭 → 오른쪽 발송 대상</span></span>
+          </div>
           <div id="revTimingCard"></div>
         </div>
+        <div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;height:28px">
+            <span id="revTimingRightTitle" style="font-weight:700;font-size:13px">발송 대상</span>
+            <button class="rv-pill" id="revTimingCsv" style="display:none">대상 CSV ↓</button>
+          </div>
+          <div id="revTimingRight" style="font-size:12.5px;color:var(--ink-2)"></div>
+        </div>
       </div>
-      <div class="hint">활용: 퍼널의 이탈 구간 × 중앙 간격 = 재구매 쿠폰 알림톡 타이밍 · 이탈 위험 명단 CSV로 발송 대상 추출 · 충성 상품은 구독 제안 1순위</div>
+      <div class="hint">활용: 이탈 위험은 구간 막대 클릭 → 명단 CSV로 위로 쿠폰 발송 · 타이밍 카드 클릭 → 발송 대상 CSV를 알림톡 리스트로 바로 사용 · 충성 상품은 구독 제안 1순위</div>
     </div>
     <div class="panel" id="revBizExtra" style="display:none;margin-bottom:14px">
       <h2 style="margin:0 0 8px">거래처 TOP 10 <span style="font-size:12px;font-weight:400;color:var(--muted)">누적 매출 기준 · 주문자명 단위</span></h2>
@@ -4954,33 +4978,147 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
             }).join(''):'<tr><td colspan="6" style="color:var(--muted)">품목 수집이 쌓이면 표시됩니다 (v8 커밋 + 수집 후)</td></tr>';
           }
         }
-        // 재구매 캠페인 타이밍 가이드
+        // ── 공용: 클라이언트 CSV 다운로드
+        function dlCsv_(fname, head, rows){
+          var body=[head].concat(rows).map(function(r){ return r.map(function(c){ c=String(c==null?'':c); return /[",\n]/.test(c)?'"'+c.replace(/"/g,'""')+'"':c; }).join(','); }).join('\n');
+          var a=document.createElement('a');
+          a.href=URL.createObjectURL(new Blob(['﻿'+body],{type:'text/csv;charset=utf-8'}));
+          a.download=fname; a.click();
+        }
+        // ── 이탈 위험 고객: 좌 구간 막대(클릭 드릴다운) + 우 명단
+        var C=RAW.churn;
+        var CL=(C&&C.list)||[];
+        var CH_BK=[{k:'b1',t:'45~60일',s:'이제 막 식음 — 되돌리기 쉬움',f:45,to:60,c:'#f59e0b'},
+                   {k:'b2',t:'61~90일',s:'식는 중 — 쿠폰 필요',f:61,to:90,c:'#f97316'},
+                   {k:'b3',t:'91~120일',s:'위험 — 강한 혜택 필요',f:91,to:120,c:'#e11d48'},
+                   {k:'b4',t:'121~180일',s:'마지막 기회',f:121,to:180,c:'#9f1239'}];
+        function bkOf(k){ for(var i=0;i<CH_BK.length;i++) if(CH_BK[i].k===k) return CH_BK[i]; return null; }
+        function segList(){ var b=bkOf(window.CHURN_SEG); if(!b) return CL; return CL.filter(function(x){return x.days>=b.f&&x.days<=b.to;}); }
+        var cs=document.getElementById('revChurnSummary');
+        if(cs){
+          var ctx=C&&C.ctx;
+          if(ctx){
+            var totM=ctx.active+ctx.risk+ctx.dormant;
+            cs.innerHTML='전체 구매고객 <b>'+totM.toLocaleString('ko-KR')+'명</b> 중 '
+              +'<span style="color:var(--green);font-weight:700">● 활성 '+ctx.active.toLocaleString('ko-KR')+'</span> · '
+              +'<span style="color:var(--red);font-weight:700">● 이탈 위험 '+ctx.risk.toLocaleString('ko-KR')+'</span>'
+              +(totM>0?' <b style="color:var(--red)">('+(ctx.risk/totM*100).toFixed(0)+'%)</b>':'')+' · '
+              +'<span style="color:var(--muted);font-weight:700">● 휴면 '+ctx.dormant.toLocaleString('ko-KR')+'</span>'
+              +'<span style="font-size:11px;color:var(--muted)"> — 활성 45일 미만 · 휴면 180일 초과</span>';
+          } else if(C){
+            cs.innerHTML='이탈 위험 <b style="color:var(--red)">'+C.count.toLocaleString('ko-KR')+'명</b> <span style="font-size:11px;color:var(--muted)">활성·휴면 구분은 다음 수집 후 표시</span>';
+          }
+        }
+        var cvCh=document.getElementById('revChurnChart');
+        function churnCols(){ return CH_BK.map(function(b){ return (window.CHURN_SEG&&window.CHURN_SEG!==b.k)?b.c+'55':b.c; }); }
+        function renderChurnRight(){
+          var cb=document.getElementById('revChurnBody');
+          var ct2=document.getElementById('revChurnListTitle');
+          var sortEl=document.getElementById('revChurnSort');
+          var sk=sortEl?sortEl.value:'total';
+          var b=bkOf(window.CHURN_SEG);
+          var lst=segList().slice().sort(function(a,x){ return sk==='days'?(a.days-x.days):sk==='orders'?(x.orders-a.orders):(x.total-a.total); });
+          if(ct2) ct2.innerHTML=(b?('<span style="color:'+b.c+'">●</span> '+b.t+' 명단'):'위험 고객 명단')+' <span style="font-size:11.5px;font-weight:400;color:var(--muted)">'+lst.length.toLocaleString('ko-KR')+'명'+(!b&&C&&C.count>CL.length?' (표시 '+CL.length+'명 — 전체는 CSV)':'')+'</span>';
+          if(cb) cb.innerHTML=lst.length?lst.slice(0,60).map(function(x){
+            var nm=x.name||('회원 '+String(x.code).slice(-4));
+            return '<tr><td style="text-align:left">'+nm+'</td><td>'+x.last+'</td><td>'+x.days+'일</td><td>'+x.orders+'회</td><td>'+won(x.total)+'</td></tr>';
+          }).join(''):'<tr><td colspan="5" style="color:var(--muted)">해당 구간 고객 없음 👍</td></tr>';
+        }
+        if(cvCh&&window.Chart){
+          if(window.CH_CHURN){ window.CH_CHURN.destroy(); window.CH_CHURN=null; }
+          var bkCnt=CH_BK.map(function(b){ return CL.filter(function(x){return x.days>=b.f&&x.days<=b.to;}).length; });
+          var chdl=window.ChartDataLabels?{anchor:'end',align:'end',offset:2,color:'#3a4a41',font:{weight:'700',size:11},
+            formatter:function(v){ return v.toLocaleString('ko-KR')+'명'+(CL.length>0?' ('+(v/CL.length*100).toFixed(0)+'%)':''); }}:{display:false};
+          window.CH_CHURN=new Chart(cvCh,{type:'bar',
+            plugins: window.ChartDataLabels?[ChartDataLabels]:[],
+            data:{labels:CH_BK.map(function(b){return b.t;}),datasets:[{data:bkCnt,backgroundColor:churnCols(),borderRadius:5,maxBarThickness:26}]},
+            options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+              layout:{padding:{right:76}},
+              onClick:function(ev,els){ if(!els||!els.length) return; var k=CH_BK[els[0].index].k;
+                window.CHURN_SEG=(window.CHURN_SEG===k)?null:k;
+                window.CH_CHURN.data.datasets[0].backgroundColor=churnCols(); window.CH_CHURN.update('none');
+                renderChurnRight(); },
+              onHover:function(ev,els){ ev.native.target.style.cursor=els.length?'pointer':'default'; },
+              plugins:{legend:{display:false},datalabels:chdl,
+                tooltip:{callbacks:{label:function(c){ var b=CH_BK[c.dataIndex]; return c.parsed.x.toLocaleString('ko-KR')+'명 — '+b.s; }}}},
+              scales:{x:{beginAtZero:true,ticks:{font:{size:10},precision:0},grid:{color:'rgba(0,0,0,.05)'}},
+                y:{ticks:{font:{size:11,weight:'700'}},grid:{display:false}}}}});
+        }
+        renderChurnRight();
+        var chCsvBtn=document.getElementById('revChurnCsv');
+        if(chCsvBtn) chCsvBtn.onclick=function(){
+          var b=bkOf(window.CHURN_SEG);
+          dlCsv_('이탈위험_'+(b?b.t.replace('~','-'):'전체')+'_'+ds(new Date())+'.csv',
+            ['이름','연락처','마지막 구매일','경과일','구매횟수','누적 구매액'],
+            segList().map(function(x){ return [x.name,x.call||'',x.last,x.days,x.orders,x.total]; }));
+        };
+        var chSortEl=document.getElementById('revChurnSort');
+        if(chSortEl) chSortEl.onchange=renderChurnRight;
+        // ── 재구매 캠페인 타이밍: 좌 카드(클릭) + 우 발송 대상 명단
         var tc=document.getElementById('revTimingCard');
         if(tc){
           var g12=(lad[0]&&lad[0].medianGap!=null)?lad[0].medianGap:null;
-          var h2='';
-          function tRow(t,v,s){ return '<div style="background:#fafcfb;border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin-bottom:8px"><div style="font-size:11.5px;color:var(--muted)">'+t+'</div><div style="font-size:15px;font-weight:800;margin-top:2px">'+v+'</div>'+(s?'<div style="font-size:11px;color:var(--ink-2);margin-top:2px">'+s+'</div>':'')+'</div>'; }
-          if(g12!=null){
-            h2+=tRow('전체: 첫구매 → 2회차 중앙 간격', g12+'일', '재구매 쿠폰 알림톡은 첫구매 후 '+Math.max(1,g12-5)+'~'+g12+'일 사이 발송이 최적');
+          var RM=DE.remind&&DE.remind.length?DE.remind:null;
+          var tCards=RM||(function(){
+            var arr=[];
+            if(g12!=null) arr.push({prod:'전체 (모든 상품)',gap:g12,rate:null,targets:null});
+            pR.filter(function(x){return x.all&&x.all.gap!=null&&x.all.buyers>=5;})
+              .sort(function(a,b){return b.all.buyers-a.all.buyers;}).slice(0,3)
+              .forEach(function(x){ arr.push({prod:x.name,gap:x.all.gap,rate:x.all.rate,targets:null}); });
+            return arr;
+          })();
+          if(window.TIMING_SEL==null||window.TIMING_SEL>=tCards.length) window.TIMING_SEL=0;
+          function renderTimingLeft(){
+            tc.innerHTML=tCards.map(function(x,i){
+              var on=(i===window.TIMING_SEL);
+              var n=String(x.prod); if(n.length>24) n=n.slice(0,24)+'…';
+              var tCnt=(x.targets!=null)?x.targets.length:null;
+              return '<div data-ti="'+i+'" style="background:'+(on?'#f2fbf5':'#fafcfb')+';border:1.5px solid '+(on?'var(--green)':'var(--line)')+';border-radius:12px;padding:10px 14px;margin-bottom:8px;cursor:pointer">'
+                +'<div style="display:flex;justify-content:space-between;align-items:center;gap:8px">'
+                +'<div><div style="font-size:11.5px;color:var(--muted)">'+n+'</div>'
+                +'<div style="font-size:15px;font-weight:800;margin-top:2px">간격 '+x.gap+'일'+(x.rate!=null?' · 재구매율 '+(x.rate*100).toFixed(0)+'%':'')+'</div>'
+                +'<div style="font-size:11px;color:var(--ink-2);margin-top:2px">첫구매 후 '+Math.max(1,x.gap-5)+'~'+x.gap+'일 사이 발송 최적</div></div>'
+                +(tCnt!=null?'<span style="flex-shrink:0;background:'+(tCnt>0?'var(--green)':'#c2c9c5')+';color:#fff;border-radius:10px;padding:3px 10px;font-size:12px;font-weight:800">'+tCnt+'명</span>':'')
+                +'</div></div>';
+            }).join('')||'<div style="color:var(--muted);font-size:12.5px">재구매 데이터가 쌓이면 표시됩니다</div>';
+            tc.querySelectorAll('[data-ti]').forEach(function(el){
+              el.addEventListener('click',function(){ window.TIMING_SEL=+el.dataset.ti; renderTimingLeft(); renderTimingRight(); });
+            });
           }
-          var gapProds=pR.filter(function(x){return x.all&&x.all.gap!=null&&x.all.buyers>=5;})
-            .sort(function(a,b){return b.all.buyers-a.all.buyers;}).slice(0,3);
-          gapProds.forEach(function(x){
-            var n=String(x.name); if(n.length>20) n=n.slice(0,20)+'…';
-            h2+=tRow(n, '간격 '+x.all.gap+'일 · 재구매율 '+(x.all.rate*100).toFixed(0)+'%', '이 상품 구매자에겐 '+Math.max(1,x.all.gap-5)+'일차 리마인드 추천');
-          });
-          tc.innerHTML=h2||'<div style="color:var(--muted);font-size:12.5px">재구매 데이터가 쌓이면 타이밍 가이드가 표시됩니다</div>';
-        }
-        // 이탈 위험 고객 (하위 카테고리)
-        var C=RAW.churn;
-        var cs=document.getElementById('revChurnSummary');
-        if(cs) cs.innerHTML = C? '현재 <b style="color:var(--red);font-size:16px">'+C.count.toLocaleString('ko-KR')+'명</b>&nbsp;<span style="font-size:12px;color:var(--muted)">아래는 누적액 상위 10명 · 전체 명단은 CSV</span>' : '';
-        var cb=document.getElementById('revChurnBody');
-        if(cb){
-          cb.innerHTML=(C&&C.list&&C.list.length)?C.list.slice(0,10).map(function(x){
-            var nm=x.name||('회원 '+String(x.code).slice(-4));
-            return '<tr><td style="text-align:left">'+nm+'</td><td>'+x.last+'</td><td>'+x.days+'일</td><td>'+x.orders+'회</td><td>'+won(x.total)+'</td></tr>';
-          }).join(''):'<tr><td colspan="5" style="color:var(--muted)">이탈 위험 고객 없음 👍</td></tr>';
+          function renderTimingRight(){
+            var tr=document.getElementById('revTimingRight');
+            var tt=document.getElementById('revTimingRightTitle');
+            var tcsv=document.getElementById('revTimingCsv');
+            if(!tr) return;
+            var x=tCards[window.TIMING_SEL];
+            if(!x){ tr.innerHTML=''; return; }
+            var n=String(x.prod); if(n.length>20) n=n.slice(0,20)+'…';
+            if(x.targets==null){
+              if(tt) tt.textContent='발송 대상 — '+n;
+              if(tcsv) tcsv.style.display='none';
+              tr.innerHTML='<div style="color:var(--muted);padding:8px 0">발송 대상 명단은 fetch_imweb.py 새 버전 커밋 + 수집 후 표시됩니다</div>';
+              return;
+            }
+            if(tt) tt.innerHTML='발송 대상 — '+n+' <span style="font-size:11.5px;font-weight:400;color:var(--muted)">'+x.targets.length+'명 · 1회 구매 후 리마인드 적기</span>';
+            if(tcsv){ tcsv.style.display=x.targets.length?'inline-block':'none';
+              tcsv.onclick=function(){ dlCsv_('발송대상_'+String(x.prod).slice(0,10)+'_'+ds(new Date())+'.csv',
+                ['이름','연락처','첫구매일','경과일'],
+                x.targets.map(function(t){ return [t.name,t.call||'',t.date,t.days]; })); };
+            }
+            function timingBadge(dgap){
+              var lo=Math.max(1,x.gap-5);
+              if(dgap<lo) return '<span style="color:var(--blue);font-weight:700">여유 '+(lo-dgap)+'일</span>';
+              if(dgap<=x.gap+2) return '<span style="color:var(--green);font-weight:700">지금 최적</span>';
+              return '<span style="color:var(--red);font-weight:700">+'+(dgap-x.gap)+'일 지남</span>';
+            }
+            tr.innerHTML=x.targets.length?
+              '<div class="scroll" style="max-height:300px"><table><thead><tr><th style="text-align:left">고객</th><th>첫구매일</th><th>경과일</th><th>타이밍</th></tr></thead><tbody>'
+              +x.targets.map(function(t){ return '<tr><td style="text-align:left">'+(t.name||'회원')+'</td><td>'+t.date+'</td><td>'+t.days+'일</td><td>'+timingBadge(t.days)+'</td></tr>'; }).join('')
+              +'</tbody></table></div>'
+              +'<div class="hint" style="margin-top:6px">연락처는 CSV에 포함 · 알림톡 발송 리스트로 바로 사용</div>'
+              :'<div style="color:var(--muted);padding:8px 0">지금 리마인드 적기인 대상이 없습니다 — 내일 다시 확인</div>';
+          }
+          renderTimingLeft(); renderTimingRight();
         }
       }
     }
