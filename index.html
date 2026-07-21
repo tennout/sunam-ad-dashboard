@@ -956,7 +956,7 @@
       <div class="hint" style="margin-top:6px">멤버십 쿠폰사용 비중 = 기간 내 쿠폰 사용 주문 중 그린애플+ 회원 주문 비율 · 페이백 포인트 회수는 포인트 사용 주문율로 근사 확인</div>
     </div>
     <div class="panel" id="revVoc" style="margin-bottom:14px">
-      <h2 style="margin:0 0 8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">VOC — 후기·문의 <span style="font-size:12px;font-weight:400;color:var(--muted)">고객 목소리 · 품질 조기경보 · 선택 기간 <b class="selPeriod" style="color:var(--ink-2);font-weight:700"></b></span>
+      <h2 style="margin:0 0 8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">VOC — 후기·문의 <span style="font-size:12px;font-weight:400;color:var(--muted)"><span id="vocSrcTag">고객 목소리 · 품질 조기경보</span> · 선택 기간 <b class="selPeriod" style="color:var(--ink-2);font-weight:700"></b></span>
         <a href="https://docs.google.com/spreadsheets/d/18Zs1SbKbAAl1enNiswx_G_GmARI4hshum8ErE2m1EI0/edit" target="_blank" style="margin-left:auto;font-size:12px;font-weight:700;color:var(--blue);text-decoration:none;border:1px solid var(--line);border-radius:8px;padding:5px 10px">시트에서 전체 보기</a></h2>
       <div id="revVocCards" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px"></div>
       <div class="grid2">
@@ -4656,14 +4656,28 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
       var V=RAW.voc;
       if(V&&V.ratingDaily){
         vp.style.display = RT==='biz'?'none':'block';
+        var vst=document.getElementById('vocSrcTag');
+        if(vst) vst.textContent = (window.CREMA&&window.CREMA.reviews&&window.CREMA.reviews.length)?'크리마 리뷰 연동 (사진 포함)':'고객 목소리 · 품질 조기경보';
+        var CR=(window.CREMA&&window.CREMA.reviews&&window.CREMA.reviews.length)?window.CREMA.reviews:null;
         var pc=0, ps=0;
-        V.ratingDaily.forEach(function(r){ if(r.date>=from&&r.date<=to){ pc+=r.count; ps+=r.sum; } });
+        if(CR){
+          CR.forEach(function(r){ if(r.date>=from&&r.date<=to&&r.score!=null){ pc++; ps+=r.score; } });
+        } else {
+          V.ratingDaily.forEach(function(r){ if(r.date>=from&&r.date<=to){ pc+=r.count; ps+=r.sum; } });
+        }
         var vcards=document.getElementById('revVocCards');
         function vcard(t,v,s,warn){ return '<div style="flex:1;min-width:140px;background:'+(warn?'#fff5f6':'#fafcfb')+';border:1px solid '+(warn?'#f5c2cb':'var(--line)')+';border-radius:12px;padding:10px 14px"><div style="font-size:11.5px;color:var(--muted)">'+t+'</div><div style="font-size:17px;font-weight:800;margin-top:2px;'+(warn?'color:var(--red)':'')+'">'+v+'</div>'+(s?'<div style="font-size:11px;color:var(--ink-2);margin-top:2px">'+s+'</div>':'')+'</div>'; }
         if(vcards){
           vcards.innerHTML =
             vcard('기간 평균 별점', pc?(ps/pc).toFixed(2)+'점':'—', pc+'건 후기')
-            +vcard('최근 30일 평균 별점', V.avg30!=null?V.avg30.toFixed(2)+'점':'—', V.reviews30+'건 · 저평점 '+V.low30+'건')
+            +(function(){
+              if(CR){
+                var d30=addD(ds(new Date()),-29), c30=0,s30=0,l30=0;
+                CR.forEach(function(r){ if(r.date>=d30&&r.score!=null){ c30++; s30+=r.score; if(r.score<=3) l30++; } });
+                return vcard('최근 30일 평균 별점', c30?(s30/c30).toFixed(2)+'점':'—', c30+'건 · 저평점 '+l30+'건 · 크리마 실측');
+              }
+              return vcard('최근 30일 평균 별점', V.avg30!=null?V.avg30.toFixed(2)+'점':'—', V.reviews30+'건 · 저평점 '+V.low30+'건');
+            })()
             +vcard('미답변 문의', V.waitCount+'건', V.waitCount>0?'답변 필요':'모두 답변 완료', V.waitCount>0);
         }
         function esc_(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
@@ -4675,7 +4689,14 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
         var cvV=document.getElementById('revVocChart');
         if(cvV&&window.Chart){
           if(window.CH_VOC){ window.CH_VOC.destroy(); window.CH_VOC=null; }
-          var vd=(V.ratingDaily||[]).filter(function(r){return r.date>=from&&r.date<=to;});
+          var vd;
+          if(CR){
+            var byD2={};
+            CR.forEach(function(r){ if(r.date<from||r.date>to||r.score==null) return; var d4=byD2[r.date]||(byD2[r.date]={date:r.date,count:0,sum:0}); d4.count++; d4.sum+=r.score; });
+            vd=Object.keys(byD2).sort().map(function(k){return byD2[k];});
+          } else {
+            vd=(V.ratingDaily||[]).filter(function(r){return r.date>=from&&r.date<=to;});
+          }
           var vLabs=vd.map(function(r){return r.date.slice(5);});
           var vCnt=vd.map(function(r){return r.count;});
           var vAvg=vd.map(function(r){return r.count>0?+(r.sum/r.count).toFixed(2):null;});
@@ -4697,6 +4718,24 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
               var w=r.status==='WAIT';
               return '<div style="padding:8px 0;border-bottom:1px solid var(--line)"><span style="font-weight:700;color:'+(w?'var(--red)':'var(--green)')+'">'+(w?'대기':'완료')+'</span> · '+r.date+' · '+r.site+pnameTag_(r)+prodLink_(r.site,r.prod)+(w?adminLink_(r.site):'')+'<br>'+esc_(r.subject||'(제목 없음)')+'</div>';
             }).join(''):'<div style="color:var(--muted);padding:8px 0">문의 없음</div>';
+          } else if(CR){
+            // 크리마 리뷰 (사진 포함)
+            var crPmap={};
+            try{ (RAW.prods||[]).forEach(function(p){ if(p.prod&&p.name) crPmap[String(p.prod)]=p.name; }); }catch(e){}
+            var crList = CR.filter(function(r){ return window.VOC_TAB==='all' ? true : (r.score!=null&&r.score<=3); }).slice(0,30);
+            listEl.innerHTML = crList.length? crList.map(function(r){
+              var bad=r.score!=null&&r.score<=3;
+              var pn=crPmap[String(r.prod)]||'';
+              if(pn.length>22) pn=pn.slice(0,22)+'…';
+              var th=(r.thumbs&&r.thumbs.length)?('<div style="display:flex;gap:4px;margin-top:5px">'+r.thumbs.slice(0,4).map(function(t){
+                return '<a href="'+esc_(r.img||t)+'" target="_blank"><img src="'+esc_(t)+'" style="width:44px;height:44px;object-fit:cover;border-radius:7px;border:1px solid var(--line)" loading="lazy"></a>';
+              }).join('')+'</div>'):'';
+              return '<div style="padding:8px 0;border-bottom:1px solid var(--line)">'
+                +'<span style="color:'+(bad?'var(--red)':'var(--green)')+';font-weight:700">'+(r.score!=null?r.score+'점':'별점 없음')+'</span> · '+r.date
+                +(pn?' · <span style="color:var(--ink);font-weight:700">'+esc_(pn)+'</span>':'')
+                +(r.prod?prodLink_('자사몰',r.prod):'')
+                +'<br>'+esc_(r.msg)+th+'</div>';
+            }).join('') : '<div style="color:var(--muted);padding:8px 0">'+(window.VOC_TAB==='all'?'수집된 후기가 없습니다':'저평점 후기 없음 👍')+'</div>';
           } else {
             var revList = window.VOC_TAB==='all' ? (V.recentReviews||[]) : (V.lowRecent||[]);
             listEl.innerHTML = revList.length? revList.map(function(r){
@@ -4926,6 +4965,12 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
         .then(function(enc){ return decryptDash_(pw, enc); })
         .then(function(g){ window.GA4=g; renderRev(); })
         .catch(function(){ window.GA4=null; });
+      // 크리마 리뷰 (선택 — data/crema_reviews.json.enc 있으면 VOC가 사진 리뷰로 업그레이드)
+      fetch('data/crema_reviews.json.enc',{cache:'no-store'})
+        .then(function(r){ if(!r.ok) throw 0; return r.json(); })
+        .then(function(enc){ return decryptDash_(pw, enc); })
+        .then(function(c){ window.CREMA=c; renderRev(); })
+        .catch(function(){ window.CREMA=null; });
       REV_UPDATED=js.updated?new Date(js.updated):null;
       var st=document.getElementById('revStatus');
       if(st) st.textContent='마지막 수집: '+(REV_UPDATED?REV_UPDATED.toLocaleString('ko-KR',{timeZone:'Asia/Seoul'})+' (한국시간)':'-');
