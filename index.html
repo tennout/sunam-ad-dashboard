@@ -534,6 +534,16 @@
     <button class="rnav-btn" data-go="revJasaExtra">멤버십</button>
     <button class="rnav-btn" data-go="revBizExtra">거래처</button>
   </div>
+  <div class="modal-bg" id="vocFullModal">
+    <div class="modal" style="max-width:900px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+        <h3 id="vocFullTitle" style="margin:0">후기 전체 보기</h3>
+        <button class="rv-pill" onclick="document.getElementById('vocFullModal').classList.remove('open')">닫기 ✕</button>
+      </div>
+      <div class="m-sub" id="vocFullSub"></div>
+      <div id="vocFullBody" style="max-height:65vh;overflow-y:auto;overflow-x:hidden;word-break:break-word;overflow-wrap:anywhere;font-size:13px;color:var(--ink-2);padding-right:8px"></div>
+    </div>
+  </div>
   <div class="modal-bg" id="glossaryModal">
     <div class="modal" style="max-width:760px">
       <h3>💡 광고 용어 설명</h3>
@@ -888,7 +898,7 @@
         <style>#revTraffic table td, #revTraffic table th{height:37px;box-sizing:border-box;white-space:nowrap} #revTraffic table td:first-child{white-space:normal}</style>
         <div class="grid2" style="border-top:1px solid var(--line);padding-top:20px">
           <div>
-            <div style="font-weight:700;font-size:13px;margin-bottom:12px;height:22px;line-height:22px;white-space:nowrap;overflow:hidden">캠페인별 성과 (UTM) <span class="ttp" data-tip="행을 클릭하면 오른쪽에 그 캠페인 광고로 들어온 사람들이 도착한 랜딩페이지별 성과가 표시됩니다.<br>(referral)·(direct)·(organic)은 캠페인이 아니라 UTM 없이 들어온 유입 묶음입니다." style="font-size:11px;color:var(--muted);border-bottom:1px dotted var(--muted);cursor:help;font-weight:400">ⓘ</span> <span id="revTrfCampWin" style="font-size:11.5px;font-weight:400;color:var(--muted)"></span></div>
+            <div style="font-weight:700;font-size:13px;margin-bottom:12px;height:22px;line-height:22px;white-space:nowrap;overflow:hidden">캠페인·유입원별 성과 <span class="ttp" data-tip="<b>광고 캠페인</b>과 <b>광고 외 유입 묶음</b>(추천 링크·직접·자연 검색, '광고 아님' 배지)이 함께 표시됩니다.<br>행을 클릭하면 오른쪽에 해당 유입이 도착한 랜딩페이지별 성과가 나옵니다." style="font-size:11px;color:var(--muted);border-bottom:1px dotted var(--muted);cursor:help;font-weight:400">ⓘ</span> <span id="revTrfCampWin" style="font-size:11.5px;font-weight:400;color:var(--muted)"></span></div>
             <div class="scroll"><table><thead><tr><th style="text-align:left">캠페인</th><th>세션</th><th>구매</th><th>전환율</th><th>매출</th></tr></thead><tbody id="revTrfCamp"></tbody></table></div>
           </div>
           <div id="revTrfLandWrap"></div>
@@ -979,9 +989,12 @@
             <span style="display:flex;gap:6px">
               <button class="rv-pill on" data-vt="low">저평점 후기</button>
               <button class="rv-pill" data-vt="all">전체 후기</button>
-              <button class="rv-pill" data-vt="qna">문의</button>
+              <button class="rv-pill" data-vt="qna">1:1 문의</button>
             </span>
-            <select class="rv-sort" id="revVocProd" style="display:none;max-width:190px"></select>
+            <span style="display:flex;gap:6px;align-items:center">
+              <select class="rv-sort" id="revVocProd" style="display:none;max-width:170px"></select>
+              <button class="rv-pill" id="revVocFullBtn">전체 보기 ⤢</button>
+            </span>
           </div>
           <div id="revVocList" style="font-size:12.5px;color:var(--ink-2);height:340px;overflow-y:auto;overflow-x:hidden;word-break:break-word;overflow-wrap:anywhere;padding-right:6px"></div>
         </div>
@@ -4508,14 +4521,25 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
       var wEl=document.getElementById('revTrfCampWin');
       if(wEl) wEl.textContent='최근 '+win+'일 기준';
       var campList=(G.campaigns&&G.campaigns[String(win)])||[];
+      function campLabel(nm){
+        nm=String(nm||'');
+        if(nm==='(referral)') return {t:'추천 링크 유입',ad:false,tip:'다른 사이트·블로그·카페 링크를 타고 온 방문 묶음 (광고 아님)'};
+        if(nm==='(direct)') return {t:'직접 유입',ad:false,tip:'주소 직접 입력·즐겨찾기로 들어온 방문 묶음 (광고 아님)'};
+        if(nm==='(organic)') return {t:'자연 검색 유입',ad:false,tip:'네이버·구글 등에 검색해서 들어온 방문 묶음 (광고 아님)'};
+        if(/^\d{8,}$/.test(nm)) return {t:'메타 캠페인 #'+nm.slice(-4)+' (이름 미수신)',ad:true,tip:'UTM 적용 전에 나간 광고 클릭이라 캠페인 이름 대신 메타 내부 번호로 기록된 유입입니다. UTM 적용 후 클릭부터는 이름으로 잡히며 이 항목은 점차 사라집니다.'};
+        if(nm.indexOf('{{')>=0) return {t:'(UTM 변수 미적용 클릭)',ad:true,tip:'동적 변수({{campaign.name}})가 치환되지 않은 옛 클릭 — 자연 소멸됩니다.'};
+        return {t:nm.length>30?nm.slice(0,30)+'…':nm,ad:true,tip:''};
+      }
       function renderCampLeft(){
         var el=document.getElementById('revTrfCamp');
         if(!el) return;
         el.innerHTML=campList.length?campList.slice(0,10).map(function(x){
           var cvr=x.sess>0?(x.trans/x.sess*100).toFixed(2)+'%':'—';
-          var nm=String(x.name||'(없음)'); if(nm.length>32) nm=nm.slice(0,32)+'…';
+          var L=campLabel(x.name);
           var on=window.TRF_CAMP===x.name;
-          return '<tr data-camp="'+String(x.name).replace(/"/g,'&quot;')+'" style="cursor:pointer'+(on?';background:#eefaf3':'')+'"><td style="text-align:left'+(on?';font-weight:700':'')+'">'+nm+'</td><td>'+x.sess.toLocaleString('ko-KR')+'</td><td>'+x.trans.toLocaleString('ko-KR')+'</td><td>'+cvr+'</td><td>'+won(x.rev)+'</td></tr>';
+          var badge=L.ad?'':' <span style="font-size:10px;background:#f0f3f1;color:var(--muted);border-radius:6px;padding:1px 6px;vertical-align:1px">광고 아님</span>';
+          var nmHtml=L.tip?('<span class="ttp" data-tip="'+L.tip.replace(/"/g,'&quot;')+'">'+L.t+'</span>'):L.t;
+          return '<tr data-camp="'+String(x.name).replace(/"/g,'&quot;')+'" style="cursor:pointer'+(on?';background:#eefaf3':'')+'"><td style="text-align:left'+(on?';font-weight:700':'')+(L.ad?'':';color:var(--muted)')+'">'+nmHtml+badge+'</td><td>'+x.sess.toLocaleString('ko-KR')+'</td><td>'+x.trans.toLocaleString('ko-KR')+'</td><td>'+cvr+'</td><td>'+won(x.rev)+'</td></tr>';
         }).join(''):'<tr><td colspan="5" style="color:var(--muted)">UTM 캠페인 유입 없음 — UTM 적용 이후 유입부터 잡힙니다</td></tr>';
         el.querySelectorAll('tr[data-camp]').forEach(function(tr){
           tr.addEventListener('click',function(){
@@ -4540,7 +4564,7 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
           var cl=((G.campLanding[String(win)])||[]).filter(function(x){return x.camp===window.TRF_CAMP;});
           var cs={sess:0,rev:0,trans:0};
           cl.forEach(function(x){ cs.sess+=x.sess; cs.rev+=x.rev; cs.trans+=x.trans; });
-          var nm=String(window.TRF_CAMP); if(nm.length>22) nm=nm.slice(0,22)+'…';
+          var nm=campLabel(window.TRF_CAMP).t; if(nm.length>24) nm=nm.slice(0,24)+'…';
           var cvrC=cs.sess>0?(cs.trans/cs.sess*100).toFixed(1)+'%':'—';
           h+='<div style="'+titleStyle+'"><span>'+nm+' — 랜딩페이지 <span class="ttp" data-tip="이 캠페인 광고를 클릭한 사람들이 도착한 페이지별 성과입니다. 세션은 많은데 전환율이 낮은 페이지가 개선 대상이에요." style="font-size:11px;color:var(--muted);border-bottom:1px dotted var(--muted);cursor:help;font-weight:400">ⓘ</span></span>'
             +'<a href="#" id="revTrfLandReset" style="font-size:12px;color:var(--blue);font-weight:700;text-decoration:none">← 전체 랜딩</a></div>';
@@ -4754,7 +4778,11 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
           if(window.VOC_TAB==='qna'){
             listEl.innerHTML=(V.recentQna&&V.recentQna.length)?V.recentQna.map(function(r){
               var w=r.status==='WAIT';
-              return '<div style="padding:8px 0;border-bottom:1px solid var(--line)"><span style="font-weight:700;color:'+(w?'var(--red)':'var(--green)')+'">'+(w?'대기':'완료')+'</span> · '+r.date+' · '+r.site+pnameTag_(r)+prodLink_(r.site,r.prod)+(w?adminLink_(r.site):'')+'<br>'+esc_(r.subject||'(제목 없음)')+'</div>';
+              var qi=(r.imgs&&r.imgs.length)?('<div style="display:flex;gap:4px;margin-top:5px">'+r.imgs.slice(0,3).map(function(t){
+                return '<a href="'+esc_(t)+'" target="_blank"><img class="voc-thumb" src="'+esc_(t)+'" data-full="'+esc_(t)+'" style="width:44px;height:44px;object-fit:cover;border-radius:7px;border:1px solid var(--line);cursor:zoom-in" loading="lazy"></a>';
+              }).join('')+'</div>'):'';
+              var qb=r.body?('<span style="color:var(--muted)"> — '+esc_(String(r.body).slice(0,100))+'</span>'):'';
+              return '<div style="padding:8px 0;border-bottom:1px solid var(--line)"><span style="font-weight:700;color:'+(w?'var(--red)':'var(--green)')+'">'+(w?'대기':'완료')+'</span> · '+r.date+' · '+r.site+pnameTag_(r)+prodLink_(r.site,r.prod)+(w?adminLink_(r.site):'')+'<br><b>'+esc_(r.subject||'(제목 없음)')+'</b>'+qb+qi+'</div>';
             }).join(''):'<div style="color:var(--muted);padding:8px 0">문의 없음</div>';
           } else if(CR){
             // 크리마 리뷰 (사진 포함)
@@ -4768,7 +4796,7 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
                 return '<a href="'+esc_(fullT)+'" target="_blank"><img class="voc-thumb" src="'+esc_(t)+'" data-full="'+esc_(fullT)+'" style="width:44px;height:44px;object-fit:cover;border-radius:7px;border:1px solid var(--line);cursor:zoom-in" loading="lazy"></a>';
               }).join('')+'</div>'):(/photo|video/.test(r.type||'')?'<div style="margin-top:4px;font-size:11px;color:var(--muted)">📷 사진 첨부 리뷰 (이미지 수집 중)</div>':'');
               return '<div style="padding:8px 0;border-bottom:1px solid var(--line)">'
-                +'<span style="color:'+(bad?'var(--red)':'var(--green)')+';font-weight:700">'+(r.score!=null?r.score+'점':'별점 없음')+'</span> · '+r.date
+                +'<span style="color:'+(bad?'var(--red)':'var(--green)')+';font-weight:700">'+(r.score!=null?r.score+'점':'별점 없음')+'</span>'+(r.disp===false?' <span style="font-size:10.5px;background:#fff5f6;color:var(--red);border:1px solid #f5c2cb;border-radius:6px;padding:1px 6px">숨김</span>':'')+' · '+r.date
                 +(pn?' · <span style="color:var(--ink);font-weight:700">'+esc_(pn)+'</span>':'')
                 +(r.prod?prodLink_('자사몰',r.prod):'')
                 +'<br>'+esc_(r.msg)+th+'</div>';
@@ -5134,6 +5162,58 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
     })();
     var vocProdSel=document.getElementById('revVocProd');
     if(vocProdSel) vocProdSel.addEventListener('change',function(){ window.VOC_PROD=vocProdSel.value; renderRev(); });
+    // VOC 전체 보기 모달
+    var vocFullBtn=document.getElementById('revVocFullBtn');
+    if(vocFullBtn) vocFullBtn.addEventListener('click',function(){
+      if(!RAW) return;
+      var esc2=function(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); };
+      var pmap={};
+      try{ if(window.CREMA&&window.CREMA.prodNames) pmap=Object.assign({},window.CREMA.prodNames); }catch(e){}
+      try{ var _r2=RAW.prodNames||{}; Object.keys(_r2).forEach(function(k){ if(!pmap[k]) pmap[k]=_r2[k]; }); }catch(e){}
+      var tab=window.VOC_TAB||'low';
+      var VP2=window.VOC_PROD||'';
+      var title=document.getElementById('vocFullTitle');
+      var sub=document.getElementById('vocFullSub');
+      var body=document.getElementById('vocFullBody');
+      var h='';
+      if(tab==='qna'){
+        var V2=RAW.voc||{};
+        var qs=(V2.recentQna||[]);
+        if(title) title.textContent='1:1 문의 전체 보기';
+        if(sub) sub.textContent='최근 '+qs.length+'건 · 대기 문의엔 관리자 답변 바로가기';
+        h=qs.map(function(r){
+          var w=r.status==='WAIT';
+          var qi=(r.imgs&&r.imgs.length)?('<div style="display:flex;gap:6px;margin-top:6px">'+r.imgs.slice(0,3).map(function(t){
+            return '<a href="'+esc2(t)+'" target="_blank"><img class="voc-thumb" src="'+esc2(t)+'" data-full="'+esc2(t)+'" style="width:72px;height:72px;object-fit:cover;border-radius:8px;border:1px solid var(--line);cursor:zoom-in" loading="lazy"></a>';
+          }).join('')+'</div>'):'';
+          return '<div style="padding:10px 0;border-bottom:1px solid var(--line)"><span style="font-weight:700;color:'+(w?'var(--red)':'var(--green)')+'">'+(w?'대기':'완료')+'</span> · '+r.date+' · '+r.site+(r.pname?' · <b>'+esc2(r.pname)+'</b>':'')+'<br><b>'+esc2(r.subject||'(제목 없음)')+'</b>'+(r.body?'<br>'+esc2(String(r.body).slice(0,300)):'')+qi+'</div>';
+        }).join('')||'<div style="color:var(--muted)">문의 없음</div>';
+      } else {
+        var CR2=(window.CREMA&&window.CREMA.reviews)?window.CREMA.reviews:null;
+        var list2;
+        if(CR2){
+          list2=CR2.filter(function(r){ return (!VP2||String(r.prod)===String(VP2)) && (tab==='all'?true:(r.score!=null&&r.score<=3)); });
+        } else {
+          var V3=RAW.voc||{};
+          list2=(tab==='all'?(V3.recentReviews||[]):(V3.lowRecent||[])).map(function(r){ return {score:r.rating,date:r.date,prod:r.prod,msg:r.body,thumbs:[],img:'',pn:r.pname}; });
+        }
+        if(title) title.textContent=(tab==='all'?'전체 후기':'저평점 후기')+' 전체 보기';
+        if(sub) sub.textContent=list2.length+'건'+(VP2&&pmap[VP2]?' · '+pmap[VP2]:'')+(CR2?' · 크리마 실측':'');
+        h=list2.map(function(r){
+          var bad=r.score!=null&&r.score<=3;
+          var pn=r.pn||pmap[String(r.prod)]||'';
+          var th=(r.thumbs&&r.thumbs.length)?('<div style="display:flex;gap:6px;margin-top:6px;flex-wrap:wrap">'+r.thumbs.map(function(t,ti){
+            var fu=(ti===0&&r.img)?r.img:t;
+            return '<a href="'+esc2(fu)+'" target="_blank"><img class="voc-thumb" src="'+esc2(t)+'" data-full="'+esc2(fu)+'" style="width:72px;height:72px;object-fit:cover;border-radius:8px;border:1px solid var(--line);cursor:zoom-in" loading="lazy"></a>';
+          }).join('')+'</div>'):'';
+          return '<div style="padding:10px 0;border-bottom:1px solid var(--line)"><span style="color:'+(bad?'var(--red)':'var(--green)')+';font-weight:700">'+(r.score!=null?r.score+'점':'별점 없음')+'</span> · '+r.date+(pn?' · <b>'+esc2(pn)+'</b>':'')+'<br>'+esc2(r.msg)+th+'</div>';
+        }).join('')||'<div style="color:var(--muted)">해당 조건의 후기가 없습니다</div>';
+      }
+      if(body) body.innerHTML=h;
+      document.getElementById('vocFullModal').classList.add('open');
+    });
+    var vfm=document.getElementById('vocFullModal');
+    if(vfm) vfm.addEventListener('click',function(e){ if(e.target.id==='vocFullModal') vfm.classList.remove('open'); });
     ['revBestSort','revCouponSort','revLoyalSort','revFunnelSel','revPRebuySel','revVocRange'].forEach(function(id){
       var el=document.getElementById(id);
       if(el) el.addEventListener('change',function(){ renderRev(); });

@@ -305,7 +305,7 @@ def main():
 
     reviews = sorted(prev.values(), key=lambda x: (x.get('date') or '', x.get('id') or 0),
                      reverse=True)
-    reviews = [r for r in reviews if r.get('disp', True)][:KEEP]
+    reviews = reviews[:KEEP]   # 미진열 리뷰도 유지 (대시보드에서 '숨김' 표시)
 
     prod_names = dict(fetch_product_names(token))
     for k, v in widget_names.items():

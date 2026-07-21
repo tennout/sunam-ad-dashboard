@@ -11,7 +11,7 @@
     data/imweb_dash.json.enc   대시보드 페이로드
 설치: pip install requests cryptography
 """
-import os, json, time, base64, datetime, sys
+import os, json, time, base64, datetime, sys, re
 import requests
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from cryptography.hazmat.primitives import hashes
@@ -421,9 +421,15 @@ def build_dash(store):
             lows.append({'date': r['date'], 'rating': r['rating'], 'site': r['site'],
                          'prod': r['prod'], 'body': r['body'][:120]})
     lows.sort(key=lambda x: x['date'], reverse=True)
-    qs = sorted([{'date': q['date'], 'status': q['status'], 'site': q['site'],
-                  'prod': q['prod'], 'subject': q['subject'][:80]} for q in qnas],
-                key=lambda x: x['date'], reverse=True)
+    def _qna_row(q):
+        body_raw = q.get('body') or ''
+        imgs = re.findall(r'<img[^>]+src=["\']([^"\']+)["\']', body_raw)[:3]
+        body_txt = re.sub(r'<[^>]+>', ' ', body_raw)
+        body_txt = re.sub(r'\s+', ' ', body_txt).strip()[:300]
+        return {'date': q['date'], 'status': q['status'], 'site': q['site'],
+                'prod': q['prod'], 'subject': q['subject'][:80],
+                'body': body_txt, 'imgs': imgs}
+    qs = sorted([_qna_row(q) for q in qnas], key=lambda x: x['date'], reverse=True)
     # 상품번호 → 상품명 매핑 (품목 데이터 기준)
     pname_map = {}
     for p in prods:
@@ -620,7 +626,7 @@ def build_dash(store):
             'deep': {'windows': windows, 'ladder': ladder, 'fivePlus': five_plus, 'ladders': ladders, 'prodLoyal': prod_loyal, 'prodRebuy': prod_rebuy},
             'coupons': store.get('coupons', []),
             'churn': {'count': len(churn), 'list': churn[:300]},
-            'daily': daily_arr, 'prods': prod_arr,
+            'daily': daily_arr, 'prods': prod_arr, 'prodNames': pname_map,
             'members': {'totals': totals, 'daily': mem_arr},
             'rebuy': {'jasa': rebuy(MAIN), 'biz': rebuy('비즈몰')},
             'grades': grade_arr, 'b2bTop': b2b_top, 'cohorts': coh_arr,
