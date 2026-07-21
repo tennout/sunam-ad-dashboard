@@ -912,7 +912,7 @@
             <span id="revBestChartTitle">매출 비중</span>
             <a href="#" id="revBestReset" style="display:none;font-size:12px;color:var(--blue);font-weight:700;text-decoration:none">← 전체 비중 보기</a>
           </div>
-          <div style="height:300px;margin-top:56px"><canvas id="revBestChart"></canvas></div>
+          <div style="height:300px" id="revBestChartWrap"><canvas id="revBestChart"></canvas></div>
         </div>
         <div>
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
@@ -4553,6 +4553,8 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
       var resetEl=document.getElementById('revBestReset');
       if(cvB&&window.Chart){
         if(window.CH_BEST){ window.CH_BEST.destroy(); window.CH_BEST=null; }
+        var chartWrap=document.getElementById('revBestChartWrap');
+        if(chartWrap) chartWrap.style.marginTop = (window.BEST_SEL&&agg[window.BEST_SEL]) ? '0' : '56px';
         if(window.BEST_SEL && agg[window.BEST_SEL]){
           // 선택 상품 일별 추이
           var byD={};
