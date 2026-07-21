@@ -154,6 +154,22 @@ def main():
     print('랜딩페이지별 수집...')
     landing = dim_report(pid, token, 'landingPage')
 
+    # 캠페인 × 랜딩페이지 (캠페인 클릭 드릴다운용)
+    print('캠페인×랜딩 수집...')
+    camp_landing = {}
+    for w in WINDOWS:
+        rows3 = run_report(pid, token, ['sessionCampaignName', 'landingPage'],
+                           w, limit=200, order_by_sessions=True)
+        lst = []
+        for row in rows3:
+            camp = row['dimensionValues'][0]['value']
+            page = row['dimensionValues'][1]['value']
+            if camp == '(not set)':
+                continue
+            sess, users, pv, rev, trans = _mvals(row)
+            lst.append({'camp': camp, 'name': page, 'sess': sess, 'rev': rev, 'trans': trans})
+        camp_landing[str(w)] = lst
+
     # 채널 × 소스 상세 (도넛 클릭 드릴다운용)
     print('채널×소스별 수집...')
     ch_sources = {}
@@ -173,7 +189,8 @@ def main():
            'channels': channels,
            'campaigns': campaigns,
            'landing': landing,
-           'chSources': ch_sources}
+           'chSources': ch_sources,
+           'campLanding': camp_landing}
     os.makedirs('data', exist_ok=True)
     with open('data/ga4_daily.json.enc', 'w', encoding='utf-8') as f:
         f.write(encrypt_json(out, pw))

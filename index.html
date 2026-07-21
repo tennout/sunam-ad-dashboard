@@ -869,15 +869,13 @@
           </div>
           <div id="revTrfRight"></div>
         </div>
+        <style>#revTraffic table td, #revTraffic table th{height:37px;box-sizing:border-box;white-space:nowrap} #revTraffic table td:first-child{white-space:normal}</style>
         <div class="grid2" style="border-top:1px solid var(--line);padding-top:20px">
           <div>
-            <div style="font-weight:700;font-size:13px;margin-bottom:12px">캠페인별 성과 (UTM) <span id="revTrfCampWin" style="font-size:11.5px;font-weight:400;color:var(--muted)"></span></div>
+            <div style="font-weight:700;font-size:13px;margin-bottom:12px">캠페인별 성과 (UTM) <span id="revTrfCampWin" style="font-size:11.5px;font-weight:400;color:var(--muted)"></span> <span style="font-size:11.5px;font-weight:400;color:var(--muted)">· 행 클릭 → 오른쪽에 그 캠페인의 랜딩페이지</span></div>
             <div class="scroll"><table><thead><tr><th style="text-align:left">캠페인</th><th>세션</th><th>구매</th><th>전환율</th><th>매출</th></tr></thead><tbody id="revTrfCamp"></tbody></table></div>
           </div>
-          <div>
-            <div style="font-weight:700;font-size:13px;margin-bottom:12px">랜딩페이지 TOP <span style="font-size:11.5px;font-weight:400;color:var(--muted)">세션 많은데 전환 낮으면 개선 대상</span></div>
-            <div class="scroll"><table><thead><tr><th style="text-align:left">페이지</th><th>세션</th><th>전환율</th><th>매출</th></tr></thead><tbody id="revTrfLand"></tbody></table></div>
-          </div>
+          <div id="revTrfLandWrap"></div>
         </div>
         <div class="hint" style="margin-top:8px">채널 표는 선택 기간 연동 · 캠페인·랜딩은 선택 기간을 포함하는 최소 구간(7/14/30/60/130일) 기준 · 전환율 = 구매 ÷ 세션 · 매출은 GA4 집계(취소 미반영)라 아임웹 실결제와 다를 수 있음</div>
       </div>
@@ -4420,22 +4418,64 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
             plugins:{legend:{position:'bottom',labels:{boxWidth:10,boxHeight:10,padding:10,font:{size:11}}},datalabels:dl,
               tooltip:{callbacks:{label:function(c){ var p=tot.sess>0?(c.parsed/tot.sess*100).toFixed(1):'0'; return c.label+': '+c.parsed.toLocaleString('ko-KR')+'세션 ('+p+'%)'; }}}}}});
       }
-      // ── 캠페인·랜딩
+      // ── 캠페인 (좌) ↔ 랜딩페이지 (우, 캠페인 클릭 시 해당 캠페인만)
       var wEl=document.getElementById('revTrfCampWin');
       if(wEl) wEl.textContent='최근 '+win+'일 기준';
-      function fillDim(elId, data, isLand){
-        var el=document.getElementById(elId);
+      var campList=(G.campaigns&&G.campaigns[String(win)])||[];
+      function renderCampLeft(){
+        var el=document.getElementById('revTrfCamp');
         if(!el) return;
-        var lst=(data&&data[String(win)])||[];
-        el.innerHTML=lst.length?lst.slice(0,10).map(function(x){
+        el.innerHTML=campList.length?campList.slice(0,10).map(function(x){
           var cvr=x.sess>0?(x.trans/x.sess*100).toFixed(2)+'%':'—';
           var nm=String(x.name||'(없음)'); if(nm.length>32) nm=nm.slice(0,32)+'…';
-          if(isLand) return '<tr><td style="text-align:left">'+nm+'</td><td>'+x.sess.toLocaleString('ko-KR')+'</td><td>'+cvr+'</td><td>'+won(x.rev)+'</td></tr>';
-          return '<tr><td style="text-align:left">'+nm+'</td><td>'+x.sess.toLocaleString('ko-KR')+'</td><td>'+x.trans.toLocaleString('ko-KR')+'</td><td>'+cvr+'</td><td>'+won(x.rev)+'</td></tr>';
-        }).join(''):'<tr><td colspan="'+(isLand?4:5)+'" style="color:var(--muted)">'+(isLand?'데이터 수집 대기':'UTM 캠페인 유입 없음 — UTM 적용 이후 유입부터 잡힙니다')+'</td></tr>';
+          var on=window.TRF_CAMP===x.name;
+          return '<tr data-camp="'+String(x.name).replace(/"/g,'&quot;')+'" style="cursor:pointer'+(on?';background:#eefaf3':'')+'"><td style="text-align:left'+(on?';font-weight:700':'')+'">'+nm+'</td><td>'+x.sess.toLocaleString('ko-KR')+'</td><td>'+x.trans.toLocaleString('ko-KR')+'</td><td>'+cvr+'</td><td>'+won(x.rev)+'</td></tr>';
+        }).join(''):'<tr><td colspan="5" style="color:var(--muted)">UTM 캠페인 유입 없음 — UTM 적용 이후 유입부터 잡힙니다</td></tr>';
+        el.querySelectorAll('tr[data-camp]').forEach(function(tr){
+          tr.addEventListener('click',function(){
+            window.TRF_CAMP = (window.TRF_CAMP===tr.dataset.camp)? null : tr.dataset.camp;
+            renderCampLeft(); renderLandRight();
+          });
+        });
       }
-      fillDim('revTrfCamp', G.campaigns, false);
-      fillDim('revTrfLand', G.landing, true);
+      function renderLandRight(){
+        var wrap=document.getElementById('revTrfLandWrap');
+        if(!wrap) return;
+        var h='';
+        if(window.TRF_CAMP&&G.campLanding){
+          var cl=((G.campLanding[String(win)])||[]).filter(function(x){return x.camp===window.TRF_CAMP;});
+          var cs={sess:0,rev:0,trans:0};
+          cl.forEach(function(x){ cs.sess+=x.sess; cs.rev+=x.rev; cs.trans+=x.trans; });
+          var nm=String(window.TRF_CAMP); if(nm.length>24) nm=nm.slice(0,24)+'…';
+          h+='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">'
+            +'<span style="font-weight:700;font-size:13px">'+nm+' — 랜딩페이지 <span class="ttp" data-tip="이 캠페인 광고를 클릭한 사람들이 도착한 페이지별 성과입니다. 세션은 많은데 전환율이 낮은 페이지가 개선 대상이에요." style="font-size:11px;color:var(--muted);border-bottom:1px dotted var(--muted);cursor:help;font-weight:400">ⓘ</span></span>'
+            +'<a href="#" id="revTrfLandReset" style="font-size:12px;color:var(--blue);font-weight:700;text-decoration:none">← 전체 랜딩</a></div>';
+          var cvrC=cs.sess>0?(cs.trans/cs.sess*100).toFixed(1)+'%':'—';
+          function stat2(t,v){ return '<div style="flex:1;min-width:90px;background:#fafcfb;border:1px solid var(--line);border-radius:10px;padding:8px 12px"><div style="font-size:11px;color:var(--muted)">'+t+'</div><div style="font-size:17px;font-weight:800;margin-top:1px">'+v+'</div></div>'; }
+          h+='<div style="display:flex;gap:8px;margin-bottom:10px">'+stat2('세션',cs.sess.toLocaleString('ko-KR'))+stat2('전환율',cvrC)+stat2('매출',won(cs.rev))+'</div>';
+          h+='<div class="scroll"><table><thead><tr><th style="text-align:left">페이지</th><th>세션</th><th>전환율</th><th>매출</th></tr></thead><tbody>'
+            +(cl.length?cl.slice(0,10).map(function(x){
+              var cvr=x.sess>0?(x.trans/x.sess*100).toFixed(2)+'%':'—';
+              var pn=String(x.name||'(없음)'); if(pn.length>28) pn=pn.slice(0,28)+'…';
+              return '<tr><td style="text-align:left">'+pn+'</td><td>'+x.sess.toLocaleString('ko-KR')+'</td><td>'+cvr+'</td><td>'+won(x.rev)+'</td></tr>';
+            }).join(''):'<tr><td colspan="4" style="color:var(--muted)">이 캠페인의 랜딩 데이터가 아직 없습니다 (다음 수집부터)</td></tr>')
+            +'</tbody></table></div>';
+        } else {
+          h+='<div style="font-weight:700;font-size:13px;margin-bottom:12px">랜딩페이지 TOP <span style="font-size:11.5px;font-weight:400;color:var(--muted)">전체 유입 기준 · 세션 많은데 전환 낮으면 개선 대상</span></div>'
+            +'<div class="scroll"><table><thead><tr><th style="text-align:left">페이지</th><th>세션</th><th>전환율</th><th>매출</th></tr></thead><tbody>';
+          var lnd=(G.landing&&G.landing[String(win)])||[];
+          h+=(lnd.length?lnd.slice(0,10).map(function(x){
+            var cvr=x.sess>0?(x.trans/x.sess*100).toFixed(2)+'%':'—';
+            var pn=String(x.name||'(없음)'); if(pn.length>28) pn=pn.slice(0,28)+'…';
+            return '<tr><td style="text-align:left">'+pn+'</td><td>'+x.sess.toLocaleString('ko-KR')+'</td><td>'+cvr+'</td><td>'+won(x.rev)+'</td></tr>';
+          }).join(''):'<tr><td colspan="4" style="color:var(--muted)">데이터 수집 대기</td></tr>')+'</tbody></table></div>';
+        }
+        wrap.innerHTML=h;
+        var lr=document.getElementById('revTrfLandReset');
+        if(lr) lr.addEventListener('click',function(e){ e.preventDefault(); window.TRF_CAMP=null; renderCampLeft(); renderLandRight(); });
+      }
+      if(window.TRF_CAMP&&!campList.some(function(x){return x.name===window.TRF_CAMP;})) window.TRF_CAMP=null;
+      renderCampLeft(); renderLandRight();
     })();
     // 상품 분석 (도넛 좌 / TOP10 우)
     (function(){
