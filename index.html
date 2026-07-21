@@ -518,6 +518,7 @@
   </div>
 
   <!-- GLOSSARY MODAL -->
+  <div id="imgPreview" style="position:fixed;display:none;z-index:99;pointer-events:none;border:3px solid #fff;border-radius:12px;box-shadow:0 10px 34px rgba(0,0,0,.3);overflow:hidden;background:#fff"><img style="max-width:380px;max-height:380px;display:block"></div>
   <div id="revNav" style="position:fixed;right:16px;top:50%;transform:translateY(-50%);display:none;flex-direction:column;gap:5px;z-index:60">
     <style>
       .rnav-btn{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:7px 12px;font-size:11.5px;font-weight:700;color:var(--ink-2);cursor:pointer;font-family:inherit;text-align:right;box-shadow:0 2px 8px rgba(0,0,0,.06);transition:all .15s;white-space:nowrap}
@@ -961,7 +962,16 @@
       <div id="revVocCards" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px"></div>
       <div class="grid2">
         <div>
-          <div style="font-weight:700;font-size:13px;margin-bottom:8px;height:28px;line-height:28px">별점 추이 <span style="font-size:11.5px;font-weight:400;color:var(--muted)">막대 = 후기 수 · 선 = 평균 별점 · 기간 연동</span></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;height:28px">
+            <span style="font-weight:700;font-size:13px">별점 추이 <span style="font-size:11.5px;font-weight:400;color:var(--muted)">막대 = 후기 수 · 선 = 평균 별점</span></span>
+            <select class="rv-sort" id="revVocRange">
+              <option value="auto">대시보드 기간</option>
+              <option value="30">최근 30일</option>
+              <option value="90">최근 90일</option>
+              <option value="180">최근 180일</option>
+              <option value="365">최근 1년</option>
+            </select>
+          </div>
           <div style="height:340px"><canvas id="revVocChart"></canvas></div>
         </div>
         <div>
@@ -970,7 +980,7 @@
             <button class="rv-pill" data-vt="all">전체 후기</button>
             <button class="rv-pill" data-vt="qna">문의</button>
           </div>
-          <div id="revVocList" style="font-size:12.5px;color:var(--ink-2);height:340px;overflow-y:auto"></div>
+          <div id="revVocList" style="font-size:12.5px;color:var(--ink-2);height:340px;overflow-y:auto;overflow-x:hidden;word-break:break-word;overflow-wrap:anywhere;padding-right:6px"></div>
         </div>
       </div>
       <div class="hint" style="margin-top:8px">후기·문의 매일 새벽 수집 · 답변 대기 문의엔 '관리자 답변' 바로가기 · 목록은 스크롤로 최근 30건까지</div>
@@ -4659,17 +4669,21 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
         var vst=document.getElementById('vocSrcTag');
         if(vst) vst.textContent = (window.CREMA&&window.CREMA.reviews&&window.CREMA.reviews.length)?'크리마 리뷰 연동 (사진 포함)':'고객 목소리 · 품질 조기경보';
         var CR=(window.CREMA&&window.CREMA.reviews&&window.CREMA.reviews.length)?window.CREMA.reviews:null;
+        var vRangeEl=document.getElementById('revVocRange');
+        var vRange=vRangeEl?vRangeEl.value:'auto';
+        var vFrom=from, vTo=to;
+        if(vRange!=='auto'){ vTo=ds(new Date()); vFrom=addD(vTo,-(parseInt(vRange,10)-1)); }
         var pc=0, ps=0;
         if(CR){
-          CR.forEach(function(r){ if(r.date>=from&&r.date<=to&&r.score!=null){ pc++; ps+=r.score; } });
+          CR.forEach(function(r){ if(r.date>=vFrom&&r.date<=vTo&&r.score!=null){ pc++; ps+=r.score; } });
         } else {
-          V.ratingDaily.forEach(function(r){ if(r.date>=from&&r.date<=to){ pc+=r.count; ps+=r.sum; } });
+          V.ratingDaily.forEach(function(r){ if(r.date>=vFrom&&r.date<=vTo){ pc+=r.count; ps+=r.sum; } });
         }
         var vcards=document.getElementById('revVocCards');
         function vcard(t,v,s,warn){ return '<div style="flex:1;min-width:140px;background:'+(warn?'#fff5f6':'#fafcfb')+';border:1px solid '+(warn?'#f5c2cb':'var(--line)')+';border-radius:12px;padding:10px 14px"><div style="font-size:11.5px;color:var(--muted)">'+t+'</div><div style="font-size:17px;font-weight:800;margin-top:2px;'+(warn?'color:var(--red)':'')+'">'+v+'</div>'+(s?'<div style="font-size:11px;color:var(--ink-2);margin-top:2px">'+s+'</div>':'')+'</div>'; }
         if(vcards){
           vcards.innerHTML =
-            vcard('기간 평균 별점', pc?(ps/pc).toFixed(2)+'점':'—', pc+'건 후기')
+            vcard('기간 평균 별점', pc?(ps/pc).toFixed(2)+'점':'—', pc+'건 후기'+(vRange!=='auto'?' · 최근 '+vRange+'일 기준':''))
             +(function(){
               if(CR){
                 var d30=addD(ds(new Date()),-29), c30=0,s30=0,l30=0;
@@ -4692,10 +4706,10 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
           var vd;
           if(CR){
             var byD2={};
-            CR.forEach(function(r){ if(r.date<from||r.date>to||r.score==null) return; var d4=byD2[r.date]||(byD2[r.date]={date:r.date,count:0,sum:0}); d4.count++; d4.sum+=r.score; });
+            CR.forEach(function(r){ if(r.date<vFrom||r.date>vTo||r.score==null) return; var d4=byD2[r.date]||(byD2[r.date]={date:r.date,count:0,sum:0}); d4.count++; d4.sum+=r.score; });
             vd=Object.keys(byD2).sort().map(function(k){return byD2[k];});
           } else {
-            vd=(V.ratingDaily||[]).filter(function(r){return r.date>=from&&r.date<=to;});
+            vd=(V.ratingDaily||[]).filter(function(r){return r.date>=vFrom&&r.date<=vTo;});
           }
           var vLabs=vd.map(function(r){return r.date.slice(5);});
           var vCnt=vd.map(function(r){return r.count;});
@@ -4707,7 +4721,7 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
               plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:11}}},datalabels:{display:false},
                 tooltip:{callbacks:{label:function(c){ return c.dataset.label+': '+(c.dataset.label==='평균 별점'?(c.parsed.y!=null?c.parsed.y+'점':'—'):c.parsed.y+'건'); }}}},
               scales:{x:{ticks:{font:{size:10},maxTicksLimit:12}},
-                y:{min:1,max:5,ticks:{font:{size:10},callback:function(v){return v+'점';}},grid:{color:'rgba(0,0,0,.05)'}},
+                y:{min:1,max:5.4,ticks:{font:{size:10},stepSize:1,callback:function(v){return v<=5?v+'점':'';}},grid:{color:'rgba(0,0,0,.05)'}},
                 y2:{position:'right',beginAtZero:true,ticks:{font:{size:10},precision:0},grid:{display:false}}}}});
         }
         // 우측 리스트 (탭: 저평점 / 전체 / 문의)
@@ -4727,8 +4741,9 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
               var bad=r.score!=null&&r.score<=3;
               var pn=crPmap[String(r.prod)]||'';
               if(pn.length>22) pn=pn.slice(0,22)+'…';
-              var th=(r.thumbs&&r.thumbs.length)?('<div style="display:flex;gap:4px;margin-top:5px">'+r.thumbs.slice(0,4).map(function(t){
-                return '<a href="'+esc_(r.img||t)+'" target="_blank"><img src="'+esc_(t)+'" style="width:44px;height:44px;object-fit:cover;border-radius:7px;border:1px solid var(--line)" loading="lazy"></a>';
+              var th=(r.thumbs&&r.thumbs.length)?('<div style="display:flex;gap:4px;margin-top:5px">'+r.thumbs.slice(0,4).map(function(t,ti){
+                var fullT=(ti===0&&r.img)?r.img:t;
+                return '<a href="'+esc_(fullT)+'" target="_blank"><img class="voc-thumb" src="'+esc_(t)+'" data-full="'+esc_(fullT)+'" style="width:44px;height:44px;object-fit:cover;border-radius:7px;border:1px solid var(--line);cursor:zoom-in" loading="lazy"></a>';
               }).join('')+'</div>'):'';
               return '<div style="padding:8px 0;border-bottom:1px solid var(--line)">'
                 +'<span style="color:'+(bad?'var(--red)':'var(--green)')+';font-weight:700">'+(r.score!=null?r.score+'점':'별점 없음')+'</span> · '+r.date
@@ -5074,7 +5089,28 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
       if(w) w.style.display = open?'block':'none';
       cpnTgl.textContent = open?'▾ 접기':'▸ 펼치기';
     });
-    ['revBestSort','revCouponSort','revLoyalSort','revFunnelSel','revPRebuySel'].forEach(function(id){
+    // 사진 호버 확대 (크리마 리뷰 썸네일)
+    (function(){
+      var pv=document.getElementById('imgPreview');
+      if(!pv) return;
+      var pimg=pv.querySelector('img');
+      function move(e){
+        var x=e.clientX+18, y=e.clientY-40;
+        if(x+400>window.innerWidth) x=e.clientX-400;
+        if(y+400>window.innerHeight) y=window.innerHeight-410;
+        if(y<8) y=8;
+        pv.style.left=x+'px'; pv.style.top=y+'px';
+      }
+      document.addEventListener('mouseover',function(e){
+        var t=e.target.closest&&e.target.closest('.voc-thumb');
+        if(!t) return;
+        pimg.src=t.dataset.full||t.src;
+        pv.style.display='block'; move(e);
+      });
+      document.addEventListener('mousemove',function(e){ if(pv.style.display==='block'&&e.target.closest&&e.target.closest('.voc-thumb')) move(e); });
+      document.addEventListener('mouseout',function(e){ if(e.target.closest&&e.target.closest('.voc-thumb')) pv.style.display='none'; });
+    })();
+    ['revBestSort','revCouponSort','revLoyalSort','revFunnelSel','revPRebuySel','revVocRange'].forEach(function(id){
       var el=document.getElementById(id);
       if(el) el.addEventListener('change',function(){ renderRev(); });
     });
