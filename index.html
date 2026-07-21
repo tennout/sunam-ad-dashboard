@@ -146,7 +146,7 @@
   .verify{background:#f7faf8;border:1px dashed var(--line);border-radius:12px;padding:12px 14px;margin-top:18px;font-size:12px;color:var(--ink-2)}
   .verify .ok{color:#027a38;font-weight:700}
   /* tooltip */
-  .tip{position:fixed;z-index:99;background:#0b1512;color:#e6efe9;border-radius:8px;padding:10px 12px;font-size:12px;max-width:300px;box-shadow:0 8px 20px rgba(0,0,0,.25);pointer-events:none;display:none}
+  .tip{position:fixed;z-index:300;background:#0b1512;color:#e6efe9;border-radius:8px;padding:10px 12px;font-size:12px;max-width:300px;box-shadow:0 8px 20px rgba(0,0,0,.25);pointer-events:none;display:none}
   .tip b{color:#8cffc0}
   .tip .row{display:flex;justify-content:space-between;gap:16px;margin-top:2px}
   /* small utils */
@@ -518,7 +518,7 @@
   </div>
 
   <!-- GLOSSARY MODAL -->
-  <div id="imgPreview" style="position:fixed;display:none;z-index:99;pointer-events:none;border:3px solid #fff;border-radius:12px;box-shadow:0 10px 34px rgba(0,0,0,.3);overflow:hidden;background:#fff"><img style="max-width:380px;max-height:380px;display:block"></div>
+  <div id="imgPreview" style="position:fixed;display:none;z-index:300;pointer-events:none;border:3px solid #fff;border-radius:12px;box-shadow:0 10px 34px rgba(0,0,0,.3);overflow:hidden;background:#fff"><img style="max-width:380px;max-height:380px;display:block"></div>
   <div id="revNav" style="position:fixed;right:16px;top:50%;transform:translateY(-50%);display:none;flex-direction:column;gap:5px;z-index:60">
     <style>
       .rnav-btn{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:7px 12px;font-size:11.5px;font-weight:700;color:var(--ink-2);cursor:pointer;font-family:inherit;text-align:right;box-shadow:0 2px 8px rgba(0,0,0,.06);transition:all .15s;white-space:nowrap}
@@ -941,19 +941,19 @@
     </div>
     <div class="panel" id="revVoc" style="margin-bottom:14px">
       <h2 style="margin:0 0 8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">VOC — 후기·문의 <span style="font-size:12px;font-weight:400;color:var(--muted)"><span id="vocSrcTag">고객 목소리 · 품질 조기경보</span> · 선택 기간 <b class="selPeriod" style="color:var(--ink-2);font-weight:700"></b></span>
-        <a href="https://docs.google.com/spreadsheets/d/18Zs1SbKbAAl1enNiswx_G_GmARI4hshum8ErE2m1EI0/edit" target="_blank" style="margin-left:auto;font-size:12px;font-weight:700;color:var(--blue);text-decoration:none;border:1px solid var(--line);border-radius:8px;padding:5px 10px">시트에서 전체 보기</a></h2>
-      <div id="revVocCards" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px"></div>
+        <select class="rv-sort" id="revVocRange">
+          <option value="auto">대시보드 기간</option>
+          <option value="30">최근 30일</option>
+          <option value="90">최근 90일</option>
+          <option value="180">최근 180일</option>
+          <option value="365">최근 1년</option>
+        </select>
+        <a href="https://docs.google.com/spreadsheets/d/18Zs1SbKbAAl1enNiswx_G_GmARI4hshum8ErE2m1EI0/edit" target="_blank" style="margin-left:auto;font-size:12px;font-weight:700;color:var(--blue);text-decoration:none;border:1px solid var(--line);border-radius:8px;padding:5px 10px">구글 시트로 보기</a></h2>
+      <div id="revVocCards" style="display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 16px"></div>
       <div class="grid2" style="grid-template-columns:minmax(0,5fr) minmax(0,7fr)">
         <div>
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;height:28px">
             <span style="font-weight:700;font-size:13px">별점 추이 <span style="font-size:11.5px;font-weight:400;color:var(--muted)">막대 = 후기 수 · 선 = 평균 별점</span></span>
-            <select class="rv-sort" id="revVocRange">
-              <option value="auto">대시보드 기간</option>
-              <option value="30">최근 30일</option>
-              <option value="90">최근 90일</option>
-              <option value="180">최근 180일</option>
-              <option value="365">최근 1년</option>
-            </select>
           </div>
           <div style="height:340px"><canvas id="revVocChart"></canvas></div>
         </div>
@@ -966,11 +966,9 @@
               </span>
               <span style="width:1px;height:18px;background:var(--line);margin:0 10px"></span>
               <button class="rv-pill" data-vt="qna">1:1 문의</button>
+              <button class="rv-pill" id="revVocFullBtn" style="margin-left:8px" title="지금 보고 있는 목록을 크게 보기">전체 보기 ⤢</button>
             </span>
-            <span style="display:flex;gap:6px;align-items:center">
-              <select class="rv-sort" id="revVocProd" style="display:none;max-width:170px"></select>
-              <button class="rv-pill" id="revVocFullBtn">전체 보기 ⤢</button>
-            </span>
+            <select class="rv-sort" id="revVocProd" style="display:none;max-width:170px"></select>
           </div>
           <div id="revVocList" style="font-size:12.5px;color:var(--ink-2);height:340px;overflow-y:auto;overflow-x:hidden;word-break:break-word;overflow-wrap:anywhere;padding-right:6px"></div>
         </div>
@@ -985,7 +983,7 @@
     </div>
     <div class="panel" id="revBenefit" style="margin-bottom:14px">
       <h2 style="margin:0 0 8px">쿠폰·포인트 사용 <span style="font-size:12px;font-weight:400;color:var(--muted)">선택 기간 <b class="selPeriod" style="color:var(--ink-2);font-weight:700"></b> · 혜택 비용 모니터링</span></h2>
-      <div id="revBenefitCards" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px"></div>
+      <div id="revBenefitCards" style="display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 16px"></div>
       <div style="display:flex;align-items:center;justify-content:space-between;margin:16px 0 12px">
         <span style="font-weight:700;font-size:13px">쿠폰별 사용 현황 <span style="font-size:11.5px;font-weight:400;color:var(--muted)">발행·사용은 쿠폰 생성 이후 누적 · 어떤 쿠폰이 실제로 쓰이는가</span></span>
         <span style="display:flex;gap:8px;align-items:center">
@@ -1012,7 +1010,7 @@
     </div>
     <div class="panel" id="revDeep" style="display:none;margin-bottom:14px">
       <h2 style="margin:0 0 10px">재구매 심층 분석 <span style="font-size:12px;font-weight:400;color:var(--muted)">자사몰 · 회원 주문 기준</span></h2>
-      <div id="revDeepWin" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px"></div>
+      <div id="revDeepWin" style="display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 16px"></div>
       <div class="grid2" style="margin-bottom:16px">
         <div>
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
@@ -2401,6 +2399,7 @@ function showTip(e, html){
   tipEl.style.top  = Math.min(window.innerHeight-160, y+14)+'px';
 }
 function hideTip(){ tipEl.style.display='none'; }
+function stripHtml(s){ return String(s==null?'':s).replace(/<[^>]*>/g,' ').replace(/&nbsp;/gi,' ').replace(/\s+/g,' ').trim(); }
 function bindEvidenceTooltip(){
   document.querySelectorAll('.ev').forEach(el=>{
     el.addEventListener('mousemove', e=>{
@@ -4724,29 +4723,25 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
         try{ (RAW.prods||[]).forEach(function(p){ if(p.prod&&p.name&&!crPmap[String(p.prod)]) crPmap[String(p.prod)]=p.name; }); }catch(e){}
         var VP=CR?(window.VOC_PROD||''):'';
         function inSel(r){ return !VP||String(r.prod)===String(VP); }
-        var pc=0, ps=0;
+        var pc=0, ps=0, pl=0, pPhoto=0;
         if(CR){
-          CR.forEach(function(r){ if(r.date>=vFrom&&r.date<=vTo&&r.score!=null&&inSel(r)){ pc++; ps+=r.score; } });
+          CR.forEach(function(r){ if(r.date>=vFrom&&r.date<=vTo&&r.score!=null&&inSel(r)){ pc++; ps+=r.score; if(r.score<=3) pl++; if((r.thumbs&&r.thumbs.length)||/photo|video/.test(r.type||'')) pPhoto++; } });
         } else {
           V.ratingDaily.forEach(function(r){ if(r.date>=vFrom&&r.date<=vTo){ pc+=r.count; ps+=r.sum; } });
         }
         var vcards=document.getElementById('revVocCards');
         function vcard(t,v,s,warn,tip){ return '<div'+(tip?' class="ttp" data-tip="'+tip+'"':'')+' style="flex:1;min-width:140px;background:'+(warn?'#fff5f6':'#fafcfb')+';border:1px solid '+(warn?'#f5c2cb':'var(--line)')+';border-radius:12px;padding:10px 14px'+(tip?';cursor:help':'')+'"><div style="font-size:11.5px;color:var(--muted)">'+t+'</div><div style="font-size:17px;font-weight:800;margin-top:2px;'+(warn?'color:var(--red)':'')+'">'+v+'</div>'+(s?'<div style="font-size:11px;color:var(--ink-2);margin-top:2px">'+s+'</div>':'')+'</div>'; }
         var vocSrc=CR?'크리마 리뷰 실측':'아임웹 후기(구글시트)';
+        var vocPer=(vRange!=='auto'?'최근 '+vRange+'일':'대시보드 기간');
         if(vcards){
+          var lowRate=pc>0?(pl/pc*100):null;
           vcards.innerHTML =
-            vcard('기간 평균 별점', pc?(ps/pc).toFixed(2)+'점':'—', pc+'건 후기'+(vRange!=='auto'?' · 최근 '+vRange+'일 기준':''), false,
-              '선택 기간에 달린 후기 별점 평균 · 계산: 별점 합 ÷ 후기 수 · 출처: '+vocSrc)
-            +(function(){
-              if(CR){
-                var d30=addD(ds(new Date()),-29), c30=0,s30=0,l30=0;
-                CR.forEach(function(r){ if(r.date>=d30&&r.score!=null){ c30++; s30+=r.score; if(r.score<=3) l30++; } });
-                return vcard('최근 30일 평균 별점', c30?(s30/c30).toFixed(2)+'점':'—', c30+'건 · 저평점 '+l30+'건 · 크리마 실측', false,
-                  '대시보드 기간과 무관하게 오늘 기준 최근 30일 후기 평균 — 품질 조기경보용 · 저평점 = 3점 이하 · 출처: '+vocSrc);
-              }
-              return vcard('최근 30일 평균 별점', V.avg30!=null?V.avg30.toFixed(2)+'점':'—', V.reviews30+'건 · 저평점 '+V.low30+'건', false,
-                '대시보드 기간과 무관하게 오늘 기준 최근 30일 후기 평균 — 품질 조기경보용 · 저평점 = 3점 이하 · 출처: '+vocSrc);
-            })()
+            vcard('기간 평균 별점', pc?(ps/pc).toFixed(2)+'점':'—', vocPer+' · 5점 만점', false,
+              '선택 기간에 달린 후기의 별점 평균 · 계산: 별점 합 ÷ 후기 수 · 출처: '+vocSrc)
+            +vcard('총 후기 수', pc.toLocaleString('ko-KR')+'건', CR?('사진 후기 '+pPhoto+'건'):vocPer, false,
+              '선택 기간에 달린 후기 개수 · 후기 수 자체가 구매·참여의 신호 · 출처: '+vocSrc)
+            +vcard('부정 후기 비율', lowRate!=null?lowRate.toFixed(1)+'%':'—', CR?('3점 이하 '+pl+'건'):'크리마 연동 후 표시', lowRate!=null&&lowRate>=10,
+              '선택 기간 후기 중 3점 이하 비율 — 10% 넘으면 품질·배송 점검 신호 · 계산: 3점 이하 후기 ÷ 전체 후기 · 출처: '+vocSrc)
             +vcard('미답변 문의', V.waitCount+'건', V.waitCount>0?'답변 필요':'모두 답변 완료', V.waitCount>0,
               '아직 관리자 답변이 달리지 않은 1:1 문의 수 · 0건 유지가 목표 · 출처: 아임웹 문의');
         }
@@ -4786,10 +4781,10 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
           var vCnt=vd.map(function(r){return r.count;});
           var vAvg=vd.map(function(r){return r.count>0?+(r.sum/r.count).toFixed(2):null;});
           window.CH_VOC=new Chart(cvV,{data:{labels:vLabs,datasets:[
-            {type:'line',label:'평균 별점',data:vAvg,yAxisID:'y',borderColor:'#2f3a34',backgroundColor:'#2f3a34',pointRadius:3,pointBackgroundColor:vAvg.map(function(a){return (a!=null&&a<4)?'#e11d48':'#2f3a34';}),spanGaps:true,tension:.2},
-            {type:'bar',label:'후기 수',data:vCnt,yAxisID:'y2',backgroundColor:'rgba(3,199,90,.3)',borderRadius:3,maxBarThickness:18}]},
+            {type:'line',label:'평균 별점',data:vAvg,yAxisID:'y',borderColor:'#7c3aed',backgroundColor:'#7c3aed',borderWidth:2,pointRadius:3,pointBackgroundColor:vAvg.map(function(a){return (a!=null&&a<4)?'#e11d48':'#7c3aed';}),spanGaps:true,tension:.3},
+            {type:'bar',label:'후기 수',data:vCnt,yAxisID:'y2',backgroundColor:'#03c75a',borderRadius:3,maxBarThickness:18}]},
             options:{responsive:true,maintainAspectRatio:false,
-              plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:11}}},datalabels:{display:false},
+              plugins:{legend:{labels:{boxWidth:12,font:{size:11}}},datalabels:{display:false},
                 tooltip:{callbacks:{label:function(c){ return c.dataset.label+': '+(c.dataset.label==='평균 별점'?(c.parsed.y!=null?c.parsed.y+'점':'—'):c.parsed.y+'건'); }}}},
               scales:{x:{ticks:{font:{size:10},maxTicksLimit:12}},
                 y:{min:1,max:5.4,ticks:{font:{size:10},stepSize:1,callback:function(v){return v<=5?v+'점':'';}},grid:{color:'rgba(0,0,0,.05)'}},
@@ -4804,7 +4799,7 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
               var qi=(r.imgs&&r.imgs.length)?('<div style="display:flex;gap:4px;margin-top:5px">'+r.imgs.slice(0,3).map(function(t){
                 return '<a href="'+esc_(t)+'" target="_blank"><img class="voc-thumb" src="'+esc_(t)+'" data-full="'+esc_(t)+'" style="width:44px;height:44px;object-fit:cover;border-radius:7px;border:1px solid var(--line);cursor:zoom-in" loading="lazy"></a>';
               }).join('')+'</div>'):'';
-              var qb=r.body?('<span style="color:var(--muted)"> — '+esc_(String(r.body).slice(0,100))+'</span>'):'';
+              var qb=r.body?('<span style="color:var(--muted)"> — '+esc_(stripHtml(r.body).slice(0,100))+'</span>'):'';
               return '<div style="padding:8px 0;border-bottom:1px solid var(--line)">'
                 +'<div style="display:flex;justify-content:space-between;align-items:center;gap:10px">'
                 +'<span><span style="font-weight:700;color:'+(w?'var(--red)':'var(--green)')+'">'+(w?'대기':'완료')+'</span> · '+r.date+' · '+r.site+pnameTag_(r)+'</span>'
@@ -4837,7 +4832,7 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
                 +'<div style="display:flex;justify-content:space-between;align-items:center;gap:10px">'
                 +'<span><span style="color:'+(bad?'var(--red)':'var(--green)')+';font-weight:700">'+r.rating+'점</span> · '+r.date+' · '+r.site+pnameTag_(r)+'</span>'
                 +'<span style="white-space:nowrap;flex-shrink:0">'+prodLink_(r.site,r.prod)+'</span>'
-                +'</div>'+esc_(r.body)+'</div>';
+                +'</div>'+esc_(stripHtml(r.body))+'</div>';
             }).join('') : '<div style="color:var(--muted);padding:8px 0">'+(window.VOC_TAB==='all'?'수집된 후기가 없습니다 (다음 수집 후 표시)':'저평점 후기 없음 👍')+'</div>';
           }
         }
@@ -5218,7 +5213,7 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
           var qi=(r.imgs&&r.imgs.length)?('<div style="display:flex;gap:6px;margin-top:6px">'+r.imgs.slice(0,3).map(function(t){
             return '<a href="'+esc2(t)+'" target="_blank"><img class="voc-thumb" src="'+esc2(t)+'" data-full="'+esc2(t)+'" style="width:72px;height:72px;object-fit:cover;border-radius:8px;border:1px solid var(--line);cursor:zoom-in" loading="lazy"></a>';
           }).join('')+'</div>'):'';
-          return '<div style="padding:10px 0;border-bottom:1px solid var(--line)"><span style="font-weight:700;color:'+(w?'var(--red)':'var(--green)')+'">'+(w?'대기':'완료')+'</span> · '+r.date+' · '+r.site+(r.pname?' · <b>'+esc2(r.pname)+'</b>':'')+'<br><b>'+esc2(r.subject||'(제목 없음)')+'</b>'+(r.body?'<br>'+esc2(String(r.body).slice(0,300)):'')+qi+'</div>';
+          return '<div style="padding:10px 0;border-bottom:1px solid var(--line)"><span style="font-weight:700;color:'+(w?'var(--red)':'var(--green)')+'">'+(w?'대기':'완료')+'</span> · '+r.date+' · '+r.site+(r.pname?' · <b>'+esc2(r.pname)+'</b>':'')+'<br><b>'+esc2(r.subject||'(제목 없음)')+'</b>'+(r.body?'<br>'+esc2(stripHtml(r.body).slice(0,300)):'')+qi+'</div>';
         }).join('')||'<div style="color:var(--muted)">문의 없음</div>';
       } else {
         var CR2=(window.CREMA&&window.CREMA.reviews)?window.CREMA.reviews:null;
@@ -5238,7 +5233,7 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
             var fu=(ti===0&&r.img)?r.img:t;
             return '<a href="'+esc2(fu)+'" target="_blank"><img class="voc-thumb" src="'+esc2(t)+'" data-full="'+esc2(fu)+'" style="width:72px;height:72px;object-fit:cover;border-radius:8px;border:1px solid var(--line);cursor:zoom-in" loading="lazy"></a>';
           }).join('')+'</div>'):'';
-          return '<div style="padding:10px 0;border-bottom:1px solid var(--line)"><span style="color:'+(bad?'var(--red)':'var(--green)')+';font-weight:700">'+(r.score!=null?r.score+'점':'별점 없음')+'</span> · '+r.date+(pn?' · <b>'+esc2(pn)+'</b>':'')+'<br>'+esc2(r.msg)+th+'</div>';
+          return '<div style="padding:10px 0;border-bottom:1px solid var(--line)"><span style="color:'+(bad?'var(--red)':'var(--green)')+';font-weight:700">'+(r.score!=null?r.score+'점':'별점 없음')+'</span> · '+r.date+(pn?' · <b>'+esc2(pn)+'</b>':'')+'<br>'+esc2(stripHtml(r.msg))+th+'</div>';
         }).join('')||'<div style="color:var(--muted)">해당 조건의 후기가 없습니다</div>';
       }
       if(body) body.innerHTML=h;
