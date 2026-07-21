@@ -4080,6 +4080,7 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
   function setMode(m){
     var wrap=document.querySelector('.wrap'); if(!wrap) return;
     try{ sessionStorage.setItem('DASH_MODE', m); }catch(e){}
+    try{ history.replaceState(null, '', m==='rev' ? '#store' : '#ads'); }catch(e){}
     var title=document.getElementById('dashTitle');
     var sub=document.getElementById('headerSub');
     var lu=document.getElementById('lastUpdate');
@@ -5256,10 +5257,13 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
       b.addEventListener('click',function(){ csvDl_(b.dataset.csv); });
     });
     setMode('ads');
+    // URL로 탭 지정: …/#store = 자사몰 운영, …/#ads = 광고 운영 (새로고침·즐겨찾기·공유 시 유지)
+    var wantRev=(location.hash==='#store'||location.hash==='#rev'||location.hash==='#jasa');
     try{
       var sp=sessionStorage.getItem('REV_PW');
       var lastMode=sessionStorage.getItem('DASH_MODE');
-      if(sp) loadRev(sp).then(function(){ if(lastMode==='rev'&&RAW) setMode('rev'); });
+      if(sp) loadRev(sp).then(function(){ if((wantRev||lastMode==='rev')&&RAW) setMode('rev'); });
+      else if(wantRev) guardRev_();
     }catch(e){}
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
