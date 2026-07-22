@@ -628,9 +628,10 @@ def build_dash(store):
     except Exception:
         prod_rebuy = []
 
-    # 첫구매월별 코호트: 60일 내 재구매율 추이 (성숙 표본만 — 첫구매 후 60일 경과 회원)
+    # 첫구매월별 코호트: 30/60/90일 내 재구매율 추이 (창별 성숙 표본만 집계)
     rebuy_trend = []
     try:
+        WINS_RT = (30, 60, 90)
         coh2 = {}
         for code, lst in pur.get(MAIN, {}).items():
             ds_ = sorted(set(p['date'] for p in lst if p.get('date')))
@@ -640,21 +641,33 @@ def build_dash(store):
                 f = datetime.date.fromisoformat(ds_[0])
             except Exception:
                 continue
-            if (today - f).days < 60:
-                continue
             m = ds_[0][:7]
-            c2 = coh2.setdefault(m, {'buyers': 0, 'rebuy': 0})
-            c2['buyers'] += 1
+            c2 = coh2.setdefault(m, {'bAll': 0})
+            c2['bAll'] += 1
+            age = (today - f).days
+            gap2 = None                       # 첫구매 → 두 번째 구매까지 일수
             for d2 in ds_[1:]:
                 try:
-                    if (datetime.date.fromisoformat(d2) - f).days <= 60:
-                        c2['rebuy'] += 1
-                        break
+                    gap2 = (datetime.date.fromisoformat(d2) - f).days
                 except Exception:
-                    pass
-        rebuy_trend = [{'m': m, 'buyers': v['buyers'], 'rebuy': v['rebuy'],
-                        'rate': (v['rebuy'] / v['buyers']) if v['buyers'] else 0}
-                       for m, v in sorted(coh2.items())][-15:]
+                    continue
+                break
+            for w in WINS_RT:
+                if age < w:
+                    continue                   # 아직 관찰 기간이 안 지난 회원 제외
+                c2[f'b{w}'] = c2.get(f'b{w}', 0) + 1
+                if gap2 is not None and gap2 <= w:
+                    c2[f'r{w}'] = c2.get(f'r{w}', 0) + 1
+        for m in sorted(coh2):
+            v = coh2[m]
+            row = {'m': m, 'bAll': v['bAll'],
+                   'buyers': v.get('b60', 0), 'rebuy': v.get('r60', 0),
+                   'rate': (v.get('r60', 0) / v['b60']) if v.get('b60') else 0}
+            for w in WINS_RT:
+                row[f'b{w}'] = v.get(f'b{w}', 0)
+                row[f'r{w}'] = v.get(f'r{w}', 0)
+            rebuy_trend.append(row)
+        rebuy_trend = rebuy_trend[-15:]
     except Exception:
         rebuy_trend = []
 

@@ -1014,7 +1014,7 @@
       <div class="grid2" style="margin-bottom:16px">
         <div>
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;height:28px">
-            <span style="font-weight:700;font-size:13px">재구매율 추이 <span class="ttp" data-tip="첫구매한 달을 기준으로 묶은 코호트의 60일 내 재구매율 — 정책·쿠폰이 언제부터 재구매를 끌어올렸는지 분기점 확인용 · 첫구매 후 60일이 지난 회원만 집계(성숙 표본) · 수집된 주문 이력 기준 · 출처: 아임웹 주문+회원" style="font-size:11px;color:var(--muted);border-bottom:1px dotted var(--muted);cursor:help;font-weight:400">ⓘ</span> <span style="font-size:11.5px;font-weight:400;color:var(--muted)">월 = 첫구매 시점 · <b style="color:#f59e0b">●</b> = 정책·쿠폰 시행 달</span></span>
+            <span style="font-weight:700;font-size:13px">재구매율 추이 <span class="ttp" data-tip="첫구매한 달을 기준으로 묶은 코호트의 60일 내 재구매율 — 정책·쿠폰이 언제부터 재구매를 끌어올렸는지 분기점 확인용 · 첫구매 후 60일이 지난 회원만 집계(성숙 표본) · 수집된 주문 이력 기준 · 출처: 아임웹 주문+회원" style="font-size:11px;color:var(--muted);border-bottom:1px dotted var(--muted);cursor:help;font-weight:400">ⓘ</span> <span style="font-size:11.5px;font-weight:400;color:var(--muted)">월 = 첫구매 시점 · <b style="color:#f59e0b">●</b> = 정책·쿠폰 시행 달 · 범례 클릭 = 30·60·90일 표시/숨김</span></span>
           </div>
           <div id="revRTrendWrap" style="height:280px"><canvas id="revRTrendChart"></canvas></div>
         </div>
@@ -1022,7 +1022,7 @@
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;height:28px">
             <span style="font-weight:700;font-size:13px">월별 첫구매 코호트 <span style="font-size:11.5px;font-weight:400;color:var(--muted)">60일 내 재구매 기준</span></span>
           </div>
-          <div class="scroll" style="height:280px"><table><thead><tr><th>첫구매월</th><th>고객</th><th>60일 재구매율</th><th>전월 대비</th><th style="text-align:left">정책·이벤트</th></tr></thead><tbody id="revRTrendBody"></tbody></table></div>
+          <div class="scroll" style="height:280px"><table><thead><tr><th>첫구매월</th><th>고객</th><th>30일</th><th>60일</th><th>90일</th><th><span class="ttp" data-tip="60일 재구매율의 전월 대비 변화 (%p)" style="border-bottom:1px dotted var(--muted);cursor:help">전월 대비 ⓘ</span></th><th style="text-align:left">정책·이벤트</th></tr></thead><tbody id="revRTrendBody"></tbody></table></div>
         </div>
       </div>
       <div class="grid2" style="margin-bottom:16px;border-top:1px solid var(--line);padding-top:18px">
@@ -4913,22 +4913,31 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
             var evByM={};
             EV.forEach(function(e){ var m=String(e.d).slice(0,7); (evByM[m]=evByM[m]||[]).push(e); });
             var mLabs=RTD.map(function(x){return x.m;});
-            var mRates=RTD.map(function(x){return +(x.rate*100).toFixed(1);});
-            var mBuyers=RTD.map(function(x){return x.buyers;});
+            function rateOf(x,w){ var b=x['b'+w], r=x['r'+w]; if(b==null) return (w===60&&x.rate!=null)?+(x.rate*100).toFixed(1):null; return b>0?+(r/b*100).toFixed(1):null; }
+            var mBuyers=RTD.map(function(x){return x.bAll!=null?x.bAll:x.buyers;});
             var cvR=document.getElementById('revRTrendChart');
             if(cvR&&window.Chart){
               if(window.CH_RTREND){ window.CH_RTREND.destroy(); window.CH_RTREND=null; }
+              function rline(w,col,hid){
+                var d={type:'line',label:w+'일 재구매율',data:RTD.map(function(x){return rateOf(x,w);}),yAxisID:'y',
+                  borderColor:col,backgroundColor:col,borderWidth:2,tension:.3,spanGaps:true,hidden:!!hid,
+                  pointRadius:3,pointBackgroundColor:col};
+                if(w===60){
+                  d.pointRadius=mLabs.map(function(m){return evByM[m]?6:3;});
+                  d.pointBackgroundColor=mLabs.map(function(m){return evByM[m]?'#f59e0b':col;});
+                  d.pointBorderColor=mLabs.map(function(m){return evByM[m]?'#fff':col;});
+                  d.pointBorderWidth=mLabs.map(function(m){return evByM[m]?2:0;});
+                }
+                return d;
+              }
               window.CH_RTREND=new Chart(cvR,{data:{labels:mLabs,datasets:[
-                {type:'line',label:'60일 재구매율',data:mRates,yAxisID:'y',borderColor:'#7c3aed',backgroundColor:'#7c3aed',borderWidth:2,tension:.3,
-                 pointRadius:mLabs.map(function(m){return evByM[m]?6:3;}),
-                 pointBackgroundColor:mLabs.map(function(m){return evByM[m]?'#f59e0b':'#7c3aed';}),
-                 pointBorderColor:mLabs.map(function(m){return evByM[m]?'#fff':'#7c3aed';}),
-                 pointBorderWidth:mLabs.map(function(m){return evByM[m]?2:0;})},
+                rline(30,'#2563eb',true), rline(60,'#7c3aed',false), rline(90,'#0ea5e9',true),
                 {type:'bar',label:'첫구매 고객 수',data:mBuyers,yAxisID:'y2',backgroundColor:'#03c75a',borderRadius:3,maxBarThickness:20}]},
                 options:{responsive:true,maintainAspectRatio:false,
+                  interaction:{mode:'index',intersect:false,axis:'x'},
                   plugins:{legend:{labels:{boxWidth:12,font:{size:11}}},datalabels:{display:false},
                     tooltip:{callbacks:{
-                      label:function(c){ return c.dataset.label+': '+(c.datasetIndex===0?c.parsed.y+'%':c.parsed.y.toLocaleString('ko-KR')+'명'); },
+                      label:function(c){ if(c.parsed.y==null) return null; return c.dataset.label+': '+(c.dataset.type==='bar'?c.parsed.y.toLocaleString('ko-KR')+'명':c.parsed.y+'%'); },
                       afterBody:function(items){ var m=items[0].label; var evs=evByM[m]; if(!evs) return ''; return evs.map(function(e){return '📌 '+e.d.slice(5)+' '+e.t;}); }
                     }}},
                   scales:{x:{ticks:{font:{size:10}}},
@@ -4936,12 +4945,14 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
                     y2:{position:'right',beginAtZero:true,ticks:{font:{size:10},precision:0},grid:{display:false}}}}});
             }
             if(rtBody){
+              function cell(x,w,bold){ var v=rateOf(x,w); return v==null?'<span style="color:var(--muted)">—</span>':(bold?'<b>'+v.toFixed(1)+'%</b>':v.toFixed(1)+'%'); }
               rtBody.innerHTML=RTD.slice().reverse().map(function(x,i,arr){
                 var prev=arr[i+1];
-                var diff=prev?((x.rate-prev.rate)*100):null;
+                var cur60=rateOf(x,60), pv60=prev?rateOf(prev,60):null;
+                var diff=(cur60!=null&&pv60!=null)?(cur60-pv60):null;
                 var dtxt=diff==null?'—':(diff>=0?'<span style="color:var(--green);font-weight:700">▲ '+diff.toFixed(1)+'%p</span>':'<span style="color:var(--red);font-weight:700">▼ '+Math.abs(diff).toFixed(1)+'%p</span>');
                 var evs=(evByM[x.m]||[]).map(function(e){return '<span style="background:#fff7e6;border:1px solid #f5d9a8;border-radius:6px;padding:1px 6px;font-size:10.5px;white-space:nowrap">'+escT(e.t)+'</span>';}).join(' ');
-                return '<tr><td>'+x.m+'</td><td>'+x.buyers.toLocaleString('ko-KR')+'명</td><td><b>'+(x.rate*100).toFixed(1)+'%</b> <span style="color:var(--muted);font-size:11px">('+x.rebuy+'명)</span></td><td>'+dtxt+'</td><td style="text-align:left">'+(evs||'<span style="color:var(--muted)">—</span>')+'</td></tr>';
+                return '<tr><td>'+x.m+'</td><td>'+(x.bAll!=null?x.bAll:x.buyers).toLocaleString('ko-KR')+'명</td><td>'+cell(x,30)+'</td><td>'+cell(x,60,true)+'</td><td>'+cell(x,90)+'</td><td>'+dtxt+'</td><td style="text-align:left">'+(evs||'<span style="color:var(--muted)">—</span>')+'</td></tr>';
               }).join('');
             }
           }
