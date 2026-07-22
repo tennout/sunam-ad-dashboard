@@ -155,6 +155,32 @@ def fetch_voc(site, token):
     return reviews, qnas
 
 
+CAL_SHEET_ID = '1xNYkMW4uc3oSUGJi5lh7fq7xkManfgJyv4YBgbXvFek'  # 광고 운영 캘린더 시트
+
+def fetch_policy_events():
+    """광고 캘린더 구글시트의 '정책' 탭(날짜|정책명|메모)을 읽어 이벤트 마커로.
+    탭이 없거나 비어 있으면 조용히 빈 목록 (읽기 전용 — 시트를 수정하지 않음)"""
+    ev = []
+    try:
+        import csv as _csv, io
+        r = requests.get(
+            f'https://docs.google.com/spreadsheets/d/{CAL_SHEET_ID}/gviz/tq',
+            params={'tqx': 'out:csv', 'sheet': '정책'}, timeout=30)
+        if r.ok:
+            for row in _csv.reader(io.StringIO(r.text)):
+                if len(row) < 2:
+                    continue
+                d = str(row[0]).strip().replace('.', '-').replace('/', '-')
+                m = re.match(r'^(\d{4})-(\d{1,2})-(\d{1,2})', d)
+                if not m or not str(row[1]).strip():
+                    continue
+                ev.append({'d': f'{m.group(1)}-{int(m.group(2)):02d}-{int(m.group(3)):02d}',
+                           't': str(row[1]).strip()[:30], 'src': 'policy'})
+        print(f'정책 이벤트 {len(ev)}건 (구글시트)')
+    except Exception as e:
+        print(f'정책 시트 읽기 실패(무시): {e}')
+    return ev
+
 def fetch_coupons(site, token):
     out = []
     res = api_get('https://api.imweb.me/v2/shop/coupons', token)
@@ -602,6 +628,43 @@ def build_dash(store):
     except Exception:
         prod_rebuy = []
 
+    # 첫구매월별 코호트: 60일 내 재구매율 추이 (성숙 표본만 — 첫구매 후 60일 경과 회원)
+    rebuy_trend = []
+    try:
+        coh2 = {}
+        for code, lst in pur.get(MAIN, {}).items():
+            ds_ = sorted(set(p['date'] for p in lst if p.get('date')))
+            if not ds_:
+                continue
+            try:
+                f = datetime.date.fromisoformat(ds_[0])
+            except Exception:
+                continue
+            if (today - f).days < 60:
+                continue
+            m = ds_[0][:7]
+            c2 = coh2.setdefault(m, {'buyers': 0, 'rebuy': 0})
+            c2['buyers'] += 1
+            for d2 in ds_[1:]:
+                try:
+                    if (datetime.date.fromisoformat(d2) - f).days <= 60:
+                        c2['rebuy'] += 1
+                        break
+                except Exception:
+                    pass
+        rebuy_trend = [{'m': m, 'buyers': v['buyers'], 'rebuy': v['rebuy'],
+                        'rate': (v['rebuy'] / v['buyers']) if v['buyers'] else 0}
+                       for m, v in sorted(coh2.items())][-15:]
+    except Exception:
+        rebuy_trend = []
+
+    # 정책 이벤트: 구글시트 '정책' 탭(수동) + 신규 쿠폰 감지(자동)
+    events = fetch_policy_events()
+    for k, dv in (store.get('couponSeen') or {}).items():
+        if dv:
+            events.append({'d': dv, 't': '쿠폰: ' + k.split('|', 1)[-1][:20], 'src': 'coupon'})
+    events = sorted(events, key=lambda x: x['d'])[-30:]
+
     # 이탈위험: 자사몰 회원, 마지막 구매 후 45~180일 경과 (+활성·휴면 카운트)
     churn = []
     churn_ctx = {'active': 0, 'risk': 0, 'dormant': 0}
@@ -663,7 +726,8 @@ def build_dash(store):
     csv['churnHead'] = ['이름', '연락처', '마지막 구매일', '경과일', '구매횟수', '누적 구매액']
 
     return {'updated': datetime.datetime.now(KST).isoformat(),
-            'deep': {'windows': windows, 'ladder': ladder, 'fivePlus': five_plus, 'ladders': ladders, 'prodLoyal': prod_loyal, 'prodRebuy': prod_rebuy, 'remind': remind},
+            'deep': {'windows': windows, 'ladder': ladder, 'fivePlus': five_plus, 'ladders': ladders, 'prodLoyal': prod_loyal, 'prodRebuy': prod_rebuy, 'remind': remind,
+                     'rebuyTrend': rebuy_trend, 'events': events},
             'coupons': store.get('coupons', []),
             'churn': {'count': len(churn), 'list': churn[:1000], 'ctx': churn_ctx},
             'daily': daily_arr, 'prods': prod_arr, 'prodNames': pname_map,
@@ -735,6 +799,15 @@ def main():
     store['qnas'] = _merge_by_idx(store.get('qnas'), all_qnas)
     store['prodDone'] = sorted(done_set)
     store['coupons'] = all_coupons
+    # 신규 쿠폰 감지: 처음 보는 쿠폰의 발견일 기록 → 재구매율 추이의 자동 이벤트 마커
+    # (최초 실행 땐 기존 쿠폰 전부를 마커로 찍지 않도록 빈 값으로 시드)
+    _seen = store.setdefault('couponSeen', {})
+    _first_seed = not _seen
+    _today_kst = datetime.datetime.now(KST).date().isoformat()
+    for c in all_coupons:
+        _k = f"{c['site']}|{c['name']}"
+        if _k not in _seen:
+            _seen[_k] = '' if _first_seed else _today_kst
 
     # 회원 스냅샷 (일별 누적)
     today = datetime.datetime.now(KST).date().isoformat()
