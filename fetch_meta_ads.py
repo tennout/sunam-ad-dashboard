@@ -238,22 +238,40 @@ def fetch_insights(acct: str, token: str, since: str, until: str,
 def fetch_creative_previews(acct: str, token: str) -> dict:
     """소재 썸네일·원본링크 수집. 반환: {ad_name: {thumb, link}}."""
     out = {}
-    try:
-        rows = _get_paged(f"{GRAPH}/{acct}/ads", {
-            "access_token": token,
-            # effective_status = 실제 게재 상태(ACTIVE/PAUSED/…), 나머지는 썸네일/링크용
-            # object_story_spec의 picture(고화질), image_url(원본), thumbnail_url(저화질) 순으로 확보
-            "fields": ("name,effective_status,creative{thumbnail_url,image_url,instagram_permalink_url,"
-                       "effective_object_story_id,object_story_spec{link_data{picture},"
-                       "video_data{image_url}}}"),
-            # 썸네일 요청 크기 확대 (기본 64px → 600px)
-            "thumbnail_width": 600,
-            "thumbnail_height": 600,
-            "limit": 200,
-        })
-    except Exception as e:
-        print(f"    ! 소재 미리보기 수집 실패: {e}")
-        return out
+    # 메타가 "Please reduce the amount of data" (HTTP 500, code 1)로 거부하면
+    # 페이지 크기를 줄여가며 재시도 (200 → 50 → 25 → 10)
+    rows = None
+    last_err = None
+    for _limit in (50, 25, 10):
+        try:
+            rows = _get_paged(f"{GRAPH}/{acct}/ads", {
+                "access_token": token,
+                # effective_status = 실제 게재 상태(ACTIVE/PAUSED/…), 나머지는 썸네일/링크용
+                # object_story_spec의 picture(고화질), image_url(원본), thumbnail_url(저화질) 순으로 확보
+                "fields": ("name,effective_status,creative{thumbnail_url,image_url,instagram_permalink_url,"
+                           "effective_object_story_id,object_story_spec{link_data{picture},"
+                           "video_data{image_url}}}"),
+                # 썸네일 요청 크기 확대 (기본 64px → 600px)
+                "thumbnail_width": 600,
+                "thumbnail_height": 600,
+                "limit": _limit,
+            })
+            break
+        except Exception as e:
+            last_err = e
+            print(f"    ! limit={_limit} 실패 — 더 작게 재시도: {str(e)[:120]}")
+    if rows is None:
+        # 최후 폴백: 무거운 고화질 필드 빼고 저화질 썸네일만
+        try:
+            rows = _get_paged(f"{GRAPH}/{acct}/ads", {
+                "access_token": token,
+                "fields": "name,effective_status,creative{thumbnail_url,instagram_permalink_url,effective_object_story_id}",
+                "thumbnail_width": 600, "thumbnail_height": 600, "limit": 25,
+            })
+            print("    (폴백: 저화질 썸네일만 수집)")
+        except Exception as e:
+            print(f"    ! 소재 미리보기 수집 실패: {last_err or e}")
+            return out
     for a in rows:
         name = a.get("name", "")
         cr = a.get("creative") or {}
