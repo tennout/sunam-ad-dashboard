@@ -4257,12 +4257,12 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
           var cr=paidRev/mc*100;
           var pcr=(pPaidRev!=null&&pmc>0)?pPaidRev/pmc*100:null;
           return {label:'ROAS(자사몰)', value:Math.round(cr)+'%',
-            tip:'<b>광고 클릭 유입 매출 ÷ 메타 광고비</b><br>'+won(paidRev)+' ÷ '+won(mc)+(blended!=null?' · 자사몰 전체 매출 기준 '+Math.round(blended)+'%':'')+'<br><span style="color:#9aa5a0">출처: GA4 실측 + 메타 광고비 · 취소 미반영</span>',
+            tip:'<b>광고 클릭 유입 매출 ÷ 메타 광고비</b><br>'+won(paidRev)+' ÷ '+won(mc)+(blended!=null?' · 자사몰 전체 매출 기준 '+Math.round(blended)+'%':'')+'<br><span style=\'color:#9aa5a0\'>출처: GA4 실측 + 메타 광고비 · 취소 미반영</span>',
             chips:[chip(d(cr,pcr)),infoChip('자사몰 전체 '+(blended!=null?Math.round(blended)+'%':'—'))]};
         }
         // 2순위(GA4 없을 때): blended ROAS
         return {label:'ROAS(자사몰)', value:blended!=null?Math.round(blended)+'%':'—',
-          tip:'<b>자사몰 전체 매출 ÷ 메타 광고비</b><br>GA4 연동 시 광고 클릭 유입 실측 기준으로 자동 전환<br><span style="color:#9aa5a0">출처: 아임웹 매출 + 메타 광고비</span>',
+          tip:'<b>자사몰 전체 매출 ÷ 메타 광고비</b><br>GA4 연동 시 광고 클릭 유입 실측 기준으로 자동 전환<br><span style=\'color:#9aa5a0\'>출처: 아임웹 매출 + 메타 광고비</span>',
           chips: blended!=null?[chip(d(blended,pBlended)),infoChip('메타 광고비 '+won(mc))]:[infoChip('메타 CSV/연동 시 표시')]};})(),
       // ─ 트래픽 4종 (GA4 · 자사몰 사이트 기준) ─,
       {label:'신규 가입', value:(RAW.members?cur.newMem.toLocaleString('ko-KR')+'명':'—'), tip:(RAW.members&&RAW.members.totals)?(SC+' 기간 내 회원가입 수 · 출처: 아임웹 회원 · 누적 회원: '+(RT==='jasa'?('자사몰 '+(RAW.members.totals.jasa||0).toLocaleString('ko-KR')+'명'):RT==='biz'?('비즈몰 '+(RAW.members.totals.biz||0).toLocaleString('ko-KR')+'명'):('자사몰 '+(RAW.members.totals.jasa||0).toLocaleString('ko-KR')+'명 / 비즈몰 '+(RAW.members.totals.biz||0).toLocaleString('ko-KR')+'명'))):'', chips:RAW.members?[chip(d(cur.newMem,prev.newMem))]:[]},
