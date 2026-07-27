@@ -2059,7 +2059,19 @@ function renderChart(){
   const tl = document.getElementById('timeline');
   tl.innerHTML = '<div class="tl-axis"></div>';
   const len = rows.length-1 || 1;
-  EVENTS.forEach(ev=>{
+  // 메타 채널: 예산 변경 이력(budgetHistory)을 증액/감액 마커로 표시
+  let _evList = EVENTS;
+  if(MAIN_CHANNEL==='META'){
+    const _bh=(window.META_ADS_BUNDLE&&window.META_ADS_BUNDLE.budgetHistory)||[];
+    _evList=_bh.map(x=>({date:x.date, type:'bid', ad:'meta',
+      title:(x.to>x.from?'증액':'감액')+' · '+String(x.campaign).slice(0,12),
+      detail:`${x.campaign}<br>일예산 ${fmtWon(x.from)} → ${fmtWon(x.to)} (${x.to>x.from?'+':''}${x.from>0?Math.round((x.to-x.from)/x.from*100):0}%)`}));
+    const _ttw=document.getElementById('trendTimelineWrap');
+    if(_ttw) _ttw.style.display=_evList.length?'':'none';
+    const _ttag=document.getElementById('trendTag');
+    if(_ttag&&_evList.length){ _ttag.style.display=''; _ttag.textContent='예산 증액·감액 이벤트 마커 포함'; }
+  }
+  _evList.forEach(ev=>{
     const d = new Date(ev.date);
     if(d<currentStart||d>currentEnd) return;
     const idx = Math.round((d-currentStart)/86400000);
