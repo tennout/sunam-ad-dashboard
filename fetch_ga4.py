@@ -190,6 +190,21 @@ def main():
             a['sess'] += sess; a['rev'] += rev; a['trans'] += trans
         camp_landing[str(w)] = sorted(agg_c.values(), key=lambda x: -x['sess'])[:300]
 
+    # 소재(utm_content = 광고 이름)별 — 광고 탭 실측 ROAS 컬럼용
+    print('소재(utm_content)별 수집...')
+    ad_contents = {}
+    for w in WINDOWS:
+        agg_a = {}
+        for row in run_report(pid, token, ['sessionManualAdContent'], w,
+                              limit=5000, order_by_sessions=True):
+            name = row['dimensionValues'][0]['value']
+            if name in ('(not set)', ''):
+                continue
+            sess, users, pv, rev, trans = _mvals(row)
+            a = agg_a.setdefault(name, {'name': name, 'sess': 0, 'rev': 0, 'trans': 0})
+            a['sess'] += sess; a['rev'] += rev; a['trans'] += trans
+        ad_contents[str(w)] = sorted(agg_a.values(), key=lambda x: -x['sess'])[:150]
+
     # 채널 × 소스 상세 (도넛 클릭 드릴다운용)
     print('채널×소스별 수집...')
     ch_sources = {}
@@ -210,6 +225,7 @@ def main():
            'campaigns': campaigns,
            'landing': landing,
            'chSources': ch_sources,
+           'adContents': ad_contents,
            'campLanding': camp_landing}
     os.makedirs('data', exist_ok=True)
     with open('data/ga4_daily.json.enc', 'w', encoding='utf-8') as f:

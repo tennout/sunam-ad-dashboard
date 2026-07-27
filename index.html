@@ -525,6 +525,12 @@
       .rnav-btn:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
       @media(max-width:1520px){#revNav{display:none !important}}
     </style>
+    <div id="bepTool" class="ttp" data-tip="손익분기 ROAS = 100 ÷ 마진율. 광고 ROAS (실측)가 이 값보다 높아야 광고 클릭 매출만으로 이익 · 마진율은 이 기기에 저장됩니다" style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:10.5px;color:var(--muted);text-align:right;box-shadow:0 2px 8px rgba(0,0,0,.06);cursor:help">
+      <div style="font-weight:700;color:var(--ink-2)">손익분기 ROAS</div>
+      <div style="margin-top:4px;white-space:nowrap">마진 <input id="bepMargin" type="number" min="1" max="99" placeholder="%" style="width:36px;padding:2px 4px;border:1px solid var(--line);border-radius:6px;font-family:inherit;font-size:10.5px;text-align:right">%</div>
+      <div id="bepOut" style="font-size:14px;font-weight:800;margin-top:3px;color:var(--ink)">—</div>
+    </div>
+    <div style="height:1px;background:var(--line);margin:3px 0 3px auto;width:70%"></div>
     <button class="rnav-btn" data-go="__top">개요 (KPI) ↑</button>
     <button class="rnav-btn" data-go="revTraffic">트래픽</button>
     <button class="rnav-btn" data-go="revBest">상품</button>
@@ -665,6 +671,7 @@
         <button class="series-pill" data-series="CPC"><i class="dot" style="background:#2563eb"></i>CPC(원)</button>
         <button class="series-pill" data-series="COST"><i class="dot" style="background:#f59e0b"></i>광고비(천원)</button>
         <button class="series-pill" data-series="ROAS"><i class="dot" style="background:#7c3aed"></i>ROAS(%)</button>
+        <button class="series-pill ttp" data-series="ARO" id="aroPill" style="display:none" data-tip="GA4 실측 — 그날 유료 광고 클릭 유입에서 실제 결제된 자사몰 매출 ÷ 그날 메타 광고비. 메타 ROAS 선과 벌어질수록 과대귀속이 심한 날"><i class="dot" style="background:#e11d48"></i>실측 ROAS(%)</button>
       </div>
       <div class="chart-box"><canvas id="trendChart"></canvas></div>
       <div id="trendTimelineWrap">
@@ -717,7 +724,7 @@
       </div>
       <div class="scroll" id="metaCampWrap">
         <table>
-          <thead><tr><th>캠페인</th><th>노출</th><th>클릭</th><th>CTR</th><th>CPC</th><th>지출</th><th><span class="ttp" data-tip="메타가 캠페인 목적에 따라 집계한 결과값입니다. 구매 캠페인=구매수, 트래픽 캠페인=랜딩 조회수 등 목적별로 다릅니다. 매출(구매 전환값)과는 별개입니다." style="border-bottom:1px dotted var(--muted);cursor:help">결과 ⓘ</span></th><th>매출</th><th>ROAS</th></tr></thead>
+          <thead><tr><th>캠페인</th><th>노출</th><th>클릭</th><th>CTR</th><th>CPC</th><th>지출</th><th><span class="ttp" data-tip="메타가 캠페인 목적에 따라 집계한 결과값입니다. 구매 캠페인=구매수, 트래픽 캠페인=랜딩 조회수 등 목적별로 다릅니다. 매출(구매 전환값)과는 별개입니다." style="border-bottom:1px dotted var(--muted);cursor:help">결과 ⓘ</span></th><th>매출</th><th>ROAS</th><th style="border-left:1px solid var(--line)"><span class="ttp" data-tip="GA4 실측 — 이 캠페인 UTM으로 클릭 유입된 방문에서 실제 결제된 자사몰 매출 (메타 자기귀속과 별개, 취소 미반영, 기간을 포함하는 최소 구간 기준)" style="border-bottom:1px dotted var(--muted);cursor:help">실측 매출 ⓘ</span></th><th><span class="ttp" data-tip="실측 매출 ÷ 지출 — 메타 ROAS보다 짜게 나오는 게 정상. 이 값이 캠페인의 진짜 성적" style="border-bottom:1px dotted var(--muted);cursor:help">실측 ROAS ⓘ</span></th></tr></thead>
           <tbody id="metaCampBody"></tbody>
         </table>
       </div>
@@ -751,7 +758,7 @@
       <div id="metaAdHint" class="da-desc" style="display:none;margin-bottom:4px">업로드한 파일에 <b>광고 이름</b>이 없어요. 광고 관리자 <b>「광고」 탭</b>에서 일별로 내보낸 CSV를 올리면 <b>한 파일로</b> 캠페인·소재가 함께 채워져요. (「📥 CSV 받는 법」 참고)</div>
       <div class="scroll" id="metaAdTableWrap" style="display:none">
         <table>
-          <thead><tr><th>소재(광고)</th><th>캠페인</th><th>노출</th><th>클릭</th><th>CTR</th><th>지출</th><th><span class="ttp" data-tip="메타가 캠페인 목적에 따라 집계한 결과값입니다. 구매 캠페인=구매수, 트래픽 캠페인=랜딩 조회수 등 목적별로 다릅니다. 매출(구매 전환값)과는 별개입니다." style="border-bottom:1px dotted var(--muted);cursor:help">결과 ⓘ</span></th><th>매출</th><th>ROAS</th></tr></thead>
+          <thead><tr><th>소재(광고)</th><th>캠페인</th><th>노출</th><th>클릭</th><th>CTR</th><th>지출</th><th><span class="ttp" data-tip="메타가 캠페인 목적에 따라 집계한 결과값입니다. 구매 캠페인=구매수, 트래픽 캠페인=랜딩 조회수 등 목적별로 다릅니다. 매출(구매 전환값)과는 별개입니다." style="border-bottom:1px dotted var(--muted);cursor:help">결과 ⓘ</span></th><th>매출</th><th>ROAS</th><th style="border-left:1px solid var(--line)"><span class="ttp" data-tip="GA4 실측 — 이 광고 UTM(utm_content)으로 클릭 유입된 방문에서 실제 결제된 자사몰 매출 (메타 자기귀속과 별개, 취소 미반영)" style="border-bottom:1px dotted var(--muted);cursor:help">실측 매출 ⓘ</span></th><th><span class="ttp" data-tip="실측 매출 ÷ 지출 — 소재 관리의 진짜 기준" style="border-bottom:1px dotted var(--muted);cursor:help">실측 ROAS ⓘ</span></th></tr></thead>
           <tbody id="metaAdBody"></tbody>
         </table>
       </div>
@@ -1924,7 +1931,7 @@ function bindGlossaryIcons(){
    6. 차트 + 타임라인
    ============================================================ */
 let chartRef=null;
-const SERIES_VIS={CTR:true,CPC:true,COST:true,ROAS:true};
+const SERIES_VIS={CTR:true,CPC:true,COST:true,ROAS:true,ARO:true};
 let TREND_DRILL=false; let TREND_SEL_CAMP=new Set(); let TREND_SEL_AD=new Set();
 if(window.Chart&&Chart.Tooltip&&Chart.Tooltip.positioners){ Chart.Tooltip.positioners.cursor=function(items,ev){ return {x:ev.x, y:ev.y}; }; }
 const _metaCrosshair={ id:'metaCrosshair',
@@ -1989,17 +1996,26 @@ function _chartDayTotal(d){
   return sumRange(d,d);
 }
 function renderChart(){
+  // GA4 일별 유료 유입 매출 맵 (실측 ROAS 선용 — 메타 채널 전용)
+  const _gaDay={};
+  const _aroOn = MAIN_CHANNEL==='META' && window.GA4 && window.GA4.daily;
+  if(_aroOn) window.GA4.daily.forEach(r=>{ _gaDay[r.date]=Math.max(0,(r.rev||0)-(r.orgRev||0)); });
+  const _aroPill=document.getElementById('aroPill');
+  if(_aroPill) _aroPill.style.display=_aroOn?'':'none';
   const rows = [];
   for(let d=new Date(currentStart); d<=currentEnd; d=addDays(d,1)){
     const t = _chartDayTotal(d);
-    rows.push({date:dateStr(d), ctr:+t.ctr.toFixed(2), cpc:Math.round(t.cpc), cost:Math.round(t.cost/1000), roas:Math.round(t.roas)});
+    const _ds=dateStr(d);
+    const aro = (_aroOn && t.cost>0 && _gaDay[_ds]!=null) ? Math.round(_gaDay[_ds]/t.cost*100) : null;
+    rows.push({date:_ds, ctr:+t.ctr.toFixed(2), cpc:Math.round(t.cpc), cost:Math.round(t.cost/1000), roas:Math.round(t.roas), aro:aro});
   }
   const labels = rows.map(r=>r.date.slice(5));
   const ds = {
     CTR:    rows.map(r=>r.ctr),
     CPC:    rows.map(r=>r.cpc),
     COST:   rows.map(r=>r.cost),
-    ROAS:   rows.map(r=>r.roas)
+    ROAS:   rows.map(r=>r.roas),
+    ARO:    rows.map(r=>r.aro)
   };
   const ctx = document.getElementById('trendChart').getContext('2d');
   if(chartRef) chartRef.destroy();
@@ -2011,7 +2027,8 @@ function renderChart(){
         {label:'CTR(%)',    data:ds.CTR,  borderColor:'#03c75a', backgroundColor:'#03c75a22', tension:.3, yAxisID:'y1', pointRadius:0, pointHoverRadius:3, hidden:!SERIES_VIS.CTR},
         {label:'CPC(원)',   data:ds.CPC,  borderColor:'#2563eb', backgroundColor:'#2563eb22', tension:.3, yAxisID:'y2', pointRadius:0, pointHoverRadius:3, hidden:!SERIES_VIS.CPC},
         {label:'광고비(천원)',data:ds.COST, borderColor:'#f59e0b', backgroundColor:'#f59e0b22', tension:.3, yAxisID:'y2', pointRadius:0, pointHoverRadius:3, hidden:!SERIES_VIS.COST},
-        {label:'ROAS(%)',   data:ds.ROAS, borderColor:'#7c3aed', backgroundColor:'#7c3aed22', tension:.3, yAxisID:'y2', pointRadius:0, pointHoverRadius:3, hidden:!SERIES_VIS.ROAS}
+        {label:'ROAS(%)',   data:ds.ROAS, borderColor:'#7c3aed', backgroundColor:'#7c3aed22', tension:.3, yAxisID:'y2', pointRadius:0, pointHoverRadius:3, hidden:!SERIES_VIS.ROAS},
+        {label:'실측 ROAS(%)', data:ds.ARO, borderColor:'#e11d48', backgroundColor:'#e11d4822', borderDash:[5,3], tension:.3, yAxisID:'y2', pointRadius:0, pointHoverRadius:3, spanGaps:true, hidden:!_aroOn||!SERIES_VIS.ARO}
       ]
     },
     plugins:[_metaCrosshair],
@@ -3140,7 +3157,26 @@ function _renderMetaFatigue(cr){
   bindInfoTipsRebind();
 }
 function bindInfoTipsRebind(){ /* .ttp는 위임 바인딩이라 별도 처리 불필요 */ }
+function _ga4Actual(){
+  // GA4 실측 매핑 — 캠페인(utm_campaign)·소재(utm_content) 이름 → {sess,rev,trans}
+  try{
+    const G=window.GA4; if(!G) return null;
+    const len=Math.round((currentEnd-currentStart)/86400000)+1;
+    const win=[7,14,30,60,130].filter(w=>w>=len)[0]||130;
+    const cm={}, am={};
+    ((G.campaigns&&G.campaigns[String(win)])||[]).forEach(x=>{ cm[x.name]=x; });
+    ((G.adContents&&G.adContents[String(win)])||[]).forEach(x=>{ am[x.name]=x; });
+    return {cm,am,win,hasAd:!!(G.adContents)};
+  }catch(e){ return null; }
+}
+function _actCells(g,cost){
+  // 실측 매출/ROAS 두 셀 (g 없으면 —)
+  if(!g) return `<td style="border-left:1px solid var(--line);color:var(--muted)">—</td><td style="color:var(--muted)">—</td>`;
+  const r=cost>0?g.rev/cost*100:null;
+  return `<td style="border-left:1px solid var(--line)">${fmtWon(g.rev)}</td><td><b style="color:${r!=null&&r>=100?'var(--green)':'var(--red)'}">${r!=null?Math.round(r)+'%':'—'}</b></td>`;
+}
 function renderMetaReport(ctx){
+  const _ga=_ga4Actual();
   const hasCamp = META_UPLOADED_DATA.some(r=>r.campaign);
   let camps=_metaAgg(META_UPLOADED_DATA,'campaign').filter(o=>o.cost>0||o.imp>0);
   camps=_sortMeta(camps, META_CAMP_SORT);
@@ -3155,9 +3191,9 @@ function renderMetaReport(ctx){
       return `<tr data-ci="${i}" data-cname="${_esc(c.name)}"${_cls?` class="${_cls}"`:''}${v?` data-tip="${tip}"`:''}>
       <td title="${c.name}">${badge}${c.name}${c.dmin?`<br><span style="font-size:11px;color:var(--muted)">게시 ${c.dmin.slice(5)}~${c.dmax.slice(5)}</span>`:''}</td><td>${fmtInt(c.imp)}</td><td>${fmtInt(c.clk)}</td>
       <td>${fmtPct(c.ctr)}</td><td>${fmtWon(c.cpc)}</td><td>${fmtWon(c.cost)}</td>
-      <td>${fmtInt(c.conv)}</td><td>${fmtWon(c.rev)}</td><td><b>${fmtPct(c.roas,0)}</b></td></tr>`;
+      <td>${fmtInt(c.conv)}</td><td>${fmtWon(c.rev)}</td><td><b>${fmtPct(c.roas,0)}</b></td>${_actCells(_ga&&_ga.cm[c.name],c.cost)}</tr>`;
     }).join('')
-      : `<tr><td colspan="9" style="text-align:center;color:var(--muted)">선택 기간 데이터 없음</td></tr>`;
+      : `<tr><td colspan="11" style="text-align:center;color:var(--muted)">선택 기간 데이터 없음</td></tr>`;
   } else {
     document.getElementById('metaCampHint').style.display='';
     document.getElementById('metaCampWrap').style.display='none';
@@ -3186,9 +3222,9 @@ function renderMetaReport(ctx){
       <td title="${c.name}">${badge}${c.name}</td><td title="${c.camp}">${c.camp||'—'}</td>
       <td>${fmtInt(c.imp)}</td><td>${fmtInt(c.clk)}</td><td>${fmtPct(c.ctr)}</td>
       <td>${fmtWon(c.cost)}</td><td>${fmtInt(c.conv)}</td><td>${fmtWon(c.rev)}</td>
-      <td><b>${fmtPct(c.roas,0)}</b></td></tr>`;
+      <td><b>${fmtPct(c.roas,0)}</b></td>${_actCells(_ga&&_ga.am[c.name],c.cost)}</tr>`;
     }).join('')
-      : `<tr><td colspan="9" style="text-align:center;color:var(--muted)">선택 기간 데이터 없음</td></tr>`;
+      : `<tr><td colspan="11" style="text-align:center;color:var(--muted)">선택 기간 데이터 없음</td></tr>`;
     if(adFbPanel) adFbPanel.style.display='none';
   } else {
     document.getElementById('metaAdHint').style.display='';
@@ -4245,7 +4281,8 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
       {label:'매출(실결제)', value:won(cur.rev), tip:SC+' 실결제 매출 · 취소/반품/입금대기 제외 · 출처: 아임웹 주문 (매일 05시 수집)', chips:[chip(d(cur.rev,prev.rev))]},
       {label:'주문 수', value:cur.ord.toLocaleString('ko-KR')+'건', tip:SC+' 기간 내 결제 주문 건수 · 취소/반품/입금대기 제외 · 출처: 아임웹 주문', chips:[chip(d(cur.ord,prev.ord))]},
       {label:'객단가', value:won(aov), tip:SC+' 매출 ÷ 주문 수 · 주문 1건당 평균 결제액 · 출처: 아임웹 주문', chips:[chip(d(aov,pAov))]},
-      (function(){ if(RT==='biz') return {label:'ROAS(자사몰)', value:'—', tip:'메타 광고는 자사몰 랜딩 — 비즈몰 매출과 무관', chips:[infoChip('B2B 미적용')]};
+      (function(){ window.CUR_CLICK_ROAS=null;
+        if(RT==='biz') return {label:'광고 ROAS (실측)', value:'—', tip:'메타 광고는 자사몰 랜딩 — 비즈몰 매출과 무관', chips:[infoChip('B2B 미적용')]};
         var mc=metaCost(from,to), pmc=metaCost(pFrom,pTo);
         var base=cur.jasa, pBase=prev.jasa;
         var blended=mc>0?base/mc*100:null, pBlended=pmc>0?pBase/pmc*100:null;
@@ -4255,13 +4292,14 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
           var paidRev=Math.max(0,g.rev-g.orgRev);
           var pPaidRev=pg?Math.max(0,pg.rev-pg.orgRev):null;
           var cr=paidRev/mc*100;
+          window.CUR_CLICK_ROAS=cr;
           var pcr=(pPaidRev!=null&&pmc>0)?pPaidRev/pmc*100:null;
-          return {label:'ROAS(자사몰)', value:Math.round(cr)+'%',
+          return {label:'광고 ROAS (실측)', value:Math.round(cr)+'%',
             tip:'<b>광고 클릭 유입 매출 ÷ 메타 광고비</b><br>'+won(paidRev)+' ÷ '+won(mc)+(blended!=null?' · 자사몰 전체 매출 기준 '+Math.round(blended)+'%':'')+'<br><span style=\'color:#9aa5a0\'>출처: GA4 실측 + 메타 광고비 · 취소 미반영</span>',
             chips:[chip(d(cr,pcr)),infoChip('자사몰 전체 '+(blended!=null?Math.round(blended)+'%':'—'))]};
         }
         // 2순위(GA4 없을 때): blended ROAS
-        return {label:'ROAS(자사몰)', value:blended!=null?Math.round(blended)+'%':'—',
+        return {label:'광고 ROAS (자사몰 전체)', value:blended!=null?Math.round(blended)+'%':'—',
           tip:'<b>자사몰 전체 매출 ÷ 메타 광고비</b><br>GA4 연동 시 광고 클릭 유입 실측 기준으로 자동 전환<br><span style=\'color:#9aa5a0\'>출처: 아임웹 매출 + 메타 광고비</span>',
           chips: blended!=null?[chip(d(blended,pBlended)),infoChip('메타 광고비 '+won(mc))]:[infoChip('메타 CSV/연동 시 표시')]};})(),
       // ─ 트래픽 4종 (GA4 · 자사몰 사이트 기준) ─,
@@ -5219,6 +5257,7 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
       var el=document.getElementById(id);
       b.style.display = (el && el.style.display!=='none') ? 'block' : 'none';
     });
+    try{ if(window.updateBep) window.updateBep(); }catch(e){}
   }
 
   function renderJasaExtra(){
@@ -5279,7 +5318,8 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
       fetch('data/ga4_daily.json.enc',{cache:'no-store'})
         .then(function(r){ if(!r.ok) throw 0; return r.json(); })
         .then(function(enc){ return decryptDash_(pw, enc); })
-        .then(function(g){ window.GA4=g; renderRev(); })
+        .then(function(g){ window.GA4=g; renderRev();
+          try{ if(typeof MAIN_CHANNEL!=='undefined'&&MAIN_CHANNEL==='META'&&typeof render==='function') render(); }catch(e){} })
         .catch(function(){ window.GA4=null; });
       // 크리마 리뷰 (선택 — data/crema_reviews.json.enc 있으면 VOC가 사진 리뷰로 업그레이드)
       fetch('data/crema_reviews.json.enc',{cache:'no-store'})
@@ -5479,6 +5519,25 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
     document.querySelectorAll('[data-csv]').forEach(function(b){
       b.addEventListener('click',function(){ csvDl_(b.dataset.csv); });
     });
+    // 손익분기(BEP) ROAS 미니 툴 — 마진율 입력 → 100÷마진, 현재 실측 ROAS와 비교
+    var bepIn=document.getElementById('bepMargin');
+    window.updateBep=function(){
+      var out=document.getElementById('bepOut'); if(!out||!bepIn) return;
+      var m=parseFloat(bepIn.value);
+      if(!m||m<=0||m>=100){ out.textContent='—'; return; }
+      var bep=10000/m, cur=window.CUR_CLICK_ROAS;
+      var t=Math.round(bep)+'%';
+      if(cur!=null){
+        out.innerHTML = cur>=bep
+          ? t+' <span style="font-size:10px;color:var(--green);font-weight:700">✓ 현재 '+Math.round(cur)+'%</span>'
+          : t+' <span style="font-size:10px;color:var(--red);font-weight:700">⚠ 현재 '+Math.round(cur)+'%</span>';
+      } else out.textContent=t;
+    };
+    if(bepIn){
+      try{ var _bm=localStorage.getItem('BEP_MARGIN'); if(_bm) bepIn.value=_bm; }catch(e){}
+      bepIn.addEventListener('input',function(){ try{ localStorage.setItem('BEP_MARGIN',bepIn.value); }catch(e){} window.updateBep(); });
+      window.updateBep();
+    }
     // URL로 탭 지정: …/#store = 자사몰 운영, …/#ads = 광고 운영 (새로고침·즐겨찾기·공유 시 유지)
     // ※ setMode가 해시를 덮어쓰므로 반드시 setMode('ads')보다 먼저 읽어야 함
     var wantRev=(location.hash==='#store'||location.hash==='#rev'||location.hash==='#jasa');
