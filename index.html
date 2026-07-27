@@ -540,6 +540,16 @@
     <button class="rnav-btn" data-go="revDeep">재구매·이탈</button>
     <button class="rnav-btn" data-go="revBizExtra">거래처</button>
   </div>
+  <div class="modal-bg" id="trendFullModal">
+    <div class="modal" style="max-width:1240px;width:94vw">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+        <h3 style="margin:0">일자별 추이 전체 보기</h3>
+        <button class="rv-pill" id="trendFullClose">닫기 ✕</button>
+      </div>
+      <div class="m-sub">마우스를 좌우로 움직여 날짜별 수치 확인 · 범례 클릭으로 선 표시/숨김</div>
+      <div style="height:64vh"><canvas id="trendFullChart"></canvas></div>
+    </div>
+  </div>
   <div class="modal-bg" id="vocFullModal">
     <div class="modal" style="max-width:900px">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
@@ -665,7 +675,7 @@
   <!-- TREND CHART + AI OPINION -->
   <div class="grid2" id="trendGrid">
     <div class="panel">
-      <h2 style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">일자별 추이 <span class="tag" id="trendTag">소재 교체·입찰가 변경 이벤트 마커 포함</span><button id="trendDrill" style="display:none;font-size:11.5px;padding:4px 10px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink-2);cursor:pointer;font-family:inherit;white-space:nowrap">📊 캠페인·소재별 추이</button><span id="trendDrillInfo" style="display:none;font-size:11.5px;color:var(--muted);font-weight:400"></span></h2>
+      <h2 style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">일자별 추이 <span class="tag" id="trendTag">소재 교체·입찰가 변경 이벤트 마커 포함</span><button id="trendDrill" style="display:none;font-size:11.5px;padding:4px 10px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink-2);cursor:pointer;font-family:inherit;white-space:nowrap">📊 캠페인·소재별 추이</button><span id="trendDrillInfo" style="display:none;font-size:11.5px;color:var(--muted);font-weight:400"></span><button class="rv-pill" id="trendFullBtn" style="margin-left:auto">전체 보기 ⤢</button></h2>
       <div class="legend" id="seriesToggle" style="margin-bottom:8px">
         <button class="series-pill" data-series="CTR"><i class="dot" style="background:#03c75a"></i>CTR(%)</button>
         <button class="series-pill" data-series="CPC"><i class="dot" style="background:#2563eb"></i>CPC(원)</button>
@@ -724,7 +734,7 @@
       </div>
       <div class="scroll" id="metaCampWrap">
         <table>
-          <thead><tr><th>캠페인</th><th>노출</th><th>클릭</th><th>CTR</th><th>CPC</th><th>지출</th><th><span class="ttp" data-tip="메타가 캠페인 목적에 따라 집계한 결과값입니다. 구매 캠페인=구매수, 트래픽 캠페인=랜딩 조회수 등 목적별로 다릅니다. 매출(구매 전환값)과는 별개입니다." style="border-bottom:1px dotted var(--muted);cursor:help">결과 ⓘ</span></th><th>매출</th><th>ROAS</th><th style="border-left:1px solid var(--line)"><span class="ttp" data-tip="GA4 실측 — 이 캠페인 UTM으로 클릭 유입된 방문에서 실제 결제된 자사몰 매출 (메타 자기귀속과 별개, 취소 미반영, 기간을 포함하는 최소 구간 기준)" style="border-bottom:1px dotted var(--muted);cursor:help">실측 매출 ⓘ</span></th><th><span class="ttp" data-tip="실측 매출 ÷ 지출 — 메타 ROAS보다 짜게 나오는 게 정상. 이 값이 캠페인의 진짜 성적" style="border-bottom:1px dotted var(--muted);cursor:help">실측 ROAS ⓘ</span></th></tr></thead>
+          <thead><tr><th>캠페인</th><th>노출</th><th>클릭</th><th>CTR</th><th>CPC</th><th>지출</th><th><span class="ttp" data-tip="메타가 캠페인 목적에 따라 집계한 결과값입니다. 구매 캠페인=구매수, 트래픽 캠페인=랜딩 조회수 등 목적별로 다릅니다. 매출(구매 전환값)과는 별개입니다." style="border-bottom:1px dotted var(--muted);cursor:help">결과 ⓘ</span></th><th><span class="ttp" data-tip="메타 자기귀속 매출 (클릭 7일+조회 1일 기여 · 모델링 포함) — 천장값" style="border-bottom:1px dotted var(--muted);cursor:help">메타 매출</span></th><th>메타 ROAS</th><th style="border-left:1px solid var(--line)"><span class="ttp" data-tip="GA4 실측 — 이 캠페인 UTM으로 클릭 유입된 방문에서 실제 결제된 자사몰 매출 (메타 자기귀속과 별개, 취소 미반영, 기간을 포함하는 최소 구간 기준)" style="border-bottom:1px dotted var(--muted);cursor:help">실측 매출 ⓘ</span></th><th><span class="ttp" data-tip="실측 매출 ÷ 지출 — 메타 ROAS보다 짜게 나오는 게 정상. 이 값이 캠페인의 진짜 성적" style="border-bottom:1px dotted var(--muted);cursor:help">실측 ROAS ⓘ</span></th></tr></thead>
           <tbody id="metaCampBody"></tbody>
         </table>
       </div>
@@ -758,7 +768,7 @@
       <div id="metaAdHint" class="da-desc" style="display:none;margin-bottom:4px">업로드한 파일에 <b>광고 이름</b>이 없어요. 광고 관리자 <b>「광고」 탭</b>에서 일별로 내보낸 CSV를 올리면 <b>한 파일로</b> 캠페인·소재가 함께 채워져요. (「📥 CSV 받는 법」 참고)</div>
       <div class="scroll" id="metaAdTableWrap" style="display:none">
         <table>
-          <thead><tr><th>소재(광고)</th><th>캠페인</th><th>노출</th><th>클릭</th><th>CTR</th><th>지출</th><th><span class="ttp" data-tip="메타가 캠페인 목적에 따라 집계한 결과값입니다. 구매 캠페인=구매수, 트래픽 캠페인=랜딩 조회수 등 목적별로 다릅니다. 매출(구매 전환값)과는 별개입니다." style="border-bottom:1px dotted var(--muted);cursor:help">결과 ⓘ</span></th><th>매출</th><th>ROAS</th><th style="border-left:1px solid var(--line)"><span class="ttp" data-tip="GA4 실측 — 이 광고 UTM(utm_content)으로 클릭 유입된 방문에서 실제 결제된 자사몰 매출 (메타 자기귀속과 별개, 취소 미반영)" style="border-bottom:1px dotted var(--muted);cursor:help">실측 매출 ⓘ</span></th><th><span class="ttp" data-tip="실측 매출 ÷ 지출 — 소재 관리의 진짜 기준" style="border-bottom:1px dotted var(--muted);cursor:help">실측 ROAS ⓘ</span></th></tr></thead>
+          <thead><tr><th>소재(광고)</th><th>캠페인</th><th>노출</th><th>클릭</th><th>CTR</th><th>지출</th><th><span class="ttp" data-tip="메타가 캠페인 목적에 따라 집계한 결과값입니다. 구매 캠페인=구매수, 트래픽 캠페인=랜딩 조회수 등 목적별로 다릅니다. 매출(구매 전환값)과는 별개입니다." style="border-bottom:1px dotted var(--muted);cursor:help">결과 ⓘ</span></th><th><span class="ttp" data-tip="메타 자기귀속 매출 (클릭 7일+조회 1일 기여 · 모델링 포함) — 천장값" style="border-bottom:1px dotted var(--muted);cursor:help">메타 매출</span></th><th>메타 ROAS</th><th style="border-left:1px solid var(--line)"><span class="ttp" data-tip="GA4 실측 — 이 광고 UTM(utm_content)으로 클릭 유입된 방문에서 실제 결제된 자사몰 매출 (메타 자기귀속과 별개, 취소 미반영)" style="border-bottom:1px dotted var(--muted);cursor:help">실측 매출 ⓘ</span></th><th><span class="ttp" data-tip="실측 매출 ÷ 지출 — 소재 관리의 진짜 기준" style="border-bottom:1px dotted var(--muted);cursor:help">실측 ROAS ⓘ</span></th></tr></thead>
           <tbody id="metaAdBody"></tbody>
         </table>
       </div>
@@ -2748,6 +2758,36 @@ function renderAdFeedback(ads){
   const as=document.getElementById('metaAdSort'); if(as) as.addEventListener('change',e=>{META_AD_SORT=e.target.value; if(MAIN_CHANNEL==='META') render();});
   const acf=document.getElementById('metaAdCampFilter'); if(acf) acf.addEventListener('change',e=>{META_AD_CAMP=e.target.value; if(MAIN_CHANNEL==='META') render();});
 })();
+(function bindTrendFull(){
+  const btn=document.getElementById('trendFullBtn');
+  const modal=document.getElementById('trendFullModal');
+  if(!btn||!modal) return;
+  let big=null;
+  function close(){ modal.classList.remove('open'); if(big){ big.destroy(); big=null; } }
+  btn.addEventListener('click',()=>{
+    if(!chartRef) return;
+    modal.classList.add('open');
+    const cv=document.getElementById('trendFullChart');
+    if(big){ big.destroy(); big=null; }
+    big=new Chart(cv.getContext('2d'),{
+      type:'line',
+      data:{labels:chartRef.data.labels.slice(),
+        datasets:chartRef.data.datasets.map(d=>Object.assign({},d,{pointRadius:2,pointHoverRadius:5}))},
+      options:{responsive:true,maintainAspectRatio:false,animation:false,
+        interaction:{mode:'index',intersect:false,axis:'x'},
+        plugins:{legend:{display:true,position:'bottom',labels:{boxWidth:14,font:{size:12.5},usePointStyle:true}},
+          datalabels:{display:false},
+          tooltip:{mode:'index',intersect:false,padding:10,titleFont:{weight:'700',size:13},bodyFont:{size:12},bodySpacing:4}},
+        scales:{
+          y1:{type:'linear',position:'left',ticks:{font:{size:12},callback:v=>Number(v).toFixed(1)+'%'},title:{display:true,text:'CTR(%)'}},
+          y2:{type:'linear',position:'right',grid:{drawOnChartArea:false},ticks:{font:{size:12}},title:{display:true,text:'CPC(원)·광고비(천원)·ROAS(%)'}},
+          x:{ticks:{font:{size:12},maxTicksLimit:31}}
+        }}});
+  });
+  modal.addEventListener('click',e=>{ if(e.target.id==='trendFullModal') close(); });
+  const cls=document.getElementById('trendFullClose');
+  if(cls) cls.addEventListener('click',close);
+})();
 (function bindInfoTips(){
   let active=null;
   document.addEventListener('mouseover', e=>{ const t=e.target.closest('.ttp'); if(t){ active=t; showTip(e, t.getAttribute('data-tip')); }});
@@ -3144,7 +3184,7 @@ function _renderMetaPlacements(pl){
   if(!rows.length){ el.innerHTML='<div style="font-size:13px;color:var(--muted)">지면 데이터가 없어요.</div>'; return; }
   const tr=rows.map(o=>{const ctr=o.imp?o.clk/o.imp*100:0,roas=o.cost?o.rev/o.cost*100:0; const ko=_placeKo(o.pf,o.ps); const tip=ko.tip.replace(/"/g,'&quot;');
     return `<tr><td style="text-align:left"><span class="ttp" data-tip="${tip}" style="cursor:help;border-bottom:1px dotted var(--line)">${_esc(ko.label)}</span> <span style="font-size:10px;color:var(--muted)">${_esc(ko.en)}</span></td><td>${fmtInt(o.imp)}</td><td>${fmtInt(o.clk)}</td><td>${fmtPct(ctr)}</td><td>${fmtWon(o.cost)}</td><td>${fmtInt(o.conv)}</td><td>${fmtWon(o.rev)}</td><td><b>${_mFmtRoas(roas)}</b></td></tr>`;}).join('');
-  el.innerHTML=`<div style="overflow-x:auto"><table class="tbl"><thead><tr><th style="text-align:left">지면 <span class="ttp" data-tip="메타는 여러 위치(피드·릴스·스토리 등)에 광고를 자동으로 뿌려요. 각 행에 마우스를 올리면 어디에 어떻게 노출되는지 설명이 떠요." style="cursor:help;font-weight:400;color:var(--muted)">ⓘ</span></th><th>노출</th><th>클릭</th><th>CTR</th><th>지출</th><th>구매</th><th>매출</th><th>ROAS</th></tr></thead><tbody>${tr}</tbody></table></div><div style="font-size:12px;color:var(--ink-2);margin-top:8px">→ ROAS 높은 지면에 예산을 몰고, 낮은 지면은 제외를 검토하세요. (메타 자동배치라 지면별 편차가 큼)</div>`;
+  el.innerHTML=`<div style="overflow-x:auto"><table class="tbl"><thead><tr><th style="text-align:left">지면 <span class="ttp" data-tip="메타는 여러 위치(피드·릴스·스토리 등)에 광고를 자동으로 뿌려요. 각 행에 마우스를 올리면 어디에 어떻게 노출되는지 설명이 떠요." style="cursor:help;font-weight:400;color:var(--muted)">ⓘ</span></th><th>노출</th><th>클릭</th><th>CTR</th><th>지출</th><th>구매</th><th>메타 매출</th><th>메타 ROAS</th></tr></thead><tbody>${tr}</tbody></table></div><div style="font-size:12px;color:var(--ink-2);margin-top:8px">→ ROAS 높은 지면에 예산을 몰고, 낮은 지면은 제외를 검토하세요. (메타 자동배치라 지면별 편차가 큼)</div>`;
 }
 function _renderMetaFatigue(cr){
   const el=document.getElementById('metaFatigueBody'); if(!el) return;
