@@ -289,6 +289,37 @@ def fetch_creative_previews(acct: str, token: str) -> dict:
     return out
 
 
+def fetch_budgets(acct: str, token: str) -> list:
+    """캠페인별 일예산·상태. CBO(캠페인 예산)면 캠페인 값, 아니면 활성 광고세트 예산 합."""
+    out = {}
+    try:
+        for c in _get_paged(f"{GRAPH}/{acct}/campaigns", {
+                "access_token": token, "fields": "name,daily_budget,effective_status", "limit": 100}):
+            nm = c.get("name", "")
+            if not nm:
+                continue
+            db = c.get("daily_budget")
+            out[nm] = {"campaign": nm, "budget": int(db) if db else None,
+                       "status": c.get("effective_status", "")}
+        agg = {}
+        for a in _get_paged(f"{GRAPH}/{acct}/adsets", {
+                "access_token": token, "fields": "daily_budget,effective_status,campaign{name}", "limit": 200}):
+            nm = ((a.get("campaign") or {}).get("name")) or ""
+            db = a.get("daily_budget")
+            if not nm or not db or a.get("effective_status") != "ACTIVE":
+                continue
+            agg[nm] = agg.get(nm, 0) + int(db)
+        for nm, v in agg.items():
+            if nm in out and not out[nm]["budget"]:
+                out[nm]["budget"] = v
+            elif nm not in out:
+                out[nm] = {"campaign": nm, "budget": v, "status": "ACTIVE"}
+        print(f"    캠페인 예산 {sum(1 for b in out.values() if b['budget'])}개 확보")
+    except Exception as e:
+        print(f"    ! 예산 수집 실패(무시): {e}")
+    return list(out.values())
+
+
 def collect(acct: str, token: str, days: int) -> dict:
     end = date.today()
     start = end - timedelta(days=days - 1)
@@ -409,10 +440,33 @@ def main():
     out_dir = Path(args.out)
     out_dir.mkdir(exist_ok=True)
 
+    # 캠페인 일예산 스냅샷 + 어제 대비 변경 이력 (증액/감액 추적)
+    print("  · 캠페인 예산 수집...")
+    budgets = fetch_budgets(acct, token)
+    budget_hist = []
+    prev_path = out_dir / "meta.json"
+    if prev_path.exists():
+        try:
+            prev = json.loads(prev_path.read_text(encoding="utf-8"))
+            budget_hist = prev.get("budgetHistory", [])
+            prev_map = {b["campaign"]: b.get("budget") for b in prev.get("budgets", [])}
+            today_s = str(date.today())
+            for b in budgets:
+                old = prev_map.get(b["campaign"])
+                if old is not None and b.get("budget") is not None and old != b["budget"]:
+                    budget_hist.append({"date": today_s, "campaign": b["campaign"],
+                                        "from": old, "to": b["budget"]})
+                    print(f"    예산 변경 감지: {b['campaign']} {old:,} → {b['budget']:,}")
+        except Exception:
+            pass
+    budget_hist = budget_hist[-100:]
+
     bundle = {
         "generatedAt": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         "tokenExpiresAt": expires_at,
         "account": {"name": acct_name, "adAccountId": acct},
+        "budgets": budgets,
+        "budgetHistory": budget_hist,
         **data,
     }
     (out_dir / "meta.json").write_text(
