@@ -302,7 +302,7 @@
   function unlock(){ var g=document.getElementById('gate'); if(g) g.remove(); }
   if(valid()){ unlock(); return; }
   var pw=document.getElementById('gatePw'), btn=document.getElementById('gateBtn'), err=document.getElementById('gateErr'), rem=document.getElementById('gateRemember');
-  async function tryUnlock(){ var h=await sha(pw.value); if(h===MASTER_HASH){ if(rem.checked){ try{ localStorage.setItem(KEY, String(Date.now()+86400000)); }catch(e){} } unlock(); } else { err.style.display='block'; pw.value=''; pw.focus(); } }
+  async function tryUnlock(){ var h=await sha(pw.value); if(h===MASTER_HASH){ if(rem.checked){ try{ localStorage.setItem(KEY, String(Date.now()+86400000)); }catch(e){} } try{ sessionStorage.setItem('GATE_PW', pw.value); }catch(e){} try{ if(window.__ga4Gate) window.__ga4Gate(pw.value); }catch(e){} unlock(); } else { err.style.display='block'; pw.value=''; pw.focus(); } }
   btn.addEventListener('click', tryUnlock);
   pw.addEventListener('keydown', function(e){ if(e.key==='Enter') tryUnlock(); });
   setTimeout(function(){ pw.focus(); }, 50);
@@ -527,7 +527,7 @@
     </style>
     <div id="bepTool" class="ttp" data-tip="손익분기 ROAS = 100 ÷ 마진율. 광고 ROAS (실측)가 이 값보다 높아야 광고 클릭 매출만으로 이익 · 마진율은 이 기기에 저장됩니다" style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:10.5px;color:var(--muted);text-align:right;box-shadow:0 2px 8px rgba(0,0,0,.06);cursor:help">
       <div style="font-weight:700;color:var(--ink-2)">손익분기 ROAS</div>
-      <div style="margin-top:4px;white-space:nowrap">마진 <input id="bepMargin" type="number" min="1" max="99" placeholder="%" style="width:36px;padding:2px 4px;border:1px solid var(--line);border-radius:6px;font-family:inherit;font-size:10.5px;text-align:right">%</div>
+      <div style="margin-top:4px;white-space:nowrap">마진 <input id="bepMargin" type="number" min="1" max="99" placeholder="50" style="width:56px;padding:4px 6px;border:1px solid var(--line);border-radius:6px;font-family:inherit;font-size:12.5px;text-align:right">%</div>
       <div id="bepOut" style="font-size:14px;font-weight:800;margin-top:3px;color:var(--ink)">—</div>
     </div>
     <div style="height:1px;background:var(--line);margin:3px 0 3px auto;width:70%"></div>
@@ -4293,7 +4293,7 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
       });
       var rp=document.getElementById('revPanel'); if(rp) rp.style.display='none';
       var rn=document.getElementById('revNav'); if(rn) rn.style.display='none';
-      var rs=document.getElementById('revStrip'); if(rs) rs.style.display=RAW?'flex':'none';
+      var rs=document.getElementById('revStrip'); if(rs) rs.style.display='none'; /* 매출 띠 제거 */
       if(title) title.textContent='선암파머스 광고 대시보드';
       ['glossaryBtn','metaConnectBtn'].forEach(function(id){ var b=document.getElementById(id); if(b) b.style.display=''; });
       var hd=document.getElementById('hdrDivider'); if(hd) hd.style.display='';
@@ -5415,6 +5415,18 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
   }
 
   /* ---------- 데이터 ---------- */
+  // GA4만 단독 로드 (광고 탭 실측 컬럼용 — 자물쇠 비번이 자사몰 비번과 같을 때 동작)
+  function loadGa4Only(pw){
+    if(window.GA4) return Promise.resolve(true);
+    return fetch('data/ga4_daily.json.enc',{cache:'no-store'})
+      .then(function(r){ if(!r.ok) throw 0; return r.json(); })
+      .then(function(enc){ return decryptDash_(pw, enc); })
+      .then(function(g){ window.GA4=g;
+        try{ if(typeof MAIN_CHANNEL!=='undefined'&&MAIN_CHANNEL==='META'&&typeof render==='function') render(); }catch(e){}
+        return true; })
+      .catch(function(){ return false; });
+  }
+  window.__ga4Gate=loadGa4Only;
   function loadRev(pw){
     return fetch(DATA_URL,{cache:'no-store'})
       .then(function(r){ if(!r.ok) throw new Error('데이터 파일 없음 (HTTP '+r.status+')'); return r.json(); })
@@ -5657,7 +5669,11 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
       var sp=sessionStorage.getItem('REV_PW');
       var lastMode=sessionStorage.getItem('DASH_MODE');
       if(sp) loadRev(sp).then(function(){ if((wantRev||lastMode==='rev')&&RAW) setMode('rev'); });
-      else if(wantRev) guardRev_();
+      else{
+        if(wantRev) guardRev_();
+        var gp=sessionStorage.getItem('GATE_PW');
+        if(gp) loadGa4Only(gp);   // 광고 탭 실측 컬럼 활성화 시도
+      }
     }catch(e){}
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
