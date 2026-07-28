@@ -28,4 +28,6 @@ jobs:
         env:
           MAIL_APP_PASSWORD: ${{ secrets.MAIL_APP_PASSWORD }}
           IMWEB_DASH_PASSWORD: ${{ secrets.IMWEB_DASH_PASSWORD }}
+          MAIL_USER: support@sunamfarmers.kr      # 앱 비밀번호를 발급한 구글 계정
+          REPORT_TO: official@sunamfarmers.kr     # 리포트 받는 주소
         run: python send_daily_report.py
