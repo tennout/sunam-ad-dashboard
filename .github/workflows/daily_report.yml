@@ -1,0 +1,31 @@
+# 광고 운영 일일 리포트 메일 — 매일 06:00 KST (21:00 UTC, 새벽 수집 완료 후)
+# 저장 위치: .github/workflows/daily_report.yml
+
+name: daily-report
+
+on:
+  schedule:
+    - cron: '0 21 * * *'   # 21:00 UTC = 06:00 KST
+  workflow_dispatch:        # 수동 실행 (테스트용)
+
+permissions:
+  contents: read
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install deps
+        run: pip install cryptography
+
+      - name: Send daily report
+        env:
+          MAIL_APP_PASSWORD: ${{ secrets.MAIL_APP_PASSWORD }}
+          IMWEB_DASH_PASSWORD: ${{ secrets.IMWEB_DASH_PASSWORD }}
+        run: python send_daily_report.py
