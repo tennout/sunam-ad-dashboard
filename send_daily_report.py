@@ -133,6 +133,10 @@ def main():
 
     # ── 캠페인 판정 (§3) ──
     camps = sorted({r.get('campaign') for r in rows if r.get('campaign')})
+    # 소재 CTR 중앙값 (교체 판정 기준)
+    ad_names = sorted({r.get('adname') for r in rows if r.get('adname')})
+    ad_ctrs = sorted(s['ctr'] for s in (srange(rows, d7, anchor, n, 'adname') for n in ad_names) if s['imp'] > 0)
+    ctr_med = ad_ctrs[len(ad_ctrs) // 2] if ad_ctrs else 1.0
     verdicts = []
     for nm in camps:
         c7 = srange(rows, d7, anchor, nm)
@@ -160,6 +164,8 @@ def main():
         elif recent_bc:
             h = recent_bc[-1]
             v = ('관찰', f'예산 변경({h["date"][5:]} {won(h["from"])}→{won(h["to"])}) 후 3일 보호')
+        elif c7['cost'] >= 30000 and c7['ctr'] < ctr_med / 2:
+            v = ('교체', f'CTR {c7["ctr"]:.2f}%가 소재 중앙값({ctr_med:.2f}%)의 절반 미만 — 소재 교체')
         elif c7['roas'] >= tgt * 1.5 and (p7['cost'] == 0 or p7['roas'] >= tgt * 1.5):
             v = ('증액', f'목표×1.5 지속 — 기여이익 {won(contrib)} · +10~20%만')
         elif be <= c7['roas'] < tgt and contrib < p_contrib:
@@ -241,17 +247,21 @@ def main():
     for v in sorted(verdicts, key=lambda x: -x['c7']['cost']):
         b = budgets.get(v['name'], {})
         bud = b.get('budget')
+        st = b.get('status', '')
+        st_txt = ('<span style="color:#027a38">●게재중</span>' if st == 'ACTIVE'
+                  else f'<span style="color:#999">○{("중지" if st else "—")}</span>')
         y = srange(rows, anchor, anchor, v['name'])
         burn = f'{y["cost"]/bud*100:.0f}%' if bud else '—'
         bc = [h for h in bhist if h.get('campaign') == v['name']]
         bctxt = f'{bc[-1]["date"][5:]} {"↑" if bc[-1]["to"]>bc[-1]["from"] else "↓"}' if bc else '—'
         rows1 += (f'<tr><td style="text-align:left;padding:4px 8px">{v["name"][:26]}</td>'
+                  f'<td>{st_txt}</td>'
                   f'<td>{won(bud) if bud else "—"}</td><td>{burn}</td><td>{bctxt}</td>'
                   f'<td>{badge(v["tag"])}</td></tr>')
     sec1 = (f'<h3 style="margin:18px 0 6px">① 진행 중인 광고 ({anchor} 기준)</h3>'
             f'<table style="border-collapse:collapse;font-size:13px;width:100%" border="0">'
             f'<tr style="color:#888"><td style="text-align:left;padding:4px 8px">캠페인</td>'
-            f'<td>일예산</td><td>어제 소진율</td><td>최근 변경</td><td>판정</td></tr>{rows1}</table>')
+            f'<td>상태</td><td>일예산</td><td>어제 소진율</td><td>최근 변경</td><td>판정</td></tr>{rows1}</table>')
 
     sec2 = (f'<h3 style="margin:18px 0 6px">② 어제 성과 ({anchor})</h3>'
             f'<div style="font-size:13.5px">지출 {won(t_y["cost"])} · 메타매출 {won(t_y["rev"])}'
@@ -306,10 +316,22 @@ def main():
 
     today = datetime.datetime.now(KST).strftime('%-m/%-d')
     subject = f'[선암 광고] {today} 일일 리포트 — 7일 기여이익 {"+" if ct_7>=0 else ""}{won(ct_7)} · 투두 {len(todos)}건'
+    # 맨 위 한 줄 결론 (용어 몰라도 읽히게)
+    ok_y, ok_7 = ct_y >= 0, ct_7 >= 0
+    todo_line = (f'오늘 할 일 <b>{len(todos)}건</b>: ' + ' / '.join(f'[{v["tag"]}] {v["name"][:14]}' for v in todos)
+                 if todos else '오늘은 손댈 것 없음 — 유지')
+    sec0 = (f'<div style="background:{"#eefaf0" if ok_7 else "#fdecec"};border:1px solid {"#bfe8cc" if ok_7 else "#f5c2cb"};'
+            f'border-radius:12px;padding:14px 18px;margin:6px 0 16px">'
+            f'<div style="font-size:16px">이번 주 광고로 <b style="color:{"#027a38" if ok_7 else "#b91c3c"};font-size:19px">'
+            f'{"+" if ok_7 else ""}{won(ct_7)}</b> {"남는 중" if ok_7 else "잃는 중"}입니다'
+            f' <span style="font-size:12.5px;color:#777">(어제 하루 {"+" if ok_y else ""}{won(ct_y)})</span></div>'
+            f'<div style="font-size:13.5px;margin-top:6px">{todo_line}</div>'
+            f'<div style="font-size:11.5px;color:#999;margin-top:6px">※ 남는 돈(기여이익) = 매출×마진율 − 광고비 · 실측 = 광고 클릭 후 실제 결제된 금액(GA4)</div>'
+            f'</div>')
     html = (f'<div style="font-family:-apple-system,\'Apple SD Gothic Neo\',\'Malgun Gothic\',sans-serif;'
             f'max-width:680px;margin:0 auto;color:#222">'
             f'<h2 style="margin:6px 0">선암파머스 광고 일일 리포트 <span style="font-size:13px;color:#888;font-weight:400">{anchor} 데이터 기준</span></h2>'
-            + sec1 + sec2 + sec3 + sec4 + sec5 + sec6
+            + sec0 + sec1 + sec2 + sec3 + sec4 + sec5 + sec6
             + '<hr style="border:none;border-top:1px solid #ddd;margin:18px 0">'
             + sec7
             + '<div style="font-size:11.5px;color:#999;margin-top:16px">판정 규칙: 기여이익=매출×마진율−지출 · 본전 ROAS=100÷마진율 · '
