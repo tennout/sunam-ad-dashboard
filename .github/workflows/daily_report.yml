@@ -1,11 +1,11 @@
-# 광고 운영 일일 리포트 메일 — 매일 06:00 KST (21:00 UTC, 새벽 수집 완료 후)
+# 광고 운영 주간 리포트 메일 — 매주 월요일 06:00 KST (일요일 21:00 UTC)
 # 저장 위치: .github/workflows/daily_report.yml
 
-name: daily-report
+name: weekly-report
 
 on:
   schedule:
-    - cron: '0 21 * * *'   # 21:00 UTC = 06:00 KST
+    - cron: '0 21 * * 0'   # 일요일 21:00 UTC = 월요일 06:00 KST
   workflow_dispatch:        # 수동 실행 (테스트용)
 
 permissions:
