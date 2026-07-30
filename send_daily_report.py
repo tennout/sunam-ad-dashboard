@@ -153,7 +153,7 @@ def main():
         elif c7['cost'] < 30000 and c7['imp'] < 3000:
             v = ('관찰', '최소 표본(7일 지출 3만/노출 3천) 미달 — 판정 보류')
         elif c7['cost'] >= 50000 and contrib < 0:
-            v = ('끄기 검토', f'7일 지출 {won(c7["cost"])}(메타) & 기여이익 {won(contrib)}(메타 매출 × {mlabel} 기준) 마이너스')
+            v = ('끄기 검토', f'7일 지출 {won(c7["cost"])}(메타) & 기여이익 {won(contrib)}({mlabel} 적용) 마이너스')
         elif c7['ctr'] >= 3 and c7['clk'] >= 100 and c7['conv'] == 0:
             v = ('랜딩 점검', f'CTR {c7["ctr"]:.1f}%·클릭 {c7["clk"]}회인데 전환 0 (메타) — 소재보다 랜딩·가격·재고 쪽 확인 필요')
         elif recent_bc:
@@ -162,11 +162,11 @@ def main():
         elif c7['cost'] >= 30000 and c7['ctr'] < ctr_med / 2:
             v = ('교체 검토', f'CTR {c7["ctr"]:.2f}%가 소재 중앙값({ctr_med:.2f}%)의 절반 미만 (메타)')
         elif c7['roas'] >= tgt * 1.5 and (p7['cost'] == 0 or p7['roas'] >= tgt * 1.5):
-            v = ('증액 검토', f'메타 ROAS {c7["roas"]:.0f}%가 목표({tgt:.0f}%)×1.5 이상 2주 지속 · 기여이익 {"+" if contrib>=0 else ""}{won(contrib)}(메타 기준) — §3 가드레일: 하루 1개·+10~20%')
+            v = ('증액 검토', f'메타 ROAS {c7["roas"]:.0f}%가 목표({tgt:.0f}%)×1.5 이상 2주 지속 · 기여이익 {"+" if contrib>=0 else ""}{won(contrib)} — §3 가드레일: 하루 1개·+10~20%')
         elif be <= c7['roas'] < tgt and contrib < p_contrib:
-            v = ('감액 검토', f'본전({be:.0f}%)~목표 구간 & 기여이익 하락 {won(p_contrib)}→{won(contrib)} (메타 기준)')
+            v = ('감액 검토', f'본전({be:.0f}%)~목표 구간 & 기여이익 하락 {won(p_contrib)}→{won(contrib)} ')
         elif contrib < 0:
-            v = ('관찰', f'기여이익 {won(contrib)}(메타 기준) 마이너스이나 지출 5만 미만 — 확대 보류')
+            v = ('관찰', f'기여이익 {won(contrib)} 마이너스이나 지출 5만 미만 — 확대 보류')
         else:
             v = None                       # 특이사항 없음
         g = ga_camp7.get(nm)
@@ -213,15 +213,20 @@ def main():
     period = f'{d7[5:].replace("-", ".")} ~ {anchor[5:].replace("-", ".")}'
     ok = ct_7 >= 0
     # 요약 (출처 명기)
-    ga7_html = (' / <b>' + won(ga_7) + '</b><span style="color:#888">(GA4 실측)</span>') if ga_7 is not None else ''
-    sec0 = (f'<div style="background:{"#eefaf0" if ok else "#fdecec"};border:1px solid {"#bfe8cc" if ok else "#f5c2cb"};'
-            f'border-radius:12px;padding:14px 18px;margin:6px 0 16px;font-size:14px">'
-            f'최근 7일({period}) 광고비 <b>{won(t_7["cost"])}</b> → '
-            f'매출 <b>{won(t_7["rev"])}</b><span style="color:#888">(메타 귀속)</span>'
-            + ga7_html +
-            f'<div style="margin-top:6px">메타 귀속 매출 × 마진율 − 광고비 = <b style="color:{"#027a38" if ok else "#b91c3c"};font-size:17px">{"+" if ok else ""}{won(ct_7)}</b>'
-            f' <span style="font-size:12px;color:#888">(직전 7일 {"+" if ct_p7>=0 else ""}{won(ct_p7)})</span></div>'
-            f'<div style="font-size:11.5px;color:#999;margin-top:6px">※ 메타 귀속 = 메타가 자기 광고 기여로 집계한 매출(과대 경향) · GA4 실측 = 광고 클릭 후 실제 결제(과소 경향) — 진실은 그 사이</div></div>')
+    roas_meta = t_7['rev'] / t_7['cost'] * 100 if t_7['cost'] else 0
+    roas_ga = (ga_7 / t_7['cost'] * 100) if (ga_7 is not None and t_7['cost']) else None
+
+    def _cell(lab, val, sub=''):
+        return (f'<td style="padding:8px 6px;text-align:center"><div style="font-size:11.5px;color:#888">{lab}</div>'
+                f'<div style="font-size:16.5px;font-weight:800;margin-top:2px;white-space:nowrap">{val}</div>'
+                + (f'<div style="font-size:11.5px;color:#555;margin-top:1px">{sub}</div>' if sub else '') + '</td>')
+    sec0 = (f'<div style="border:1px solid #e5e5e5;border-radius:12px;padding:8px 8px 6px;margin:6px 0 16px">'
+            f'<div style="font-size:12px;color:#888;padding:2px 8px">최근 7일 ({period})</div>'
+            f'<table style="width:100%;border-collapse:collapse"><tr>'
+            + _cell('광고비', won(t_7['cost']), f'전주 {won(t_p7["cost"])}')
+            + _cell('매출 (메타)', won(t_7['rev']), f'ROAS {roas_meta:.0f}%')
+            + (_cell('매출 (GA4)', won(ga_7), f'ROAS {roas_ga:.0f}%') if ga_7 is not None else '')
+            + '</tr></table></div>')
 
     # [로데이터부] ① 진행 중인 광고 (팩트만)
     rows1 = ''
@@ -246,30 +251,28 @@ def main():
         c = v['c7']
         ga_r = v['ga_rev7']
         ga_roas = (ga_r / c['cost'] * 100) if (ga_r is not None and c['cost']) else None
-        rows2 += (f'<tr><td style="text-align:left;padding:4px 8px">{v["name"][:24]}</td>'
-                  f'<td>{won(c["cost"])}</td><td>{won(c["rev"])}</td><td>{pct(c["roas"])}</td>'
-                  f'<td>{won(ga_r) if ga_r is not None else "—"}</td><td>{pct(ga_roas) if ga_roas is not None else "—"}</td>'
-                  f'<td style="color:{"#027a38" if v["contrib"]>=0 else "#b91c3c"};font-weight:700">{"+" if v["contrib"]>=0 else ""}{won(v["contrib"])}</td></tr>')
+        rows2 += (f'<tr><td style="text-align:left;padding:5px 8px">{v["name"][:24]}</td>'
+                  f'<td>{won(c["cost"])}</td>'
+                  f'<td>{won(c["rev"])}<br><span style="font-size:11px;color:#888">ROAS {pct(c["roas"])}</span></td>'
+                  f'<td>{won(ga_r) if ga_r is not None else "—"}'
+                  + (f'<br><span style="font-size:11px;color:#888">ROAS {pct(ga_roas)}</span>' if ga_roas is not None else '')
+                  + '</td></tr>')
     sec2 = (f'<h3 style="margin:18px 0 6px">② 최근 7일 캠페인별 ({period})</h3>'
             f'<table style="border-collapse:collapse;font-size:12.5px;width:100%">'
             f'<tr style="color:#888"><td style="text-align:left;padding:4px 8px">캠페인</td>'
-            f'<td>지출<br>(메타)</td><td>매출<br>(메타 귀속)</td><td>ROAS<br>(메타)</td>'
-            f'<td>매출<br>(GA4 실측)</td><td>ROAS<br>(실측)</td><td>기여이익<br>(메타 기준)</td></tr>{rows2}</table>'
-            f'<div style="font-size:11px;color:#999;margin-top:4px">기여이익 = 메타 귀속 매출 × 마진율 − 지출 · 마진율은 캠페인명 키워드로 자동 매핑</div>')
+            f'<td>지출</td><td>매출 (메타)</td><td>매출 (GA4)</td></tr>{rows2}</table>')
 
     # ③ 기간 합계
     sec3 = (f'<h3 style="margin:18px 0 6px">③ 기간 합계</h3>'
             f'<div style="font-size:13px;line-height:1.9">'
-            f'<b>최근 7일</b> — 지출 {won(t_7["cost"])}(메타) · 매출 {won(t_7["rev"])}(메타 귀속)'
-            f'{f" / {won(ga_7)}(GA4 실측)" if ga_7 is not None else ""}'
-            f' · 기여이익 {"+" if ct_7>=0 else ""}{won(ct_7)}(메타 기준)'
-            f'{f" · 자사몰+비즈몰 주문 {ord_7}건(아임웹)" if ord_7 is not None else ""}<br>'
-            f'<b>최근 30일</b> — 지출 {won(t_30["cost"])}(메타) · 매출 {won(t_30["rev"])}(메타 귀속)'
-            f'{f" / {won(ga_30)}(GA4 실측)" if ga_30 is not None else ""}'
-            f' · 기여이익 {"+" if ct_30>=0 else ""}{won(ct_30)}(메타 기준)</div>')
+            f'<b>최근 7일</b> — 지출 {won(t_7["cost"])} · 매출 {won(t_7["rev"])}(메타)'
+            f'{f" / {won(ga_7)}(GA4)" if ga_7 is not None else ""}'
+            f'{f" · 주문 {ord_7}건(아임웹)" if ord_7 is not None else ""}<br>'
+            f'<b>최근 30일</b> — 지출 {won(t_30["cost"])} · 매출 {won(t_30["rev"])}(메타)'
+            f'{f" / {won(ga_30)}(GA4)" if ga_30 is not None else ""}</div>')
 
     # ④ 참고 지표
-    sec4 = ('<h3 style="margin:18px 0 6px">④ 참고 지표</h3><div style="font-size:13px">'
+    sec4 = ('<h3 style="margin:18px 0 6px">④ CS·후기 (자사몰·비즈몰)</h3><div style="font-size:13px">'
             + ('<br>'.join('· ' + t for t in refs) if refs else '—') + '</div>')
 
     # [의견부] — 규칙 기반 제안, 실행 판단은 운영자
@@ -280,21 +283,23 @@ def main():
                     f'padding:9px 13px;margin:7px 0;font-size:13px">'
                     f'<b><span style="background:{col};color:#fff;border-radius:8px;padding:1px 8px;font-size:11.5px">{v["tag"]}</span>'
                     f' {v["name"][:30]}</b><div style="margin-top:3px;color:#444">{v["why"]}</div></div>')
-    secB = ('<h3 style="margin:18px 0 6px">의견 <span style="font-size:11.5px;color:#888;font-weight:400">§3 확정 규칙 기반 자동 판정 · 검토 제안일 뿐 실행 판단은 운영자 몫</span></h3>'
+    secB = ('<h3 style="margin:18px 0 6px">의견</h3>'
             + (op_html or '<div style="font-size:13px;color:#555">이번 주 특이사항 없음</div>'))
 
     today = datetime.datetime.now(KST).strftime('%-m/%-d')
-    subject = f'[선암 광고] 주간 리포트 ({period}) — 기여이익 {"+" if ct_7>=0 else ""}{won(ct_7)} (메타 기준) · 의견 {len(opinions)}건'
+    subject = f'[선암 광고] 주간 리포트 ({period}) — 광고비 {won(t_7["cost"])} · 매출 {won(t_7["rev"])}(메타) · 의견 {len(opinions)}건'
     html = (f'<div style="font-family:-apple-system,\'Apple SD Gothic Neo\',\'Malgun Gothic\',sans-serif;'
             f'max-width:680px;margin:0 auto;color:#222">'
             f'<h2 style="margin:6px 0">선암파머스 광고 주간 리포트 <span style="font-size:13px;color:#888;font-weight:400">{anchor} 데이터 기준</span></h2>'
             + sec0
             + '<div style="font-size:12px;color:#888;border-bottom:2px solid #222;padding-bottom:4px;margin-top:20px"><b style="color:#222">로데이터</b> — 수치와 출처만</div>'
             + sec1 + sec2 + sec3 + sec4
-            + '<div style="font-size:12px;color:#888;border-bottom:2px solid #222;padding-bottom:4px;margin-top:26px"><b style="color:#222">의견</b> — 규칙 기반 제안</div>'
+            + '<div style="font-size:12px;color:#888;border-bottom:2px solid #222;padding-bottom:4px;margin-top:26px"><b style="color:#222">의견</b></div>'
             + secB
-            + '<div style="font-size:11.5px;color:#999;margin-top:16px">판정 규칙(§3): 기여이익=메타 귀속 매출×마진율−지출 · 본전 ROAS=100÷마진율 · 목표=본전×2 · '
-              '대시보드: tennout.github.io/sunam-ad-dashboard</div></div>')
+            + '<div style="font-size:11px;color:#aaa;margin-top:22px;border-top:1px solid #eee;padding-top:8px;line-height:1.7">'
+              '(메타) = 메타가 자기 광고 기여로 집계한 매출, 과대 경향 · (GA4) = 광고 클릭 후 실제 결제된 매출, 취소 미반영, 과소 경향 · '
+              '기여이익 = 메타 매출 × 마진율 − 광고비 · 본전 ROAS = 100 ÷ 마진율, 목표 = 본전×2 · 마진율은 캠페인명 키워드로 자동 매핑 · '
+              '의견은 §3 확정 규칙의 자동 판정으로 실행 판단은 운영자 몫 · 대시보드: tennout.github.io/sunam-ad-dashboard</div></div>')
 
     msg = MIMEMultipart('alternative')
     msg['Subject'] = Header(subject, 'utf-8')
