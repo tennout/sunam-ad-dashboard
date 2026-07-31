@@ -252,15 +252,17 @@ def main():
         ga_r = v['ga_rev7']
         ga_roas = (ga_r / c['cost'] * 100) if (ga_r is not None and c['cost']) else None
         rows2 += (f'<tr><td style="text-align:left;padding:5px 8px">{v["name"][:24]}</td>'
-                  f'<td>{won(c["cost"])}</td>'
-                  f'<td>{won(c["rev"])}<br><span style="font-size:11px;color:#888">ROAS {pct(c["roas"])}</span></td>'
-                  f'<td>{won(ga_r) if ga_r is not None else "—"}'
-                  + (f'<br><span style="font-size:11px;color:#888">ROAS {pct(ga_roas)}</span>' if ga_roas is not None else '')
+                  f'<td style="text-align:right;white-space:nowrap">{won(c["cost"])}</td>'
+                  f'<td style="text-align:right;white-space:nowrap">{won(c["rev"])} <span style="font-size:11px;color:#888">({pct(c["roas"])})</span></td>'
+                  f'<td style="text-align:right;white-space:nowrap;padding-right:8px">'
+                  + (f'{won(ga_r)} <span style="font-size:11px;color:#888">({pct(ga_roas)})</span>' if ga_r is not None else '—')
                   + '</td></tr>')
     sec2 = (f'<h3 style="margin:18px 0 6px">② 최근 7일 캠페인별 ({period})</h3>'
             f'<table style="border-collapse:collapse;font-size:12.5px;width:100%">'
             f'<tr style="color:#888"><td style="text-align:left;padding:4px 8px">캠페인</td>'
-            f'<td>지출</td><td>매출 (메타)</td><td>매출 (GA4)</td></tr>{rows2}</table>')
+            f'<td style="text-align:right">지출</td><td style="text-align:right">매출 (메타)</td>'
+            f'<td style="text-align:right;padding-right:8px">매출 (GA4)</td></tr>{rows2}</table>'
+            f'<div style="font-size:11px;color:#999;margin-top:3px">괄호 안 = ROAS</div>')
 
     # ③ 기간 합계
     sec3 = (f'<h3 style="margin:18px 0 6px">③ 기간 합계</h3>'
