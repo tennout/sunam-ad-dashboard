@@ -897,7 +897,12 @@
     </div>
     <div class="kpis" id="revKpis"></div>
     <div class="panel" style="margin-bottom:14px">
-      <h2 style="margin:0 0 8px">매출 추이 <span style="font-size:12px;font-weight:400;color:var(--muted)" id="revStatus">불러오는 중…</span></h2>
+      <h2 style="margin:0 0 8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+        <span id="revTrendToggle" style="display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden">
+          <button class="rv-pill on" data-rtr="rev" style="border:none;border-radius:0">매출 추이</button>
+          <button class="rv-pill" data-rtr="trf" style="border:none;border-radius:0;border-left:1px solid var(--line)">트래픽 추이</button>
+        </span>
+        <span style="font-size:12px;font-weight:400;color:var(--muted)" id="revStatus">불러오는 중…</span></h2>
       <div style="height:280px"><canvas id="revChart"></canvas></div>
       <div id="revMix" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px"></div>
       <div class="hint" style="margin-top:8px">매출 구성: 신규 = 해당 기간이 생애 첫 구매 · 재구매 = 기존 고객의 반복 구매 (안정 매출) · 방문자·유입경로·상품 전환율은 아임웹이 API로 제공하지 않아 관리자 &gt; 통계(유입경로분석·상품전환분석)에서 확인</div>
@@ -4506,8 +4511,31 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
       O.push(RT==='jasa'?(jo||0):RT==='biz'?(bo||0):((jo!=null&&bo!=null)?(jo+bo):(rec.orders||0)));
       if(labels.length>190) break;
     }
+    // 추이 모드: 매출(rev) / 트래픽(trf) — 트래픽은 GA4(자사몰)만
+    var trfOk = window.GA4 && window.GA4.daily && RT!=='biz';
+    var tgl=document.getElementById('revTrendToggle');
+    if(tgl){
+      tgl.style.display = (RT==='biz')?'none':'inline-flex';
+      tgl.querySelectorAll('[data-rtr]').forEach(function(b){ b.classList.toggle('on', (window.REV_TREND||'rev')===b.dataset.rtr); });
+    }
+    var trfMode = (window.REV_TREND==='trf') && trfOk;
     var dsets=[];
-    if(RT==='all'){
+    if(trfMode){
+      var gByD={}; window.GA4.daily.forEach(function(r){ gByD[r.date]=r; });
+      var ORG=[], PAID=[], CVR=[];
+      labels=[];
+      for(var dg=from; dg<=to; dg=addD(dg,1)){
+        labels.push(dg.slice(5));
+        var gr=gByD[dg]||{};
+        var s=gr.sessions||0, og=gr.orgSessions||0;
+        ORG.push(og); PAID.push(Math.max(0,s-og));
+        CVR.push(s>0?+((gr.trans||0)/s*100).toFixed(2):null);
+        if(labels.length>190) break;
+      }
+      dsets.push({type:'bar',label:'오가닉 세션',data:ORG,backgroundColor:'#03c75a',stack:'t'});
+      dsets.push({type:'bar',label:'광고 유입 세션',data:PAID,backgroundColor:'#2563eb',stack:'t'});
+      dsets.push({type:'line',label:'구매전환율(%)',data:CVR,borderColor:'#7c3aed',backgroundColor:'#7c3aed',pointRadius:0,borderWidth:2,tension:.3,yAxisID:'y2',spanGaps:true});
+    } else if(RT==='all'){
       dsets.push({type:'bar',label:'자사몰',data:A,backgroundColor:'#03c75a',stack:'r'});
       dsets.push({type:'bar',label:'비즈몰',data:B,backgroundColor:'#2563eb',stack:'r'});
       dsets.push({type:'line',label:'메타 광고비',data:M,borderColor:'#f59e0b',backgroundColor:'#f59e0b',pointRadius:0,borderWidth:2,tension:.3});
@@ -4521,10 +4549,13 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
     if(cv&&window.Chart){
       if(CH_REV) CH_REV.destroy();
       CH_REV=new Chart(cv,{data:{labels:labels,datasets:dsets},options:{responsive:true,maintainAspectRatio:false,
-        plugins:{legend:{labels:{boxWidth:12,font:{size:11}}},tooltip:{callbacks:{label:function(c){ return c.dataset.label+': '+(c.dataset.label==='주문수'?c.parsed.y+'건':won(c.parsed.y)); }}}},
-        scales:{x:{stacked:RT==='all',ticks:{font:{size:10},maxTicksLimit:16}},
-          y:{stacked:RT==='all',ticks:{font:{size:10},callback:function(v){return (v/10000)+'만';}}},
-          y2:{display:RT!=='all',position:'right',grid:{drawOnChartArea:false},ticks:{font:{size:10}}}}
+        interaction:{mode:'index',intersect:false,axis:'x'},
+        plugins:{legend:{labels:{boxWidth:12,font:{size:11}}},tooltip:{callbacks:{label:function(c){
+          if(trfMode) return c.dataset.label+': '+(c.dataset.type==='line'?(c.parsed.y!=null?c.parsed.y+'%':'—'):c.parsed.y.toLocaleString('ko-KR')+'회');
+          return c.dataset.label+': '+(c.dataset.label==='주문수'?c.parsed.y+'건':won(c.parsed.y)); }}}},
+        scales:{x:{stacked:(RT==='all'||trfMode),ticks:{font:{size:10},maxTicksLimit:16}},
+          y:{stacked:(RT==='all'||trfMode),ticks:{font:{size:10},callback:function(v){return trfMode?v:(v/10000)+'만';}}},
+          y2:{display:(trfMode||RT!=='all'),position:'right',grid:{drawOnChartArea:false},ticks:{font:{size:10},callback:function(v){return trfMode?v+'%':v;}}}}
       }});
     }
 
@@ -4591,7 +4622,23 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
     }
     // 매출 구성 (신규 vs 재구매 vs 비회원) — 기간 연동
     var mixEl=document.getElementById('revMix');
-    if(mixEl){
+    if(mixEl && trfMode){
+      // 트래픽 모드 카드: 오가닉/광고 유입 구성 + 세션당 매출
+      var gT=sumG(from,to);
+      if(gT&&gT.sessions>0){
+        var orgP=gT.org/gT.sessions*100, paidS=gT.sessions-gT.org;
+        function tcard(t,v,s,col,tip){ return '<div class="ttp" data-tip="'+tip+'" style="flex:1;min-width:150px;background:#fafcfb;border:1px solid var(--line);border-radius:12px;padding:10px 14px;cursor:help"><div style="font-size:11.5px;color:var(--muted)">'+t+'</div><div style="font-size:17px;font-weight:800;margin-top:2px;color:'+(col||'var(--ink)')+'">'+v+'</div><div style="font-size:11px;color:var(--ink-2);margin-top:2px">'+s+'</div></div>'; }
+        mixEl.innerHTML =
+          tcard('오가닉 유입', orgP.toFixed(1)+'%', gT.org.toLocaleString('ko-KR')+'세션 · 검색·직접·SNS 무료 방문','var(--green)',
+            '유료 광고 외 경로로 들어온 방문 비율 · 계산: 오가닉 세션 ÷ 전체 세션 · 출처: GA4')
+          +tcard('광고 유입', (100-orgP).toFixed(1)+'%', paidS.toLocaleString('ko-KR')+'세션 · 메타 등 유료 광고 방문','var(--blue)',
+            '유료 광고 클릭으로 들어온 방문 비율 · 계산: (전체 − 오가닉) ÷ 전체 세션 · 출처: GA4')
+          +tcard('세션당 매출', won(gT.rev/gT.sessions), '방문 1회의 가치 — 트래픽의 질','',
+            '기간 매출 ÷ 세션 수 · 광고로 트래픽만 부풀면 이 값이 떨어짐 · 출처: GA4 (취소 미반영)');
+      } else {
+        mixEl.innerHTML='<div style="color:var(--muted);font-size:12px">GA4 트래픽 데이터가 없습니다</div>';
+      }
+    } else if(mixEl){
       var hasMix = RAW.daily&&RAW.daily.length&&RAW.daily[RAW.daily.length-1].jasaNewRev!=null;
       if(hasMix&&cur.rev>0){
         var mixTot=cur.newRev+cur.retRev+cur.guestRev;
@@ -5628,6 +5675,13 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
     });
     var vfm=document.getElementById('vocFullModal');
     if(vfm) vfm.addEventListener('click',function(e){ if(e.target.id==='vocFullModal') vfm.classList.remove('open'); });
+    var rtt=document.getElementById('revTrendToggle');
+    if(rtt) rtt.addEventListener('click',function(e){
+      var b=e.target.closest('[data-rtr]'); if(!b) return;
+      if(b.dataset.rtr==='trf' && !(window.GA4&&window.GA4.daily)){ alert('트래픽 추이는 GA4 데이터 로드 후 이용할 수 있어요.'); return; }
+      window.REV_TREND=b.dataset.rtr;
+      renderRev();
+    });
     ['revBestSort','revCouponSort','revLoyalSort','revFunnelSel','revPRebuySel','revVocRange'].forEach(function(id){
       var el=document.getElementById(id);
       if(el) el.addEventListener('change',function(){ renderRev(); });
