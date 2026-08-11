@@ -73,6 +73,12 @@ def _get(url: str, params: dict, retries: int = 3):
         except error.HTTPError as e:
             detail = e.read().decode("utf-8", "ignore")[:300]
             last = f"HTTP {e.code}: {detail}"
+            # 앱 호출 한도(403 + request limit) → 길게 기다렸다 재시도
+            if e.code == 403 and "request limit" in detail.lower():
+                wait = 120 * (attempt + 1)
+                print(f"    ! API 호출 한도 — {wait}초 대기 후 재시도 ({attempt+1}/{retries})")
+                time.sleep(wait)
+                continue
             # 400 = 대개 토큰/권한/필드 오류 → 재시도 무의미
             if e.code in (500, 502, 503, 504, 429):
                 time.sleep(2 * (attempt + 1))
