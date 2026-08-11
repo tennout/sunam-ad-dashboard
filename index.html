@@ -4178,8 +4178,15 @@ function updateDatePickerBounds(){
   const s = document.getElementById('dStart');
   const e = document.getElementById('dEnd');
   const today = dateStr(TODAY);
-  if(s){ s.max=today; s.removeAttribute('min'); s.disabled=false; }
-  if(e){ e.max=today; e.removeAttribute('min'); e.disabled=false; }
+  // 실제 데이터가 있는 구간만 선택 가능 — 범위 밖 날짜는 달력에서 회색(선택 불가)
+  const dr = (typeof channelDateRange==='function') ? channelDateRange() : null;
+  const mn = (dr&&dr.min)?dr.min:null;
+  const mx = (dr&&dr.max&&dr.max<today)?dr.max:today;
+  [s,e].forEach(el=>{
+    if(!el) return;
+    el.disabled=false; el.max=mx;
+    if(mn) el.min=mn; else el.removeAttribute('min');
+  });
 }
 
 function updatePeriodButtonStates(){
@@ -4387,6 +4394,14 @@ document.getElementById('dEnd').value   = dateStr(TODAY);
     var di1=document.getElementById('revDStart'), di2=document.getElementById('revDEnd');
     if(di1) di1.value=from;
     if(di2) di2.value=to;
+    // 데이터 보유 구간만 선택 가능 (범위 밖은 달력에서 회색)
+    try{
+      var _dl=RAW.daily||[];
+      if(_dl.length){
+        var _mn=_dl[0].date, _mx=_dl[_dl.length-1].date;
+        [di1,di2].forEach(function(el){ if(el){ el.min=_mn; el.max=_mx; } });
+      }
+    }catch(e){}
 
     function d(a,b){ return b>0 ? (a-b)/b*100 : null; }
     var aov=cur.ord?cur.rev/cur.ord:0, pAov=prev.ord?prev.rev/prev.ord:0;
