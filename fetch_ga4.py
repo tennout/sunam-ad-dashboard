@@ -7,8 +7,9 @@ GA4 Data API로 일별 방문자·세션·페이지뷰·오가닉 세션을 수�
 data/ga4_daily.json.enc (AES 암호화, 대시보드 비밀번호와 동일 키)로 저장.
 
 환경변수 (GitHub Secrets)
-  GA4_PROPERTY_ID      GA4 속성 ID (숫자만, 예: 123456789)
-  GA4_SA_JSON          서비스 계정 키 JSON 전체 내용
+  GA4_PROPERTY_ID      자사몰 GA4 속성 ID (숫자만)
+  GA4_BIZ_PROPERTY_ID  (선택) 비즈몰 GA4 속성 ID — 설정 시 비즈몰 트래픽도 수집
+  GA4_SA_JSON          서비스 계정 키 JSON 전체 내용 (두 속성 모두 뷰어 권한 필요)
   IMWEB_DASH_PASSWORD  대시보드 비밀번호 (암호화 키)
 
 사전 준비 (1회)
@@ -125,8 +126,50 @@ def dim_report(pid, token, dim, skip_vals=()):
     return out
 
 
+def collect_basic(pid, token):
+    """일별·채널·소스·랜딩만 수집 (비즈몰용 경량 수집)"""
+    rows = run_report(pid, token, ['date', 'sessionDefaultChannelGroup'], DAYS)
+    daily, channels = {}, []
+    for row in rows:
+        d8 = row['dimensionValues'][0]['value']
+        grp = row['dimensionValues'][1]['value']
+        dt = f'{d8[:4]}-{d8[4:6]}-{d8[6:]}'
+        sess, users, pv, rev, trans = _mvals(row)
+        r = daily.setdefault(dt, {'date': dt, 'sessions': 0, 'users': 0, 'pv': 0, 'orgSessions': 0,
+                                  'rev': 0, 'orgRev': 0, 'trans': 0})
+        r['sessions'] += sess; r['users'] += users; r['pv'] += pv
+        r['rev'] += rev; r['trans'] += trans
+        if grp not in PAID_GROUPS:
+            r['orgSessions'] += sess; r['orgRev'] += rev
+        channels.append({'date': dt, 'ch': grp, 'sess': sess, 'rev': rev, 'trans': trans})
+    ch_sources = {}
+    for w in WINDOWS:
+        rows2 = run_report(pid, token, ['sessionDefaultChannelGroup', 'sessionSourceMedium'],
+                           w, limit=120, order_by_sessions=True)
+        lst = []
+        for row in rows2:
+            sess, users, pv, rev, trans = _mvals(row)
+            lst.append({'ch': row['dimensionValues'][0]['value'],
+                        'name': row['dimensionValues'][1]['value'],
+                        'sess': sess, 'rev': rev, 'trans': trans})
+        ch_sources[str(w)] = lst
+    landing = {}
+    for w in WINDOWS:
+        agg_l = {}
+        for row in run_report(pid, token, ['landingPagePlusQueryString'], w,
+                              limit=10000, order_by_sessions=True):
+            name = norm_page(row['dimensionValues'][0]['value'])
+            sess, users, pv, rev, trans = _mvals(row)
+            a = agg_l.setdefault(name, {'name': name, 'sess': 0, 'rev': 0, 'trans': 0})
+            a['sess'] += sess; a['rev'] += rev; a['trans'] += trans
+        landing[str(w)] = sorted(agg_l.values(), key=lambda x: -x['sess'])[:20]
+    return {'daily': [daily[k] for k in sorted(daily)], 'channels': channels,
+            'chSources': ch_sources, 'landing': landing}
+
+
 def main():
     pid = os.environ.get('GA4_PROPERTY_ID', '').strip()
+    biz_pid = os.environ.get('GA4_BIZ_PROPERTY_ID', '').strip()
     sa_raw = os.environ.get('GA4_SA_JSON', '').strip()
     pw = os.environ.get('IMWEB_DASH_PASSWORD', '').strip()
     if not pid or not sa_raw:
@@ -227,6 +270,15 @@ def main():
            'chSources': ch_sources,
            'adContents': ad_contents,
            'campLanding': camp_landing}
+
+    # 비즈몰 GA4 (선택 — 별도 속성)
+    if biz_pid:
+        try:
+            print(f'비즈몰 GA4 수집... (속성 {biz_pid})')
+            out['biz'] = collect_basic(biz_pid, token)
+            print(f'  비즈몰 {len(out["biz"]["daily"])}일치')
+        except Exception as e:
+            print(f'  ! 비즈몰 GA4 수집 실패(무시): {e}')
     os.makedirs('data', exist_ok=True)
     with open('data/ga4_daily.json.enc', 'w', encoding='utf-8') as f:
         f.write(encrypt_json(out, pw))
