@@ -43,6 +43,7 @@ jobs:
         continue-on-error: true
         env:
           GA4_PROPERTY_ID: ${{ secrets.GA4_PROPERTY_ID }}
+          GA4_BIZ_PROPERTY_ID: ${{ secrets.GA4_BIZ_PROPERTY_ID }}
           GA4_SA_JSON: ${{ secrets.GA4_SA_JSON }}
           IMWEB_DASH_PASSWORD: ${{ secrets.IMWEB_DASH_PASSWORD }}
         run: python fetch_ga4.py
@@ -63,4 +64,6 @@ jobs:
           git add data/ga4_daily.json.enc || true
           git add data/crema_reviews.json.enc || true
           git diff --staged --quiet || git commit -m "chore: imweb data sync $(date -u +%F)"
+          # 실행 중 다른 커밋이 먼저 올라온 경우 대비 (푸시 경합 방지)
+          git pull --rebase origin main
           git push
