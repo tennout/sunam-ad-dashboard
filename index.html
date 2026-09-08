@@ -2096,6 +2096,9 @@ function renderChart(){
     const wrap = document.createElement('div');
     wrap.className = `tl-ev ${ev.type}`;
     wrap.style.left = leftPct+'%';
+    // 가장자리 마커는 라벨이 차트 밖으로 튀지 않게 안쪽 정렬
+    if(leftPct>90) wrap.style.transform='translate(-95%,-50%)';
+    else if(leftPct<10) wrap.style.transform='translate(-5%,-50%)';
     wrap.innerHTML = `<div class="lbl">${ev.title}</div><div class="dotx"></div><div class="dt">${ev.date.slice(5)}</div>`;
     wrap.addEventListener('mouseenter',e=>{
       showTip(e,`<b>${ev.title}</b> (${ev.date})<br>${ev.detail}${impact?'<br><b>영향:</b> '+impact:''}`);
