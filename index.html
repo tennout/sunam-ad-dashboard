@@ -3291,6 +3291,19 @@ function _actCells(g,cost){
   const r=cost>0?g.rev/cost*100:null;
   return `<td style="border-left:1px solid var(--line)">${fmtWon(g.rev)}</td><td><b style="color:${r!=null&&r>=100?'var(--green)':'var(--red)'}">${r!=null?Math.round(r)+'%':'—'}</b></td>`;
 }
+function _budInfo(name){
+  try{
+    const B=(window.META_ADS_BUNDLE&&window.META_ADS_BUNDLE.budgets)||[];
+    const b=B.find(x=>x.campaign===name);
+    if(!b) return '';
+    const anc=_metaAnchor();
+    let y=0; (META_UPLOADED_DATA||[]).forEach(r=>{ if(r.date===anc&&(r.campaign||'')===name) y+=r.cost||0; });
+    const st=(b.status&&b.status!=='ACTIVE')?' · <span style="color:var(--red);font-weight:700">중지</span>':'';
+    if(!b.budget) return st?st.replace(' · ',''):'';
+    const burn=Math.round(y/b.budget*100);
+    return '일예산 <b style="color:var(--ink-2)">'+fmtWon(b.budget)+'</b> · 어제 '+burn+'% 소진'+st;
+  }catch(e){ return ''; }
+}
 function renderMetaReport(ctx){
   const _ga=_ga4Actual();
   const hasCamp = META_UPLOADED_DATA.some(r=>r.campaign);
@@ -3305,7 +3318,7 @@ function renderMetaReport(ctx){
       const tip=v?(`<b>${v.tag}</b> · ROAS ${fmtPct(c.roas,0)} · 지출 ${fmtWon(c.cost)} · 매출 ${fmtWon(c.rev)}<br>${v.msg}`).replace(/"/g,'&quot;'):'';
       const _cls=[v?'ttp':'', (TREND_DRILL&&TREND_SEL_CAMP.has(c.name))?'trow-sel':''].filter(Boolean).join(' ');
       return `<tr data-ci="${i}" data-cname="${_esc(c.name)}"${_cls?` class="${_cls}"`:''}${v?` data-tip="${tip}"`:''}>
-      <td title="${c.name}">${badge}${c.name}${c.dmin?`<br><span style="font-size:11px;color:var(--muted)">게시 ${c.dmin.slice(5)}~${c.dmax.slice(5)}</span>`:''}</td><td>${fmtInt(c.imp)}</td><td>${fmtInt(c.clk)}</td>
+      <td title="${c.name}">${badge}${c.name}${c.dmin?`<br><span style="font-size:11px;color:var(--muted)">게시 ${c.dmin.slice(5)}~${c.dmax.slice(5)}</span>`:''}${(()=>{const _bi=_budInfo(c.name);return _bi?`<br><span style="font-size:11px;color:var(--muted)">${_bi}</span>`:'';})()}</td><td>${fmtInt(c.imp)}</td><td>${fmtInt(c.clk)}</td>
       <td>${fmtPct(c.ctr)}</td><td>${fmtWon(c.cpc)}</td><td>${fmtWon(c.cost)}</td>
       <td>${fmtInt(c.conv)}</td><td>${fmtWon(c.rev)}</td><td><b>${fmtPct(c.roas,0)}</b></td>${_actCells(_ga&&_ga.cm[c.name],c.cost)}</tr>`;
     }).join('')
