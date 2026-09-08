@@ -714,7 +714,7 @@
     <div id="secCamp">
     <div class="panel" style="margin-bottom:14px">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:10px;flex-wrap:wrap">
-        <h2 style="margin:0">캠페인별 성과 <span class="ttp" data-tip="기여이익(매출×마진율−지출) 기준 자동 판정 · 최근 7일 vs 직전 7일 · 행에 마우스를 올리면 근거 숫자가 떠요.<br><b>끄기</b>=지출 5만↑ & 기여이익 마이너스 · <b>랜딩점검</b>=CTR 3%↑·클릭 100↑·전환 0 · <b>감액</b>=본전~목표 & 하락 · <b>증액</b>=목표×1.5 지속 · <b>교체</b>=CTR 중앙값 절반 미만 · <b>관찰</b>=표본 미달·신규 3일 · <b>리드</b>=B2B(CPL로 평가) · 본전 ROAS=100÷마진율, 목표=본전×2" style="font-size:11px;color:var(--muted);cursor:help;border-bottom:1px dotted var(--muted);font-weight:400">ⓘ 판정</span> <span class="drill-hint">👆 행을 클릭해 추이 보기</span></h2>
+        <h2 style="margin:0">캠페인별 성과 <span class="ttp" data-tip="게재중/중지 배지는 메타에 설정된 실제 게재 상태입니다 (매일 새벽 동기화)" style="font-size:11px;color:var(--muted);cursor:help;border-bottom:1px dotted var(--muted);font-weight:400">ⓘ</span> <span class="drill-hint">👆 행을 클릭해 추이 보기</span></h2>
         <select id="metaCampSort" style="font-size:12px;padding:5px 8px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink-2);font-family:inherit;cursor:pointer">
           <option value="cost">지출 많은 순</option>
           <option value="rev">매출 높은 순</option>
@@ -3298,10 +3298,9 @@ function _budInfo(name){
     if(!b) return '';
     const anc=_metaAnchor();
     let y=0; (META_UPLOADED_DATA||[]).forEach(r=>{ if(r.date===anc&&(r.campaign||'')===name) y+=r.cost||0; });
-    const st=(b.status&&b.status!=='ACTIVE')?' · <span style="color:var(--red);font-weight:700">중지</span>':'';
-    if(!b.budget) return st?st.replace(' · ',''):'';
+    if(!b.budget) return '';
     const burn=Math.round(y/b.budget*100);
-    return '일예산 <b style="color:var(--ink-2)">'+fmtWon(b.budget)+'</b> · 어제 '+burn+'% 소진'+st;
+    return '일예산 <b style="color:var(--ink-2)">'+fmtWon(b.budget)+'</b> · 어제 '+burn+'% 소진';
   }catch(e){ return ''; }
 }
 function renderMetaReport(ctx){
@@ -3313,11 +3312,12 @@ function renderMetaReport(ctx){
     document.getElementById('metaCampHint').style.display='none';
     document.getElementById('metaCampWrap').style.display='';
     document.getElementById('metaCampBody').innerHTML = camps.length? camps.map((c,i)=>{
-      const v=(c.name&&c.name!=='(이름 없음)')?_campVerdict(c,'campaign'):null;
-      const badge=v?`<span style="display:inline-block;padding:1px 7px;border-radius:10px;font-size:10.5px;font-weight:700;color:${v.col};background:${v.bg};margin-right:6px;vertical-align:1px">${v.tag}</span>`:'';
-      const tip=v?(`<b>${v.tag}</b> · ROAS ${fmtPct(c.roas,0)} · 지출 ${fmtWon(c.cost)} · 매출 ${fmtWon(c.rev)}<br>${v.msg}`).replace(/"/g,'&quot;'):'';
-      const _cls=[v?'ttp':'', (TREND_DRILL&&TREND_SEL_CAMP.has(c.name))?'trow-sel':''].filter(Boolean).join(' ');
-      return `<tr data-ci="${i}" data-cname="${_esc(c.name)}"${_cls?` class="${_cls}"`:''}${v?` data-tip="${tip}"`:''}>
+      const _bst=(((window.META_ADS_BUNDLE&&window.META_ADS_BUNDLE.budgets)||[]).find(x=>x.campaign===c.name)||{}).status;
+      const badge=_bst?(_bst==='ACTIVE'
+        ?`<span style="display:inline-block;padding:1px 7px;border-radius:10px;font-size:10.5px;font-weight:700;color:#027a38;background:#e6faec;margin-right:6px;vertical-align:1px">게재중</span>`
+        :`<span style="display:inline-block;padding:1px 7px;border-radius:10px;font-size:10.5px;font-weight:700;color:#b91c3c;background:#ffe4e6;margin-right:6px;vertical-align:1px">중지</span>`):'';
+      const _cls=(TREND_DRILL&&TREND_SEL_CAMP.has(c.name))?'trow-sel':'';
+      return `<tr data-ci="${i}" data-cname="${_esc(c.name)}"${_cls?` class="${_cls}"`:''}>
       <td title="${c.name}">${badge}${c.name}${c.dmin?`<br><span style="font-size:11px;color:var(--muted)">게시 ${c.dmin.slice(5)}~${c.dmax.slice(5)}</span>`:''}${(()=>{const _bi=_budInfo(c.name);return _bi?`<br><span style="font-size:11px;color:var(--muted)">${_bi}</span>`:'';})()}</td><td>${fmtInt(c.imp)}</td><td>${fmtInt(c.clk)}</td>
       <td>${fmtPct(c.ctr)}</td><td>${fmtWon(c.cpc)}</td><td>${fmtWon(c.cost)}</td>
       <td>${fmtInt(c.conv)}</td><td>${fmtWon(c.rev)}</td><td><b>${fmtPct(c.roas,0)}</b></td>${_actCells(_ga&&_ga.cm[c.name],c.cost)}</tr>`;
