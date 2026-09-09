@@ -132,8 +132,8 @@
   .ev{border-bottom:1px dotted #9db0a8;cursor:help;color:#0b6e3c}
   .ev:hover{background:#eaf7ef}
   /* timeline */
-  .tl{position:relative;padding:12px 6px;overflow-x:auto}
-  .tl-inner{position:relative;height:84px;min-width:720px}
+  .tl{position:relative;padding:12px 0;overflow:visible}
+  .tl-inner{position:relative;height:84px}
   .tl-axis{position:absolute;left:0;right:0;top:50%;height:2px;background:var(--line)}
   .tl-ev{position:absolute;top:50%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:2px}
   .tl-ev .dotx{width:12px;height:12px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 2px var(--ink)}
@@ -326,6 +326,7 @@
         <button class="glossary-btn" id="glossaryBtn" title="광고 용어 설명 보기">용어</button>
         <button class="glossary-btn" id="metaConnectBtn" title="네이버·메타 등 광고 채널 API 연동 가이드">API 연동</button>
         <span id="hdrDivider" style="width:1px;height:20px;background:var(--line);margin:0 4px;align-self:center"></span>
+        <a class="glossary-btn" id="archiveSheetBtn" href="https://docs.google.com/spreadsheets/d/1G9hTDMeaglyNaV6lPhUQXTMaSe1IxazmHjLnfTWy5BU/edit" target="_blank" title="광고 데이터 아카이브 — 네이버·메타 일자별 누적 (구글시트, 매일 새벽 자동 갱신)" style="text-decoration:none;color:var(--ink);font-weight:700">📊 데이터 아카이브</a>
         <a class="glossary-btn" id="adCalendarBtn" href="https://docs.google.com/spreadsheets/d/1xNYkMW4uc3oSUGJi5lh7fq7xkManfgJyv4YBgbXvFek/edit?gid=341240343#gid=341240343" target="_blank" title="광고 운영 캘린더 (구글시트)" style="text-decoration:none;color:var(--ink);font-weight:700">📅 광고 운영 캘린더</a>
         <div class="account-switcher">
           <button class="account-btn" id="accountBtn" aria-haspopup="true" aria-expanded="false">
@@ -2064,6 +2065,14 @@ function renderChart(){
   const tl = document.getElementById('timeline');
   tl.innerHTML = '<div class="tl-axis"></div>';
   const len = rows.length-1 || 1;
+  // 차트의 실제 플롯 영역(축 라벨 안쪽)에 타임라인을 정확히 정렬
+  let _caL=0, _caW=(tl.parentElement?tl.parentElement.clientWidth:720)||720;
+  try{
+    const _ca=chartRef.chartArea;
+    if(_ca&&_ca.right>_ca.left){ _caL=_ca.left; _caW=_ca.right-_ca.left; }
+  }catch(e){}
+  tl.style.marginLeft=_caL+'px';
+  tl.style.width=_caW+'px';
   // 메타 채널: 예산 변경 이력(budgetHistory)을 증액/감액 마커로 표시
   let _evList = EVENTS;
   if(MAIN_CHANNEL==='META'){
@@ -2080,7 +2089,10 @@ function renderChart(){
     const d = new Date(ev.date);
     if(d<currentStart||d>currentEnd) return;
     const idx = Math.round((d-currentStart)/86400000);
-    const leftPct = (idx/len)*100;
+    let _px;
+    try{ _px=chartRef.scales.x.getPixelForValue(idx)-_caL; }catch(e){ _px=(idx/len)*_caW; }
+    if(!isFinite(_px)) _px=(idx/len)*_caW;
+    const _r=_caW>0?_px/_caW:0;
     // 전후 7일 CTR 비교(소재 교체일 때)
     let impact = '';
     if(ev.type==='creative'){
@@ -2095,10 +2107,10 @@ function renderChart(){
     }
     const wrap = document.createElement('div');
     wrap.className = `tl-ev ${ev.type}`;
-    wrap.style.left = leftPct+'%';
-    // 가장자리 마커는 라벨·점이 차트 밖으로 튀지 않게 안쪽 정렬
-    if(leftPct>88){ wrap.style.transform='translate(-100%,-50%)'; wrap.style.alignItems='flex-end'; wrap.style.textAlign='right'; }
-    else if(leftPct<12){ wrap.style.transform='translate(0,-50%)'; wrap.style.alignItems='flex-start'; wrap.style.textAlign='left'; }
+    wrap.style.left = _px+'px';
+    // 가장자리 마커는 라벨이 차트 밖으로 튀지 않게 안쪽 정렬 (점은 날짜 위치 유지)
+    if(_r>0.86){ wrap.style.alignItems='flex-end'; wrap.style.transform='translate(calc(-100% + 8px),-50%)'; wrap.style.textAlign='right'; }
+    else if(_r<0.14){ wrap.style.alignItems='flex-start'; wrap.style.transform='translate(-8px,-50%)'; wrap.style.textAlign='left'; }
     wrap.innerHTML = `<div class="lbl">${ev.title}</div><div class="dotx"></div><div class="dt">${ev.date.slice(5)}</div>`;
     wrap.addEventListener('mouseenter',e=>{
       showTip(e,`<b>${ev.title}</b> (${ev.date})<br>${ev.detail}${impact?'<br><b>영향:</b> '+impact:''}`);
