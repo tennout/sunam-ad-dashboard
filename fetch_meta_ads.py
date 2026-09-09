@@ -73,6 +73,12 @@ def _get(url: str, params: dict, retries: int = 3):
         except error.HTTPError as e:
             detail = e.read().decode("utf-8", "ignore")[:300]
             last = f"HTTP {e.code}: {detail}"
+            # 메타 일시 장애 (code 2 · Service temporarily unavailable) → 대기 후 재시도
+            if "temporarily unavailable" in detail.lower() or '"code":2,' in detail.replace(' ', ''):
+                wait = 90 * (attempt + 1)
+                print(f"    ! 메타 일시 장애 — {wait}초 대기 후 재시도 ({attempt+1}/{retries})")
+                time.sleep(wait)
+                continue
             # 앱 호출 한도(403 + request limit) → 길게 기다렸다 재시도
             if e.code == 403 and "request limit" in detail.lower():
                 wait = 120 * (attempt + 1)
