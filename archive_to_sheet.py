@@ -41,10 +41,10 @@ SHEETS = 'https://sheets.googleapis.com/v4/spreadsheets'
 TAB_NAVER = '네이버검색광고'
 TAB_META = '메타'
 TAB_META_CAMP = '메타_캠페인별'
-HDR_NAVER = ['날짜', '노출', '클릭', 'CTR(%)', 'CPC', '광고비', '전환수', '전환매출', 'ROAS(%)']
-HDR_META = ['날짜', '노출', '클릭', 'CTR(%)', 'CPC', '지출', '구매', '메타매출', '메타ROAS(%)',
+HDR_NAVER = ['날짜', '일예산', '노출', '클릭', 'CTR(%)', 'CPC', '광고비', '전환수', '전환매출', 'ROAS(%)']
+HDR_META = ['날짜', '일예산', '노출', '클릭', 'CTR(%)', 'CPC', '지출', '구매', '메타매출', '메타ROAS(%)',
             '실측매출(GA4)', '실측ROAS(%)']
-HDR_MCAMP = ['날짜', '캠페인', '노출', '클릭', 'CTR(%)', 'CPC', '지출', '구매', '메타매출', 'ROAS(%)']
+HDR_MCAMP = ['날짜', '캠페인', '일예산', '노출', '클릭', 'CTR(%)', 'CPC', '지출', '구매', '메타매출', 'ROAS(%)']
 RED = {'red': 1.0, 'green': 0.93, 'blue': 0.90}   # 빨간날 행 — 연한 빨강
 WHITE = {'red': 1, 'green': 1, 'blue': 1}
 INK = {'red': 0.13, 'green': 0.13, 'blue': 0.13}
@@ -200,6 +200,55 @@ class Sheet:
                           json={'requests': reqs[i:i + 100]}, timeout=60).raise_for_status()
 
 
+NV_HIST_PATH = 'data/naver_budget_history.json'
+
+
+def naver_budgets():
+    """accounts.json으로 네이버 캠페인 일예산 스냅샷 조회 → 이력 파일 갱신 후
+    (budgets, history) 반환. 실패 시 이력 파일의 마지막 스냅샷 사용."""
+    budgets = []
+    try:
+        accts = json.load(open('accounts.json', encoding='utf-8'))
+        acct = accts[0]
+        import hmac as _hmac, hashlib as _hashlib, time as _time
+        ts = str(int(_time.time() * 1000))
+        uri = '/ncc/campaigns'
+        msg = f'{ts}.GET.{uri}'.encode()
+        sig = base64.b64encode(_hmac.new(acct['secretKey'].encode(), msg, _hashlib.sha256).digest()).decode()
+        r = requests.get('https://api.searchad.naver.com' + uri, headers={
+            'X-Timestamp': ts, 'X-API-KEY': acct['apiKey'],
+            'X-Customer': str(acct['customerId']), 'X-Signature': sig}, timeout=30)
+        r.raise_for_status()
+        for c in r.json() or []:
+            db = c.get('dailyBudget')
+            budgets.append({'id': c.get('nccCampaignId'), 'name': c.get('name', ''),
+                            'budget': int(db) if db else None, 'status': c.get('status', '')})
+        print(f'  네이버 캠페인 예산 {sum(1 for b in budgets if b["budget"])}개 확보')
+    except Exception as e:
+        print(f'  ! 네이버 예산 조회 실패(이력 파일 사용): {e}')
+    # 이력 파일 로드·갱신 (workflow가 data/를 커밋하므로 영구 보존)
+    store = {'budgets': [], 'history': []}
+    try:
+        store = json.load(open(NV_HIST_PATH, encoding='utf-8'))
+    except Exception:
+        pass
+    if budgets:
+        prev_map = {b['id']: b.get('budget') for b in store.get('budgets', [])}
+        today_s = datetime.datetime.now(KST).date().isoformat()
+        for b in budgets:
+            old = prev_map.get(b['id'])
+            if old is not None and b['budget'] is not None and old != b['budget']:
+                store['history'].append({'date': today_s, 'id': b['id'], 'name': b['name'],
+                                         'from': old, 'to': b['budget']})
+        store['budgets'] = budgets
+        store['history'] = store['history'][-200:]
+        try:
+            json.dump(store, open(NV_HIST_PATH, 'w', encoding='utf-8'), ensure_ascii=False)
+        except Exception as e:
+            print(f'  ! 이력 저장 실패: {e}')
+    return store.get('budgets', []), store.get('history', [])
+
+
 def agg_daily(rows):
     """[{date,imp,clk,cost,conv,rev}] → {date: totals}"""
     out = {}
@@ -225,12 +274,12 @@ def kpi_row(d, o, extra=None):
 
 FMT_INT='#,##0'; FMT_WON='₩#,##0'; FMT_PCT='0.00"%"'; FMT_ROAS='0"%"'
 STYLE = {
-    TAB_NAVER: dict(widths=[90,80,70,70,80,95,70,105,70],
-                    numfmt={1:FMT_INT,2:FMT_INT,3:FMT_PCT,4:FMT_WON,5:FMT_WON,6:FMT_INT,7:FMT_WON,8:FMT_ROAS}, freeze=1),
-    TAB_META:  dict(widths=[90,80,70,70,80,95,60,105,95,105,95],
-                    numfmt={1:FMT_INT,2:FMT_INT,3:FMT_PCT,4:FMT_WON,5:FMT_WON,6:FMT_INT,7:FMT_WON,8:FMT_ROAS,9:FMT_WON,10:FMT_ROAS}, freeze=1),
-    TAB_META_CAMP: dict(widths=[90,230,80,70,70,80,95,60,105,80],
-                    numfmt={2:FMT_INT,3:FMT_INT,4:FMT_PCT,5:FMT_WON,6:FMT_WON,7:FMT_INT,8:FMT_WON,9:FMT_ROAS}, freeze=2),
+    TAB_NAVER: dict(widths=[90,90,80,70,70,80,95,70,105,70],
+                    numfmt={1:FMT_WON,2:FMT_INT,3:FMT_INT,4:FMT_PCT,5:FMT_WON,6:FMT_WON,7:FMT_INT,8:FMT_WON,9:FMT_ROAS}, freeze=1),
+    TAB_META:  dict(widths=[90,90,80,70,70,80,95,60,105,95,105,95],
+                    numfmt={1:FMT_WON,2:FMT_INT,3:FMT_INT,4:FMT_PCT,5:FMT_WON,6:FMT_WON,7:FMT_INT,8:FMT_WON,9:FMT_ROAS,10:FMT_WON,11:FMT_ROAS}, freeze=1),
+    TAB_META_CAMP: dict(widths=[90,230,90,80,70,70,80,95,60,105,80],
+                    numfmt={2:FMT_WON,3:FMT_INT,4:FMT_INT,5:FMT_PCT,6:FMT_WON,7:FMT_WON,8:FMT_INT,9:FMT_WON,10:FMT_ROAS}, freeze=2),
 }
 
 def sync_tab(sh, title, header, want_rows, key_fn):
@@ -272,7 +321,29 @@ def main():
         except Exception as e:
             print(f'! {f} 로드 실패: {e}')
     nv = agg_daily(naver_rows)
-    want = [(d, kpi_row(d, nv[d])) for d in sorted(nv) if d < today]   # 오늘(미완성 데이터)은 제외
+    nv_budgets, nv_hist = naver_budgets()
+    _nv_cur = {b['id']: b.get('budget') for b in nv_budgets}
+    _nv_hist = sorted(nv_hist, key=lambda h: h.get('date', ''), reverse=True)
+
+    def nv_budget_at(cid, d):
+        v = _nv_cur.get(cid)
+        for h in _nv_hist:
+            if h.get('id') == cid and h.get('date', '') > d:
+                v = h.get('from')
+        return v
+
+    _nv_days = {}
+    for r in naver_rows:
+        if r.get('date') and r.get('campaign') and (r.get('cost', 0) or r.get('imp', 0)):
+            _nv_days.setdefault(r['date'], set()).add(r['campaign'])
+    want = []
+    for d in sorted(nv):
+        if d >= today:
+            continue
+        bud = sum(nv_budget_at(c, d) or 0 for c in _nv_days.get(d, ()))
+        row = kpi_row(d, nv[d])
+        row.insert(1, bud or '')
+        want.append((d, row))
     sync_tab(sh, TAB_NAVER, HDR_NAVER, want, lambda i, v: v)
 
     # ── 메타 ──
@@ -282,6 +353,30 @@ def main():
     except Exception as e:
         print(f'! data/meta.json 로드 실패: {e}')
     mt = agg_daily(meta_rows)
+    # 그 날짜 시점의 일예산 복원 (현재값에서 변경 이력을 거꾸로 되짚음 · 이력 이전은 현재값 근사)
+    _mj = {}
+    try:
+        _mj = json.load(open('data/meta.json', encoding='utf-8'))
+    except Exception:
+        pass
+    _cur_bud = {b['campaign']: b.get('budget') for b in _mj.get('budgets', [])}
+    _bh = sorted(_mj.get('budgetHistory', []), key=lambda h: h.get('date', ''), reverse=True)
+
+    def budget_at(campaign, d):
+        v = _cur_bud.get(campaign)
+        for h in _bh:
+            if h.get('campaign') == campaign and h.get('date', '') > d:
+                v = h.get('from')
+        return v
+
+    _camp_days = {}
+    for r in meta_rows:
+        if r.get('date') and r.get('campaign'):
+            _camp_days.setdefault(r['date'], set()).add(r['campaign'])
+
+    def budget_total(d):
+        tot = sum(budget_at(c, d) or 0 for c in _camp_days.get(d, ()))
+        return tot or ''
     # GA4 실측 (선택)
     ga_day = {}
     if pw and os.path.exists('data/ga4_daily.json.enc'):
@@ -298,7 +393,9 @@ def main():
         o = mt[d]
         gr = ga_day.get(d)
         groas = round(gr / o['cost'] * 100) if (gr is not None and o['cost']) else ''
-        want.append((d, kpi_row(d, o, extra=[gr if gr is not None else '', groas])))
+        row = kpi_row(d, o, extra=[gr if gr is not None else '', groas])
+        row.insert(1, budget_total(d))
+        want.append((d, row))
     sync_tab(sh, TAB_META, HDR_META, want, lambda i, v: v)
 
     # ── 메타 캠페인별 (키 = 날짜|캠페인) ──
@@ -324,7 +421,7 @@ def main():
         ctr = round(o['clk'] / o['imp'] * 100, 2) if o['imp'] else 0
         cpc = round(o['cost'] / o['clk']) if o['clk'] else 0
         roas = round(o['rev'] / o['cost'] * 100) if o['cost'] else 0
-        new.append([d, c, o['imp'], o['clk'], ctr, cpc, o['cost'], o['conv'], o['rev'], roas])
+        new.append([d, c, budget_at(c, d) or '', o['imp'], o['clk'], ctr, cpc, o['cost'], o['conv'], o['rev'], roas])
     start = len(vals)
     sh.append(TAB_META_CAMP, new)
     reds = [start + i for i, row in enumerate(new) if is_red_day(str(row[0]))]
