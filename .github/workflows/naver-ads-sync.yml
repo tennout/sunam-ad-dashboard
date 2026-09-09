@@ -57,6 +57,16 @@ jobs:
           fi
           python fetch_meta_ads.py --days 180
 
+      - name: 광고 데이터 구글시트 아카이브
+        continue-on-error: true   # 아카이브 실패해도 수집 데이터는 커밋되게
+        env:
+          ARCHIVE_SHEET_ID: ${{ secrets.ARCHIVE_SHEET_ID }}
+          GA4_SA_JSON: ${{ secrets.GA4_SA_JSON }}
+          IMWEB_DASH_PASSWORD: ${{ secrets.IMWEB_DASH_PASSWORD }}
+        run: |
+          pip install requests cryptography holidays
+          python archive_to_sheet.py
+
       - name: 비밀 파일 정리 (커밋 방지)
         run: rm -f accounts.json
 
@@ -69,5 +79,6 @@ jobs:
             echo "변경 사항 없음 — 커밋 생략"
           else
             git commit -m "chore: 광고 데이터 자동 갱신 - 네이버+메타 ($(date -u +%Y-%m-%d))"
+            git pull --rebase origin main
             git push
           fi
