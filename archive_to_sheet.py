@@ -45,7 +45,9 @@ HDR_NAVER = ['날짜', '노출', '클릭', 'CTR(%)', 'CPC', '광고비', '전환
 HDR_META = ['날짜', '노출', '클릭', 'CTR(%)', 'CPC', '지출', '구매', '메타매출', '메타ROAS(%)',
             '실측매출(GA4)', '실측ROAS(%)']
 HDR_MCAMP = ['날짜', '캠페인', '노출', '클릭', 'CTR(%)', 'CPC', '지출', '구매', '메타매출', 'ROAS(%)']
-RED = {'red': 0.99, 'green': 0.90, 'blue': 0.90}
+RED = {'red': 1.0, 'green': 0.93, 'blue': 0.90}   # 빨간날 행 — 연한 빨강
+WHITE = {'red': 1, 'green': 1, 'blue': 1}
+INK = {'red': 0.13, 'green': 0.13, 'blue': 0.13}
 
 
 def _b64url(b):
@@ -71,7 +73,7 @@ def sheets_token(sa):
 def is_red_day(dstr):
     try:
         d = datetime.date.fromisoformat(dstr)
-        return d.weekday() == 6 or d in KR_HOLIDAYS
+        return d.weekday() >= 5 or d in KR_HOLIDAYS   # 토·일 + 공휴일
     except Exception:
         return False
 
@@ -161,15 +163,38 @@ class Sheet:
         r.raise_for_status()
         return len(rows)
 
-    def color_rows(self, title, row_idx0_list, ncols):
-        """row_idx0_list: 0-based 행 번호 목록 (헤더=0)"""
-        if not row_idx0_list:
+    def normalize_rows(self, title, start, count, ncols, red_rows, left_cols=1, numfmt=None):
+        """append는 윗줄 서식을 상속하므로, 새 행을 기본 서식(흰 배경·일반 글씨)으로
+        초기화하고 빨간날만 연한 빨강. start=0-based 시작 행, red_rows=0-based 행 목록."""
+        if not count:
             return
-        reqs = [{'repeatCell': {
-            'range': {'sheetId': self.tabs[title], 'startRowIndex': i, 'endRowIndex': i + 1,
+        gid = self.tabs[title]
+        reqs = [
+            # 기본: 흰 배경 · 볼드 해제 · 진회색 글씨 · 숫자 우측 정렬
+            {'repeatCell': {'range': {'sheetId': gid, 'startRowIndex': start, 'endRowIndex': start + count,
+                                      'startColumnIndex': 0, 'endColumnIndex': ncols},
+                'cell': {'userEnteredFormat': {'backgroundColor': WHITE,
+                    'textFormat': {'bold': False, 'foregroundColor': INK},
+                    'horizontalAlignment': 'RIGHT'}},
+                'fields': 'userEnteredFormat(backgroundColor,textFormat,horizontalAlignment)'}},
+            # 날짜(·캠페인) 열은 좌측 정렬
+            {'repeatCell': {'range': {'sheetId': gid, 'startRowIndex': start, 'endRowIndex': start + count,
+                                      'startColumnIndex': 0, 'endColumnIndex': left_cols},
+                'cell': {'userEnteredFormat': {'horizontalAlignment': 'LEFT'}},
+                'fields': 'userEnteredFormat.horizontalAlignment'}},
+        ]
+        # 숫자 서식 (₩·콤마·%) — append 상속이 서식을 지우므로 새 행에 매번 재적용
+        for ci, pat in (numfmt or {}).items():
+            reqs.append({'repeatCell': {
+                'range': {'sheetId': gid, 'startRowIndex': start, 'endRowIndex': start + count,
+                          'startColumnIndex': ci, 'endColumnIndex': ci + 1},
+                'cell': {'userEnteredFormat': {'numberFormat': {'type': 'NUMBER', 'pattern': pat}}},
+                'fields': 'userEnteredFormat.numberFormat'}})
+        reqs += [{'repeatCell': {
+            'range': {'sheetId': gid, 'startRowIndex': i, 'endRowIndex': i + 1,
                       'startColumnIndex': 0, 'endColumnIndex': ncols},
             'cell': {'userEnteredFormat': {'backgroundColor': RED}},
-            'fields': 'userEnteredFormat.backgroundColor'}} for i in row_idx0_list]
+            'fields': 'userEnteredFormat.backgroundColor'}} for i in red_rows]
         for i in range(0, len(reqs), 100):
             requests.post(f'{SHEETS}/{self.sid}:batchUpdate', headers=self.h,
                           json={'requests': reqs[i:i + 100]}, timeout=60).raise_for_status()
@@ -222,7 +247,9 @@ def sync_tab(sh, title, header, want_rows, key_fn):
     start = len(col_a)                     # 0-based 다음 행 인덱스
     sh.append(title, [row for _, row in new])
     reds = [start + i for i, (_, row) in enumerate(new) if is_red_day(str(row[0]))]
-    sh.color_rows(title, reds, len(header))
+    sh.normalize_rows(title, start, len(new), len(header), reds,
+                      left_cols=2 if title == TAB_META_CAMP else 1,
+                      numfmt=st.get('numfmt'))
     print(f'  {title}: +{len(new)}행 (빨간날 {len(reds)})')
 
 
@@ -301,7 +328,7 @@ def main():
     start = len(vals)
     sh.append(TAB_META_CAMP, new)
     reds = [start + i for i, row in enumerate(new) if is_red_day(str(row[0]))]
-    sh.color_rows(TAB_META_CAMP, reds, len(HDR_MCAMP))
+    sh.normalize_rows(TAB_META_CAMP, start, len(new), len(HDR_MCAMP), reds, left_cols=2, numfmt=_st['numfmt'])
     print(f'  {TAB_META_CAMP}: +{len(new)}행 (빨간날 {len(reds)})')
     print('아카이브 완료')
 
