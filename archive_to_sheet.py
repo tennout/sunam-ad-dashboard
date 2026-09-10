@@ -1,22 +1,21 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-선암파머스 · 광고 데이터 구글시트 아카이브
-==========================================
+선암파머스 · 광고 데이터 구글시트 아카이브 (v2 — 헤더 매핑)
+==========================================================
 매일 광고 수집(네이버+메타) 직후 실행 — 구글시트에 일자별 한 줄씩 누적.
 탭 3개: 네이버검색광고 / 메타 / 메타_캠페인별
-- 시트에 없는 날짜만 추가 (최초 실행 시 보유 이력 전체 백필)
-- 공휴일·일요일 행은 연한 빨강 배경
-- 시트는 추가만 하고 기존 행은 절대 수정하지 않음
 
-준비 (1회)
-  1. 구글시트 새로 만들기 → 공유: dashboard-reader@sunam-dashboard.iam.gserviceaccount.com (편집자)
-  2. 시트 URL의 /d/와 /edit 사이 ID를 GitHub Secrets에 ARCHIVE_SHEET_ID로 등록
+v2: 열 위치를 헤더 이름으로 찾아서 기록 — 사용자가 열 순서를 바꾸거나
+    중간에 메모 열을 추가해도 항상 올바른 열에 쌓임.
+- 시트에 없는 날짜만 추가 (최초 실행 시 보유 이력 전체 백필)
+- 토·일·공휴일 행은 연한 빨강 배경
+- 기존 행은 절대 수정하지 않음 · 필요한 헤더가 없으면 맨 오른쪽에 추가
 
 환경변수
   ARCHIVE_SHEET_ID     대상 스프레드시트 ID (필수)
   GA4_SA_JSON          서비스 계정 키 JSON (필수 — 시트 쓰기 인증)
-  IMWEB_DASH_PASSWORD  (선택) 있으면 메타 탭에 GA4 실측 매출·ROAS 컬럼 채움
+  IMWEB_DASH_PASSWORD  (선택) 메타 탭 실측 컬럼용
 """
 import base64
 import datetime
@@ -45,9 +44,26 @@ HDR_NAVER = ['날짜', '일예산', '노출', '클릭', 'CTR(%)', 'CPC', '광고
 HDR_META = ['날짜', '일예산', '노출', '클릭', 'CTR(%)', 'CPC', '지출', '구매', '메타매출', '메타ROAS(%)',
             '실측매출(GA4)', '실측ROAS(%)']
 HDR_MCAMP = ['날짜', '캠페인', '일예산', '노출', '클릭', 'CTR(%)', 'CPC', '지출', '구매', '메타매출', 'ROAS(%)']
-RED = {'red': 1.0, 'green': 0.93, 'blue': 0.90}   # 빨간날 행 — 연한 빨강
+
+RED = {'red': 1.0, 'green': 0.93, 'blue': 0.90}   # 빨간날(토·일·공휴일) 행
 WHITE = {'red': 1, 'green': 1, 'blue': 1}
 INK = {'red': 0.13, 'green': 0.13, 'blue': 0.13}
+FMT_INT = '#,##0'
+FMT_WON = '₩#,##0'
+FMT_PCT = '0.00"%"'
+FMT_ROAS = '0"%"'
+# 헤더 이름 → 숫자 서식 (열 위치와 무관하게 이름으로 판단)
+NUMFMT_BY_HEADER = {
+    '일예산': FMT_WON, '지출': FMT_WON, '광고비': FMT_WON, 'CPC': FMT_WON,
+    '메타매출': FMT_WON, '전환매출': FMT_WON, '실측매출(GA4)': FMT_WON,
+    '노출': FMT_INT, '클릭': FMT_INT, '구매': FMT_INT, '전환수': FMT_INT,
+    'CTR(%)': FMT_PCT, 'ROAS(%)': FMT_ROAS, '메타ROAS(%)': FMT_ROAS, '실측ROAS(%)': FMT_ROAS,
+}
+LEFT_HEADERS = {'날짜', '캠페인'}   # 좌측 정렬 열
+WIDTH_BY_HEADER = {'날짜': 90, '캠페인': 230, '일예산': 90, '노출': 80, '클릭': 70, 'CTR(%)': 70,
+                   'CPC': 80, '지출': 95, '광고비': 95, '구매': 60, '전환수': 70,
+                   '메타매출': 105, '전환매출': 105, 'ROAS(%)': 80, '메타ROAS(%)': 95,
+                   '실측매출(GA4)': 105, '실측ROAS(%)': 95}
 
 
 def _b64url(b):
@@ -89,6 +105,16 @@ def decrypt_json(raw, pw):
     return json.loads(pt.decode())
 
 
+def col_letter(i):
+    """0-based 열 번호 → A1 표기 (0→A, 26→AA)"""
+    s = ''
+    i += 1
+    while i:
+        i, r = divmod(i - 1, 26)
+        s = chr(65 + r) + s
+    return s
+
+
 class Sheet:
     def __init__(self, sid, token):
         self.sid = sid
@@ -98,64 +124,84 @@ class Sheet:
             sys.exit(f'시트 접근 실패 — 공유(편집자) 확인: {json.dumps(meta)[:200]}')
         self.tabs = {s['properties']['title']: s['properties']['sheetId'] for s in meta['sheets']}
 
-    def ensure_tab(self, title, header, widths=None, numfmt=None, freeze_cols=1):
+    def _get_values(self, rng):
+        r = requests.get(f'{SHEETS}/{self.sid}/values/{rng}', headers=self.h, timeout=30)
+        return r.json().get('values', [])
+
+    def ensure_tab(self, title, default_header):
+        """탭·헤더 보장 후 현재 헤더(열 순서) 반환. 필요한 헤더가 없으면 맨 오른쪽에 추가."""
+        created = False
         if title not in self.tabs:
             r = requests.post(f'{SHEETS}/{self.sid}:batchUpdate', headers=self.h,
                               json={'requests': [{'addSheet': {'properties': {'title': title}}}]},
                               timeout=30)
             r.raise_for_status()
             self.tabs[title] = r.json()['replies'][0]['addSheet']['properties']['sheetId']
-        col_a = self.col_a(title)
-        if not col_a:
+            created = True
+        hdr_rows = self._get_values(f'{title}!1:1')
+        headers = [h.strip() for h in (hdr_rows[0] if hdr_rows else [])]
+        if not headers:
+            headers = list(default_header)
             requests.put(f'{SHEETS}/{self.sid}/values/{title}!A1',
                          headers=self.h, params={'valueInputOption': 'RAW'},
-                         json={'values': [header]}, timeout=30).raise_for_status()
-            self._style_tab(title, header, widths or [], numfmt or {}, freeze_cols)
+                         json={'values': [headers]}, timeout=30).raise_for_status()
+            created = True
+        else:
+            missing = [h for h in default_header if h not in headers]
+            if missing:
+                start = col_letter(len(headers))
+                requests.put(f'{SHEETS}/{self.sid}/values/{title}!{start}1',
+                             headers=self.h, params={'valueInputOption': 'RAW'},
+                             json={'values': [missing]}, timeout=30).raise_for_status()
+                headers += missing
+                print(f'  {title}: 누락 헤더 {missing} → 맨 오른쪽에 추가')
+        if created:
+            self._style_tab(title, headers)
+        return headers
 
-    def _style_tab(self, title, header, widths, numfmt, freeze_cols):
-        """최초 생성 시 1회: 헤더 스타일·틀고정·열너비·숫자서식·필터"""
+    def _style_tab(self, title, headers):
+        """탭 최초 생성 시 1회: 헤더 스타일·틀고정·열너비·필터"""
         gid = self.tabs[title]
-        n = len(header)
+        n = len(headers)
+        freeze = 2 if '캠페인' in headers[:2] else 1
         reqs = [
-            # 틀고정: 헤더 1행 + 날짜(등) 좌측 열
             {'updateSheetProperties': {'properties': {'sheetId': gid, 'gridProperties': {
-                'frozenRowCount': 1, 'frozenColumnCount': freeze_cols}},
+                'frozenRowCount': 1, 'frozenColumnCount': freeze}},
                 'fields': 'gridProperties.frozenRowCount,gridProperties.frozenColumnCount'}},
-            # 헤더: 짙은 배경·흰 글씨·볼드·가운데 정렬
             {'repeatCell': {'range': {'sheetId': gid, 'startRowIndex': 0, 'endRowIndex': 1,
                                       'startColumnIndex': 0, 'endColumnIndex': n},
                 'cell': {'userEnteredFormat': {
                     'backgroundColor': {'red': 0.18, 'green': 0.23, 'blue': 0.20},
-                    'textFormat': {'foregroundColor': {'red': 1, 'green': 1, 'blue': 1}, 'bold': True},
+                    'textFormat': {'foregroundColor': WHITE, 'bold': True},
                     'horizontalAlignment': 'CENTER', 'verticalAlignment': 'MIDDLE'}},
                 'fields': 'userEnteredFormat(backgroundColor,textFormat,horizontalAlignment,verticalAlignment)'}},
-            # 기본 필터 (헤더 클릭 정렬·필터)
             {'setBasicFilter': {'filter': {'range': {'sheetId': gid, 'startRowIndex': 0,
                                                      'startColumnIndex': 0, 'endColumnIndex': n}}}},
         ]
-        # 열 너비
-        for i, w in enumerate(widths):
+        for i, hname in enumerate(headers):
+            w = WIDTH_BY_HEADER.get(hname)
             if w:
                 reqs.append({'updateDimensionProperties': {
                     'range': {'sheetId': gid, 'dimension': 'COLUMNS', 'startIndex': i, 'endIndex': i + 1},
                     'properties': {'pixelSize': w}, 'fields': 'pixelSize'}})
-        # 숫자 서식 (데이터 영역 전체 열에 적용 → 이후 append 행도 자동 상속)
-        for i, pat in numfmt.items():
-            reqs.append({'repeatCell': {
-                'range': {'sheetId': gid, 'startRowIndex': 1,
-                          'startColumnIndex': i, 'endColumnIndex': i + 1},
-                'cell': {'userEnteredFormat': {'numberFormat': {'type': 'NUMBER', 'pattern': pat}}},
-                'fields': 'userEnteredFormat.numberFormat'}})
         requests.post(f'{SHEETS}/{self.sid}:batchUpdate', headers=self.h,
                       json={'requests': reqs}, timeout=60).raise_for_status()
 
-    def col_a(self, title):
-        r = requests.get(f'{SHEETS}/{self.sid}/values/{title}!A:A', headers=self.h, timeout=30)
-        return [row[0] if row else '' for row in r.json().get('values', [])]
+    def existing_keys(self, title, headers, key_headers):
+        """key_headers 열들의 값 튜플 집합 + 현재 데이터 행 수 반환"""
+        idxs = [headers.index(k) for k in key_headers]
+        last = col_letter(max(idxs))
+        vals = self._get_values(f'{title}!A:{last}')
+        keys = set()
+        for row in vals[1:]:
+            keys.add(tuple((row[i] if i < len(row) else '') for i in idxs))
+        return keys, len(vals)
 
-    def append(self, title, rows):
-        if not rows:
+    def append_records(self, title, headers, records):
+        """records: [dict(헤더명→값)] — 현재 열 순서에 맞춰 배치해서 추가"""
+        if not records:
             return 0
+        rows = [[rec.get(h, '') for h in headers] for rec in records]
         r = requests.post(f'{SHEETS}/{self.sid}/values/{title}!A1:append',
                           headers=self.h,
                           params={'valueInputOption': 'RAW', 'insertDataOption': 'INSERT_ROWS'},
@@ -163,36 +209,37 @@ class Sheet:
         r.raise_for_status()
         return len(rows)
 
-    def normalize_rows(self, title, start, count, ncols, red_rows, left_cols=1, numfmt=None):
-        """append는 윗줄 서식을 상속하므로, 새 행을 기본 서식(흰 배경·일반 글씨)으로
-        초기화하고 빨간날만 연한 빨강. start=0-based 시작 행, red_rows=0-based 행 목록."""
+    def normalize_rows(self, title, headers, start, count, red_rows):
+        """새 행 서식: 흰 배경·일반 글씨 초기화 + 헤더 이름 기반 숫자서식·정렬 + 빨간날"""
         if not count:
             return
         gid = self.tabs[title]
+        n = len(headers)
         reqs = [
-            # 기본: 흰 배경 · 볼드 해제 · 진회색 글씨 · 숫자 우측 정렬
             {'repeatCell': {'range': {'sheetId': gid, 'startRowIndex': start, 'endRowIndex': start + count,
-                                      'startColumnIndex': 0, 'endColumnIndex': ncols},
+                                      'startColumnIndex': 0, 'endColumnIndex': n},
                 'cell': {'userEnteredFormat': {'backgroundColor': WHITE,
                     'textFormat': {'bold': False, 'foregroundColor': INK},
                     'horizontalAlignment': 'RIGHT'}},
                 'fields': 'userEnteredFormat(backgroundColor,textFormat,horizontalAlignment)'}},
-            # 날짜(·캠페인) 열은 좌측 정렬
-            {'repeatCell': {'range': {'sheetId': gid, 'startRowIndex': start, 'endRowIndex': start + count,
-                                      'startColumnIndex': 0, 'endColumnIndex': left_cols},
-                'cell': {'userEnteredFormat': {'horizontalAlignment': 'LEFT'}},
-                'fields': 'userEnteredFormat.horizontalAlignment'}},
         ]
-        # 숫자 서식 (₩·콤마·%) — append 상속이 서식을 지우므로 새 행에 매번 재적용
-        for ci, pat in (numfmt or {}).items():
-            reqs.append({'repeatCell': {
-                'range': {'sheetId': gid, 'startRowIndex': start, 'endRowIndex': start + count,
-                          'startColumnIndex': ci, 'endColumnIndex': ci + 1},
-                'cell': {'userEnteredFormat': {'numberFormat': {'type': 'NUMBER', 'pattern': pat}}},
-                'fields': 'userEnteredFormat.numberFormat'}})
+        for i, hname in enumerate(headers):
+            if hname in LEFT_HEADERS:
+                reqs.append({'repeatCell': {'range': {'sheetId': gid, 'startRowIndex': start,
+                                                      'endRowIndex': start + count,
+                                                      'startColumnIndex': i, 'endColumnIndex': i + 1},
+                    'cell': {'userEnteredFormat': {'horizontalAlignment': 'LEFT'}},
+                    'fields': 'userEnteredFormat.horizontalAlignment'}})
+            pat = NUMFMT_BY_HEADER.get(hname)
+            if pat:
+                reqs.append({'repeatCell': {'range': {'sheetId': gid, 'startRowIndex': start,
+                                                      'endRowIndex': start + count,
+                                                      'startColumnIndex': i, 'endColumnIndex': i + 1},
+                    'cell': {'userEnteredFormat': {'numberFormat': {'type': 'NUMBER', 'pattern': pat}}},
+                    'fields': 'userEnteredFormat.numberFormat'}})
         reqs += [{'repeatCell': {
             'range': {'sheetId': gid, 'startRowIndex': i, 'endRowIndex': i + 1,
-                      'startColumnIndex': 0, 'endColumnIndex': ncols},
+                      'startColumnIndex': 0, 'endColumnIndex': n},
             'cell': {'userEnteredFormat': {'backgroundColor': RED}},
             'fields': 'userEnteredFormat.backgroundColor'}} for i in red_rows]
         for i in range(0, len(reqs), 100):
@@ -200,12 +247,42 @@ class Sheet:
                           json={'requests': reqs[i:i + 100]}, timeout=60).raise_for_status()
 
 
+def sync(sh, title, default_header, records, key_headers):
+    """records(dict 목록)를 헤더 매핑으로 기록 — key_headers 조합이 이미 있으면 스킵"""
+    headers = sh.ensure_tab(title, default_header)
+    keys, nrows = sh.existing_keys(title, headers, key_headers)
+    new = [r for r in records if tuple(str(r.get(k, '')) for k in key_headers) not in keys]
+    sh.append_records(title, headers, new)
+    reds = [nrows + i for i, r in enumerate(new) if is_red_day(str(r.get('날짜', '')))]
+    sh.normalize_rows(title, headers, nrows, len(new), reds)
+    print(f'  {title}: +{len(new)}행 (빨간날 {len(reds)})')
+
+
+# ── 수집 데이터 → 레코드 ──────────────────────────────
+def agg_daily(rows):
+    out = {}
+    for r in rows:
+        d = r.get('date') or ''
+        if not d:
+            continue
+        o = out.setdefault(d, {'imp': 0, 'clk': 0, 'cost': 0, 'conv': 0, 'rev': 0})
+        for k in o:
+            o[k] += r.get(k, 0) or 0
+    return out
+
+
+def perf_fields(o):
+    ctr = round(o['clk'] / o['imp'] * 100, 2) if o['imp'] else 0
+    cpc = round(o['cost'] / o['clk']) if o['clk'] else 0
+    roas = round(o['rev'] / o['cost'] * 100) if o['cost'] else 0
+    return ctr, cpc, roas
+
+
 NV_HIST_PATH = 'data/naver_budget_history.json'
 
 
 def naver_budgets():
-    """accounts.json으로 네이버 캠페인 일예산 스냅샷 조회 → 이력 파일 갱신 후
-    (budgets, history) 반환. 실패 시 이력 파일의 마지막 스냅샷 사용."""
+    """accounts.json으로 네이버 캠페인 일예산 조회 + 이력 파일(data/) 자체 관리"""
     budgets = []
     try:
         accts = json.load(open('accounts.json', encoding='utf-8'))
@@ -226,7 +303,6 @@ def naver_budgets():
         print(f'  네이버 캠페인 예산 {sum(1 for b in budgets if b["budget"])}개 확보')
     except Exception as e:
         print(f'  ! 네이버 예산 조회 실패(이력 파일 사용): {e}')
-    # 이력 파일 로드·갱신 (workflow가 data/를 커밋하므로 영구 보존)
     store = {'budgets': [], 'history': []}
     try:
         store = json.load(open(NV_HIST_PATH, encoding='utf-8'))
@@ -249,57 +325,16 @@ def naver_budgets():
     return store.get('budgets', []), store.get('history', [])
 
 
-def agg_daily(rows):
-    """[{date,imp,clk,cost,conv,rev}] → {date: totals}"""
-    out = {}
-    for r in rows:
-        d = r.get('date') or ''
-        if not d:
-            continue
-        o = out.setdefault(d, {'imp': 0, 'clk': 0, 'cost': 0, 'conv': 0, 'rev': 0})
-        for k in o:
-            o[k] += r.get(k, 0) or 0
-    return out
+def make_budget_at(cur_map, hist, key):
+    hist = sorted(hist, key=lambda h: h.get('date', ''), reverse=True)
 
-
-def kpi_row(d, o, extra=None):
-    ctr = round(o['clk'] / o['imp'] * 100, 2) if o['imp'] else 0
-    cpc = round(o['cost'] / o['clk']) if o['clk'] else 0
-    roas = round(o['rev'] / o['cost'] * 100) if o['cost'] else 0
-    row = [d, o['imp'], o['clk'], ctr, cpc, o['cost'], o['conv'], o['rev'], roas]
-    if extra is not None:
-        row += extra
-    return row
-
-
-FMT_INT='#,##0'; FMT_WON='₩#,##0'; FMT_PCT='0.00"%"'; FMT_ROAS='0"%"'
-STYLE = {
-    TAB_NAVER: dict(widths=[90,90,80,70,70,80,95,70,105,70],
-                    numfmt={1:FMT_WON,2:FMT_INT,3:FMT_INT,4:FMT_PCT,5:FMT_WON,6:FMT_WON,7:FMT_INT,8:FMT_WON,9:FMT_ROAS}, freeze=1),
-    TAB_META:  dict(widths=[90,90,80,70,70,80,95,60,105,95,105,95],
-                    numfmt={1:FMT_WON,2:FMT_INT,3:FMT_INT,4:FMT_PCT,5:FMT_WON,6:FMT_WON,7:FMT_INT,8:FMT_WON,9:FMT_ROAS,10:FMT_WON,11:FMT_ROAS}, freeze=1),
-    TAB_META_CAMP: dict(widths=[90,230,90,80,70,70,80,95,60,105,80],
-                    numfmt={2:FMT_WON,3:FMT_INT,4:FMT_INT,5:FMT_PCT,6:FMT_WON,7:FMT_WON,8:FMT_INT,9:FMT_WON,10:FMT_ROAS}, freeze=2),
-}
-
-def sync_tab(sh, title, header, want_rows, key_fn):
-    """want_rows: [(key, row)] — 시트에 없는 key만 추가하고 빨간날 색칠"""
-    st=STYLE.get(title,{})
-    sh.ensure_tab(title, header, st.get('widths'), st.get('numfmt'), st.get('freeze',1))
-    col_a = sh.col_a(title)
-    existing_keys = set()
-    for i, v in enumerate(col_a):
-        if i == 0:
-            continue
-        existing_keys.add(key_fn(i, v))
-    new = [(k, row) for k, row in want_rows if k not in existing_keys]
-    start = len(col_a)                     # 0-based 다음 행 인덱스
-    sh.append(title, [row for _, row in new])
-    reds = [start + i for i, (_, row) in enumerate(new) if is_red_day(str(row[0]))]
-    sh.normalize_rows(title, start, len(new), len(header), reds,
-                      left_cols=2 if title == TAB_META_CAMP else 1,
-                      numfmt=st.get('numfmt'))
-    print(f'  {title}: +{len(new)}행 (빨간날 {len(reds)})')
+    def budget_at(cid, d):
+        v = cur_map.get(cid)
+        for h in hist:
+            if h.get(key) == cid and h.get('date', '') > d:
+                v = h.get('from')
+        return v
+    return budget_at
 
 
 def main():
@@ -309,11 +344,10 @@ def main():
     if not sid or not sa_raw:
         print('ARCHIVE_SHEET_ID / GA4_SA_JSON 미설정 — 아카이브 건너뜀')
         sys.exit(0)
-    token = sheets_token(json.loads(sa_raw))
-    sh = Sheet(sid, token)
+    sh = Sheet(sid, sheets_token(json.loads(sa_raw)))
     today = datetime.datetime.now(KST).date().isoformat()
 
-    # ── 네이버 (data/{customerId}.json — 숫자 파일명) ──
+    # ── 네이버 ──
     naver_rows = []
     for f in glob.glob('data/[0-9]*.json'):
         try:
@@ -322,62 +356,37 @@ def main():
             print(f'! {f} 로드 실패: {e}')
     nv = agg_daily(naver_rows)
     nv_budgets, nv_hist = naver_budgets()
-    _nv_cur = {b['id']: b.get('budget') for b in nv_budgets}
-    _nv_hist = sorted(nv_hist, key=lambda h: h.get('date', ''), reverse=True)
-
-    def nv_budget_at(cid, d):
-        v = _nv_cur.get(cid)
-        for h in _nv_hist:
-            if h.get('id') == cid and h.get('date', '') > d:
-                v = h.get('from')
-        return v
-
-    _nv_days = {}
+    nv_at = make_budget_at({b['id']: b.get('budget') for b in nv_budgets}, nv_hist, 'id')
+    nv_days = {}
     for r in naver_rows:
         if r.get('date') and r.get('campaign') and (r.get('cost', 0) or r.get('imp', 0)):
-            _nv_days.setdefault(r['date'], set()).add(r['campaign'])
-    want = []
+            nv_days.setdefault(r['date'], set()).add(r['campaign'])
+    recs = []
     for d in sorted(nv):
         if d >= today:
             continue
-        bud = sum(nv_budget_at(c, d) or 0 for c in _nv_days.get(d, ()))
-        row = kpi_row(d, nv[d])
-        row.insert(1, bud or '')
-        want.append((d, row))
-    sync_tab(sh, TAB_NAVER, HDR_NAVER, want, lambda i, v: v)
+        o = nv[d]
+        ctr, cpc, roas = perf_fields(o)
+        bud = sum(nv_at(c, d) or 0 for c in nv_days.get(d, ()))
+        recs.append({'날짜': d, '일예산': bud or '', '노출': o['imp'], '클릭': o['clk'],
+                     'CTR(%)': ctr, 'CPC': cpc, '광고비': o['cost'],
+                     '전환수': o['conv'], '전환매출': o['rev'], 'ROAS(%)': roas})
+    sync(sh, TAB_NAVER, HDR_NAVER, recs, ['날짜'])
 
     # ── 메타 ──
-    meta_rows = []
+    meta_rows, mj = [], {}
     try:
-        meta_rows = json.load(open('data/meta.json', encoding='utf-8')).get('daily', [])
+        mj = json.load(open('data/meta.json', encoding='utf-8'))
+        meta_rows = mj.get('daily', [])
     except Exception as e:
         print(f'! data/meta.json 로드 실패: {e}')
     mt = agg_daily(meta_rows)
-    # 그 날짜 시점의 일예산 복원 (현재값에서 변경 이력을 거꾸로 되짚음 · 이력 이전은 현재값 근사)
-    _mj = {}
-    try:
-        _mj = json.load(open('data/meta.json', encoding='utf-8'))
-    except Exception:
-        pass
-    _cur_bud = {b['campaign']: b.get('budget') for b in _mj.get('budgets', [])}
-    _bh = sorted(_mj.get('budgetHistory', []), key=lambda h: h.get('date', ''), reverse=True)
-
-    def budget_at(campaign, d):
-        v = _cur_bud.get(campaign)
-        for h in _bh:
-            if h.get('campaign') == campaign and h.get('date', '') > d:
-                v = h.get('from')
-        return v
-
-    _camp_days = {}
+    mt_at = make_budget_at({b['campaign']: b.get('budget') for b in mj.get('budgets', [])},
+                           mj.get('budgetHistory', []), 'campaign')
+    mt_days = {}
     for r in meta_rows:
         if r.get('date') and r.get('campaign'):
-            _camp_days.setdefault(r['date'], set()).add(r['campaign'])
-
-    def budget_total(d):
-        tot = sum(budget_at(c, d) or 0 for c in _camp_days.get(d, ()))
-        return tot or ''
-    # GA4 실측 (선택)
+            mt_days.setdefault(r['date'], set()).add(r['campaign'])
     ga_day = {}
     if pw and os.path.exists('data/ga4_daily.json.enc'):
         try:
@@ -386,19 +395,22 @@ def main():
                 ga_day[r['date']] = max(0, (r.get('rev', 0) or 0) - (r.get('orgRev', 0) or 0))
         except Exception as e:
             print(f'! GA4 복호화 실패(실측 컬럼 생략): {e}')
-    want = []
+    recs = []
     for d in sorted(mt):
         if d >= today:
             continue
         o = mt[d]
+        ctr, cpc, roas = perf_fields(o)
+        bud = sum(mt_at(c, d) or 0 for c in mt_days.get(d, ()))
         gr = ga_day.get(d)
-        groas = round(gr / o['cost'] * 100) if (gr is not None and o['cost']) else ''
-        row = kpi_row(d, o, extra=[gr if gr is not None else '', groas])
-        row.insert(1, budget_total(d))
-        want.append((d, row))
-    sync_tab(sh, TAB_META, HDR_META, want, lambda i, v: v)
+        recs.append({'날짜': d, '일예산': bud or '', '노출': o['imp'], '클릭': o['clk'],
+                     'CTR(%)': ctr, 'CPC': cpc, '지출': o['cost'], '구매': o['conv'],
+                     '메타매출': o['rev'], '메타ROAS(%)': roas,
+                     '실측매출(GA4)': gr if gr is not None else '',
+                     '실측ROAS(%)': round(gr / o['cost'] * 100) if (gr is not None and o['cost']) else ''})
+    sync(sh, TAB_META, HDR_META, recs, ['날짜'])
 
-    # ── 메타 캠페인별 (키 = 날짜|캠페인) ──
+    # ── 메타 캠페인별 ──
     camp = {}
     for r in meta_rows:
         d, c = r.get('date') or '', r.get('campaign') or ''
@@ -407,26 +419,14 @@ def main():
         o = camp.setdefault((d, c), {'imp': 0, 'clk': 0, 'cost': 0, 'conv': 0, 'rev': 0})
         for k in o:
             o[k] += r.get(k, 0) or 0
-    # 시트의 기존 키 복원용: B열(캠페인)도 필요 → col B 읽기
-    _st=STYLE[TAB_META_CAMP]
-    sh.ensure_tab(TAB_META_CAMP, HDR_MCAMP, _st['widths'], _st['numfmt'], _st['freeze'])
-    ra = requests.get(f'{SHEETS}/{sid}/values/{TAB_META_CAMP}!A:B', headers=sh.h, timeout=30)
-    vals = ra.json().get('values', [])
-    existing = {(row[0], row[1] if len(row) > 1 else '') for row in vals[1:]}
-    new = []
+    recs = []
     for (d, c) in sorted(camp):
-        if (d, c) in existing:
-            continue
         o = camp[(d, c)]
-        ctr = round(o['clk'] / o['imp'] * 100, 2) if o['imp'] else 0
-        cpc = round(o['cost'] / o['clk']) if o['clk'] else 0
-        roas = round(o['rev'] / o['cost'] * 100) if o['cost'] else 0
-        new.append([d, c, budget_at(c, d) or '', o['imp'], o['clk'], ctr, cpc, o['cost'], o['conv'], o['rev'], roas])
-    start = len(vals)
-    sh.append(TAB_META_CAMP, new)
-    reds = [start + i for i, row in enumerate(new) if is_red_day(str(row[0]))]
-    sh.normalize_rows(TAB_META_CAMP, start, len(new), len(HDR_MCAMP), reds, left_cols=2, numfmt=_st['numfmt'])
-    print(f'  {TAB_META_CAMP}: +{len(new)}행 (빨간날 {len(reds)})')
+        ctr, cpc, roas = perf_fields(o)
+        recs.append({'날짜': d, '캠페인': c, '일예산': mt_at(c, d) or '', '노출': o['imp'],
+                     '클릭': o['clk'], 'CTR(%)': ctr, 'CPC': cpc, '지출': o['cost'],
+                     '구매': o['conv'], '메타매출': o['rev'], 'ROAS(%)': roas})
+    sync(sh, TAB_META_CAMP, HDR_MCAMP, recs, ['날짜', '캠페인'])
     print('아카이브 완료')
 
 
