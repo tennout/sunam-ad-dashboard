@@ -40,10 +40,14 @@ SHEETS = 'https://sheets.googleapis.com/v4/spreadsheets'
 TAB_NAVER = '네이버검색광고'
 TAB_META = '메타'
 TAB_META_CAMP = '메타_캠페인별'
-HDR_NAVER = ['날짜', '일예산', '노출', '클릭', 'CTR(%)', 'CPC', '광고비', '전환수', '전환매출', 'ROAS(%)']
+HDR_NAVER = ['날짜', '일예산', '노출', '클릭', 'CTR(%)', 'CPC', '광고비', '전환수', '전환매출', 'ROAS(%)',
+             '자사몰매출(아임웹)', 'GA ROAS(%)']
 HDR_META = ['날짜', '일예산', '노출', '클릭', 'CTR(%)', 'CPC', '지출', '구매', '메타매출', '메타ROAS(%)',
-            '실측매출(GA4)', '실측ROAS(%)']
-HDR_MCAMP = ['날짜', '캠페인', '일예산', '노출', '클릭', 'CTR(%)', 'CPC', '지출', '구매', '메타매출', 'ROAS(%)']
+            '실측매출(GA4)', '실측ROAS(%)', '자사몰매출(아임웹)', 'GA ROAS(%)']
+HDR_MCAMP = ['날짜', '캠페인', '일예산', '노출', '클릭', 'CTR(%)', 'CPC', '지출', '구매', '메타매출', 'ROAS(%)',
+             '자사몰매출(아임웹)', 'GA ROAS(%)']
+ACCENT_HEADERS = {'자사몰매출(아임웹)', 'GA ROAS(%)'}   # 남색 헤더로 구분
+ACCENT_BG = {'red': 0.15, 'green': 0.23, 'blue': 0.38}
 
 RED = {'red': 1.0, 'green': 0.93, 'blue': 0.90}   # 빨간날(토·일·공휴일) 행
 WHITE = {'red': 1, 'green': 1, 'blue': 1}
@@ -58,12 +62,14 @@ NUMFMT_BY_HEADER = {
     '메타매출': FMT_WON, '전환매출': FMT_WON, '실측매출(GA4)': FMT_WON,
     '노출': FMT_INT, '클릭': FMT_INT, '구매': FMT_INT, '전환수': FMT_INT,
     'CTR(%)': FMT_PCT, 'ROAS(%)': FMT_ROAS, '메타ROAS(%)': FMT_ROAS, '실측ROAS(%)': FMT_ROAS,
+    '자사몰매출(아임웹)': FMT_WON, 'GA ROAS(%)': FMT_ROAS,
 }
 LEFT_HEADERS = {'날짜', '캠페인'}   # 좌측 정렬 열
 WIDTH_BY_HEADER = {'날짜': 90, '캠페인': 230, '일예산': 90, '노출': 80, '클릭': 70, 'CTR(%)': 70,
                    'CPC': 80, '지출': 95, '광고비': 95, '구매': 60, '전환수': 70,
                    '메타매출': 105, '전환매출': 105, 'ROAS(%)': 80, '메타ROAS(%)': 95,
-                   '실측매출(GA4)': 105, '실측ROAS(%)': 95}
+                   '실측매출(GA4)': 105, '실측ROAS(%)': 95,
+                   '자사몰매출(아임웹)': 115, 'GA ROAS(%)': 90}
 
 
 def _b64url(b):
@@ -157,6 +163,22 @@ class Sheet:
                 print(f'  {title}: 누락 헤더 {missing} → 맨 오른쪽에 추가')
         if created:
             self._style_tab(title, headers)
+        # 강조 헤더(남색) — 생성·추가 시 적용
+        acc = [(i, h) for i, h in enumerate(headers) if h in ACCENT_HEADERS]
+        if acc:
+            reqs = [{'repeatCell': {'range': {'sheetId': self.tabs[title], 'startRowIndex': 0, 'endRowIndex': 1,
+                                              'startColumnIndex': i, 'endColumnIndex': i + 1},
+                'cell': {'userEnteredFormat': {'backgroundColor': ACCENT_BG,
+                    'textFormat': {'foregroundColor': WHITE, 'bold': True},
+                    'horizontalAlignment': 'CENTER', 'verticalAlignment': 'MIDDLE'}},
+                'fields': 'userEnteredFormat(backgroundColor,textFormat,horizontalAlignment,verticalAlignment)'}}
+                for i, _ in acc]
+            reqs += [{'updateDimensionProperties': {
+                'range': {'sheetId': self.tabs[title], 'dimension': 'COLUMNS', 'startIndex': i, 'endIndex': i + 1},
+                'properties': {'pixelSize': WIDTH_BY_HEADER.get(h, 100)}, 'fields': 'pixelSize'}}
+                for i, h in acc]
+            requests.post(f'{SHEETS}/{self.sid}:batchUpdate', headers=self.h,
+                          json={'requests': reqs}, timeout=30).raise_for_status()
         return headers
 
     def _style_tab(self, title, headers):
@@ -347,6 +369,36 @@ def main():
     sh = Sheet(sid, sheets_token(json.loads(sa_raw)))
     today = datetime.datetime.now(KST).date().isoformat()
 
+    ga_day = {}
+    ga_ps, ga_soc = {}, {}          # 채널별 일별 매출: Paid Search / Paid Social
+    if pw and os.path.exists('data/ga4_daily.json.enc'):
+        try:
+            g = decrypt_json(open('data/ga4_daily.json.enc', encoding='utf-8').read(), pw)
+            for r in g.get('daily', []):
+                ga_day[r['date']] = max(0, (r.get('rev', 0) or 0) - (r.get('orgRev', 0) or 0))
+            for r in g.get('channels', []):
+                if r.get('ch') == 'Paid Search':
+                    ga_ps[r['date']] = ga_ps.get(r['date'], 0) + (r.get('rev', 0) or 0)
+                elif r.get('ch') == 'Paid Social':
+                    ga_soc[r['date']] = ga_soc.get(r['date'], 0) + (r.get('rev', 0) or 0)
+        except Exception as e:
+            print(f'! GA4 복호화 실패(실측 컬럼 생략): {e}')
+    jasa_day = {}                    # 자사몰 실결제 매출 (아임웹)
+    if pw and os.path.exists('data/imweb_dash.json.enc'):
+        try:
+            dsh = decrypt_json(open('data/imweb_dash.json.enc', encoding='utf-8').read(), pw)
+            for r in dsh.get('daily', []):
+                jasa_day[r.get('date', '')] = r.get('jasa', 0) or 0
+        except Exception as e:
+            print(f'! 아임웹 복호화 실패(자사몰매출 생략): {e}')
+
+    def jasa_of(d):
+        return jasa_day.get(d, '')
+
+    def ga_roas(revmap, d, cost):
+        return round(revmap[d] / cost * 100) if (d in revmap and cost) else ''
+
+
     # ── 네이버 ──
     naver_rows = []
     for f in glob.glob('data/[0-9]*.json'):
@@ -370,7 +422,8 @@ def main():
         bud = sum(nv_at(c, d) or 0 for c in nv_days.get(d, ()))
         recs.append({'날짜': d, '일예산': bud or '', '노출': o['imp'], '클릭': o['clk'],
                      'CTR(%)': ctr, 'CPC': cpc, '광고비': o['cost'],
-                     '전환수': o['conv'], '전환매출': o['rev'], 'ROAS(%)': roas})
+                     '전환수': o['conv'], '전환매출': o['rev'], 'ROAS(%)': roas,
+                     '자사몰매출(아임웹)': jasa_of(d), 'GA ROAS(%)': ga_roas(ga_ps, d, o['cost'])})
     sync(sh, TAB_NAVER, HDR_NAVER, recs, ['날짜'])
 
     # ── 메타 ──
@@ -387,14 +440,6 @@ def main():
     for r in meta_rows:
         if r.get('date') and r.get('campaign'):
             mt_days.setdefault(r['date'], set()).add(r['campaign'])
-    ga_day = {}
-    if pw and os.path.exists('data/ga4_daily.json.enc'):
-        try:
-            g = decrypt_json(open('data/ga4_daily.json.enc', encoding='utf-8').read(), pw)
-            for r in g.get('daily', []):
-                ga_day[r['date']] = max(0, (r.get('rev', 0) or 0) - (r.get('orgRev', 0) or 0))
-        except Exception as e:
-            print(f'! GA4 복호화 실패(실측 컬럼 생략): {e}')
     recs = []
     for d in sorted(mt):
         if d >= today:
@@ -407,7 +452,8 @@ def main():
                      'CTR(%)': ctr, 'CPC': cpc, '지출': o['cost'], '구매': o['conv'],
                      '메타매출': o['rev'], '메타ROAS(%)': roas,
                      '실측매출(GA4)': gr if gr is not None else '',
-                     '실측ROAS(%)': round(gr / o['cost'] * 100) if (gr is not None and o['cost']) else ''})
+                     '실측ROAS(%)': round(gr / o['cost'] * 100) if (gr is not None and o['cost']) else '',
+                     '자사몰매출(아임웹)': jasa_of(d), 'GA ROAS(%)': ga_roas(ga_soc, d, o['cost'])})
     sync(sh, TAB_META, HDR_META, recs, ['날짜'])
 
     # ── 메타 캠페인별 ──
@@ -425,7 +471,8 @@ def main():
         ctr, cpc, roas = perf_fields(o)
         recs.append({'날짜': d, '캠페인': c, '일예산': mt_at(c, d) or '', '노출': o['imp'],
                      '클릭': o['clk'], 'CTR(%)': ctr, 'CPC': cpc, '지출': o['cost'],
-                     '구매': o['conv'], '메타매출': o['rev'], 'ROAS(%)': roas})
+                     '구매': o['conv'], '메타매출': o['rev'], 'ROAS(%)': roas,
+                     '자사몰매출(아임웹)': jasa_of(d), 'GA ROAS(%)': ''})
     sync(sh, TAB_META_CAMP, HDR_MCAMP, recs, ['날짜', '캠페인'])
     print('아카이브 완료')
 
