@@ -233,6 +233,22 @@ def main():
             a['sess'] += sess; a['rev'] += rev; a['trans'] += trans
         camp_landing[str(w)] = sorted(agg_c.values(), key=lambda x: -x['sess'])[:300]
 
+    # 날짜 × 캠페인 — 아카이브 시트 캠페인별 GA ROAS용
+    print('날짜×캠페인 수집...')
+    camp_daily = []
+    agg_cd = {}
+    for row in run_report(pid, token, ['date', 'sessionCampaignName'], DAYS, limit=50000):
+        nm = row['dimensionValues'][1]['value']
+        if nm in ('(not set)', ''):
+            continue
+        d8 = row['dimensionValues'][0]['value']
+        dt = f'{d8[:4]}-{d8[4:6]}-{d8[6:]}'
+        sess, users, pv, rev, trans = _mvals(row)
+        a = agg_cd.setdefault((dt, nm), {'date': dt, 'name': nm, 'sess': 0, 'rev': 0, 'trans': 0})
+        a['sess'] += sess; a['rev'] += rev; a['trans'] += trans
+    camp_daily = [v for v in agg_cd.values() if v['sess'] > 0 or v['rev'] > 0]
+    print(f'  날짜×캠페인 {len(camp_daily)}행')
+
     # 소재(utm_content = 광고 이름)별 — 광고 탭 실측 ROAS 컬럼용
     print('소재(utm_content)별 수집...')
     ad_contents = {}
@@ -269,6 +285,7 @@ def main():
            'landing': landing,
            'chSources': ch_sources,
            'adContents': ad_contents,
+           'campDaily': camp_daily,
            'campLanding': camp_landing}
 
     # 비즈몰 GA4 (선택 — 별도 속성)
