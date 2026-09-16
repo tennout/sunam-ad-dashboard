@@ -2,7 +2,7 @@
   "meta": {
     "account": "선암파머스",
     "customerId": "1872388",
-    "fetchedAt": "2026-09-16 02:25:44",
+    "fetchedAt": "2026-09-16 02:51:37",
     "rangeStart": "2026-03-21",
     "rangeEnd": "2026-09-16",
     "campaignCount": 12,
@@ -10,7 +10,7 @@
     "creativeCount": 137,
     "hasKeywordTool": true,
     "hasBidEstimate": true,
-    "acctCvr": 11.42,
+    "acctCvr": 11.39,
     "acctAov": 72136,
     "bidPosition": 3
   },
@@ -3609,9 +3609,9 @@
       "date": "2026-09-16",
       "ad": "powerlink",
       "campaign": "cmp-a001-01-000000010084907",
-      "imp": 143,
-      "clk": 3,
-      "cost": 544,
+      "imp": 181,
+      "clk": 4,
+      "cost": 764,
       "conv": 0,
       "rev": 0
     },
@@ -18009,9 +18009,9 @@
       "date": "2026-09-16",
       "ad": "shop",
       "campaign": "cmp-a001-02-000000010110962",
-      "imp": 1841,
-      "clk": 12,
-      "cost": 12723,
+      "imp": 2649,
+      "clk": 20,
+      "cost": 21404,
       "conv": 0,
       "rev": 0
     },
@@ -45311,9 +45311,9 @@
       "date": "2026-09-16",
       "kw": "선암파머스",
       "ad": "powerlink",
-      "imp": 1,
-      "clk": 0,
-      "cost": 0,
+      "imp": 2,
+      "clk": 1,
+      "cost": 220,
       "conv": 0,
       "rev": 0
     },
@@ -57088,32 +57088,32 @@
       "date": "2026-09-15",
       "type": "creative",
       "ad": "powerlink",
-      "title": "powerlink 소재 신규 등록",
-      "detail": "소재 등록"
+      "title": "powerlink 소재 수정",
+      "detail": "소재 수정"
     },
     {
-      "date": "2026-09-15",
+      "date": "2026-09-16",
       "type": "creative",
       "ad": "powerlink",
-      "title": "powerlink 소재 신규 등록",
-      "detail": "소재 등록"
+      "title": "powerlink 소재 수정",
+      "detail": "소재 수정"
     },
     {
-      "date": "2026-09-15",
+      "date": "2026-09-16",
       "type": "creative",
       "ad": "powerlink",
-      "title": "powerlink 소재 신규 등록",
-      "detail": "소재 등록"
+      "title": "powerlink 소재 수정",
+      "detail": "소재 수정"
     },
     {
-      "date": "2026-09-15",
+      "date": "2026-09-16",
       "type": "creative",
       "ad": "powerlink",
-      "title": "powerlink 소재 신규 등록",
-      "detail": "소재 등록"
+      "title": "powerlink 소재 수정",
+      "detail": "소재 수정"
     },
     {
-      "date": "2026-09-15",
+      "date": "2026-09-16",
       "type": "creative",
       "ad": "powerlink",
       "title": "powerlink 소재 수정",
@@ -58127,11 +58127,11 @@
       "adgroup": "grp-a001-02-000000058900282",
       "adgroupName": "문경사과_1p 3",
       "ad": "powerlink",
-      "status": "ELIGIBLE",
+      "status": "PAUSED",
       "headline": "",
       "description": "",
       "regTm": "2026-09-15T02:07:56",
-      "editTm": "2026-09-15T03:37:43"
+      "editTm": "2026-09-16T02:44:12"
     },
     {
       "id": "nad-a001-02-000000551743601",
@@ -58237,11 +58237,11 @@
       "adgroup": "grp-a001-02-000000058900284",
       "adgroupName": "가정용사과",
       "ad": "powerlink",
-      "status": "ELIGIBLE",
+      "status": "PAUSED",
       "headline": "",
       "description": "",
       "regTm": "2026-09-15T02:15:58",
-      "editTm": "2026-09-15T03:38:08"
+      "editTm": "2026-09-16T02:43:49"
     },
     {
       "id": "nad-a001-02-000000582060553",
@@ -58501,11 +58501,11 @@
       "adgroup": "grp-a001-02-000000058900290",
       "adgroupName": "사과 이름",
       "ad": "powerlink",
-      "status": "ELIGIBLE",
+      "status": "PAUSED",
       "headline": "",
       "description": "",
       "regTm": "2026-09-15T02:13:05",
-      "editTm": "2026-09-15T03:37:39"
+      "editTm": "2026-09-16T02:44:26"
     },
     {
       "id": "nad-a001-02-000000551745959",
@@ -58589,11 +58589,11 @@
       "adgroup": "grp-a001-02-000000066799167",
       "adgroupName": "사과선물세트",
       "ad": "powerlink",
-      "status": "ELIGIBLE",
+      "status": "PAUSED",
       "headline": "",
       "description": "",
       "regTm": "2026-09-15T02:11:50",
-      "editTm": "2026-09-15T03:50:03"
+      "editTm": "2026-09-16T02:43:59"
     },
     {
       "id": "nad-a001-02-000000571485978",
