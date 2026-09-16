@@ -47,6 +47,8 @@ HDR_META = ['날짜', '일예산', '노출', '클릭', 'CTR(%)', 'CPC', '지출'
 HDR_MCAMP = ['날짜', '캠페인', '일예산', '노출', '클릭', 'CTR(%)', 'CPC', '지출', '구매', '메타매출', 'ROAS(%)',
              '자사몰매출(아임웹)', 'GA ROAS(%)']
 ACCENT_HEADERS = {'자사몰매출(아임웹)', 'GA ROAS(%)', '스마트스토어매출'}   # 남색 헤더로 구분
+# 기존 행이라도 '비어 있으면' 채워주는 열 (사용자가 적은 값은 절대 안 덮음)
+FILL_HEADERS = {'자사몰매출(아임웹)', 'GA ROAS(%)', '실측매출(GA4)', '실측ROAS(%)'}
 ACCENT_BG = {'red': 0.15, 'green': 0.23, 'blue': 0.38}
 
 RED = {'red': 1.0, 'green': 0.93, 'blue': 0.90}   # 빨간날(토·일·공휴일) 행
@@ -231,6 +233,50 @@ class Sheet:
         r.raise_for_status()
         return len(rows)
 
+    def backfill_empty(self, title, headers, key_idx, rec_by_key):
+        """기존 행의 관리 열 중 빈 칸만 채움 (null = 기존 값 유지 트릭 사용)"""
+        fill_cols = [(i, h) for i, h in enumerate(headers) if h in FILL_HEADERS]
+        if not fill_cols:
+            return
+        last = col_letter(len(headers) - 1)
+        vals = self._get_values(f'{title}!A:{last}')
+        if len(vals) < 2:
+            return
+        data = []
+        filled = 0
+        for row in vals[1:]:
+            key = tuple((row[i] if i < len(row) else '') for i in key_idx)
+            rec = rec_by_key.get(key)
+            out = [None] * len(headers)          # None = 셀 유지
+            if rec:
+                for ci, hname in fill_cols:
+                    cur = row[ci] if ci < len(row) else ''
+                    v = rec.get(hname, '')
+                    if (cur == '' or cur is None) and v != '':
+                        out[ci] = v
+                        filled += 1
+            data.append(out)
+        if not filled:
+            return
+        requests.put(f'{SHEETS}/{self.sid}/values/{title}!A2',
+                     headers=self.h, params={'valueInputOption': 'RAW'},
+                     json={'values': data}, timeout=60).raise_for_status()
+        # 채운 열 숫자서식 재적용
+        gid = self.tabs[title]
+        reqs = []
+        for ci, hname in fill_cols:
+            pat = NUMFMT_BY_HEADER.get(hname)
+            if pat:
+                reqs.append({'repeatCell': {'range': {'sheetId': gid, 'startRowIndex': 1,
+                                                      'endRowIndex': 1 + len(data),
+                                                      'startColumnIndex': ci, 'endColumnIndex': ci + 1},
+                    'cell': {'userEnteredFormat': {'numberFormat': {'type': 'NUMBER', 'pattern': pat}}},
+                    'fields': 'userEnteredFormat.numberFormat'}})
+        if reqs:
+            requests.post(f'{SHEETS}/{self.sid}:batchUpdate', headers=self.h,
+                          json={'requests': reqs}, timeout=60).raise_for_status()
+        print(f'  {title}: 기존 행 빈 칸 {filled}개 채움')
+
     def normalize_rows(self, title, headers, start, count, red_rows):
         """새 행 서식: 흰 배경·일반 글씨 초기화 + 헤더 이름 기반 숫자서식·정렬 + 빨간날"""
         if not count:
@@ -278,6 +324,10 @@ def sync(sh, title, default_header, records, key_headers):
     reds = [nrows + i for i, r in enumerate(new) if is_red_day(str(r.get('날짜', '')))]
     sh.normalize_rows(title, headers, nrows, len(new), reds)
     print(f'  {title}: +{len(new)}행 (빨간날 {len(reds)})')
+    # 기존 행의 관리 열 빈 칸 채우기 (새 열 소급용 — 사용자 입력은 안 덮음)
+    key_idx = [headers.index(k) for k in key_headers]
+    rec_by_key = {tuple(str(r.get(k, '')) for k in key_headers): r for r in records}
+    sh.backfill_empty(title, headers, key_idx, rec_by_key)
 
 
 # ── 수집 데이터 → 레코드 ──────────────────────────────
@@ -432,7 +482,7 @@ def main():
         recs.append({'날짜': d, '일예산': bud or '', '노출': o['imp'], '클릭': o['clk'],
                      'CTR(%)': ctr, 'CPC': cpc, '광고비': o['cost'],
                      '전환수': o['conv'], '전환매출': o['rev'], 'ROAS(%)': roas,
-                     '스마트스토어매출': ss_day.get(d, '')})
+                     '스마트스토어매출': ss_day.get(d, '')})   # 커머스API 연동 전까지 공란 (수동 입력 가능)
     sync(sh, TAB_NAVER, HDR_NAVER, recs, ['날짜'])
 
     # ── 메타 ──
