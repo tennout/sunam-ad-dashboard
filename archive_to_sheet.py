@@ -49,6 +49,10 @@ HDR_MCAMP = ['날짜', '캠페인', '일예산', '노출', '클릭', 'CTR(%)', '
 ACCENT_HEADERS = {'자사몰매출(아임웹)', 'GA ROAS(%)', '스마트스토어매출'}   # 남색 헤더로 구분
 # 기존 행이라도 '비어 있으면' 채워주는 열 (사용자가 적은 값은 절대 안 덮음)
 FILL_HEADERS = {'자사몰매출(아임웹)', 'GA ROAS(%)', '실측매출(GA4)', '실측ROAS(%)'}
+# 봇 전용 열 — 최근 N일은 매일 최신값으로 덮어쓰기 (자사몰·GA4는 새벽 4시 아카이브 시점에
+# 전날 데이터가 아직 하루치 다 안 모인 상태라, 한 번 쓰고 얼리면 과소 기록으로 굳음)
+REFRESH_HEADERS = FILL_HEADERS          # 스마트스토어매출(수동 입력)은 제외
+REFRESH_DAYS = 14
 ACCENT_BG = {'red': 0.15, 'green': 0.23, 'blue': 0.38}
 
 RED = {'red': 1.0, 'green': 0.93, 'blue': 0.90}   # 빨간날(토·일·공휴일) 행
@@ -277,6 +281,58 @@ class Sheet:
                           json={'requests': reqs}, timeout=60).raise_for_status()
         print(f'  {title}: 기존 행 빈 칸 {filled}개 채움')
 
+    def refresh_recent(self, title, headers, key_idx, rec_by_key, date_idx):
+        """최근 REFRESH_DAYS일의 봇 전용 열(REFRESH_HEADERS)을 최신값으로 덮어씀.
+
+        자사몰매출·GA4 실측은 새벽 4시 기록 시점엔 전날 데이터가 미완성이라
+        (아임웹·GA4 동기화는 5시) 이후 실행에서 완성값으로 자동 교정한다.
+        대상 열은 봇만 쓰는 열 — 사용자 수동 열(스마트스토어매출 등)은 손대지 않음.
+        """
+        cols = [(i, h) for i, h in enumerate(headers) if h in REFRESH_HEADERS]
+        if not cols or date_idx is None:
+            return
+        cutoff = (datetime.datetime.now(KST).date()
+                  - datetime.timedelta(days=REFRESH_DAYS)).isoformat()
+        last = col_letter(len(headers) - 1)
+        vals = self._get_values(f'{title}!A:{last}')
+        if len(vals) < 2:
+            return
+        data = []
+        changed = 0
+        for row in vals[1:]:
+            out = [None] * len(headers)          # None = 셀 유지
+            d = row[date_idx] if date_idx < len(row) else ''
+            if d >= cutoff:
+                key = tuple((row[i] if i < len(row) else '') for i in key_idx)
+                rec = rec_by_key.get(key)
+                if rec:
+                    for ci, hname in cols:
+                        v = rec.get(hname, '')
+                        cur = row[ci] if ci < len(row) else ''
+                        if v != '' and str(v) != str(cur):
+                            out[ci] = v
+                            changed += 1
+            data.append(out)
+        if not changed:
+            return
+        requests.put(f'{SHEETS}/{self.sid}/values/{title}!A2',
+                     headers=self.h, params={'valueInputOption': 'RAW'},
+                     json={'values': data}, timeout=60).raise_for_status()
+        gid = self.tabs[title]
+        reqs = []
+        for ci, hname in cols:
+            pat = NUMFMT_BY_HEADER.get(hname)
+            if pat:
+                reqs.append({'repeatCell': {'range': {'sheetId': gid, 'startRowIndex': 1,
+                                                      'endRowIndex': 1 + len(data),
+                                                      'startColumnIndex': ci, 'endColumnIndex': ci + 1},
+                    'cell': {'userEnteredFormat': {'numberFormat': {'type': 'NUMBER', 'pattern': pat}}},
+                    'fields': 'userEnteredFormat.numberFormat'}})
+        if reqs:
+            requests.post(f'{SHEETS}/{self.sid}:batchUpdate', headers=self.h,
+                          json={'requests': reqs}, timeout=60).raise_for_status()
+        print(f'  {title}: 최근 {REFRESH_DAYS}일 관리 열 {changed}칸 최신값으로 교정')
+
     def normalize_rows(self, title, headers, start, count, red_rows):
         """새 행 서식: 흰 배경·일반 글씨 초기화 + 헤더 이름 기반 숫자서식·정렬 + 빨간날"""
         if not count:
@@ -328,6 +384,9 @@ def sync(sh, title, default_header, records, key_headers):
     key_idx = [headers.index(k) for k in key_headers]
     rec_by_key = {tuple(str(r.get(k, '')) for k in key_headers): r for r in records}
     sh.backfill_empty(title, headers, key_idx, rec_by_key)
+    # 최근 14일 봇 전용 열은 최신값으로 자동 교정 (새벽 4시 기록 시점의 미완성 값 대체)
+    date_idx = headers.index('날짜') if '날짜' in headers else None
+    sh.refresh_recent(title, headers, key_idx, rec_by_key, date_idx)
 
 
 # ── 수집 데이터 → 레코드 ──────────────────────────────
