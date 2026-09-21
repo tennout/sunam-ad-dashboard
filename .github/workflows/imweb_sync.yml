@@ -56,6 +56,16 @@ jobs:
           IMWEB_DASH_PASSWORD: ${{ secrets.IMWEB_DASH_PASSWORD }}
         run: python fetch_crema.py
 
+      - name: 광고 아카이브 시트 갱신 (완성된 자사몰·GA4 값으로 최근 14일 교정)
+        continue-on-error: true
+        env:
+          ARCHIVE_SHEET_ID: ${{ secrets.ARCHIVE_SHEET_ID }}
+          GA4_SA_JSON: ${{ secrets.GA4_SA_JSON }}
+          IMWEB_DASH_PASSWORD: ${{ secrets.IMWEB_DASH_PASSWORD }}
+        run: |
+          pip install holidays
+          python archive_to_sheet.py
+
       - name: Commit data
         run: |
           git config user.name "imweb-sync-bot"
