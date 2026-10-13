@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-13 06:36:19",
+  "generatedAt": "2026-10-13 06:57:01",
   "tokenExpiresAt": "",
   "account": {
     "name": "선암파머스",
@@ -136,6 +136,116 @@
         "status": "ACTIVE"
       }
     ]
+  },
+  "b2bLeads": {
+    "rows": [
+      {
+        "date": "2026-10-11",
+        "camp": "261012_b2b_잠재고객 캠페인(CBO)_AMPM",
+        "sol": "무료_샘플_신청",
+        "contact": false,
+        "status": "CREATED"
+      },
+      {
+        "date": "2026-10-11",
+        "camp": "261012_b2b_잠재고객 캠페인(CBO)_AMPM",
+        "sol": "무료_샘플_신청",
+        "contact": false,
+        "status": "CREATED"
+      },
+      {
+        "date": "2026-10-11",
+        "camp": "261012_b2b_잠재고객 캠페인(CBO)_AMPM",
+        "sol": "무료_샘플_신청",
+        "contact": false,
+        "status": "CREATED"
+      },
+      {
+        "date": "2026-10-12",
+        "camp": "261012_b2b_잠재고객 캠페인(CBO)_AMPM",
+        "sol": "무료_샘플_신청",
+        "contact": false,
+        "status": "CREATED"
+      },
+      {
+        "date": "2026-10-12",
+        "camp": "261012_b2b_잠재고객 캠페인(CBO)_AMPM",
+        "sol": "무료_샘플_신청",
+        "contact": false,
+        "status": "CREATED"
+      },
+      {
+        "date": "2026-10-12",
+        "camp": "261012_b2b_잠재고객 캠페인(CBO)_AMPM",
+        "sol": "제품_도매",
+        "contact": false,
+        "status": "CREATED"
+      },
+      {
+        "date": "2026-10-12",
+        "camp": "261012_b2b_잠재고객 캠페인(CBO)_AMPM",
+        "sol": "무료_샘플_신청",
+        "contact": false,
+        "status": "CREATED"
+      },
+      {
+        "date": "2026-10-12",
+        "camp": "261012_b2b_잠재고객 캠페인(CBO)_AMPM",
+        "sol": "무료_샘플_신청",
+        "contact": false,
+        "status": "CREATED"
+      },
+      {
+        "date": "2026-10-12",
+        "camp": "261012_b2b_잠재고객 캠페인(CBO)_AMPM",
+        "sol": "무료_샘플_신청",
+        "contact": false,
+        "status": "CREATED"
+      },
+      {
+        "date": "2026-10-12",
+        "camp": "261012_b2b_잠재고객 캠페인(CBO)_AMPM",
+        "sol": "무료_샘플_신청",
+        "contact": false,
+        "status": "CREATED"
+      },
+      {
+        "date": "2026-10-12",
+        "camp": "261012_b2b_잠재고객 캠페인(CBO)_AMPM",
+        "sol": "무료_샘플_신청",
+        "contact": false,
+        "status": "CREATED"
+      },
+      {
+        "date": "2026-10-12",
+        "camp": "261012_b2b_잠재고객 캠페인(CBO)_AMPM",
+        "sol": "무료_샘플_신청",
+        "contact": false,
+        "status": "CREATED"
+      },
+      {
+        "date": "2026-10-12",
+        "camp": "261012_b2b_잠재고객 캠페인(CBO)_AMPM",
+        "sol": "무료_샘플_신청",
+        "contact": false,
+        "status": "CREATED"
+      },
+      {
+        "date": "2026-10-13",
+        "camp": "261012_b2b_잠재고객 캠페인(CBO)_AMPM",
+        "sol": "제품_도매",
+        "contact": false,
+        "status": "CREATED"
+      },
+      {
+        "date": "2026-10-13",
+        "camp": "261012_b2b_잠재고객 캠페인(CBO)_AMPM",
+        "sol": "무료_샘플_신청",
+        "contact": false,
+        "status": "CREATED"
+      }
+    ],
+    "total": 15
   },
   "daily": [
     {
@@ -65198,10 +65308,10 @@
       "ad": "0109_사과즙 신규 배너"
     },
     {
-      "imp": 382,
+      "imp": 388,
       "clk": 7,
-      "cost": 10734,
-      "reach": 320,
+      "cost": 10976,
+      "reach": 326,
       "freq": 1.19,
       "lpv": 5,
       "atc": 0,
@@ -65249,11 +65359,11 @@
       "ad": "0503_사과즙 신규 배너 A"
     },
     {
-      "imp": 148,
+      "imp": 150,
       "clk": 4,
-      "cost": 3622,
-      "reach": 133,
-      "freq": 1.11,
+      "cost": 3765,
+      "reach": 136,
+      "freq": 1.1,
       "lpv": 1,
       "atc": 0,
       "conv": 0,
@@ -65266,11 +65376,11 @@
       "ad": "0503_사과즙 신규 배너 C"
     },
     {
-      "imp": 36,
+      "imp": 38,
       "clk": 1,
-      "cost": 1342,
-      "reach": 26,
-      "freq": 1.38,
+      "cost": 1395,
+      "reach": 28,
+      "freq": 1.36,
       "lpv": 0,
       "atc": 0,
       "conv": 0,
@@ -65286,8 +65396,8 @@
       "imp": 32,
       "clk": 3,
       "cost": 1095,
-      "reach": 26,
-      "freq": 1.23,
+      "reach": 28,
+      "freq": 1.14,
       "lpv": 2,
       "atc": 0,
       "conv": 0,
@@ -65300,11 +65410,11 @@
       "ad": "0910_(9월까지만) B"
     },
     {
-      "imp": 110,
+      "imp": 119,
       "clk": 3,
-      "cost": 2434,
-      "reach": 74,
-      "freq": 1.49,
+      "cost": 2621,
+      "reach": 78,
+      "freq": 1.53,
       "lpv": 1,
       "atc": 0,
       "conv": 0,
@@ -65317,11 +65427,11 @@
       "ad": "0910_(9월까지만) c"
     },
     {
-      "imp": 131,
+      "imp": 135,
       "clk": 4,
-      "cost": 4831,
-      "reach": 110,
-      "freq": 1.19,
+      "cost": 4905,
+      "reach": 115,
+      "freq": 1.17,
       "lpv": 4,
       "atc": 0,
       "conv": 0,
@@ -65334,11 +65444,11 @@
       "ad": "0107_기존 계정 소재 BBBBB"
     },
     {
-      "imp": 173,
+      "imp": 180,
       "clk": 2,
-      "cost": 4250,
-      "reach": 122,
-      "freq": 1.42,
+      "cost": 4339,
+      "reach": 129,
+      "freq": 1.4,
       "lpv": 1,
       "atc": 0,
       "conv": 0,
@@ -65368,11 +65478,11 @@
       "ad": "0107_기존 계정 소재 D"
     },
     {
-      "imp": 5,
+      "imp": 6,
       "clk": 1,
-      "cost": 59,
-      "reach": 3,
-      "freq": 1.67,
+      "cost": 87,
+      "reach": 6,
+      "freq": 1.0,
       "lpv": 0,
       "atc": 0,
       "conv": 0,
@@ -65385,11 +65495,11 @@
       "ad": "0107_기존 계정 소재 C"
     },
     {
-      "imp": 161,
+      "imp": 167,
       "clk": 2,
-      "cost": 4290,
-      "reach": 140,
-      "freq": 1.15,
+      "cost": 4404,
+      "reach": 148,
+      "freq": 1.13,
       "lpv": 1,
       "atc": 0,
       "conv": 0,
@@ -65402,10 +65512,10 @@
       "ad": "0107_기존 계정 소재 AA"
     },
     {
-      "imp": 86,
+      "imp": 88,
       "clk": 8,
-      "cost": 2299,
-      "reach": 67,
+      "cost": 2338,
+      "reach": 69,
       "freq": 1.28,
       "lpv": 5,
       "atc": 0,
@@ -65419,18 +65529,18 @@
       "ad": "이미지3_1002"
     },
     {
-      "imp": 446,
+      "imp": 455,
       "clk": 19,
-      "cost": 13168,
-      "reach": 365,
-      "freq": 1.22,
+      "cost": 13297,
+      "reach": 368,
+      "freq": 1.24,
       "lpv": 13,
       "atc": 1,
       "conv": 0,
       "rev": 0,
       "convClk": 0,
       "revClk": 0,
-      "linkclk": 17,
+      "linkclk": 18,
       "date": "2026-10-13",
       "campaign": "261002_제철사과_전환 캠페인(CBO)_AMPM",
       "ad": "이미지2_1002"
@@ -65504,11 +65614,11 @@
       "ad": "소재2_1012"
     },
     {
-      "imp": 704,
+      "imp": 725,
       "clk": 43,
-      "cost": 19415,
-      "reach": 617,
-      "freq": 1.14,
+      "cost": 19871,
+      "reach": 630,
+      "freq": 1.15,
       "lpv": 5,
       "atc": 0,
       "conv": 0,
@@ -65521,10 +65631,10 @@
       "ad": "소재2_1012"
     },
     {
-      "imp": 2,
+      "imp": 3,
       "clk": 0,
-      "cost": 40,
-      "reach": 2,
+      "cost": 53,
+      "reach": 3,
       "freq": 1.0,
       "lpv": 0,
       "atc": 0,
@@ -65554,7 +65664,7 @@
       "linkclk": 4,
       "campaign": "260107_사과_전환 캠페인_(0908 3종 오픈) YH",
       "ad": "0107_기존 계정 소재 A",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/610472374_122231511494128223_2558816747338132544_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=ff4730&_nc_ohc=R_8PkX0eWV4Q7kNvwFBrPDw&_nc_oc=Adq7xY4NwFpSgjpooViPMsYLe_K9L3jGmWRu93GQBkRTb5ZeZI9NzL7nisbAxWWmDXU&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=NvH5rwO--ld23-dO3QhlIQ&_nc_tpa=Q5bMBQKF3GtMdHkyzDZgeH6OUzYll8m67fJ46yaE7yUjwJFsjhoDXinoaV0_hb1mBSwQI_7KZ6tHSArkRw&oh=00_AQPAj1cZnmbx0vGyxjpB7ZIR2icT-ygYSwhcpu4PfHQalg&oe=6AD394F7",
+      "thumb": "https://scontent-lga3-1.xx.fbcdn.net/v/t45.1600-4/610472374_122231511494128223_2558816747338132544_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=ff4730&_nc_ohc=R_8PkX0eWV4Q7kNvwGWLJyK&_nc_oc=Adqgmwlbb0r9OMNijdT6J-D1lOtpmLzyo0TGXXdoFve0KzPd6V8cs-d8YhGBM9ZoPic&_nc_zt=1&_nc_ht=scontent-lga3-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=sLWotAAYgHfQt1J5cpvAhg&_nc_tpa=Q5bMBQIDldB01Jq102sdxio8BXB-ab0kYpMfY3ptABQeaY1RiRTRgtQCgzXThTQZ8L2Xbc7GYtG0WPVKnQ&oh=00_AQNCJu3HnQ5LV3PFZsG_iZ2xI8_XCM3VIJiqVUcWWxZRXg&oe=6AD394F7",
       "link": "https://www.instagram.com/p/DV9_-LmgBNN/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -65573,7 +65683,7 @@
       "linkclk": 0,
       "campaign": "260107_사과_전환 캠페인_(0908 3종 오픈) YH",
       "ad": "0107_기존 계정 소재 D",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/611736837_122231511548128223_8022022712691626914_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=ff4730&_nc_ohc=AcqnxmVYuCMQ7kNvwHbp16H&_nc_oc=AdpNGxAI4zA5ga4oJzzns_3ZxRKQhGzTaolen0EhloWn4BaEQAMClnZUt8jAeLvryOc&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=NvH5rwO--ld23-dO3QhlIQ&_nc_tpa=Q5bMBQIMNz8m6bO9pZtp2NntdI_E6ddxkV5PBFdvvpjr97LGEZqTMWNV_iq_LBxmP_fbi5j0HkCZn07MVA&oh=00_AQOotd21NqnPHtLHnEGMFRrXfIE1Kf2MD4KA3gh88QNlcg&oe=6AD3BE26",
+      "thumb": "https://scontent-lga3-1.xx.fbcdn.net/v/t45.1600-4/611736837_122231511548128223_8022022712691626914_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=ff4730&_nc_ohc=AcqnxmVYuCMQ7kNvwE_PVg4&_nc_oc=Adq4haoFBQsl_ME8n_PD6JarNNWgN2P3A9ZJdEeJ3JmsUiG5RI9AvIXGvpC6FhX-xoo&_nc_zt=1&_nc_ht=scontent-lga3-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=sLWotAAYgHfQt1J5cpvAhg&_nc_tpa=Q5bMBQJ59cHHZtbqZxGdn0vQGLetKO6hIFVmKSRQ3dcmFVKaSWao_V2pdXLkpocpSoXNQ9ZKPjFElozRwA&oh=00_AQNG5AYXklqBU2Yaw98Ot6X0BwAyn2zG6OKh1Q_bU4zjmQ&oe=6AD3BE26",
       "link": "https://www.instagram.com/p/DV9_9-IAKf-/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -65592,7 +65702,7 @@
       "linkclk": 24,
       "campaign": "260107_사과_전환 캠페인_(0908 3종 오픈) YH",
       "ad": "0107_기존 계정 소재 C",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/610114675_122231511476128223_1008960296656086977_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=ff4730&_nc_ohc=ZB_NUDelf5UQ7kNvwEVk0vO&_nc_oc=AdqDlTatPJIlorJvCOViqq374o3DROCcHEd48x8Az_5LsXIGZBZfy2L3eXDKKsGRS-I&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=NvH5rwO--ld23-dO3QhlIQ&_nc_tpa=Q5bMBQIJ1PojfywOJjF4yFQGm38uCkYb2mrz2JkCzD-yMyDhytBltPxp-w6I5c1wIJHflQBJZLc7YxnKeQ&oh=00_AQNjn3nThNCd5o8N28VI2bA30VV_0MESeXP3tyICgb2T-g&oe=6AD3961C",
+      "thumb": "https://scontent-lga3-3.xx.fbcdn.net/v/t45.1600-4/610114675_122231511476128223_1008960296656086977_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=ff4730&_nc_ohc=ZB_NUDelf5UQ7kNvwEXq3sv&_nc_oc=Adqh8pmzKxD9ko-MB6yoM-HuSzXG_DZmO4kR3nrWX_APxwi9d4i_0xJIFssbOsKJyco&_nc_zt=1&_nc_ht=scontent-lga3-3.xx&edm=AOgd6ZUEAAAA&_nc_gid=sLWotAAYgHfQt1J5cpvAhg&_nc_tpa=Q5bMBQII6Hh84xHl-HZOqnY3iv7MFFdaTXnCISI7_lDHKUDsy7fm0gKLmBZ3ThVIP6Gp0IqF_Bf-PYMlaA&oh=00_AQNdzckKnJ8S1VP489p2kl6VE7Fyl3Iby1pkJRhrrPzUsQ&oe=6AD3961C",
       "link": "https://www.instagram.com/p/DV9_-QOgNFW/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -65611,7 +65721,7 @@
       "linkclk": 8,
       "campaign": "260107_사과_전환 캠페인_(0908 3종 오픈) YH",
       "ad": "0107_기존 계정 소재 AA",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/612257602_122231514998128223_7271660506961356836_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=ff4730&_nc_ohc=5Le_MI4HQaoQ7kNvwEaLdr0&_nc_oc=AdqqP-byCJ_Ld4qV_I0A5dayuQZanHsMYxCa9YYZhqFA-0ysR-mbfJ4Xg7Fwa-RJk2s&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=NvH5rwO--ld23-dO3QhlIQ&_nc_tpa=Q5bMBQKgtNJeiPqnlD1iNWNWUI3kW44gOmtQEEn7eayRb48PfC2BiK7P0b4Bxtc_wfLS5XfKUGHn8w0NTw&oh=00_AQNQ44wPuV95TUt65ViQ3NKly6JprBmccFcgwddQLNakbA&oe=6AD3A5EC",
+      "thumb": "https://scontent-lga3-3.xx.fbcdn.net/v/t45.1600-4/612257602_122231514998128223_7271660506961356836_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=ff4730&_nc_ohc=5Le_MI4HQaoQ7kNvwECiPIT&_nc_oc=AdrDxlR_FnlxPxluNeGf6FoCcQCOFW1YXPYZ1oLHBsjvzsqT-H2sIfW95W0NDCEIJCw&_nc_zt=1&_nc_ht=scontent-lga3-3.xx&edm=AOgd6ZUEAAAA&_nc_gid=sLWotAAYgHfQt1J5cpvAhg&_nc_tpa=Q5bMBQLc6trpaORflrrw5EOgTrdBIf24xTGAh1c6Ox6lMYLXKvpS5UHss1k2iGtfEIMoUAxHCIEgvVYlPg&oh=00_AQP8NJZOxBaPXCuNYDifHvmpKLNa5099_nakfdu5jVmnDw&oe=6AD3A5EC",
       "link": "https://www.instagram.com/p/DV9_-HggFrA/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -65630,7 +65740,7 @@
       "linkclk": 2,
       "campaign": "260107_사과_전환 캠페인_(0908 3종 오픈) YH",
       "ad": "0107_기존 계정 소재 BBBBB",
-      "thumb": "https://www.facebook.com/ads/image/?d=AQL5UXald0pEmuey85mDr6gvO0m_zgVZulVJISlv7jXM7KCh3ssQeeFFpm67iu5S9EbIolR9PcUoD4pIO5ysyiW58EEzqIk9injIqCbhm2OCDPaAPbHsTqXFtlBssa2D1Wvv5k13GGdi4rNHxxHGEaQS",
+      "thumb": "https://www.facebook.com/ads/image/?d=AQKEU8VCz7BlUiEuoRNHOPFQe2G8sOdHkoMwoFjT-kF1h5Xi-Oltmj_MfFD7ZEIOEc7sRLS6DA6o5JLf4uzR4oz9ExGD4qQl19wUa6Td3GmejpMrUhaviDHVwL6nV9jDZmlEPs56CM8wsmyZJP_vp8Aj",
       "link": "https://www.instagram.com/p/DV9_-pJgOKj/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -65649,7 +65759,7 @@
       "linkclk": 82,
       "campaign": "0107_트래픽_사업자_YH",
       "ad": "0107_A",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/612179521_122231525762128223_6121968370883524876_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=ff4730&_nc_ohc=j1JNIuOjONkQ7kNvwFnsbLe&_nc_oc=Adq3rIawB9xiR7NG4kMG8TFHBNLM8jDRYQCbnnOv-wF3q9S0QnAgBqUPwWRgjisq52A&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=mfm6ze2fH07ZgMAnY-AQyw&_nc_tpa=Q5bMBQI_wgfNUurx5kSm0LRwtzGkbHRVLzuOP3KYN6hsXTKd5vI07P9ORhZ7yQpF-yrH1DjOAuoho-UvBA&oh=00_AQPMc2z_WQv0gf62My5upxJIV8w5MpFuFhKguWIz1pSGIw&oe=6AD3A13A",
+      "thumb": "https://scontent-lga3-2.xx.fbcdn.net/v/t45.1600-4/612179521_122231525762128223_6121968370883524876_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=ff4730&_nc_ohc=j1JNIuOjONkQ7kNvwGOqkd_&_nc_oc=AdqJwL0lQUWMO4qo7yq07ZPS_in7NTHlJDRz5WR6BFEWo6MKm8Durrq5dV3e1JP5Tqw&_nc_zt=1&_nc_ht=scontent-lga3-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=zDDjwznpJ9lo1Ajmt4yWIw&_nc_tpa=Q5bMBQLuye09WChCK7wBmvr3zpEZVroGysR4S01_iZbVnSyhjxYvMAlUhsqK5WA0j_ZHrgXjMpz5ZiekLg&oh=00_AQPHbY8lTnhnWcHQLGfiiF2M5FU2ZMAfu4_0nSf6gtCg8Q&oe=6AD3A13A",
       "link": "https://www.instagram.com/p/DaUu0H7g7Uo/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -65668,7 +65778,7 @@
       "linkclk": 101,
       "campaign": "0107_트래픽_사업자_YH",
       "ad": "0107_C",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/611605670_122231526626128223_5653797777798806302_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=ff4730&_nc_ohc=niXUOrJWgH4Q7kNvwGVaoIc&_nc_oc=Adp4-uMo8jWrYR6rDwS_iyJgUwepcmiI5CLgX0C8CuU6Udr5SAfXUoodIkMK96Ki3JU&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=q3386yemQuy9s_Jd3iRyHA&_nc_tpa=Q5bMBQLtdKYV259iS6VpNWYNxNQ3jwZe6cutStneWysH1UgjfY7V8QN9_zyvoOOg9uQXgFMkhgxvSavImw&oh=00_AQOsg1BwvYAllPGIYqWKtoYZ5Gqq5jSr2e-RMP7Hb35-2g&oe=6AD3B85F",
+      "thumb": "https://scontent-lga3-3.xx.fbcdn.net/v/t45.1600-4/611605670_122231526626128223_5653797777798806302_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=ff4730&_nc_ohc=niXUOrJWgH4Q7kNvwFotseg&_nc_oc=Adp2EZOA8NZ8tKv9HptluRYfaqqtQl-GpVb9EdU84gmiv8zThrCCX02x-zmTNzAS-aM&_nc_zt=1&_nc_ht=scontent-lga3-3.xx&edm=AOgd6ZUEAAAA&_nc_gid=N0q1wli7wfE88gpFdSH3QQ&_nc_tpa=Q5bMBQIl8uj-h-QcNAhR1zFf_AX6itnasRwTXdsy8eoh_ssTZU2sSFjeWlOPB3u1v5CRoch7pr9LmfkWQA&oh=00_AQPnuk9SMqrlitSyPtCmYLkrjKNqn5pobeDXtylwoEYxyQ&oe=6AD3B85F",
       "link": "https://www.instagram.com/p/Da2UsGDAqa1/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -65687,7 +65797,7 @@
       "linkclk": 7,
       "campaign": "0107_트래픽_사업자_YH",
       "ad": "0107_B",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/611305752_122231525984128223_6023903766185186880_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=ff4730&_nc_ohc=UYYQRImxvZEQ7kNvwEvR3sq&_nc_oc=Adr-yZ-cTIaMzhSpETmxB1NUyPIp9b-FarhRUdvr1cQxWVE7C1Q5Xbxf0woLDflSLy8&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=q3386yemQuy9s_Jd3iRyHA&_nc_tpa=Q5bMBQKx6jZHfxaUrWBcAoqEoVQv-K1hkLiipK23MrReMzpXNCQznobzNmK9TmzPjEIO5VEQMbvVSLFG3g&oh=00_AQOLOipDlnVaI-1dTDWx3N6nD7ojk1Dq2JBJOHzxZYAD2A&oe=6AD3AB3F",
+      "thumb": "https://scontent-lga3-3.xx.fbcdn.net/v/t45.1600-4/611305752_122231525984128223_6023903766185186880_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=ff4730&_nc_ohc=UYYQRImxvZEQ7kNvwGIdRI9&_nc_oc=Adrn-WRL-jW_8pdoMmvBw0n8ZQvI-22HyQn_PPzI9KNIYWYLee0SCb7U6eT_bn6U9vg&_nc_zt=1&_nc_ht=scontent-lga3-3.xx&edm=AOgd6ZUEAAAA&_nc_gid=N0q1wli7wfE88gpFdSH3QQ&_nc_tpa=Q5bMBQIi980wpTQacJ_uI9s9zC2icMz0vs0E7sHIR-jiKC4MhBfVCVjUvgZ6mwDBjs-vo-NsXmEIjHoUzQ&oh=00_AQOydnc0U7wxxZw0-qXKp0Ngt8CemU_mNHCWEDLWiYk6Aw&oe=6AD3AB3F",
       "link": "https://www.instagram.com/p/DaUujLLA-ND/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -65706,7 +65816,7 @@
       "linkclk": 6,
       "campaign": "260109_사과즙_전환 캠페인_YH",
       "ad": "0109_사과즙 신규 배너",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/610977657_122231772212128223_7577205350302411873_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=ff4730&_nc_ohc=lUwVGSO0l50Q7kNvwHkZ8w7&_nc_oc=AdoL0uQSDYsTLKgYXQm7n04h9Bc6g_OI6FTbhGaAkCsOk7sgYmWENIzjun5OZssj9VE&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=q3386yemQuy9s_Jd3iRyHA&_nc_tpa=Q5bMBQLtNPnB09kohU-Maamivh-EdOtYqEkADjiI5b9QHiJcNygmiop4FahVUQyC79SVhQ_FJyD3gAe4rA&oh=00_AQNlptE0zgbuQSxbW5lMTX56s12m_QqkiMwp26KjlFVFJw&oe=6AD38BB8",
+      "thumb": "https://scontent-lga3-2.xx.fbcdn.net/v/t45.1600-4/610977657_122231772212128223_7577205350302411873_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=ff4730&_nc_ohc=lUwVGSO0l50Q7kNvwFqmvVF&_nc_oc=AdrVeexuaoXzS7srfT9CCIBG9AjTge5sXYlcpR9iJ7x05-W7miaAsJzebiUiQy98FtE&_nc_zt=1&_nc_ht=scontent-lga3-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=N0q1wli7wfE88gpFdSH3QQ&_nc_tpa=Q5bMBQJmNlGpwFuj8oxPWAaNtAlJwsAQaEA7-g1YX_QjiWjtVqp4pRPwTng7UTP7_KEH3q-dXDVPJ9V-qg&oh=00_AQOLMnRlQOz_czrslvJzcvpZjgUVr-JAbMGxTK-4eQQmfw&oe=6AD3C3F8",
       "link": "https://www.instagram.com/p/DY7klgPgMDv/",
       "status": "ACTIVE"
     },
@@ -65725,7 +65835,7 @@
       "linkclk": 17,
       "campaign": "260109_사과즙_전환 캠페인_YH",
       "ad": "0109_사과즙 신규 배너 c",
-      "thumb": "https://www.facebook.com/ads/image/?d=AQIN2bMHALQyQvBW2Vc-pPMqTgX5aegkrtSO-aeoM4g73lpa3p4EsJld1O_vntCCGLZw6zTc_sMgesliyKaH0_QPERrfJ3d6JDG7smuszMbMczWs4Vo98neLJLXGFiljRzWoqySX4hhLw_XAMRTj024q",
+      "thumb": "https://www.facebook.com/ads/image/?d=AQJph4QDahhW4mMGKNcr0eZcLKZxMBsryqGJ0zDqqiM95D5dnVSEZLYoDI68OZpjJAfxG_ihEX2ZVfUYZvHY9Cv1u2liJ0RFPbwsYKAR4obvi0K4xoU9FQKQpJtE4e7UVKFz2Wjn_wpuJJ_7EtR0WezW",
       "link": "https://www.instagram.com/p/DY7sl0QAOTs/",
       "status": "ACTIVE"
     },
@@ -65744,7 +65854,7 @@
       "linkclk": 57,
       "campaign": "260109_사과즙_전환 캠페인_YH",
       "ad": "0109_사과즙 신규 배너 d",
-      "thumb": "https://www.facebook.com/ads/image/?d=AQLJw0wcqy7jFQiSVhFKpRyTeKeDY0fQN0RgnmbINBl96C6oL-mRMOlNlbY2cA0oaisSFSbUXjoLDCDS6FBDGoEJAmgZA4p-kZaETMDGNEZLXio3dAr8LW8V53w78i9Fldazcmv9Z5pgBwoh6y1Fo3OS",
+      "thumb": "https://www.facebook.com/ads/image/?d=AQLV5AFZ1B90IXiAHaWYAaNlnGWetg6WnwC-GFHm__bkyQ0uY_AT5w94fgHygRHt63tiOqXnOfWHrAKoEwp059Zr_UypN24yAU-z9v5bzzbV0p5sjyLGMbbwMoFHi2tTRZ8A93Xsrk2cgjp5JbkLXt_Y",
       "link": "https://www.instagram.com/p/DY7s_48gPJy/",
       "status": "ACTIVE"
     },
@@ -65763,14 +65873,14 @@
       "linkclk": 55,
       "campaign": "260109_사과즙_전환 캠페인_YH",
       "ad": "0109_사과즙 신규 배너 B",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/613581714_122231772470128223_2137061495490564489_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=ff4730&_nc_ohc=0GcqzNxJzgcQ7kNvwGuevxu&_nc_oc=AdrLJAD3AzgWifqMRnjUbWqrMFMvu2sbqZxVIuuYG5BniqVJ_cVNJxX13rMFWhDDetI&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=mfm6ze2fH07ZgMAnY-AQyw&_nc_tpa=Q5bMBQLRafRDi-jYg9rYKtEoRdgcQY-9IQWFoXWvmtF5VXOWUEEnx1u7d18BkL2ZH8ahTnRDGEgBy8wKGQ&oh=00_AQNI5aXkU6w9dfuVDHgrEXLGc5EC9VzaSwhQRrGE7_srrg&oe=6AD3BD03",
+      "thumb": "https://scontent-lga3-3.xx.fbcdn.net/v/t45.1600-4/613581714_122231772470128223_2137061495490564489_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=ff4730&_nc_ohc=0GcqzNxJzgcQ7kNvwHM1ovA&_nc_oc=AdpsmqfiBvb7-p_YOqEi6Ju7Bi3uHh9SynCyCURvbYhPtNHmtxTqqVdnQMP-ErFomAY&_nc_zt=1&_nc_ht=scontent-lga3-3.xx&edm=AOgd6ZUEAAAA&_nc_gid=zDDjwznpJ9lo1Ajmt4yWIw&_nc_tpa=Q5bMBQKzx6oQsS1cUneXOUV24QgFiNP20KflndZruAWYZfXm7-8XvJTYp_u9-Dpp4omOXLW0CgTgAqzYCg&oh=00_AQNJAVTO-ELq86FNkbT8yfXihg7-Qp4E0Fe8OFZUSarsOQ&oe=6AD3BD03",
       "link": "https://www.instagram.com/p/DY7tPR5gL9G/",
       "status": "ACTIVE"
     },
     {
-      "imp": 54689,
+      "imp": 54695,
       "clk": 1097,
-      "cost": 1324625,
+      "cost": 1324867,
       "reach": 27276,
       "freq": 2.01,
       "lpv": 871,
@@ -65782,7 +65892,7 @@
       "linkclk": 970,
       "campaign": "260109_사과즙_전환 캠페인_YH",
       "ad": "0109_사과즙 신규 배너 bb",
-      "thumb": "https://www.facebook.com/ads/image/?d=AQJG7VRpP0BMVWDMKY-TjgLGVOO5XIXcMmaZlYiS1d1kKQp_1eFkyYSNUgwDREFlbF3xcRXQWwYx-DAXoESp2ktfFsFIlDbo8Le1Pd1PW93Frq67Q86ML9Ndvod14qp0n3Mqwkym9qc3AeP1Y94PToJC",
+      "thumb": "https://www.facebook.com/ads/image/?d=AQLYbQu1OgimZ76kMoaTGIcWsPeH5VLMyS0dQoqUNWzrmI5fpsaNVVpzf-Zy-U1R2bH8nmY85Y9NuFRyl9JfsapiiU-svdVZnfKceO2J7SXFEQO73HbN-_aOmzQfAPgMmjf1q97j1JL09AJeZ_AUxqUb",
       "link": "https://www.instagram.com/p/DY7sP1RAJV5/",
       "status": "ACTIVE"
     },
@@ -65801,7 +65911,7 @@
       "linkclk": 818,
       "campaign": "260109_사과즙_전환 캠페인_YH",
       "ad": "0116_사과즙  B",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/615078522_122232573146128223_6774120604954649721_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=ff4730&_nc_ohc=PcVzSPKyKt0Q7kNvwHzUInD&_nc_oc=AdpIsil7qBAIS71pInhDHHyyVIraGklv1O9w88XyC1xDmlN9SwdGKqm0NhjYKvwdFyE&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=q3386yemQuy9s_Jd3iRyHA&_nc_tpa=Q5bMBQIBkxGqgH4OisGy3iolW8W5aRjrjcnd8NRqMhIouTeHt6wbS9yQXlL2ztrkFzgQ208zoutzBW36nw&oh=00_AQN-34dm_Rmn-r8YMCv1o2CrryA4FMLYVGT9Hb2wlVnv8Q&oe=6AD38D20",
+      "thumb": "https://scontent-lga3-1.xx.fbcdn.net/v/t45.1600-4/615078522_122232573146128223_6774120604954649721_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=ff4730&_nc_ohc=PcVzSPKyKt0Q7kNvwHJdcbB&_nc_oc=AdoWUloK8lUNC1PAQyQGaHE8Kvg2zvayeuMMsxSl2h4ykrmOoyS0etXF_l5XxbcX3Oc&_nc_zt=1&_nc_ht=scontent-lga3-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=N0q1wli7wfE88gpFdSH3QQ&_nc_tpa=Q5bMBQLromB9NuneY0AKwOTNNYIu4fTc1NTp_rGIH8-YH5v9OQBxGw1OJ2UHQQJEixUM9-9lPpziiIQR_Q&oh=00_AQMkxBJD2_H3CJAVIH_3H_il9jURkst6LU607mZPwHd4cQ&oe=6AD38D20",
       "link": "https://www.instagram.com/p/DY7q84ogJJX/",
       "status": "ACTIVE"
     },
@@ -65820,7 +65930,7 @@
       "linkclk": 8,
       "campaign": "260109_사과즙_전환 캠페인_YH",
       "ad": "0116_사과즙 A",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/617596414_122232572744128223_1118573953933388449_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=ff4730&_nc_ohc=bihwgJP9AdcQ7kNvwGHNq6A&_nc_oc=AdompmZZ2D36fFtCSVNVlOn7ESffeXql-QGZ2xMeaCuIXZ68A9MuYLG5_2qyiMzwuZE&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=mfm6ze2fH07ZgMAnY-AQyw&_nc_tpa=Q5bMBQKlNZ3NOQ9EN9RpX3yDlmg7UKGh-OjTqDFjyB251k5pwUY0PzlikOfqvKW9CxLehufZwFt8KHttjQ&oh=00_AQNGkyE91qCUcvqmBgUlTrMJk-I7eED1A4lNkuGY3f4i0g&oe=6AD39EA1",
+      "thumb": "https://scontent-lga3-3.xx.fbcdn.net/v/t45.1600-4/617596414_122232572744128223_1118573953933388449_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=ff4730&_nc_ohc=bihwgJP9AdcQ7kNvwHHtPAP&_nc_oc=AdrtIfAEEMH9GsD2nrSiEid44qAeSxfraJwr1XRhyn6R3DZvnwCQFbHZHEh6oim_PRw&_nc_zt=1&_nc_ht=scontent-lga3-3.xx&edm=AOgd6ZUEAAAA&_nc_gid=zDDjwznpJ9lo1Ajmt4yWIw&_nc_tpa=Q5bMBQLN7UhCtM8-Hh-OdhVbtjRqfBGcrge7EBkqmEJi7sGPGRYeWvg69fO2_fQ4qg9rTiSzoZ7OSWIGRQ&oh=00_AQPkBDBL8M6Ppzqet5tURB-59S2pFaZqN8_kMkRZ-tqSmQ&oe=6AD39EA1",
       "link": "https://www.instagram.com/p/DY7rbelAB2N/",
       "status": "ACTIVE"
     },
@@ -65839,7 +65949,7 @@
       "linkclk": 5,
       "campaign": "260224_피덱스 후지_전환 캠페인_YH",
       "ad": "0224_피덱스 후지 재셋팅 B",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/611824795_122231516828128223_2697127136687660529_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=ff4730&_nc_ohc=K5ynQ4HoA94Q7kNvwHubt_b&_nc_oc=AdqTJkjjmMK-9hWsH-3MZxV8udyEpiRtnXUXcTtjmu_ipuhLX8l70ahgFMHFn4sx5xI&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=q3386yemQuy9s_Jd3iRyHA&_nc_tpa=Q5bMBQLWOQxfSES2UzjJRKP8bysxJMLSgnjLqSAdmTjQD1qknHYVmWvoI7srudBjbuQnw7uBc5RbqWrPsQ&oh=00_AQPDJS2PSc-AAwswX9WhBkFabhcbEGEMil8L32Og7E8Ehg&oe=6AD3AF0D",
+      "thumb": "https://scontent-lga3-1.xx.fbcdn.net/v/t45.1600-4/611824795_122231516828128223_2697127136687660529_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=ff4730&_nc_ohc=K5ynQ4HoA94Q7kNvwFUEjbr&_nc_oc=Ado6G8Ei1tHfQ4vCVRJEy39eldQ1UFHpsAocxgzvl9Z5ZphE3VdNYQxLgmjfOKuFznw&_nc_zt=1&_nc_ht=scontent-lga3-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=N0q1wli7wfE88gpFdSH3QQ&_nc_tpa=Q5bMBQJKrrsL1FdmgJrFNv4D-_GhwUa704rTP1B2orIa4gypaShnMqDDEX7S9o8FOa2-dZZiGscj3ZGWYQ&oh=00_AQN4m3ANb76MzkgbQa0HazBhv7WSYdclb9haFJ5MZCtkwQ&oe=6AD3AF0D",
       "link": "https://www.instagram.com/p/DV9_-A0AKOE/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -65858,7 +65968,7 @@
       "linkclk": 15,
       "campaign": "260224_피덱스 후지_전환 캠페인_YH",
       "ad": "0224_피덱스 후지 재셋팅 A",
-      "thumb": "https://www.facebook.com/ads/image/?d=AQIO4_suN9hStZV02qublAx_sD__0AeoxGJa9At2S_QLRKUU7Mmpjonzm6yYCNo_rybcvaqQlCTVBPhRWdKh9qg34JbWlCz3EwzKmu_Dq9_czkFxrzVLY5BXpFH-AUEf6Ov79t47I4KHDoMOJv3L7xt9",
+      "thumb": "https://www.facebook.com/ads/image/?d=AQLA-KtKTWmwNlI6ErJ3gyyL6jHO_XF8nc1GuDQnnHK8u-4R0MM_UnjJPLVj3_ToD6Jn8QHpBsK044gJKvQ2UpsRP5Kvc8W85zdutM84vqKIVP89FV3NRmau8X6zklyHwVR-G4K8tV9_xkmbteeAtVNW",
       "link": "https://www.instagram.com/p/DY7mfquABLW/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -65877,7 +65987,7 @@
       "linkclk": 8,
       "campaign": "260224_피덱스 후지_전환 캠페인_YH",
       "ad": "0224_피덱스 후지 재셋팅 H",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/610617421_122231515364128223_5005893151333873855_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=ff4730&_nc_ohc=Qz6hZncskxIQ7kNvwEpPr5y&_nc_oc=Adq82W5roJ7D3RPpmFMBjt3KMGtX1lB2lfjV2-ZKKmpfbJZjWVUzLGRSSxFY99Vlyq4&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=q3386yemQuy9s_Jd3iRyHA&_nc_tpa=Q5bMBQJzdHMFmeaiW8kFolAK5sLIngf8Sbxxcy6moHLBLwDlFLWM6Pc4GpFqbtna-mD9EONZoddcL12cUQ&oh=00_AQPitSAZfshaekWbU6B5Yp0Gz-O0FmeI3gUNQR8f5h7IeQ&oe=6AD3AB43",
+      "thumb": "https://scontent-lga3-1.xx.fbcdn.net/v/t45.1600-4/610617421_122231515364128223_5005893151333873855_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=ff4730&_nc_ohc=Qz6hZncskxIQ7kNvwGGJgUS&_nc_oc=Adp4lCXlTxb0SFHWe887WUe-qbZn2yXA3AHkz9rbc0uEb2l3OS5AwHPcbFHKJ91vhQk&_nc_zt=1&_nc_ht=scontent-lga3-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=N0q1wli7wfE88gpFdSH3QQ&_nc_tpa=Q5bMBQJgiStWUSHoiO866k719EDPfYft6BK3sZppA1NkS6o0hXHpR9xOebJAOWshmodLffApcpk4fqXEzw&oh=00_AQN5QuKc7RuQBBdCOSii0exStIdRc67YUepzqtQgTAfOcw&oe=6AD3AB43",
       "link": "https://www.instagram.com/p/DV9_-DFAOEZ/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -65896,7 +66006,7 @@
       "linkclk": 7,
       "campaign": "260224_피덱스 후지_전환 캠페인_YH",
       "ad": "0224_피덱스 후지 재셋팅 G",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/610972925_122231515244128223_1106297789909041976_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=ff4730&_nc_ohc=nwDpMHyL7pMQ7kNvwHII6ym&_nc_oc=AdoC4PmQA03jcGzxtDVeC7qat-160CQhCgf0TfKJnncBcpbMOm1f4AS-lT28ySuoX-Q&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=q3386yemQuy9s_Jd3iRyHA&_nc_tpa=Q5bMBQIC3GxNdqX5bXp7JIRbDxn8mUh5okRojCdJd-0dP2cTVrj7jxSz0C9dkvZhxaC76gIf7VN-J2xtPA&oh=00_AQPLoOuwJYwlnCwta4dHaCBKcIEmVKN0aBIrm24DZwZnEA&oe=6AD3B29F",
+      "thumb": "https://scontent-lga3-2.xx.fbcdn.net/v/t45.1600-4/610972925_122231515244128223_1106297789909041976_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=ff4730&_nc_ohc=nwDpMHyL7pMQ7kNvwG88QxZ&_nc_oc=AdrRrqqDg3XCXi8IXgP5pn1WaHEnerGFY8eLf7o8YAQWJhDHKgB3qy90mgikCwAo9ds&_nc_zt=1&_nc_ht=scontent-lga3-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=N0q1wli7wfE88gpFdSH3QQ&_nc_tpa=Q5bMBQJPLqKnZ0qciBYPwFGWelj8Xf4Iyc93GPv1DnByvukBfiZr8OPmfIl2WG6tHbk8jOYW2lv-mUumaA&oh=00_AQNHbpGq8ZZdLW-WTgMkbmFn-NG2cg6OXPmK_1VG3XYFhQ&oe=6AD3B29F",
       "link": "https://www.instagram.com/p/DV9_-HNAOE5/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -65915,7 +66025,7 @@
       "linkclk": 1,
       "campaign": "260224_피덱스 후지_전환 캠페인_YH",
       "ad": "0224_피덱스 후지 재셋팅 F",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/610879768_122231522702128223_5997611109984078108_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=ff4730&_nc_ohc=dQZkw5K_PV8Q7kNvwFx4r4-&_nc_oc=Adp01Ob9iYt0nRM7YG6F-bWriAUWrfB8AWdVzv6aeUvjnDMiAdX-AN5rfwkbIZdEwbA&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=q3386yemQuy9s_Jd3iRyHA&_nc_tpa=Q5bMBQIab7k1i5Jn2nVgYKJnANvBeJN1k0VshmrKmXKtWSmjm-oba2I2OzpAOm6Pm6hoWfSQ1HpzlMIBFg&oh=00_AQM-IK4II-gfNAW7eZwN0HS297oNL2YfJaAX_L0Hz16ebw&oe=6AD3B828",
+      "thumb": "https://scontent-lga3-3.xx.fbcdn.net/v/t45.1600-4/610879768_122231522702128223_5997611109984078108_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=ff4730&_nc_ohc=dQZkw5K_PV8Q7kNvwFbSaKw&_nc_oc=Adq2yowe8ELWdZjIsPrEg7aToJlAS7O1ta-LWczTZzmniaWfcDzmrDHVaWXapazHdvs&_nc_zt=1&_nc_ht=scontent-lga3-3.xx&edm=AOgd6ZUEAAAA&_nc_gid=N0q1wli7wfE88gpFdSH3QQ&_nc_tpa=Q5bMBQLHZs51kPngan6ykFKxeS97mNTsqWKsZzUK2zixIr0QH7woO2EOnGVBo53xDPnrJ3COHpHrF3g85g&oh=00_AQMJpl8tYMg__4bH6WIgKqdNH5J_z1-ZegyRsmOrT6Hd-g&oe=6AD3B828",
       "link": "https://www.instagram.com/p/DV9_9-yAEno/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -65934,7 +66044,7 @@
       "linkclk": 143,
       "campaign": "260224_피덱스 후지_전환 캠페인_YH",
       "ad": "0224_피덱스 후지 재셋팅 c",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/611608518_122231521982128223_6644028689566713957_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=ff4730&_nc_ohc=Cotsjz7Icc8Q7kNvwEH2tJv&_nc_oc=AdpWe5ASbFXpht81TnzgwzquZ_7Pp3Y2BpCLbsiKESGf5m7rNan7cCwo3HSq0ow5vNo&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=q3386yemQuy9s_Jd3iRyHA&_nc_tpa=Q5bMBQJicwszRugxYRjQpMMxthNTBgw56RriSBWkYc2vUXNK5Wg2y_HJPygFSn93Kx4ECXJ0GfDlOvwIZw&oh=00_AQNLuu3rpmnWf5lESHSUHKAqtfqI3Cuh3wQxO5PJ_k9MXA&oe=6AD39CF3",
+      "thumb": "https://scontent-lga3-2.xx.fbcdn.net/v/t45.1600-4/611608518_122231521982128223_6644028689566713957_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=ff4730&_nc_ohc=Cotsjz7Icc8Q7kNvwFbVr-p&_nc_oc=AdqlOG3nWWfL48VQpUc9InvJLASixyy_Z8LgkIS9dO43Cri4snmMcxBwXL-8OfnfUOk&_nc_zt=1&_nc_ht=scontent-lga3-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=N0q1wli7wfE88gpFdSH3QQ&_nc_tpa=Q5bMBQIrguM_A4zHquVMGRPd3w_qnpCL8Ms9HGQTz_3B0BPA4tpPHayJCPzsC8D-iUPZD7du-dHVSAmdcw&oh=00_AQNnIokTI99KG5Mver7RAlZfkbj-AEo6x6ARDIQwHpURKA&oe=6AD39CF3",
       "link": "https://www.instagram.com/p/DV9_-LHgN5e/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -65953,7 +66063,7 @@
       "linkclk": 0,
       "campaign": "260227_피덱스 후지_전환 캠페인_(2) YH",
       "ad": "0307_피덱스 후지 f",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/647406057_122238055604128223_5847164426286963765_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=ff4730&_nc_ohc=ZgVUcQXRutkQ7kNvwE_I36K&_nc_oc=AdrGOtHqql7QYUCe0qJFk2ng6SftFOCmJTy7g_PPztHL8wLVeNKUdgKKmP-a5LGObBE&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=mfm6ze2fH07ZgMAnY-AQyw&_nc_tpa=Q5bMBQJMseT1RGWiWXXWTzdjXRy2BZIpBPbITBuVG9dGHU6tP76jf5087DCfI7hYnHBJoZot0L-N2x-9vg&oh=00_AQPcIdgTeyyIOLPSk-afJ_GmYOMF9wUG6LS9CUnVBcHQgA&oe=6AD38C18",
+      "thumb": "https://scontent-lga3-3.xx.fbcdn.net/v/t45.1600-4/647406057_122238055604128223_5847164426286963765_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=ff4730&_nc_ohc=ZgVUcQXRutkQ7kNvwHQAKTU&_nc_oc=AdpD54IDCt6eCinMAXnwwTeDUQMLLSiiy70UFt55bvEPpawCMa7j-fhKSzSMMSHLCuM&_nc_zt=1&_nc_ht=scontent-lga3-3.xx&edm=AOgd6ZUEAAAA&_nc_gid=zDDjwznpJ9lo1Ajmt4yWIw&_nc_tpa=Q5bMBQJ8xzNZoxrymUs9ce4kO-aClD8XwEDO7cI0wRheokb8sDFr-c_WX6HTYmVNGsz5Iikfis-YU3GHZg&oh=00_AQMdf5F0TsqAhCt6rkQbK8oirp2A7hptP8U25_MclWYb2A&oe=6AD3C458",
       "link": "https://www.instagram.com/p/DV9_-GsAPY0/",
       "status": "PAUSED"
     },
@@ -65972,7 +66082,7 @@
       "linkclk": 380,
       "campaign": "260227_피덱스 후지_전환 캠페인_(2) YH",
       "ad": "0307_피덱스 후지 d",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/646900677_122238053732128223_1912514623038806815_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=ff4730&_nc_ohc=epZKcG8SqUEQ7kNvwFe2fZ9&_nc_oc=Adp0HRrTxy6Bi0uA_AyId6m5_QdBZYw1WGaUFCkgMMHNZIYvsYSEICzbTgbjCxA7gHA&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=mfm6ze2fH07ZgMAnY-AQyw&_nc_tpa=Q5bMBQL2Vi4nYQQ2JpTxLwXaCvUzLaxEkC316kxfD9EQ2lsixgRMg3SHeBVtffajE2AnfCWwDnWjUFHwlA&oh=00_AQO6d85im69KfnIR52sNX5ZxkHBWIP0lfas45Gw4DVzskQ&oe=6AD39E7F",
+      "thumb": "https://scontent-lga3-1.xx.fbcdn.net/v/t45.1600-4/646900677_122238053732128223_1912514623038806815_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=ff4730&_nc_ohc=epZKcG8SqUEQ7kNvwEpn-cG&_nc_oc=Ado24K54txuta3Cf8o2r7A4edq_XWOldHopPI0LyuDIIr1mP_H7YxglBmiFsYM6ms_A&_nc_zt=1&_nc_ht=scontent-lga3-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=zDDjwznpJ9lo1Ajmt4yWIw&_nc_tpa=Q5bMBQIG92nVeEETkZVQTyffDhjsfmzge8ujE9Ljere-WcliTGC_nl2gZS7FcW3IJvdbKp1byINGKfmRfw&oh=00_AQMqHasNrAjQjDXOVyNDB6GJ_NZCv_QtfIrEnzPTUFEdag&oe=6AD39E7F",
       "link": "https://www.instagram.com/p/DV9_999AH1v/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -65991,7 +66101,7 @@
       "linkclk": 6,
       "campaign": "260227_피덱스 후지_전환 캠페인_(2) YH",
       "ad": "0307_피덱스 후지 c",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/646400606_122238052922128223_4317837554187101803_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=ff4730&_nc_ohc=qXQe3zPvZ-4Q7kNvwGeu7E2&_nc_oc=Adr8vqUgrZ214jYopCoukwTFmHTJ5KnHqlBy_suBBaHaM6xd76XCXZHuAoPMyBzPEB8&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=q3386yemQuy9s_Jd3iRyHA&_nc_tpa=Q5bMBQKI5re12757_7YElTlb5TAr_ugAs0K0_tPMzmFfVIspKDuk_n8siRI2Chmd2Ft4V_bIO-8wKfqynw&oh=00_AQObpGsaEFi7GrU7ikoMccFOpoNBPeYzxbtTqsjZQMydJw&oe=6AD3AD11",
+      "thumb": "https://scontent-lga3-2.xx.fbcdn.net/v/t45.1600-4/646400606_122238052922128223_4317837554187101803_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=ff4730&_nc_ohc=qXQe3zPvZ-4Q7kNvwEFyngK&_nc_oc=AdqHgkHyEuEXii1y6fvDWk0kwS5THSBnQ81ZLGQdYsDY6ONptkPHvudxPaxyKxhboBw&_nc_zt=1&_nc_ht=scontent-lga3-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=N0q1wli7wfE88gpFdSH3QQ&_nc_tpa=Q5bMBQKMGqibClTek9_yrwEFmW06IYBYwhqINPKZjk9HQzoUGkPLMYfjD9lzerCQRXSMnE7WbZvzCXfMUw&oh=00_AQPDTc6vK23JAsE0kNxeCXQ9p8f3X7bhsskBz8PSdcxMpQ&oe=6AD3AD11",
       "link": "https://www.instagram.com/p/DV9_984gAQS/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -66010,7 +66120,7 @@
       "linkclk": 21,
       "campaign": "260109_사과즙_전환 캠페인_YH",
       "ad": "0307_사과즙  B",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/645770781_122238060602128223_7810245951978564661_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=ff4730&_nc_ohc=WNt2i0ziNvIQ7kNvwHsV6V2&_nc_oc=Adrd77QcPnTMZocadYAJML1I2lAe9bktwCngrpBNzkq_fJMZjUfkRBfbUvtt33ZTR_Q&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=q3386yemQuy9s_Jd3iRyHA&_nc_tpa=Q5bMBQJ4dyttf8cfKRK51uxORVn1367jP3NgWmB_JOA8NMZY86nsoOugvzS52PajmXvemmkzZPhgjEvdoQ&oh=00_AQP-N04_T4dhiunfoFz_rS1eyugH10EDQ6byqCGqd2zh0Q&oe=6AD39D82",
+      "thumb": "https://scontent-lga3-3.xx.fbcdn.net/v/t45.1600-4/645770781_122238060602128223_7810245951978564661_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=ff4730&_nc_ohc=WNt2i0ziNvIQ7kNvwFP6ko6&_nc_oc=AdqYVDINGBaGSKOxalHtZpL8SIgsWdzWmzHUFxk02NHOb0qZppiwdM0kxuF_ig7syqM&_nc_zt=1&_nc_ht=scontent-lga3-3.xx&edm=AOgd6ZUEAAAA&_nc_gid=N0q1wli7wfE88gpFdSH3QQ&_nc_tpa=Q5bMBQI7zfjF35iKHhlwsNJCthiA9XuEWohqhzrQQQUrfyjIBHiBeU_LhAjjosaJqbFjQUIpByrrSMmhlg&oh=00_AQOyY-IfrOJW2Yl4tEsll6IU6pUvIxCy-kFEAUp35C2l4A&oe=6AD39D82",
       "link": "https://www.instagram.com/p/DY7rRnkgOvc/",
       "status": "ACTIVE"
     },
@@ -66029,7 +66139,7 @@
       "linkclk": 42,
       "campaign": "260109_사과즙_전환 캠페인_YH",
       "ad": "0307_사과즙 A",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/646402358_122238059642128223_7852831206530947619_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=ff4730&_nc_ohc=L3GJNfH_mRkQ7kNvwGKtqKd&_nc_oc=Adpd2OKLA2lYsxiSb710UaviXdQMudGcBsgctD_XwLkJUlP5MBl1FZOeyhHGpdg77n4&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=q3386yemQuy9s_Jd3iRyHA&_nc_tpa=Q5bMBQKBezokauzjsFDGKnRv7sp6BTzXXvAd2TfIdnKRPdzhwtGIKr2PjpGfyfWgTW9GIW4DVXpixKq9gw&oh=00_AQN33jKzHk4ywSp1tdx1xfoROhyxRHnwSrZQs7Glch_SVQ&oe=6AD3ADE2",
+      "thumb": "https://scontent-lga3-2.xx.fbcdn.net/v/t45.1600-4/646402358_122238059642128223_7852831206530947619_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=ff4730&_nc_ohc=L3GJNfH_mRkQ7kNvwF7gnOa&_nc_oc=AdryVCF53CAuJ_R08prAIMSHAV_7GsYSCqKIPmqRNaEu3kjaI-C_K-BV881N0gB4sIA&_nc_zt=1&_nc_ht=scontent-lga3-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=N0q1wli7wfE88gpFdSH3QQ&_nc_tpa=Q5bMBQJA00mXZJvHEQyJ2MySLAXG0exy_dXmZnWFfdAJ5MHoElJrdbk9_8VHZ3iPf_I5VEzBTEkX7b5RJA&oh=00_AQNDmlQNdk0WZgWb63hs_zeHsRofwRClwuYCdpWNZqyYyQ&oe=6AD3ADE2",
       "link": "https://www.instagram.com/p/DY7kex7gHJD/",
       "status": "ACTIVE"
     },
@@ -66048,7 +66158,7 @@
       "linkclk": 1,
       "campaign": "260224_피덱스 후지_전환 캠페인_YH",
       "ad": "0315_피덱스 후지 재셋팅 F",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/651316963_122238967058128223_291329517397312144_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=ff4730&_nc_ohc=YcyghFyFt3oQ7kNvwE4sIev&_nc_oc=Ado-64Um5OfVnAxVJgpuURrRbSmIkyxLcuPwOWxq1Z_bOHIEyIi1BBisCgWnmj6PbEs&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=mfm6ze2fH07ZgMAnY-AQyw&_nc_tpa=Q5bMBQIb_J_x_kxl8C8qE4d0_EC3YH2Yh0Dfgxl5kth8hWQMIVBI74pHNrCCZ9f08mewCSh_isMpXPct3A&oh=00_AQOrR4O3CMTB0yapWDV4EnexxJ6EXRkP3AqL5zPnBbzBfA&oe=6AD3AD6B",
+      "thumb": "https://scontent-lga3-3.xx.fbcdn.net/v/t45.1600-4/651316963_122238967058128223_291329517397312144_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=ff4730&_nc_ohc=YcyghFyFt3oQ7kNvwGr5r6M&_nc_oc=AdppZaLylspQl9ZWg86BWnNUY9--CDywVr70k13hn3F4naVjkKNWFR9_Rmj3ncU7Qjc&_nc_zt=1&_nc_ht=scontent-lga3-3.xx&edm=AOgd6ZUEAAAA&_nc_gid=zDDjwznpJ9lo1Ajmt4yWIw&_nc_tpa=Q5bMBQJeVrAxd75td_vyOQ8ibwR5R3OYXmbI_a8ygUz2BbVf8YmNAT-ivbxDfGXiaBB-TD7n68xG01iQVA&oh=00_AQMAemBYBLX1hxIFoW917DeTR-HRthZ-8OTB6BFh7aSj2g&oe=6AD3AD6B",
       "link": "https://www.instagram.com/p/DY7rF7CgOkQ/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -66067,7 +66177,7 @@
       "linkclk": 21,
       "campaign": "260224_피덱스 후지_전환 캠페인_YH",
       "ad": "0315_피덱스 후지 재셋팅 C",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/652106677_122238963470128223_8526181744584309337_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=ff4730&_nc_ohc=oITOQeXZWWcQ7kNvwHxVy1j&_nc_oc=AdoXLlFUa9zbWJm3JPk0g3px4oFVGrGbM8Ctnh9ggmPx9zm8-dH54hQwKQtNKPxwpds&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=q3386yemQuy9s_Jd3iRyHA&_nc_tpa=Q5bMBQKYKnw6x4dv2y2bH73dS8-5H1VSOr8Qd14tiPTHxYGRGm98zNeBcGNZWe-WYzOF7ldEVGwjucigOw&oh=00_AQPIWXxXJNZOGBzSLb1Set-HG7fl8418MfvmszIBdIhOZw&oe=6AD3AE18",
+      "thumb": "https://scontent-lga3-2.xx.fbcdn.net/v/t45.1600-4/652106677_122238963470128223_8526181744584309337_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=ff4730&_nc_ohc=oITOQeXZWWcQ7kNvwH0rSoC&_nc_oc=AdrWItNCkbAtQJeUaxHB6Y0mi9tvGO-H_kU1odN5-4u4sSuJYEpVJIngSYXWSH4Mp4Q&_nc_zt=1&_nc_ht=scontent-lga3-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=N0q1wli7wfE88gpFdSH3QQ&_nc_tpa=Q5bMBQKdQFDXDEOncQ5xUy066c5dUQcE5ySfu533sEA4kCKW9nAPH_DqLe-oadcZN4cBpRS8a6VPI_I8bw&oh=00_AQMzMBWKvpEx-oHgu1U3DAAq1jlI7sHXx44DqdThjOdRsg&oe=6AD3AE18",
       "link": "https://www.instagram.com/p/DY7mdbjAI32/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -66086,7 +66196,7 @@
       "linkclk": 17,
       "campaign": "260224_피덱스 후지_전환 캠페인_YH",
       "ad": "0315_피덱스 후지 재셋팅 E",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/652826135_122238965960128223_6389734287475381463_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=ff4730&_nc_ohc=ciCPzHn8omQQ7kNvwF1xTk3&_nc_oc=Adpwvu6MeLOtE_RRIu-eFYJvDEDcAc9p5Unb5mF3c2vVtRT0EfjzarLlHfzwNxoDJjc&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=q3386yemQuy9s_Jd3iRyHA&_nc_tpa=Q5bMBQIZU7z39Tu34HrUIuk8-PSL4aljJBM2pfxEchL_MX4KKaL8b4vi64B6eB332mVTZvMtLBKCfygiuQ&oh=00_AQPCpinmcAlMZbJzS8BJNAakWfLBEwkaRNME5OEYcFkFUw&oe=6AD3AD63",
+      "thumb": "https://scontent-lga3-1.xx.fbcdn.net/v/t45.1600-4/652826135_122238965960128223_6389734287475381463_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=ff4730&_nc_ohc=ciCPzHn8omQQ7kNvwGDrePN&_nc_oc=AdoRZFf6GdRdeW43A9nlJsz2ZRlnXreTlpzRtRCSJogDpxz55TCt1DTKQ7uK_SFdBzw&_nc_zt=1&_nc_ht=scontent-lga3-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=N0q1wli7wfE88gpFdSH3QQ&_nc_tpa=Q5bMBQK3yx0Tn-nbRaAUjYdWlD-mYG7lFHIA0Jz-BpqPz8LVfRITv-1hUHDv3DrCtPbGVy8GY8qwHnSB3g&oh=00_AQMPEMZnM8SI-CUext4KzNcd8REo9KRJaE6sIhHQnyxx6Q&oe=6AD3AD63",
       "link": "https://www.instagram.com/p/DY7tK4tgE5h/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -66105,7 +66215,7 @@
       "linkclk": 335,
       "campaign": "260224_피덱스 후지_전환 캠페인_YH",
       "ad": "0315_피덱스 후지 재셋팅 B",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/653690090_122238962288128223_4894199968267329943_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=ff4730&_nc_ohc=A2BoqWHigZwQ7kNvwGv1zZO&_nc_oc=AdqGn79Xeqa0G3U-x6Fihf2KbdOF23AQTL_La9DABFgy5P8AD_AqCXLxGaqh209Wr1o&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=mfm6ze2fH07ZgMAnY-AQyw&_nc_tpa=Q5bMBQKT-ZdAOOyG9zDZt5p---r1CZv90nTj8YTrczHZdu_B3oFYZt4aNJgs7wwsyLye64qs69gpFcpXGA&oh=00_AQPvn8i7FowMFbygQpO6sVPslyo96BegIRYb_V_V-TJvbg&oe=6AD3AAEC",
+      "thumb": "https://scontent-lga3-2.xx.fbcdn.net/v/t45.1600-4/653690090_122238962288128223_4894199968267329943_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=ff4730&_nc_ohc=A2BoqWHigZwQ7kNvwHzcDsI&_nc_oc=AdqTNH_BXHXRTD8SlXAoYXgGpTRYzYgmDQuE_mgsneDNYW0GQPNO7llocBhGxvDIwoA&_nc_zt=1&_nc_ht=scontent-lga3-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=zDDjwznpJ9lo1Ajmt4yWIw&_nc_tpa=Q5bMBQJMziHif92QI5EhADewmgyGsnNAji5AgsnOQWuBzA3bhpEoMl-4RRCRSlHd6CtGSqXq5nPl1tvrGw&oh=00_AQPAD8qkcLb5GGSiFgpKMHiKCeJT1iFsWsn4tth5tYm1rw&oe=6AD3AAEC",
       "link": "https://www.instagram.com/p/DV9_-NWgFAl/",
       "status": "PAUSED"
     },
@@ -66124,7 +66234,7 @@
       "linkclk": 273,
       "campaign": "260224_피덱스 후지_전환 캠페인_YH",
       "ad": "0315_피덱스 후지 재셋팅 A",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/650093332_122238961214128223_30332710507637686_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=ff4730&_nc_ohc=I-vaCUNkp_wQ7kNvwEF0piv&_nc_oc=AdrkCMSmxgDH6Ww9STBbWFyXYcqmWx77vJOiRQ6zk7UWw-moXpDouD3zRkxA8E_dTWs&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=q3386yemQuy9s_Jd3iRyHA&_nc_tpa=Q5bMBQLGAC1N5FkpX48qCLXma5zHmCRKWhQeJAL__rh8qzf_bDb7M3VFPUBlzXDYzX2kXDVj11FpMQm9MQ&oh=00_AQPWukRrHWyrYFCJVOBjOzHP8cgyr1n3lO4eRINLnNvrKg&oe=6AD38E5B",
+      "thumb": "https://scontent-lga3-2.xx.fbcdn.net/v/t45.1600-4/650093332_122238961214128223_30332710507637686_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=ff4730&_nc_ohc=I-vaCUNkp_wQ7kNvwG_x4Fo&_nc_oc=AdoYM_NIZyPsW5_Eg8qhQRShrJnxDgrAj1u6XyyB50D8JfvPxxWvlRYC71BYEa8AXIg&_nc_zt=1&_nc_ht=scontent-lga3-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=N0q1wli7wfE88gpFdSH3QQ&_nc_tpa=Q5bMBQIMmunlz2aXg08FyZvHs6DX-k6dDW-Lo383RVoxrnZ8hEB06ABRnOylwzL2qRFfCVBbnoh_P4kPjw&oh=00_AQPhs77xNS-N3lgJ4Zc-ff71myvk-miOh8zJzdz2QSAIuQ&oe=6AD38E5B",
       "link": "https://www.instagram.com/p/DY7jwXcACjt/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -66143,7 +66253,7 @@
       "linkclk": 5,
       "campaign": "0107_트래픽_사업자_YH",
       "ad": "0410_c",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/669720138_122241758000128223_6966231388730447075_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=ff4730&_nc_ohc=yVMGdzCPpZ0Q7kNvwHDZZ-W&_nc_oc=Adros8YBIY9daxnGmplExzsICpA1h4Gr03HIHt4BRrO3H7DNxsxfTVGmetw-XVKGUeo&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=q3386yemQuy9s_Jd3iRyHA&_nc_tpa=Q5bMBQIt9on1Gc8hrR9c6xey6DoLduxW5VZrm7GMKgBTwyraqdqDVLJa-WEfrGh-tRhT_3jmSu2Vpx9a-w&oh=00_AQN7EGB2kKP7eDowdpGjx_dIARBXpETIdry6_M5Es31X_Q&oe=6AD39D31",
+      "thumb": "https://scontent-lga3-1.xx.fbcdn.net/v/t45.1600-4/669720138_122241758000128223_6966231388730447075_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=ff4730&_nc_ohc=yVMGdzCPpZ0Q7kNvwEeztZ8&_nc_oc=AdrqSZOymkQr387E0oQHodTesHKSU7JJ4ZBRXYT9LKo0Zc87Exrw-LUqMUEj9RF6obc&_nc_zt=1&_nc_ht=scontent-lga3-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=N0q1wli7wfE88gpFdSH3QQ&_nc_tpa=Q5bMBQJ1VQ_mcPh1uDBFpS-T7BP3ifKo75OcCAQAH4z3wZTlXIuBN_ZpvNhdHxAzbIiKcg-bEXkxAckG4w&oh=00_AQPejHo3RNhKfuaLekY52x35aY-JydMXxDIPGucmGRJvyw&oe=6AD39D31",
       "link": "https://www.instagram.com/p/DaUucYVglQ3/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -66162,7 +66272,7 @@
       "linkclk": 21383,
       "campaign": "0107_트래픽_사업자_YH",
       "ad": "0410_B",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/667540666_122241756620128223_4395867230008121511_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=ff4730&_nc_ohc=_Z6CxhsoJosQ7kNvwGYG8jy&_nc_oc=Adpzk62sri_1c5_oj6wLuEDrPaN1QVezPCR9ye_b3FJmixUwi-HWchiUwIfobfvUgEI&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=mfm6ze2fH07ZgMAnY-AQyw&_nc_tpa=Q5bMBQKXH1Y979A0MqUPGVsWeKRCSQRLIpDQ9ZZkDkIVmnAA6OEMKGwY-tNWFMWzNpStXELEHxcaFSGtRg&oh=00_AQM_d-D5SDvjDLGnXV_ouaBhYhmUDqMeW4uPyFNH34dznw&oe=6AD3B69B",
+      "thumb": "https://scontent-lga3-1.xx.fbcdn.net/v/t45.1600-4/667540666_122241756620128223_4395867230008121511_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=ff4730&_nc_ohc=_Z6CxhsoJosQ7kNvwGA6SF7&_nc_oc=AdqD2Xrhs8L2zPdNbA-fvCTZRtLra2PTqwGgiIIovBOvlTKq777ZfctZxTnBLm9nDzk&_nc_zt=1&_nc_ht=scontent-lga3-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=zDDjwznpJ9lo1Ajmt4yWIw&_nc_tpa=Q5bMBQKz-osc5r4hOZDUlidEJ2N809JEEsd_2ny8i31CjEeXGICmwNmum_DGfc5ioxQvVQhwkJoODFzP4w&oh=00_AQMun71EZ_Zl9uPJhu6V5iB5C_ImmL9A3Qzn2Qv08xYaYw&oe=6AD3B69B",
       "link": "https://www.instagram.com/p/DaUuY4BAYIx/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -66181,7 +66291,7 @@
       "linkclk": 11,
       "campaign": "0107_트래픽_사업자_YH",
       "ad": "0410_D",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/667334397_122241758906128223_8107515295553679416_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=ff4730&_nc_ohc=9qeLwe4mL_IQ7kNvwHb18Ch&_nc_oc=AdrNP93rTqFWkFIXlP0Yxq8IDTnst7lWceuGj5MuLbwfT7jzIbJC-JsOLFnV5X1vAsY&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=q3386yemQuy9s_Jd3iRyHA&_nc_tpa=Q5bMBQLuLlQlQleKuVGW9_1lk0XTBseeHwaU73cd9DFZ8dljTcDKETIRw9K0CQ_5LxTG0IP5kLe0z37JYg&oh=00_AQMi7zN6t8NS10ciZwdfWbfXD7svZ6OE64ibpB7_6805ig&oe=6AD38F53",
+      "thumb": "https://scontent-lga3-1.xx.fbcdn.net/v/t45.1600-4/667334397_122241758906128223_8107515295553679416_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=ff4730&_nc_ohc=9qeLwe4mL_IQ7kNvwFVOrPB&_nc_oc=Adoa3dzsHfgSEjQmL1oXWGvUUzFvOg-mQTQ0Gn3a7G32P8MI6NU05LMotIyi2y330Gc&_nc_zt=1&_nc_ht=scontent-lga3-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=N0q1wli7wfE88gpFdSH3QQ&_nc_tpa=Q5bMBQLh-mUY-qfUAcT54315G8If-v51lIHWQROFYaUI86lfPuRCYKZFopc4wjdqdhBADYs582T_zUM5qg&oh=00_AQMjledPD-hHye5deMR2k4KMXb7zkUBmWNHWndEVahDplw&oe=6AD38F53",
       "link": "https://www.instagram.com/p/DaUuqmZgs1B/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -66200,7 +66310,7 @@
       "linkclk": 21,
       "campaign": "0107_트래픽_사업자_YH",
       "ad": "0410_A",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/667202465_122241755948128223_3621263184456005203_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=ff4730&_nc_ohc=6KH2Jfor8y0Q7kNvwF-9ZUu&_nc_oc=AdoPBJlTL6_4OVqsjNtAlYYuZN9SJfdVgm6xPE48mYUEKJ8XWGHYjSFNCqO_zvIRC5s&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=q3386yemQuy9s_Jd3iRyHA&_nc_tpa=Q5bMBQLgypIHJoK9Y78_SvC4TJ_s-3xQ1slNNprFZCD1oJB2JMJBryHB5y_ujS1621hXaraSS7RZCS593Q&oh=00_AQOl_Bm2MO66rcRPCtpOlj1memyQUAfWNOS5gvY1cRCs0Q&oe=6AD3952A",
+      "thumb": "https://scontent-lga3-3.xx.fbcdn.net/v/t45.1600-4/667202465_122241755948128223_3621263184456005203_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=ff4730&_nc_ohc=6KH2Jfor8y0Q7kNvwFf0nSV&_nc_oc=AdpRvjNvxkChvT8s2joICci56FV92eEf0mP4jjNRHmy-agIRIJRoGvYcm4pjYf5czAc&_nc_zt=1&_nc_ht=scontent-lga3-3.xx&edm=AOgd6ZUEAAAA&_nc_gid=N0q1wli7wfE88gpFdSH3QQ&_nc_tpa=Q5bMBQLL9bO9qcydFeFEuoIYSJe8EPJDeUbDoxEsa-Cye_h_GutCv2q57RUnqHcBrEzLmz0InzQKm7GnFg&oh=00_AQMLoZVAA0fEsU5Ia7zgJvcXK3wkwTKwgjKvXmumhdaG1Q&oe=6AD3952A",
       "link": "https://www.instagram.com/p/DaUuwYEgp5s/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -66219,7 +66329,7 @@
       "linkclk": 40,
       "campaign": "260227_피덱스 후지_전환 캠페인_(2) YH",
       "ad": "0409_4월 가장 맛있는 (1)",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/676290395_122242685816128223_3590838477196293873_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=ff4730&_nc_ohc=Xu4cAWzQSocQ7kNvwGzEIqN&_nc_oc=Adqn9ae8bW0ijpcSrNyJ-Kb2gHMVFRnp_krXJjGR05iGUenmqyGVjiC3yp7oZhyqcnk&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=mfm6ze2fH07ZgMAnY-AQyw&_nc_tpa=Q5bMBQK3HeoslLKrYqt5W_8LNEf2l910yn8Sm6aWPPKeP9zFEfTLmVwwv1Jk1nZOfDcmNtnegDf2cAi93w&oh=00_AQM_KcXLdqfXCnJqjdv3sWb3rQfgb87CAV18JlTAi3seFQ&oe=6AD3B29D",
+      "thumb": "https://scontent-lga3-2.xx.fbcdn.net/v/t45.1600-4/676290395_122242685816128223_3590838477196293873_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=ff4730&_nc_ohc=Xu4cAWzQSocQ7kNvwHOqZRR&_nc_oc=AdpC5tDhSv97WW_3aYfr4EXcxmde6aEzuNgYEcahJFKwJDlrCUIw6AQ1E2DSDQ-8ipU&_nc_zt=1&_nc_ht=scontent-lga3-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=zDDjwznpJ9lo1Ajmt4yWIw&_nc_tpa=Q5bMBQIkfZBhOx1z2IDiqOxmsqLjvRcdM-49ZQkby4pM3ooO4JRwJ_DOrm0uTa6TO3HISd985rYDkwAaDw&oh=00_AQMoTdh7-CbLZo8Pn4opNl5Z_VeHqcakWbbDclBdY-YMjg&oe=6AD3B29D",
       "link": "https://www.instagram.com/p/DXOpIRTAASf/",
       "status": "PAUSED"
     },
@@ -66238,7 +66348,7 @@
       "linkclk": 972,
       "campaign": "260227_피덱스 후지_전환 캠페인_(2) YH",
       "ad": "0409_4월 가장 맛있는 (2)",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/674825304_122242685798128223_5712854202916611723_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=ff4730&_nc_ohc=bkTs0loS4HUQ7kNvwFNeNIe&_nc_oc=Adq1H8L6NMYux9F93q9dhH7BAnJe9fQn0OFA5Iwqmjk9FsAEuTwB3NZvAneuGULdiY8&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=mfm6ze2fH07ZgMAnY-AQyw&_nc_tpa=Q5bMBQKy8i0mZRYOVWSQadW5slbcZoGRVB5Y_QbEA6Qxf9ENN4v_zDedp_xewNufEGHdUZWl-O6O-2IwYw&oh=00_AQPXqsZ3wy3CgqOzunQyHhQz_8quFDdkDkXeyrpW50kKMw&oe=6AD3A4BB",
+      "thumb": "https://scontent-lga3-3.xx.fbcdn.net/v/t45.1600-4/674825304_122242685798128223_5712854202916611723_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=ff4730&_nc_ohc=bkTs0loS4HUQ7kNvwF4vsUg&_nc_oc=AdpPw9-_rbBAZ5WulAfLYLGGMG45ZyISUXtwp3RkRK2iZw4MPIggBiMcjZuutCRQqMI&_nc_zt=1&_nc_ht=scontent-lga3-3.xx&edm=AOgd6ZUEAAAA&_nc_gid=zDDjwznpJ9lo1Ajmt4yWIw&_nc_tpa=Q5bMBQJxCHi-6NypfFnxvC0X9HhCdtezpJi_qgewKOynt1dov9cjXypNWj5ksSYlQolMfC3fQWyXzY2Xgw&oh=00_AQNPcKPioDC6RBuztHcyisoZjPBSGaecPLXBdkL6K2i9og&oe=6AD3A4BB",
       "link": "https://www.instagram.com/p/DXOpE3OgE3o/",
       "status": "PAUSED"
     },
@@ -66257,7 +66367,7 @@
       "linkclk": 123,
       "campaign": "260227_피덱스 후지_전환 캠페인_(2) YH",
       "ad": "0420_피덱스 후지 b",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/675966859_122243017280128223_3012161869049932846_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=ff4730&_nc_ohc=PQg_7sz587YQ7kNvwEjWQ1l&_nc_oc=AdoiqQLLZfLt6gWr1HBmt2SlX5wdF3H28T1tFnkuyrBopDR4pxi2EwOPQ6f4SWzbM3I&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=q3386yemQuy9s_Jd3iRyHA&_nc_tpa=Q5bMBQK8HfF6eFsK2FGqWPR6tnuaVqCb8fT67pqcPL4bP99sjk8j3zmx0YuoJGHp_Jv87MyoOrAga1nP8Q&oh=00_AQNUNE2m8CX_a3q4btIqgyAAnyJfNZLlb12xYU7BmSi03g&oe=6AD3BA89",
+      "thumb": "https://scontent-lga3-3.xx.fbcdn.net/v/t45.1600-4/675966859_122243017280128223_3012161869049932846_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=ff4730&_nc_ohc=PQg_7sz587YQ7kNvwH_9Ckx&_nc_oc=Adoa2DvIp_eGIWfVsrHq8snnxBaW46fYGb6KX-xwiJReSikmHyaGVRE4lUNx6tEr_70&_nc_zt=1&_nc_ht=scontent-lga3-3.xx&edm=AOgd6ZUEAAAA&_nc_gid=N0q1wli7wfE88gpFdSH3QQ&_nc_tpa=Q5bMBQLpFJeMUpsQKALSotACPfsqu0hc05Ao5YpRIrd3T157nlFkwHZumTitjuL-3fQsPf1oF_VVIWyiXg&oh=00_AQOaJ9YzuQ3x90wnKaZ6UT2MpCp8tdPYSinNZemc6hCdgQ&oe=6AD3BA89",
       "link": "https://www.instagram.com/p/DXWzg0cgKrC/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -66276,7 +66386,7 @@
       "linkclk": 17,
       "campaign": "260227_피덱스 후지_전환 캠페인_(2) YH",
       "ad": "0420_피덱스 후지 c",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/677755590_122243018354128223_5444935129789947349_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=ff4730&_nc_ohc=1MMGSnRv6V0Q7kNvwHe1bmT&_nc_oc=AdqVopYoRHBh7O_ClpbjSRhGlM-o_4K89R6Nvf4z5R-CHJHjyUNlwmP5AY172ow2AvU&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=q3386yemQuy9s_Jd3iRyHA&_nc_tpa=Q5bMBQLJC0O6KEDKS9xO9Pdg4w7bAUnKS_v_S-H9B6jgwej2iV8Ts3_jACrDCCbWAxxcYGG3zgRBlGPvkA&oh=00_AQPg9OlSKfDrvFUIvZgIworJQ76Ikhx7MFpGsnnsvH7hLQ&oe=6AD389B5",
+      "thumb": "https://scontent-lga3-3.xx.fbcdn.net/v/t45.1600-4/677755590_122243018354128223_5444935129789947349_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=ff4730&_nc_ohc=1MMGSnRv6V0Q7kNvwGBwhN0&_nc_oc=AdoezDtAOor6c9Vq4Gfg6PvWI-7o5NHQL2pKnaDNZD7c1NNAIZO6iJlMqI2SqQjxlrc&_nc_zt=1&_nc_ht=scontent-lga3-3.xx&edm=AOgd6ZUEAAAA&_nc_gid=N0q1wli7wfE88gpFdSH3QQ&_nc_tpa=Q5bMBQIXY3MpCgpQT9a-xgRaOs7uXQgRuV1OyKXjQqCCLV7KdDkkSg9WoYYwPFkYEUQfVKL0IsfLe-fOCg&oh=00_AQMlTHPEevRE6I3shFEd53eUniQKjOlqveiHXR3GOIShsA&oe=6AD3C1F5",
       "link": "https://www.instagram.com/p/DXWztJXgI_2/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -66295,7 +66405,7 @@
       "linkclk": 19,
       "campaign": "260227_피덱스 후지_전환 캠페인_(2) YH",
       "ad": "0420_피덱스 후지 d",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/676719267_122243019146128223_1520010243277860650_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=ff4730&_nc_ohc=0TY3_Cp5uQcQ7kNvwHPriJv&_nc_oc=AdpFFDt-DLTtlUDRG_Q3lBtDwHvsWTlpxCzCYG_3i_yO2OrDYbqnBECgFj1K6S1Fkn0&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=q3386yemQuy9s_Jd3iRyHA&_nc_tpa=Q5bMBQJf1HHLppekRJkiZGmgsUAIGDxkANK_z-7VLv0WE74FTrFBL05hGrrM3AqSYVkPL7Yi8JJnTzgMJg&oh=00_AQMbRIB9YbV9Ej1tNJw06S2hIjK9DWUZ97mEiK6rLFJLdA&oe=6AD3AE62",
+      "thumb": "https://scontent-lga3-1.xx.fbcdn.net/v/t45.1600-4/676719267_122243019146128223_1520010243277860650_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=ff4730&_nc_ohc=0TY3_Cp5uQcQ7kNvwF0C1PY&_nc_oc=AdpseS_2gjWbC5jI3wJ5ACOQAoLFloq0gA2MRzfXe7PKPW5JPgUam4nSb9HpTnQlGMM&_nc_zt=1&_nc_ht=scontent-lga3-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=N0q1wli7wfE88gpFdSH3QQ&_nc_tpa=Q5bMBQIR7nTGxS7N0yQjNbya40QQJnR2lbX-q6-yK7BRQFZLGMZV7MH1m37JP4dzMqOpvSxfXQrptxoJeQ&oh=00_AQMi-g1eIHbDyj2iIMU46dKTyGqnoXFMPZO6-yPhEEDVCg&oe=6AD3AE62",
       "link": "https://www.instagram.com/p/DXWz4scgCJl/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -66314,7 +66424,7 @@
       "linkclk": 19,
       "campaign": "260227_피덱스 후지_전환 캠페인_(2) YH",
       "ad": "0420_피덱스 후지 a",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/675934579_122243015906128223_4750633367056654350_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=ff4730&_nc_ohc=b_EbiMC1p4oQ7kNvwFvIHGc&_nc_oc=AdpHtX-43PPCSJ_tDtAblfWPfFwwd8xn4t1aUIid37EpSlNByUUa8jmNz1MWtphuT2E&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=q3386yemQuy9s_Jd3iRyHA&_nc_tpa=Q5bMBQJGHpndALgQf3qej4Oo1CI7Ho_G3X6O3rtLyVMgzuMq-RX4IYLASe0jhGKL-Ir_JgcWRUeVpKGH4w&oh=00_AQOdck_izofGO491sy7sO4zu2hztwY5uP9j4cV7dlcZ4kw&oe=6AD3AC03",
+      "thumb": "https://scontent-lga3-2.xx.fbcdn.net/v/t45.1600-4/675934579_122243015906128223_4750633367056654350_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=ff4730&_nc_ohc=b_EbiMC1p4oQ7kNvwEQiAXF&_nc_oc=AdqZ9YYhdEY8KdGT9f32zSKpkhm3YCzqBVpVb1kiO9v5eQ44eERDs_15vkUKjIsy_uI&_nc_zt=1&_nc_ht=scontent-lga3-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=N0q1wli7wfE88gpFdSH3QQ&_nc_tpa=Q5bMBQJ_nmUDAV0fC-dillhzsFjzv_TFP_lxgUixRf9m8cGWgsGIL3fkxgSn8wd-8HwKWaChKB16F9CvDQ&oh=00_AQOrO_Srov4uIE9A__n9w4mqzlTRXM72KSCw9s1wXTT5kw&oe=6AD3AC03",
       "link": "https://www.instagram.com/p/DXWzKSYALNE/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -66333,7 +66443,7 @@
       "linkclk": 242,
       "campaign": "260109_사과즙_전환 캠페인_YH",
       "ad": "0503_사과즙 신규 배너 A",
-      "thumb": "https://www.facebook.com/ads/image/?d=AQId3Q1QfrW-f-vC4UumPJcTGQM8Hn75a9arki7ePpDw3sU0HmQxef9SJlD2YWKKFBTdEZ-rqajlaYTgEjrADBMjwPmjdkdIGGL8KOHiq93XfPJUUsaUWkPC5dY2oJWFOi0hzdzFhwOENNAakpIqw3rK",
+      "thumb": "https://www.facebook.com/ads/image/?d=AQLMzx9W59pH4uIdW_33tf2Bt9ft-GqSWcR51o3y5act4ZkNiOOUIpJcow2k627ojIR_QRFa28XV0zCXMEFD1-qCh3BzRBQQ1GGB28_nrun94xvwQ-4UDe6G5N6_exs4mTLvUgDkU1cqJCDkXfbT4jlK",
       "link": "https://www.instagram.com/p/DX9XPLGAABk/",
       "status": "ACTIVE"
     },
@@ -66352,16 +66462,16 @@
       "linkclk": 2071,
       "campaign": "260109_사과즙_전환 캠페인_YH",
       "ad": "0503_사과즙 신규 배너 B",
-      "thumb": "https://www.facebook.com/ads/image/?d=AQLPBzHnt3ZqBJ7BJao5z2DIJeeJhE0vbn-yxlxOL0UlDEUipEfrh9dWq8u3aZ0b2HhqZ76INZW8am9dQbxOMYEsbC_NOsNhTy9qt8t9ZYuGNn4mpXCQSGCKrEqYP1PbEAK_cj_0jsK14GoPoh0ef0HA",
+      "thumb": "https://www.facebook.com/ads/image/?d=AQKExcZvFHfcNcH5vQWG5NcIuef9hCZ2nz9E2P6r8CysYzPtvfhoOAqIBdQpShxYsjsCWhdcR6WPl-9ItTGWAxLXdxJ-kG8V2jTcs2h0AWuXJmbbKvKNarYcs2nd0gMPB83F1doi4S1XUfoXUzNxwZfj",
       "link": "https://www.instagram.com/p/DX9XFplgKgT/",
       "status": "PAUSED"
     },
     {
-      "imp": 18833,
+      "imp": 18835,
       "clk": 333,
-      "cost": 439018,
+      "cost": 439161,
       "reach": 9991,
-      "freq": 1.88,
+      "freq": 1.89,
       "lpv": 221,
       "atc": 17,
       "conv": 42,
@@ -66371,7 +66481,7 @@
       "linkclk": 255,
       "campaign": "260109_사과즙_전환 캠페인_YH",
       "ad": "0503_사과즙 신규 배너 C",
-      "thumb": "https://www.facebook.com/ads/image/?d=AQJXFMHr1QpOyvSc-yqgGNJiP7va6pb0p4Fh27gfLmxAVa62TMmBGziJeuRXCWlmhzjz7oYBXXsJyJ8lz9jXMLqaw0uajOK9lOQpkqD6LoBEXiNzbyVGwkWxoj9cEVfWhbkGV0zDp-W01ZWlfAynhLu5",
+      "thumb": "https://www.facebook.com/ads/image/?d=AQJ_WgFqxrQsxPAQiWOkVnKktZDoBdIK9-a3bAQF2nDgjFgaqYgGnYnBe30fjsHez5fD0EiZIO2bvyycY4CEbYuDK0_0WsyWVyrcVfIrbFEOXhS5q5kK4P5HvWWYXSNh79e1MuhyuWbIK92xd3yqi_7F",
       "link": "https://www.instagram.com/p/DX9W7AZAPuN/",
       "status": "ACTIVE"
     },
@@ -66390,7 +66500,7 @@
       "linkclk": 17,
       "campaign": "260227_피덱스 후지_전환 캠페인_(2) YH",
       "ad": "0518_피덱스 후지 C",
-      "thumb": "https://www.facebook.com/ads/image/?d=AQLNPlqEiKjTHSbdFXBZ_FAPP3qtyQFwWAx58qmbGMNKhVy8EUZzT-OTeLV7yFFrb61Sq8g5zE5WiohuNyKzqFORGZx1k2VVgTe8iId7PhhKqR7n57VrLpuqge-B5yH5kaZ0u0LqQHmZsIZxOcuHLACz",
+      "thumb": "https://www.facebook.com/ads/image/?d=AQI26rIRVwT4a5W_FslAcNmNG6fgXNPvJlB9v7efyrZBSts9YBt1HJt4eW_bhGKHApOnLVbgI1J880DSzm2FGDhZL2xHtwGoBBx4Bxr58lJoVQrZNBLiXpuOOCWNXfUS-U-GIlHO92nL36vYSsp-YJXV",
       "link": "https://www.instagram.com/p/DYdg6u7AIre/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -66409,7 +66519,7 @@
       "linkclk": 2692,
       "campaign": "260227_피덱스 후지_전환 캠페인_(2) YH",
       "ad": "0518_피덱스 후지 B",
-      "thumb": "https://www.facebook.com/ads/image/?d=AQJ47JVrgd2K0gWws3akmPJmqPCAVtuv555qSUQiVwCYiQ3xTNp_VhE7-NgrFqPUoMDA-DOnhUuEUrsSGcuqGYN9zrg-DIyekvlvY29gLb5qwuf2VZQSnmbJpVY9qS45S4NIVZvCz4Dq7aY69jUq5G4T",
+      "thumb": "https://www.facebook.com/ads/image/?d=AQLHj5vaud7VboYklWzAgadBRtCdnCrA3Nyk5K973tf8_M8dzMABmiY1OzqnBDMXCKHdrndI1SRVJsWmrRdKbibE9JmXVjxvsCuuQELgbQ7CPxG04hMvf3Mp5jJKsEY7R18b_0H4GggClp-iErlPTXkA",
       "link": "https://www.instagram.com/p/DYdgtdXAPnu/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -66428,7 +66538,7 @@
       "linkclk": 17,
       "campaign": "260227_피덱스 후지_전환 캠페인_(2) YH",
       "ad": "0518_피덱스 후지 A",
-      "thumb": "https://www.facebook.com/ads/image/?d=AQKxrN4RyeoCsa_6Ly2fJEHxRspeV4AkZDzhULywo5xEknBv37YLHqygmj6NEgSHsATUXUpijbxDbYvGmg75AkwU3oxDnk7C2FktBoeV50iq3relpASYh_XaMSHAqoAPtwFecK8gvmLmqpjv-jEoQUgz",
+      "thumb": "https://www.facebook.com/ads/image/?d=AQILeTlf18F6LKkI58i4Ao-FCG62h1Awj8NGbgrUwxWU5udsUM6r5hVhUi5WbVzZMxsC56tdhlZWbI6_a3ng6PAX3jf6oF7kFCO3mdntY36LdIL25hYyXlvdKFeS-ZQlOZVAA1MDMkLQMVzwJi1gQgOD",
       "link": "https://www.instagram.com/p/DYdf4bLgFaS/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -66447,7 +66557,7 @@
       "linkclk": 21,
       "campaign": "0107_트래픽_사업자_YH",
       "ad": "0615 A",
-      "thumb": "https://www.facebook.com/ads/image/?d=AQIcx0-kdnR_P6axm4fwWt3hyY1OVD-iLUY6uwQMfTMoz3vVqv5mWkr9JyRso-wI0Y3qrKco-RUuCXnGE66voMzDaqJu9a9kWezUy26P0gQ0YJ6v1FTSW3_uCXyxecChaN5C5qBy5u5GtlTV8EpCBrf4",
+      "thumb": "https://www.facebook.com/ads/image/?d=AQJZI9t5BvJScE5oPoKrrwKiakg_rLJia1mzcr3u_rxMNehY-l4JhV3lYdQ2vO2cPsxWW2PM1SvopMj5aIUPkybl_x9tbjJQc0lGY6at-0SGUR0z9zwroGWFtykAM3ikq13PaR9djos3aWDJpkQbkl7W",
       "link": "https://www.instagram.com/p/DaUuTtSg5aX/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -66466,7 +66576,7 @@
       "linkclk": 83,
       "campaign": "0107_트래픽_사업자_YH",
       "ad": "0615 B",
-      "thumb": "https://www.facebook.com/ads/image/?d=AQLFG6yVhOYf-5R7fHCWbmmzdBoNb8t5T08iUL5up0C27fW872cKsRpbG5QhvhxpBDx3kogRBCWnaG3mdoJblL1isIfRg2KCoXFyVl8JX0nODmPdfURlq0sLYeoq-MfBDaMT9ug3CNSxPTgAWzLvrtd6",
+      "thumb": "https://www.facebook.com/ads/image/?d=AQJGW6QKBzNFf3D5X7k-1PgcchZyLYrx18sqDQLKOIJjXFi3l65FIs_K65wkVlR7VTxYcOD7mUQhes78u_wMmpKKbZ7muw3Wb87LTj16mUH7COHAj1cBj2hUMJkpxCQk-KGACYQfnKYHyxOvaUcCO3Ek",
       "link": "https://www.instagram.com/p/DaUuQ46ApkW/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -66485,7 +66595,7 @@
       "linkclk": 3039,
       "campaign": "0107_트래픽_사업자_YH",
       "ad": "0615 c",
-      "thumb": "https://www.facebook.com/ads/image/?d=AQJ7hGBaL5JNPaTkDNzDjvK0Ry9WRc4xE2ykrhdZ_z8C5HWDKZXvRz02sStRCDaUWQbchQ15aOLJnxkSapOsfxjFgUYIZQ48ot3GGcu7tgkjE1CfdN7VSjgjOBU-JDRUvTtebSRCHaGeBOI8NcTvGSbh",
+      "thumb": "https://www.facebook.com/ads/image/?d=AQInmbg54nU0FcNhKum7tpXosBVMnfHJ_mcsgzN6FzdZGdligggxstUDtigivdcMxX0UCfPnlyf8WhHzKShsJ5fRtkx2p6bxxHKLkUteMfedYo5okYwgZI3T8gPfuh40R1uv5jhQnVyIiwhpz0VnXb-f",
       "link": "https://www.instagram.com/p/DaUuN2pgILN/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -66504,7 +66614,7 @@
       "linkclk": 3,
       "campaign": "0624 / 플럼코트 / 일 3만원 YH",
       "ad": "0624 플럼코트 A",
-      "thumb": "https://www.facebook.com/ads/image/?d=AQLab_HsJait9WpGidslXyk5qFUcbWSB3gC3UnC75PPEBxGrgcVwhTZUoy6VHJch6W5xLpHycZ2inFYhcnPh31bSVozUGmZWXzFrSndG-wMQeaZGhRTAbLz5G7OETwPUlKKrW6trDeWwkSRiIORm1_ha",
+      "thumb": "https://www.facebook.com/ads/image/?d=AQL-_zhBLpNtD-TxBBYnxC7UxkD71VU_Gm_TpeWUspMmHBJOPj3LGCldI9qyoX5aWHGTC1VccAPcjW0fyZmOPkh0u9iyUGmRkidCqNDSuwNVQFLgt3iMg5rmAxlUZPLQZE4iywnBUtDDyDJYU8CFMeWF",
       "link": "https://www.instagram.com/p/Da2UpFGA3Sq/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -66523,7 +66633,7 @@
       "linkclk": 93,
       "campaign": "0624 / 플럼코트 / 일 3만원 YH",
       "ad": "0624 플럼코트 D",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/731865238_122249516654128223_1362393612457290935_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=ff4730&_nc_ohc=kGgvdzHM-IsQ7kNvwGNDuCb&_nc_oc=Ado2NIgk40eNhifr4SU02DfI7Efj8Sp8eXv0bFDY8V-i5xFEQfveH2ZTLubUhaYsUFs&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=q3386yemQuy9s_Jd3iRyHA&_nc_tpa=Q5bMBQKkCx_Myn7XXn9QVQ1QK-ZkANNUY2CQtS9PAL_Z1vZ-YD3QPlfJOp6gDsJ2Sn3G86Nn82GKNmNVRA&oh=00_AQNmU7X_eTdGG423XcIYO1oTh5PDp-_VLXr-KH2zV_RYDA&oe=6AD39AB5",
+      "thumb": "https://scontent-lga3-3.xx.fbcdn.net/v/t45.1600-4/731865238_122249516654128223_1362393612457290935_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=ff4730&_nc_ohc=kGgvdzHM-IsQ7kNvwHJgLUc&_nc_oc=AdqAbrbzueh96EGlJ7Lyq49M1Znewp4VO6GxciLheMMzC3MyIznq6Jz9wFlbWCkL9ek&_nc_zt=1&_nc_ht=scontent-lga3-3.xx&edm=AOgd6ZUEAAAA&_nc_gid=N0q1wli7wfE88gpFdSH3QQ&_nc_tpa=Q5bMBQI5qxSHqP-iLeyj8XMZHe9AmPnLCtG9p8ok3D6kAuBNeUUHw5lwZnEjFqyr73Na5UudlXbhN4bw5g&oh=00_AQOzDytYNJz-5DaLvw-OXMML1Tyx2X6BlJT_yx3Mm-H1wQ&oe=6AD39AB5",
       "link": "https://www.instagram.com/p/Da2UoqnAlMj/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -66542,7 +66652,7 @@
       "linkclk": 0,
       "campaign": "0624 / 플럼코트 / 일 3만원 YH",
       "ad": "0624 플럼코트 C",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/730570429_122249516444128223_3195792601793358606_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=ff4730&_nc_ohc=eKW_RAugoGEQ7kNvwGo33mP&_nc_oc=Adrxoj4X1CA-rYJa-l1g_6sKtDa9ipSzbjvU9kwmZt3x9YUczB8Rm5CfTa2yoV57IOk&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=q3386yemQuy9s_Jd3iRyHA&_nc_tpa=Q5bMBQLDEmDfyk48-aYihAlhMSi5hqHzXRUZ_J6Fhv9togQTOQZq1n8U_NAbvaHjJTZy7Alu9Dad7zHmkQ&oh=00_AQM5iRTDcygI7SzQrplzxxY5BY_YOSMM6Dzrdl5GcA_fYg&oe=6AD3A975",
+      "thumb": "https://scontent-lga3-2.xx.fbcdn.net/v/t45.1600-4/730570429_122249516444128223_3195792601793358606_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=ff4730&_nc_ohc=eKW_RAugoGEQ7kNvwEt0FGQ&_nc_oc=AdoZlX2bvUAuCCrtOef_Jk6XattXmHEXbVOGEXWQL8EzV31QIvnS5_vG6A2bEwviEvI&_nc_zt=1&_nc_ht=scontent-lga3-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=N0q1wli7wfE88gpFdSH3QQ&_nc_tpa=Q5bMBQKaE1wumEGcUEc29NVsyFq3_QltflSug9lBxzppVRy6PeSkwrwQuGfb_DqtajwgTk7rhWZI43TGkw&oh=00_AQO1TvVjye-fqZURmxiaD8hKeywL_EMNTFD4nU5MtgSzrg&oe=6AD3A975",
       "link": "https://www.instagram.com/p/Da2UojsAYid/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -66561,7 +66671,7 @@
       "linkclk": 4,
       "campaign": "0624 / 플럼코트 / 일 3만원 YH",
       "ad": "0624 플럼코트 B",
-      "thumb": "https://www.facebook.com/ads/image/?d=AQLhLRwmr_u8cky2FAEdSkTTbStSSR_SfGwaumIpiHqrvJ2QOVN5hgVpYBd5Bwok7P0M9LLNzg2LYop13Y_LA8z4jL-GMpGjxvYaPQ0KbWygRyR-9ncs90Uz35zSAOUnhxy93RBxNWgN7WFenHRS1Xdm",
+      "thumb": "https://www.facebook.com/ads/image/?d=AQI8cBACi9fZFSa5RNUFdanXoVrcitDro5Ft6n-IU66Me6fDv1B7Ui1r3F6Klol-YMGQ1pZ4quozEMLYcCyvk78JP_bnQ7kLkz_UI06pmNTgcQjRr9fvmp3UV7_a5DU2AyMzzpuvcgsaKQuvIkFL5l3t",
       "link": "https://www.instagram.com/p/Da2Uo8jAle2/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -66580,7 +66690,7 @@
       "linkclk": 13,
       "campaign": "0624 / 이쿠미자두 / 일 3만원 YH",
       "ad": "0624 이쿠미자두 C",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/731058459_122249519306128223_3936452769297203009_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=ff4730&_nc_ohc=tUSv1Rh6q5gQ7kNvwFWMNit&_nc_oc=AdriRBejcSgHv-n3ahdHHvHM9g27xQaDjpFJRn8G1_K1TBP1jJ5F8J6Wes8oF9P42uY&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=q3386yemQuy9s_Jd3iRyHA&_nc_tpa=Q5bMBQJO7FY-BzSFN1vszGCs1S4KJlpB2b_wyA82skxLUSu5bzMDeBMZd4YaUpUeKvC2eVkVyzTb-OR8gA&oh=00_AQObmwX7QmObcRjVrC-Wp2_UsCtOk883iyJk6zo6HXmsEA&oe=6AD3A4DB",
+      "thumb": "https://scontent-lga3-3.xx.fbcdn.net/v/t45.1600-4/731058459_122249519306128223_3936452769297203009_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=ff4730&_nc_ohc=tUSv1Rh6q5gQ7kNvwHR-cMA&_nc_oc=AdpKUQYpQE25U0Y36YxRTbGgxcoVfECMRBB1N2sadg8a4JHVt3Ew5GI8TK6PGEifdlA&_nc_zt=1&_nc_ht=scontent-lga3-3.xx&edm=AOgd6ZUEAAAA&_nc_gid=N0q1wli7wfE88gpFdSH3QQ&_nc_tpa=Q5bMBQIN7yM066UR38AEWv9Vvek-Dj0ak0UNRI5yeHDRmvA-TezfBnbq4rlRdaw6YZa0UyCeUguDullRMw&oh=00_AQPfaPTa5ftXDOokEFV7-vFgzklXAKdZvUjmy4mxVnF2sA&oe=6AD3A4DB",
       "link": "https://www.instagram.com/p/Da2UohxA-Of/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -66599,7 +66709,7 @@
       "linkclk": 73,
       "campaign": "0624 / 이쿠미자두 / 일 3만원 YH",
       "ad": "0624 이쿠미자두 B",
-      "thumb": "https://www.facebook.com/ads/image/?d=AQK4LYR_mskavjOngRimu70KKYcNdzd_x813F3-QkPufVrPn-toCrSThahGf3s1cGKPmICnHu-HhD2WyDLGd9TNH54HsUL6x2kS4eWELB4RNA5CAdC-vW-W-hZDakiNnRcXLI8cNsEd8AW0SnGXzS_Bf",
+      "thumb": "https://www.facebook.com/ads/image/?d=AQIMDiulwe05CL33UpQdu53xiCqh79_L-ppLHT_2meCWcSst_FbNVD02Rjvh_Nyl9aoZjd6ZATb1UbLZ-5bvnRiQdJF6vzmhqNVzfoelBOBvG1dBucezccfyoLra-P_6dGcNHopb8CxXnCPb96A-iyzI",
       "link": "https://www.instagram.com/p/Da2UqvCAIq4/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -66618,7 +66728,7 @@
       "linkclk": 3,
       "campaign": "0624 / 이쿠미자두 / 일 3만원 YH",
       "ad": "0624 이쿠미자두 D",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/730653342_122249519654128223_927229367307633554_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=ff4730&_nc_ohc=ALRAf_6765YQ7kNvwHTR-9k&_nc_oc=AdrCA3Soo8_rjWFwr0c7xZgsj4eSSX7GDIO_XMHIjYr48cDPJcxdCnPLBqT97LrqHDE&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=q3386yemQuy9s_Jd3iRyHA&_nc_tpa=Q5bMBQLbeKlBFPs36G-lW6VDErU1ZhBBO2c6HyRIW3mSZQlvDLjaK88afiripkViwlKKK7Rhi2yTLws3ew&oh=00_AQOrRLbwz25I1mDQNg9MTv6BVegcvtw7_uv9nZAnmXTELg&oe=6AD3B1C1",
+      "thumb": "https://scontent-lga3-1.xx.fbcdn.net/v/t45.1600-4/730653342_122249519654128223_927229367307633554_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=ff4730&_nc_ohc=ALRAf_6765YQ7kNvwG1GNEL&_nc_oc=AdoBcC43sikcWM8XNxY5V1hbqYG5VhTeoo4yPSa3fHUy2UDDh65u-mgPCk8Rpwu8ilo&_nc_zt=1&_nc_ht=scontent-lga3-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=N0q1wli7wfE88gpFdSH3QQ&_nc_tpa=Q5bMBQJlON7yG1aEPNNVE0YadgcXt6jSOOXPyjuwUUVwygcTMbWXvnKKi6w7kT_FnNMHB64QN2c83SpkTA&oh=00_AQNTL_VVYMw3VlYxLfW0fO0wa6tr7mM6Cx_8dweQMTg_5w&oe=6AD3B1C1",
       "link": "https://www.instagram.com/p/Da2V26QgWmD/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -66637,7 +66747,7 @@
       "linkclk": 148,
       "campaign": "0624 / 이쿠미자두 / 일 3만원 YH",
       "ad": "0624 이쿠미자두 A",
-      "thumb": "https://www.facebook.com/ads/image/?d=AQKGLNi39q2LqLZp9irjLUsbqMn24DL5Kp_F05fiValMly79g9tKbM-0ZKlQqYeJhYAth4LCkqixmmiJWHFGtheL8lRcJnUMvaSqN878y-52gOLOtv-qXPv1vTFbykON_cpwtSgAoygEMyseDoBatksA",
+      "thumb": "https://www.facebook.com/ads/image/?d=AQJ_pa0V8pZxdP3kVUlanWk4BhafC382Epct74N6XzcDi2gYK-uBHFNyHboeIdMexOfmWzdl1BoRxKzkYXPHZsnrZwt4HCNXcH1CXyRPQfw-W29UjeS80BtwHpI4xHCEqTCttqMywFmej5ctGyoWG8vi",
       "link": "https://www.instagram.com/p/Da2Uo09A4AS/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -66656,7 +66766,7 @@
       "linkclk": 39,
       "campaign": "0708 / 대극천 / 일 3만원 YH",
       "ad": "0708 대극천 A",
-      "thumb": "https://www.facebook.com/ads/image/?d=AQKZlN6LUFZZQjCH_LjnCXamV6e68qytnPqRQRtTQcIzbbbvmdzlxoDATSs7vclHaXZUWs6o--9SkVcyXGujDP3Bl8dr0GK04_Kb-S15enCPscqTkbg_791tpXm2BGWkpWqMSPYVBd0vtDrHoOgbBpXA",
+      "thumb": "https://www.facebook.com/ads/image/?d=AQJTqZOlwiuydj4kt_6xfJ30KrJVHU-FewhuZ1G-eeItHKS8-qv_iUeApp4cUOGXLhqXem23n-7_Ety9nteI-TnW_55eSxVCco3BZwFAtw99ttHhJLABZoTX_p0WOQSYAGDbajrX3PFjCInajF94FwIG",
       "link": "https://www.instagram.com/p/Da2Uo4CgwQl/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -66675,7 +66785,7 @@
       "linkclk": 97,
       "campaign": "0708 / 대극천 / 일 3만원 YH",
       "ad": "0708 대극천 D",
-      "thumb": "https://www.facebook.com/ads/image/?d=AQIANsDetpaPI-Bz5L4oDPxEI8YZfT5Mtq5RJN9xuEUJ81pjlBvlHTurVEqe3QgpBV3nNIIdADmA-vYSFhioLFQlcCEpnTtP4eNe7NPjTg6aBGgJLhnpKb1e-S1mBiGb8X8BtN5emNqIOobQGHHQxhui",
+      "thumb": "https://www.facebook.com/ads/image/?d=AQIImDxsbbJKqeDXH_TeoK1IMZ3Am7Fr7LZUaTuZVV9w2gKPXVIoZSvUl-YT03TeU63L1NuPafrDtISQ0ROza_b8pJvgst9UlQSJplR1asogko9LWmakT9mBovDzebMpwxsnW9ILPamuRQGLPfm0UmvV",
       "link": "https://www.instagram.com/p/Da2UFYTgide/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -66694,7 +66804,7 @@
       "linkclk": 4,
       "campaign": "0708 / 대극천 / 일 3만원 YH",
       "ad": "0708 대극천 B",
-      "thumb": "https://www.facebook.com/ads/image/?d=AQKF3ebObuNdbibf-OcbOBiwQbt78OhmZTtoHGeoTCU5uc8fVJ0tEKnftEbrp22ceYfB6KO_qLZ7MzXuP2-PpjtvPJkEpImIPCsqf_Tf8oPwAOV1rCsQlUR4OsiiCr1xtim26c-OQsuCz8HAWtgWe3-m",
+      "thumb": "https://www.facebook.com/ads/image/?d=AQIMlpV_iKyJ5XJwUsHt0E086pZCz9CNjMG6cH0hG2UZK2xHl9KdvdBAAKocDj5bqIG0K7Bmi1r4cTr_E_SP_Y3khnv9ClZE0hNN7mC9oYF3SMTfCFtDeZ7UdWpK9i1A0cbnPdNIGRscvYtckcM-yz2k",
       "link": "https://www.instagram.com/p/Da2Uo50A-kN/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -66713,7 +66823,7 @@
       "linkclk": 139,
       "campaign": "0708 / 대극천 / 일 3만원 YH",
       "ad": "0708 대극천 C",
-      "thumb": "https://www.facebook.com/ads/image/?d=AQLgyM1XGHHTa9jyVYuie2dMzGsDQcoKOpnglmrIMIfFSUTUBk3dtnjqNfSDKaetwqpbEYqdURgv3GMNdVau9T0rqjAr1u4nfMAwsQyEPCRhVl_3JS56bK81lvEdmQAmbigVbrYAoXTNZg8-M_2KkWE1",
+      "thumb": "https://www.facebook.com/ads/image/?d=AQL6gWrIB9Y-VXOZlCyWzR6_QkwUzUHBfdbgqa1TL-ZU3eGEE-t0KUrLgJDSZvge44gA-Bj0wtylz7KETsI15-qQSAAHWXnzyc1QvIzQ2E8faI1n3JdE3rsMOtmFocDTW4qKbAYEPvEyMBh8BguSjwnp",
       "link": "https://www.instagram.com/p/Da2UonYge0N/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -66732,7 +66842,7 @@
       "linkclk": 15,
       "campaign": "0708 / 대극천 / 일 3만원 YH",
       "ad": "0708 대극천 E",
-      "thumb": "https://www.facebook.com/ads/image/?d=AQIAAP7r1nLMKOxeWquGSHUzlrSCNTRUlgPFX1T4uo_hN4Yht83eF4QXcrSLEJGwYliEf9W2eTrrrbjOV06dN-NbixhUakKDDTdf8EiRjQcLMQwk-b_Ln9z6gysqoQDizAVsNHoX_MjrhPSYI75nvvh9",
+      "thumb": "https://www.facebook.com/ads/image/?d=AQIOwo_mi3aaYkkUde_0t8pRuRZBk5bRGNRbSY9NssWwsQO7PLvwebCR1tE7IB4HqVpTqQ9nxr-qHp48B1jbzSllQzQijOyzQUE5iz6c6dI4jpl4LSztMKlKks3Rw1Z-rDh9zdIFAnfgwGFOhuWZmpNo",
       "link": "https://www.instagram.com/p/Da2UozIAVyC/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -66751,7 +66861,7 @@
       "linkclk": 1304,
       "campaign": "260714 / 썸머프린스 / YH",
       "ad": "0714 썸머프린스",
-      "thumb": "https://www.facebook.com/ads/image/?d=AQKb06cPF1je2LuK8A0M9VIv7ZIbM0vhgbgypyakhSD52s1LNq2pjjKS85UOfN7baD-ujlCMFwT26my_W_BVtVBCZcxW9EPZPt1WfcadlOMsmRShSQpUe6SKiL1DijbEo6bAeT2ylhJBT78lqVmSV_tb",
+      "thumb": "https://www.facebook.com/ads/image/?d=AQJa4YHh-UCRYhgiiIRT0sbVA41ZX8VjXrXLZBt9Jo9kMXJFRWeSiOFjwaceG8dHPladZKdrOOExIo6zzdW3CMcZmMvv9V_AHZwan-TbqZL0jSzNS20NjBt-f5em83jvS_SW2G6Qltfvru6DegzFQNXB",
       "link": "https://www.instagram.com/p/DaxDkL8gYvv/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -66770,7 +66880,7 @@
       "linkclk": 10,
       "campaign": "260714 / 썸머프린스 / YH",
       "ad": "0714 썸머프린스 c",
-      "thumb": "https://www.facebook.com/ads/image/?d=AQLX0tOxPSYM0i9da8yWzMgDA4eRbiXNznZRrY0_yWJqrFcwwzB9C7wV0VIBQM-Pb1D1U3cqauUz72EDg8zs157EouCJM8LwQhz4jF6BKWcnKGJh5gGb4d8Sbg6xGukYb5ceisGUOY0pFZWkTdBOI6Jb",
+      "thumb": "https://www.facebook.com/ads/image/?d=AQLgY5L99cjRERC71_SFOpiofLuvhR2aerfQP7ZzmVOr5PXjFuh6UkKH4iYGxBmPs2D-PQhwlWyYcEDZ8PvB6z-ptb80ZnjxybPJTVIGPTdfCdy6tQzbhwmjDn6NXMKhpwjJ8SduqNBcRho6RLHrmeT8",
       "link": "https://www.instagram.com/p/Da2DSsPg8es/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -66789,7 +66899,7 @@
       "linkclk": 0,
       "campaign": "260714 / 썸머프린스 / YH",
       "ad": "0714 썸머프린스 B",
-      "thumb": "https://www.facebook.com/ads/image/?d=AQLYtr4sQ-1Pxeb7pal24_iuQ4zXy70SeNgy7RkTnjkpSTtAJBm_H72bZtfMPhLVIykZ91HcV954sDOnNWeVZifSq1v0hIe1f6yrFx0Cg_eNNIi1M6bEzU6YzO2BpxbbXQ9gDLGkNGF804yg4nDdarZ5",
+      "thumb": "https://www.facebook.com/ads/image/?d=AQL7qB_lUPtlEBlp0Gf-UR7gAe7XnWqY5hmO3_SiNTJT1LkrhKqd_4btSE0m4oVcAcperYN0512XtxyO5LPWImSAa0QBxP7jfW1ozZz15TXCggJKrSSD-rYQzTMvBuLjYueuQHYKdfqGMOXBTelzE3Rf",
       "link": "https://www.instagram.com/p/DaxDw1VA2jU/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -66808,7 +66918,7 @@
       "linkclk": 28,
       "campaign": "260714 / 썸머프린스 / YH",
       "ad": "0714 썸머프린스 d",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/748397949_122251538294128223_1117435149510160804_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=ff4730&_nc_ohc=tweoLqnbllUQ7kNvwHM5D-Q&_nc_oc=AdpXCqyPioX1mZXPSaK6plV-Pg8jrtlUWX5NBwfXKR3TN_PA8TwzZOUOfQHKI1DedBg&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=q3386yemQuy9s_Jd3iRyHA&_nc_tpa=Q5bMBQJLO6waluDJF3l-yhvTAGlfsxKRtD8v8pEDpCaF7kkm9MSx4fJUK4aVECzhDEz2OE1XMzGM8tqAZA&oh=00_AQNFVg_B5xnyErMWkf3EG-Sn5GJ36ETqUeevitI6Yd8_7Q&oe=6AD39A4F",
+      "thumb": "https://scontent-lga3-3.xx.fbcdn.net/v/t45.1600-4/748397949_122251538294128223_1117435149510160804_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=ff4730&_nc_ohc=tweoLqnbllUQ7kNvwFW9HvF&_nc_oc=Adrpj7Ba0vXH7_g9kQW79V9Co8mGKt-fhOPbfxN0nectoFfx5_UdoSVVZHxbk3P_5rE&_nc_zt=1&_nc_ht=scontent-lga3-3.xx&edm=AOgd6ZUEAAAA&_nc_gid=N0q1wli7wfE88gpFdSH3QQ&_nc_tpa=Q5bMBQI9wfqReSrfcbMTOFNZxlwTdsMaBOMcDpNE2dFz4Ht8PORSDjEJdOJmkJ2O6X6lEf7OLfAcLHMQfA&oh=00_AQMA8a2xcwAX585pA3ZBb0dRhPj2StzxA6H34j0tPAj-8A&oe=6AD39A4F",
       "link": "https://www.instagram.com/p/Da2DJuJAoGb/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -66827,7 +66937,7 @@
       "linkclk": 1986,
       "campaign": "0107_트래픽_사업자_YH",
       "ad": "0723_D",
-      "thumb": "https://www.facebook.com/ads/image/?d=AQL7pxOvkp_WQA4xgrC1pX9907WnZM8MiwY1wPcTQpxqY_fD0-nwLJybhZ1KU8jqsmda73czewh5oRIpBvcrK8rLWTv4_gDc7ud4rmMOZ3goqRlZsSyumIEncI6eaZJmpKkAuUgglP-5rikUryy3HuJX",
+      "thumb": "https://www.facebook.com/ads/image/?d=AQL2Mora6n_MVLRSC6TI2dGnxOikRc9mdMTuuoRhfyQD2LN5iTMMWyJETn7SQGNOijT6_PWA3OYSIiMMMs7ZwfmuR16ZtOVxcM1cHX04NatV0VW29i0C-Eqm42tIYqz6fdBKnX_Yzcii95xHc3Ddaesu",
       "link": "https://www.instagram.com/p/DbHktWVgphq/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -66846,7 +66956,7 @@
       "linkclk": 1,
       "campaign": "0107_트래픽_사업자_YH",
       "ad": "0723_A",
-      "thumb": "https://www.facebook.com/ads/image/?d=AQJnZvUehoY6j47cjxwlc0EWwrDvKtirG99UUJKa4mw7FfhCWomEo0UCgPsW-9iNPX6gBHGwrbEg6eV0aL-T7K5Grp5EIP7oXqO_iCpgVwVELRSXZOyux3mVqnazPTAhg9KmY9P2VW6-TDjjPqtgBiHQ",
+      "thumb": "https://www.facebook.com/ads/image/?d=AQLg5dCZCQHYPiR-C-R4NxcPihevpYHcKP6cd8Bn7mwBHov7r_dezfNP5WweyTPlOxEUFkZ9EX-0PwhYPcRt3X7d2gLNWIlECNQuI0IndJQ_0ahCqmKAfaYz8kbT5e02jIS_SrR7_pW6n4JZGBYYIlG7",
       "link": "https://www.instagram.com/p/DbHkV7bAhW0/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -66865,7 +66975,7 @@
       "linkclk": 0,
       "campaign": "0107_트래픽_사업자_YH",
       "ad": "0723_B",
-      "thumb": "https://www.facebook.com/ads/image/?d=AQLPagpV5kkPy5ZoYuxjmSUUSgCISsCB5wl7u5rTpgrKmrnMXxZa34lN-Q2PZ7ZNEZeG7XpuWF7QZsGVpwhkoPJYJBQIXhGyIkBpEHj9B-QpSpdVz8HGNHL3tCH9WGZRMr5do5ZbBakBiaDZvYzsrmMF",
+      "thumb": "https://www.facebook.com/ads/image/?d=AQJRuiILN0qGoFNaSMuY4P_4W4g5tqhMLRSftk9XBIb_0PW2AeJtPHBuWXaDH_kez1EDWXYOcqc_JRMKbkryLC1eHSO-7AdChruQUdMFXQ5qV1HoWTXP5kVZ_DtoqJO5dtmSKpcoBepcPl25Znk9tVOE",
       "link": "https://www.instagram.com/p/DbHkgTHAOSP/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -66884,7 +66994,7 @@
       "linkclk": 5,
       "campaign": "0107_트래픽_사업자_YH",
       "ad": "0723_C",
-      "thumb": "https://www.facebook.com/ads/image/?d=AQLlBj8H5OJpkAs85T6-LUwovNLSSCHphCpvZ-DQJQENSnDeDzUiG--pdeg9fMevqkD1RZhEmlWi38h-YAsfBV2UjxOqNPcDqF86y-Isk6XPXDRMhN6L0WnWUhmgifLb45atByMvZGMB8Fnisz6V-67y",
+      "thumb": "https://www.facebook.com/ads/image/?d=AQKoeVhLKPmHJjoUXY9WWeYOpB_j6bhH-SXL_QJBHiBdzBIHhlMjVNjMOQmI4r42GoNDUBwHioCOELF5BrO-UC0cwY76EPn9BAWAU8Exl0sKUvzRKEASr9TQJ9K6rDG_WSooggFgmRo8wDMHXEkiFA_v",
       "link": "https://www.instagram.com/p/DbHkLIZAV2n/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -66903,7 +67013,7 @@
       "linkclk": 26,
       "campaign": "260803 / 썸머킹 / YH",
       "ad": "0803 B",
-      "thumb": "https://www.facebook.com/ads/image/?d=AQK5wcio_M9nHvrvrki7VN3DI2W1gjiN6D55jLAyIHTf8UPF4wNWNhShvevp-yv8mycusjsrpnCK-fyQ26lt3kG8drlrxrlfQr32zET9ligCnE1wQZYffHj_jdfi9yxt2O3vVUoh1cCVe9XnpwuyotDt",
+      "thumb": "https://www.facebook.com/ads/image/?d=AQK0iM88C5YLCmoiQok-hqbQRTt7NQMNBiO6n63GMnMugfP9OzKvfSVr-uR8hKQYEmFMrSsSQDudtLFQxi3ytXj5NxIcLbWqoniMtMD9ORrpVxOnArU6tUIEmL8BbU7hShQ1NtP5XpDtqQKmwwy6xbNn",
       "link": "https://www.instagram.com/p/Dbj44f_gw02/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -66922,7 +67032,7 @@
       "linkclk": 357,
       "campaign": "260803 / 썸머킹 / YH",
       "ad": "0803 A",
-      "thumb": "https://www.facebook.com/ads/image/?d=AQJbIiFzo2EKE9qnv7HFWN40Jq5Etu49KLanCELRWSVL4DewfPU4SBu-P78NU2JTww-8q95XMftod3BHnJF88tSuYm99qTRkA0RLNkwVPSWMpUM4-Dq7NbdWLV5nwkpaL29WXK0sbDAZh2dTYM_e6cGT",
+      "thumb": "https://www.facebook.com/ads/image/?d=AQJs22mzdCb3iCwyhmLfZHHYfRAoXWYAeGQDstajlCvBWuj12_seRrhibUX8lIq9LMaHjRx6oWQv8ZQQea-2a6qS2lsI-lk_C84zJzAmG-9PNGkCl5d4LvoVXZzwBlIk2YgDLhOVsK-tvZqlAyRP2jqK",
       "link": "https://www.instagram.com/p/Dbj4cedgkHv/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -66941,7 +67051,7 @@
       "linkclk": 66,
       "campaign": "260803 / 썸머킹 / YH",
       "ad": "0806 D",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/765084761_122253791528128223_2155895177938903826_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=ff4730&_nc_ohc=alpwhY5JeHgQ7kNvwFMqeak&_nc_oc=AdorVSHVbp1QoJgfAMcu1JRPlGyqJo1YtxuIoNLc5xpW6s3UkXn_aOPCcH8GpsniiTA&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=NvH5rwO--ld23-dO3QhlIQ&_nc_tpa=Q5bMBQLI3td6nsfLPmZh1WZDtiTK40sZK-rsVZ2MCKe6zMzlMBRTpTvcyHwQ4xalcCbDLYU1D-g83Y9V5Q&oh=00_AQOeWX-Ub6cFz-s6GR9yQwWIrq14jWzaoA0cbZXBgmnfCg&oe=6AD3B92D",
+      "thumb": "https://scontent-lga3-3.xx.fbcdn.net/v/t45.1600-4/765084761_122253791528128223_2155895177938903826_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=ff4730&_nc_ohc=alpwhY5JeHgQ7kNvwGdi26l&_nc_oc=Adr64xtD70tAsnXi3wZbZNlND2dJ1qGUAzDsrwRFZ8FMtgCJxE7g1GaO7mNx3EhZKek&_nc_zt=1&_nc_ht=scontent-lga3-3.xx&edm=AOgd6ZUEAAAA&_nc_gid=sLWotAAYgHfQt1J5cpvAhg&_nc_tpa=Q5bMBQJxplcERQFFGm_fcZd9YpdWRzIh0kUTbNgCvdzKoqLiGaGFE1HNTReNop30-fhP0FhsAcwUtLVX6A&oh=00_AQNs30ohUv4raHZ95DMJuzCl_lh9-VS2V_fAGS_C0F9XaA&oe=6AD3B92D",
       "link": "https://www.instagram.com/p/DbrxPGUAo1o/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -66960,7 +67070,7 @@
       "linkclk": 10,
       "campaign": "260803 / 썸머킹 / YH",
       "ad": "0806 C",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/763157815_122253791342128223_4433056839604269741_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=ff4730&_nc_ohc=Q0ZNYN705xcQ7kNvwHJzjob&_nc_oc=AdovUDj5STq_1SmQqwq6QZxVrETrnq6X1Jhz7LuAGAsq385arHDFdlnnZFrU-Hg-Ep0&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=NvH5rwO--ld23-dO3QhlIQ&_nc_tpa=Q5bMBQJvLx6bu4swGZEBp_PRTea-TxP1uIVdqCR2OZA6ln2UcgulFpbOS35jVCvcEmsc8xYYmAmiAU6S4A&oh=00_AQMOLzsjlvznmEgbW3MY6MmKEWp8OapntNwjU80h2WvVVg&oe=6AD3A05F",
+      "thumb": "https://scontent-lga3-3.xx.fbcdn.net/v/t45.1600-4/763157815_122253791342128223_4433056839604269741_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=ff4730&_nc_ohc=Q0ZNYN705xcQ7kNvwG0RrkP&_nc_oc=Adp_Ye3arbYU5iXCi1gQPkqXBIKrb40UrfwZfA8QoYCdAKFRejAuP9sbzYSU4fJ2FGo&_nc_zt=1&_nc_ht=scontent-lga3-3.xx&edm=AOgd6ZUEAAAA&_nc_gid=sLWotAAYgHfQt1J5cpvAhg&_nc_tpa=Q5bMBQIeGQO3x54Blg6N4zjuvpXsm86BsV4AZtd0l4S-Rk06pWo7aDNqz5_cy4lEoP_dGHfAOyzYKg68_A&oh=00_AQMXr_k-WsDi4DN6zwZ-yjFX262RyA76VxrwuXn2m-q0xQ&oe=6AD3A05F",
       "link": "https://www.instagram.com/p/DbrxJQqgq9A/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -66979,7 +67089,7 @@
       "linkclk": 38,
       "campaign": "260803 / 썸머킹 / YH",
       "ad": "0806 A",
-      "thumb": "https://www.facebook.com/ads/image/?d=AQICZH9Vp1XISIXWH_Lm8CAkToSVLjWoZ3EOZ9a1jLkHyWvhnepiENgrr9uxApevzWSOCYx8jYgqVsMkUgbq4qGng94qU_Bvc4K2bf4JchAbOGVeyGOsd_JesTyjp4QnZnfBMDNzcEYNnrvLaN7LVaL-",
+      "thumb": "https://www.facebook.com/ads/image/?d=AQL6xLloxkT4mn62-BSPiIqSptR9f6zEuxl6Ee19m_Hwj_oFcMT_3HREQOZCpMRt-OA_wVPrFe2LYeltFRPo3pa_QmJBFewyOmjofttI7aY2u5jaom_M38K6zVD8Ed_-zZgOeiLKeUMgKTrihy1gGSkX",
       "link": "https://www.instagram.com/p/Dbrw5PpggGe/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -66998,7 +67108,7 @@
       "linkclk": 278,
       "campaign": "260803 / 썸머킹 / YH",
       "ad": "0806 B",
-      "thumb": "https://www.facebook.com/ads/image/?d=AQLsE5cV2WDGNkGsCWi6OgkJ3XsE41mlgtZCqLXJXaW9mBPvfzuTvCwL3j1BycsLJtfE5_6E6f431KxJ27KPAoxDGdEWSiLgjm06BeB-cNrop2AiZCUo9yZCakx6RfxxXsu2UOxuTRHdl6bcK-1yR_ih",
+      "thumb": "https://www.facebook.com/ads/image/?d=AQJIo8ehkjePiGAn2pbSKoKSP4sADu1JGEh4FeHEJNpTc_a5MKspiI4shto3aEb9BfBFayZdgBbTfOko9kpuCeeM06DxrCN2aCMwAHZ1_3ZTfLahsm_Q6JVIZRB8eXwBJNIgrXoCxFRTO8TX8uFbeYHb",
       "link": "https://www.instagram.com/p/DbrxBw-gfEo/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -67017,7 +67127,7 @@
       "linkclk": 917,
       "campaign": "260812 / 골든볼 / YH",
       "ad": "0812 A",
-      "thumb": "https://www.facebook.com/ads/image/?d=AQLHBKKjzMswwGcXKu33VeUkO1xgDwHkyfOCMjUbd43jsTLwKjMsu5z1KfjJVj_5P77DW-F1iylgTe2TksT7eYSy0LQsZN0B7pyO0f-B8_5BNJiPLC2h7oytODJDj4KIGd0IMZG3iF8jeU81QAL6WujL",
+      "thumb": "https://www.facebook.com/ads/image/?d=AQIke0sZjJDRJJJj3WCkTyqovXP2nppvATLg7N_rzdVoBZ9DgqJA4xSI1W7uhrrlLywnaSXF0db510kSkTRdPXqLehJPgZRWvo3XQ7zIGzXcNgNwwSReE0Tm-E1FdcaDCC4JCiEaLOcSB4yu4A6f0hYE",
       "link": "https://www.instagram.com/p/Db7eQsHgi3i/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -67036,7 +67146,7 @@
       "linkclk": 22,
       "campaign": "260812 / 골든볼 / YH",
       "ad": "0812 C",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/773360177_122254389428128223_8050397365571638728_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=ff4730&_nc_ohc=PR0p-vAFmUQQ7kNvwFMBbHM&_nc_oc=Ado8-vmaMzhXi9Lmbaqr75MIruwdaYjN4kKeNmJerKrjJDq-fSWADfkZy4P2a_ZO1Hg&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=NvH5rwO--ld23-dO3QhlIQ&_nc_tpa=Q5bMBQKbMlPGlfvcUPbYmYuaDd1jifO53brOKX8ul9C38PqYM9C5COuFXkzWG4uIUTKSeNyltf1n1AvA1g&oh=00_AQNlQ9Pg6RMA4vcd9NB6yO9fBBfDz--CGL3HRKJITniluQ&oe=6AD38F30",
+      "thumb": "https://scontent-lga3-2.xx.fbcdn.net/v/t45.1600-4/773360177_122254389428128223_8050397365571638728_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=ff4730&_nc_ohc=PR0p-vAFmUQQ7kNvwFLQAuH&_nc_oc=AdrpyND73HRZZSDNbLALdbydRqxLVkqkehWH4o_9Vl3f4oPMJzbyMNRP-ED734BMeK0&_nc_zt=1&_nc_ht=scontent-lga3-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=sLWotAAYgHfQt1J5cpvAhg&_nc_tpa=Q5bMBQL6tyaDOnIe1dgGrsV_nC4tZjLDTsaqCglou7CvDldpAuD9WT5w7U_TSUz8M-ezXW62msxIn6L3Rw&oh=00_AQPUrVzcbwaWZbCDKgCumumVgfE5NcsI9BhPwzZEtJr-ng&oe=6AD38F30",
       "link": "https://www.instagram.com/p/Db7ev6KgtX8/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -67055,7 +67165,7 @@
       "linkclk": 135,
       "campaign": "260812 / 골든볼 / YH",
       "ad": "0812 B",
-      "thumb": "https://www.facebook.com/ads/image/?d=AQLxw2ZsyRkogQ0SlWi-9ghcd9Mbez38j8VktGcQxCV9WL6pXyuEpN8vxXfePSH03pOf8-KdBVuzXC7Evrn2PAiQPlKYpZOs3LL43XiUdAkQk0Qi2jxW2wCg4zaNuGXZqrX7zYJ1iMw2ID24V7N87SgE",
+      "thumb": "https://www.facebook.com/ads/image/?d=AQIhrcK6HgChAg-rIr2Sh8OKrPeDCzk8hBhjbTkJZA7hESnGUULOAOdL5Qizvcj9gi5UtaQcWOJIoX_LrCwljZpM7KXLY43LgXvrmjarmiZPdYUsOITwxdUPFdflnNZz1ssK50BZk3tCoJLacYb2e6TB",
       "link": "https://www.instagram.com/p/Db7eiySAb7c/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -67074,7 +67184,7 @@
       "linkclk": 38,
       "campaign": "260812 / 골든볼 / YH",
       "ad": "0812 E",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/771574077_122254391360128223_445925258113670149_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=ff4730&_nc_ohc=i7Z-70CvlfQQ7kNvwG5v4Z9&_nc_oc=AdodXOI9hpofQ706hMp67VSEPXixH_JpJyqd_m50IlMR02oR7yEMu5-G8zlj4xCZHdE&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=NvH5rwO--ld23-dO3QhlIQ&_nc_tpa=Q5bMBQJHzfQz_3kQ-LL5sd7hOz9SNQ2AhYkMJnlVPRjev2TnSgaVYsaEoaMbpaG6g2nyPxt0rwfRAzYiZg&oh=00_AQNiacsBmky0HbX0KDPSk_y7rszmfFxejzrWRXu2luBtQw&oe=6AD3ABFE",
+      "thumb": "https://scontent-lga3-2.xx.fbcdn.net/v/t45.1600-4/771574077_122254391360128223_445925258113670149_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=ff4730&_nc_ohc=i7Z-70CvlfQQ7kNvwE_Rzn_&_nc_oc=AdpNLZXB_Y6CT9zthu02uFySPFKnP1w9D3tW6UNNH5Nsf4C10uJt-iYOKhNYFooG6ZU&_nc_zt=1&_nc_ht=scontent-lga3-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=sLWotAAYgHfQt1J5cpvAhg&_nc_tpa=Q5bMBQKjHqVqE6s_40XikSs6SEGkyR55zYTA5fqMF3dnOhCsXSNd8HcmDlBZKzBzsayOdi_2PBSs9ac4UQ&oh=00_AQOlkPU3I2C7zIW4uRubOztGZHW6g6PXFVEXouJBXOpAcQ&oe=6AD3ABFE",
       "link": "https://www.instagram.com/p/Db7fLPkgqAL/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -67093,7 +67203,7 @@
       "linkclk": 29,
       "campaign": "260812 / 골든볼 / YH",
       "ad": "0812 F",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/774105709_122254392230128223_7280546335609323930_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=ff4730&_nc_ohc=5o18awtT5DYQ7kNvwFxLpEw&_nc_oc=Ado7uegDziIMaCyjmbUQUBGKbGV1y8AWXWgepbWFdv1GiMkxKXKZ1CoAHNwIbok9X18&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=NvH5rwO--ld23-dO3QhlIQ&_nc_tpa=Q5bMBQI4jkNry9ExgDpfKWi_ANw9VWAGGXGe7LadCKXnS27Bd1ntRYCR-beAvldWcCZ-CoEz1CCfSSjSDw&oh=00_AQMrNBEReiiCxZ1CuBv7nqSfibF66dDZwtLsLa8n6qwJJQ&oe=6AD3A995",
+      "thumb": "https://scontent-lga3-2.xx.fbcdn.net/v/t45.1600-4/774105709_122254392230128223_7280546335609323930_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=ff4730&_nc_ohc=5o18awtT5DYQ7kNvwGRRrf1&_nc_oc=AdoYmFurcmUCKLk4Try8ORo-XX0ZVxY1pPTL76TaREeAPXqP22qO1rbM1f3Ao5OIKDk&_nc_zt=1&_nc_ht=scontent-lga3-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=sLWotAAYgHfQt1J5cpvAhg&_nc_tpa=Q5bMBQK8nvSFNN3Q78QiID4xncVP9Iy6WebZI0r9yuZvNplMFo1ovXNb8ERDBMpLM9qWhUFl9xCWxE52MA&oh=00_AQP9SXjvAuWYuBlofkgYEGmvx8LXddeqAWn5jFxiiPLYxA&oe=6AD3A995",
       "link": "https://www.instagram.com/p/Db7fZU7gZ8H/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -67112,7 +67222,7 @@
       "linkclk": 77,
       "campaign": "260812 / 골든볼 / YH",
       "ad": "0812D",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/770866965_122254390454128223_2228075537075723430_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=ff4730&_nc_ohc=NURoLiSihUEQ7kNvwFaqh6Q&_nc_oc=AdqnkIX7AJDOt7SKm6XgsZ1eGOvASRTFqWssLpt8ts5P0684CZsBkieydCb6mzrrQXo&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=NvH5rwO--ld23-dO3QhlIQ&_nc_tpa=Q5bMBQJ5I21_hT9Ug2064yKOf9OM7zsdWTfqPEmBHOhuTlU7X7mgM0CiFBf78M3gYBtERHpv1U_4VMRfAQ&oh=00_AQN0GAQvhZ0g_q9h9jHtFuZeS7af2EpJ4xMcCB8H8mrblg&oe=6AD3A806",
+      "thumb": "https://scontent-lga3-2.xx.fbcdn.net/v/t45.1600-4/770866965_122254390454128223_2228075537075723430_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=ff4730&_nc_ohc=NURoLiSihUEQ7kNvwHUft6j&_nc_oc=AdpjkAiCvUkBNug3fNvTKI2zsPV7r5O__P91kfSRBsafim7i0kA8_ZhJPY8iFVaVELU&_nc_zt=1&_nc_ht=scontent-lga3-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=sLWotAAYgHfQt1J5cpvAhg&_nc_tpa=Q5bMBQKoPB6iATD9kIstkJZ-Jz1pnXnZ-jWvP8wODM5FSHWnYPQYIHVOoEHV3v_4u7_Zq663Cqr6ghvbZQ&oh=00_AQMY_nNGn1xMJvzHYMHndwvWXG4WYyd9pdIeaM65PiySEw&oe=6AD3A806",
       "link": "https://www.instagram.com/p/Db7e-7hASeR/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -67131,7 +67241,7 @@
       "linkclk": 14,
       "campaign": "260901 / 사과 선물세트 / YH",
       "ad": "0901 A",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/788851453_122256453896128223_1729590796212169891_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=ff4730&_nc_ohc=ptMfkj9gDjsQ7kNvwF7C8QS&_nc_oc=AdosUmQhI6kyo5tGJ1g-x092vK99RlslPiK2KHZ763MeNp_gFwga6y_BmsnHKB6iOak&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=NvH5rwO--ld23-dO3QhlIQ&_nc_tpa=Q5bMBQJOv37UVKZTt8NQnrlyqxoedsS-IId5rtkKHcX3repMCLoveMLSOS3eg_zVblhluF49iYuXtGJM0Q&oh=00_AQMh1h7PNjG-6F_lG670pTPHtuAcuDDpcypZQcsQC12qug&oe=6AD39C8F",
+      "thumb": "https://scontent-lga3-1.xx.fbcdn.net/v/t45.1600-4/788851453_122256453896128223_1729590796212169891_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=ff4730&_nc_ohc=ptMfkj9gDjsQ7kNvwEQhAMX&_nc_oc=AdqHVvQR-lbaiCf-MjypKDjqIbtDLVGBtbiJUMjfjzBpr2OZa_WR9G-iAGPyot83Us4&_nc_zt=1&_nc_ht=scontent-lga3-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=sLWotAAYgHfQt1J5cpvAhg&_nc_tpa=Q5bMBQJcXKMPecHtNcXhdu1QS0iGEMGBalRiczeYySTu2Yej4yIJ53tVhWAeEXKNsgo0Ju4wxjDQi-CMpQ&oh=00_AQPaKsqBd8WbO4NG-FsKZn0mgu700rdJsPJw7u-MYHhs4g&oe=6AD39C8F",
       "link": "https://www.instagram.com/p/Dc-FNj5gFJx/",
       "status": "ACTIVE"
     },
@@ -67150,7 +67260,7 @@
       "linkclk": 146,
       "campaign": "260901 / 사과 선물세트 / YH",
       "ad": "0901 B",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/787205460_122256455036128223_5216226090613147398_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=ff4730&_nc_ohc=19yDtl0b8loQ7kNvwFjCY2s&_nc_oc=AdqH1q3Y1d7FWn7gt-AoitbTtUlq2fom9yQ94_twRdrV_GAW52C7V03AAv8YUUiA8Ck&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=NvH5rwO--ld23-dO3QhlIQ&_nc_tpa=Q5bMBQLgDGIjcoRnGxPztfFlaw91lToWMMr6qvddKU04ISB_UvtWGucZXkgsr5g2aluuEqgyFDfxYBQtVA&oh=00_AQOJA0BufXQlLL-34LAwpI820A0DBxzTSFvVlp5_EpR2MA&oe=6AD3892D",
+      "thumb": "https://scontent-lga3-1.xx.fbcdn.net/v/t45.1600-4/787205460_122256455036128223_5216226090613147398_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=ff4730&_nc_ohc=19yDtl0b8loQ7kNvwEAEA9_&_nc_oc=AdrAcgyPmU8Svz1OT3Vddelca5w9LFTX3zmO2ttnn0IdhfacGMl1So2w1lWoUSSYya8&_nc_zt=1&_nc_ht=scontent-lga3-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=sLWotAAYgHfQt1J5cpvAhg&_nc_tpa=Q5bMBQK75ooigC7CVfaphXxbRwlLUGcEMUexnroalZeX01dqtsX_hcOZlqcR_BjO87Z1er5nk-lNWeGTkQ&oh=00_AQP5wUMT-VRH5YMS8dWoDfrNvUVEIx1kasGAoFtO-MSS8w&oe=6AD3C16D",
       "link": "https://www.instagram.com/p/Dc-FLwPAPTN/",
       "status": "ACTIVE"
     },
@@ -67169,7 +67279,7 @@
       "linkclk": 17,
       "campaign": "260107_사과_전환 캠페인_(0908 3종 오픈) YH",
       "ad": "0910_(9월까지만) c",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/797940375_122257338488128223_1970277711335053329_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=ff4730&_nc_ohc=t30H74vZ5cYQ7kNvwGbYFQj&_nc_oc=AdpcwGEwRyIHyH4VD7GAYc9TUAmYa5TAsGPHaVwe_dX2QgBx9DkLVzTAPKFoe0XspBI&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=NvH5rwO--ld23-dO3QhlIQ&_nc_tpa=Q5bMBQItTpzpQtblFzGqDUwzS71FhGzLgvX4nug-ACgYyktM4URapuq2tSHX1mkTm9nR4Ekyr7lzjQJDZg&oh=00_AQMRqlRJ8chYb59Dr5nZDrkBB1YE8EIqP1UyrblAN84tLQ&oe=6AD3BFD5",
+      "thumb": "https://scontent-lga3-1.xx.fbcdn.net/v/t45.1600-4/797940375_122257338488128223_1970277711335053329_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=ff4730&_nc_ohc=t30H74vZ5cYQ7kNvwHKwplP&_nc_oc=AdqJzTyC3AtH0f0T5pasSpfB86dtJ7LoOUNMbfyf7G2Po5FJMTCTmjm0cDxoEYlw24Y&_nc_zt=1&_nc_ht=scontent-lga3-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=sLWotAAYgHfQt1J5cpvAhg&_nc_tpa=Q5bMBQKM5fseTAwzAUZq-i9TQhabGme39mKvZrS95sT4p9AGPqme0lPpk9LsyfnYbsAsRqErZtyp_90u-g&oh=00_AQN-likX5iipBhc12UgS7KmVDzhA6Bbdt9Kf0w_9Q2xleA&oe=6AD3BFD5",
       "link": "https://www.instagram.com/p/DdFybsDgRYY/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -67188,7 +67298,7 @@
       "linkclk": 7,
       "campaign": "260107_사과_전환 캠페인_(0908 3종 오픈) YH",
       "ad": "0910_(9월까지만) B",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/793519089_122257337066128223_9127553403811565708_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=ff4730&_nc_ohc=dSf0y3XgjY8Q7kNvwGDDJ9k&_nc_oc=AdpnYzRPultT86LWgOn7fWIO3MuIX_100-SB4U-Bfp8YqHcUFiaRbwM5U4vGXn7HfXM&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=NvH5rwO--ld23-dO3QhlIQ&_nc_tpa=Q5bMBQLf4dfMgXYgPeQbtVoLOMZiFMWjyaD7zen9MvyP9e6zpAr1C_ciYhV-8VAGMx6RcDECJsWPgHeSFQ&oh=00_AQPBPP-MAdzzFlAQubvIRL9ELNbjtvzbx0UzqM7M4U5u9g&oe=6AD3A696",
+      "thumb": "https://scontent-lga3-2.xx.fbcdn.net/v/t45.1600-4/793519089_122257337066128223_9127553403811565708_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=ff4730&_nc_ohc=dSf0y3XgjY8Q7kNvwFTMbvw&_nc_oc=Adpx4oR2rjkX55M8zGC-40wRjf6laAq44XuYOPHqkUSv3CFV4R718QsYQ6Q5rVr6GzA&_nc_zt=1&_nc_ht=scontent-lga3-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=sLWotAAYgHfQt1J5cpvAhg&_nc_tpa=Q5bMBQJZlv6lcRR7EE5bAZSU071JQnZr90C7-cRGqkN6oBmsNqp293EmYdNBIFJkzAq6es5WiIyiM7N_Uw&oh=00_AQPwhOH0_Im23Y86m-wcmdEZ32tZSAqK9g51EcOWYQBpSg&oe=6AD3A696",
       "link": "https://www.instagram.com/p/DdFyO6Wgq65/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -67207,7 +67317,7 @@
       "linkclk": 2,
       "campaign": "260107_사과_전환 캠페인_(0908 3종 오픈) YH",
       "ad": "0910_(9월까지만) A",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/794176537_122257336556128223_3842513978133322106_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=ff4730&_nc_ohc=aKuBZHFBi9kQ7kNvwHRczVx&_nc_oc=AdrPi3MwGruTnoIYT2azcxtmXT4xxRQqphOGsTdNbFq0lRZjmq-ZVUmGelqgfCb78lQ&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=NvH5rwO--ld23-dO3QhlIQ&_nc_tpa=Q5bMBQJp__jXWLTkQogvYIfXL5dh3w8R00k__ITP8-OaQigFD7Izl6xd8A6g1CiZWMLTrZBZ18WCZmaAcA&oh=00_AQNrkpp9-JGUqnra7pxq_2rdrieJGiqu_3UjcZ9TM193bg&oe=6AD3A68E",
+      "thumb": "https://scontent-lga3-3.xx.fbcdn.net/v/t45.1600-4/794176537_122257336556128223_3842513978133322106_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=ff4730&_nc_ohc=aKuBZHFBi9kQ7kNvwEdVquA&_nc_oc=AdpqBVhrnZn4VTKu9kgvKg8jrIsjoWMwGx9d3mDOL8YiIM009fGzxh9KETmScLnDB-I&_nc_zt=1&_nc_ht=scontent-lga3-3.xx&edm=AOgd6ZUEAAAA&_nc_gid=sLWotAAYgHfQt1J5cpvAhg&_nc_tpa=Q5bMBQKlweLow3J-af3ckUZb_sRhnD3_e2CrKxSqpech44bBwJ-j6SUsU_lsiGjdZdoPavtE_fbyTk_u0w&oh=00_AQN3slTQmJ26vU6fTHeLAT2YSOrpvRKEv2eHknFPsJzDAQ&oe=6AD3A68E",
       "link": "https://www.instagram.com/p/DdFyDarAnll/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -67226,7 +67336,7 @@
       "linkclk": 5,
       "campaign": "260901 / 사과 선물세트 / YH",
       "ad": "0910 B",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/793862720_122257342160128223_163223164571152534_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=ff4730&_nc_ohc=wkfNcYdjBHAQ7kNvwFcZ0gk&_nc_oc=Ado3rqgvnv61LI7x5wO1w4zresZCbVVR7mgeXpVkTgLqH5wDT6wzdxL8DU2Egy5sNdI&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=NvH5rwO--ld23-dO3QhlIQ&_nc_tpa=Q5bMBQLIe77El5C7kTbhH0hW6n2gHKO7fYswbqYBZj1Z1tiC5XnEZNnTriMkZwmO-6EMYDyuDRHgL3SerA&oh=00_AQOb1S-0Vyh995jv5UV-CsCubZQjQNDRM1g9jXFbpmRO1Q&oe=6AD39282",
+      "thumb": "https://scontent-lga3-3.xx.fbcdn.net/v/t45.1600-4/793862720_122257342160128223_163223164571152534_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=ff4730&_nc_ohc=wkfNcYdjBHAQ7kNvwFamCbu&_nc_oc=Ado1G3yw1W73qCVL9Mb9dtfrv3VstT3ff0C9lnb3wnw6ZDUtveGIkon6HzHFOoDeIL8&_nc_zt=1&_nc_ht=scontent-lga3-3.xx&edm=AOgd6ZUEAAAA&_nc_gid=sLWotAAYgHfQt1J5cpvAhg&_nc_tpa=Q5bMBQKRS-S7J_T8ywuLXclNJ_DMKFiIYKJfLSJNagAhhcdAUOOj9RZYRlkSFmX4YGcaO8PbXoBky0BECw&oh=00_AQNkmWqHuMvi-tD405dqaMi7eiz3GyYQDuJL42dnwcjNlQ&oe=6AD39282",
       "link": "https://www.instagram.com/p/DdFy_pQAPSL/",
       "status": "ACTIVE"
     },
@@ -67245,7 +67355,7 @@
       "linkclk": 151,
       "campaign": "260901 / 사과 선물세트 / YH",
       "ad": "0910 d",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/799829604_122257344236128223_5669645092451764315_n.jpg?_nc_cat=109&ccb=1-7&_nc_ohc=oj85weFozI8Q7kNvwF8E7DD&_nc_oc=Adra-206PTXKmio-zwquveK6OKU4hAEfPAx3KBkCB7EhsyW8lkqYHzfltFmdApAr-WQ&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=NvH5rwO--ld23-dO3QhlIQ&_nc_tpa=Q5bMBQIV5OHCgfSfVtkrFMoF3lgwy_pM5V5Kgb8KMd_QkztbOUMpQ24YPpJF7obEp8R-z3XvTTOAOTUYyA&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=52f3c4&_nc_sid=58080a&oh=00_AQPrJAShsRnFaCyKZ0uJEHx0gRuY1io2kxvvBm5GbrqSiA&oe=6AD3A318",
+      "thumb": "https://scontent-lga3-1.xx.fbcdn.net/v/t45.1600-4/799829604_122257344236128223_5669645092451764315_n.jpg?_nc_cat=109&ccb=1-7&_nc_ohc=oj85weFozI8Q7kNvwEiC3H5&_nc_oc=AdoUpjZVw1wNJTqhkVjvqs3d7fHDDh7XP75rmFj5RtPFPVjwhNhITg2DSH0lrJxPmfg&_nc_zt=1&_nc_ht=scontent-lga3-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=sLWotAAYgHfQt1J5cpvAhg&_nc_tpa=Q5bMBQI6ECJSd25JDeKywBEenSghLAxguql8__Lf62OEfwaNLb7IUak90mbOhJqxvAmQ-2cZ9tGxAd3LGQ&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=52f3c4&_nc_sid=58080a&oh=00_AQMAFSi5_mQ6P4kw6cHOuiQi7IeI0fctJTjiA1guRQUd8g&oe=6AD3A318",
       "link": "https://www.instagram.com/p/DdFzhmQAmtt/",
       "status": "ACTIVE"
     },
@@ -67264,7 +67374,7 @@
       "linkclk": 10,
       "campaign": "260901 / 사과 선물세트 / YH",
       "ad": "0910 c",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/789694881_122257342910128223_7581019349047897483_n.png?_nc_cat=102&ccb=1-7&_nc_ohc=rUkN6wb-PpsQ7kNvwH2cVX3&_nc_oc=AdpcoWQ7dH0echSPstNNPdmAlCslSd0KibypIbMzNUVesNVHlUjn1JNT2ijKEXgaVIw&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=NvH5rwO--ld23-dO3QhlIQ&_nc_tpa=Q5bMBQLHJ3TP8pdnH4CsEiwmBAxehXLvJgiOqUni_S5XVpjqG73ArflVLLVriV9DOnWBfqeKnRh3EzmSFg&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=52f3c4&_nc_sid=58080a&oh=00_AQMqqcmKtH1eYmqDdvNNgsiDlHZK9J-EQ8abNEbO3J6aIA&oe=6AD39181",
+      "thumb": "https://scontent-lga3-3.xx.fbcdn.net/v/t45.1600-4/789694881_122257342910128223_7581019349047897483_n.png?_nc_cat=102&ccb=1-7&_nc_ohc=rUkN6wb-PpsQ7kNvwHM2Uul&_nc_oc=AdrTfmzFN7WwYPvv3T0te01ED8LVvT31dp6Md9iIo2sR1nu3dDehEDxIyvGBoLQOO0I&_nc_zt=1&_nc_ht=scontent-lga3-3.xx&edm=AOgd6ZUEAAAA&_nc_gid=sLWotAAYgHfQt1J5cpvAhg&_nc_tpa=Q5bMBQJcU5B7quEgcX3lgdp4Uf7hKpGNiucnsyxoLDtI-MBPFXcjS_Edk4WFS_3ssVhXWke13BP7E58g6A&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=52f3c4&_nc_sid=58080a&oh=00_AQPIbsBTPVkMaPPtfHkzNk59bb8Jk1ungNjOfztWlH7Hcg&oe=6AD39181",
       "link": "https://www.instagram.com/p/DdFzSR5gJ51/",
       "status": "ACTIVE"
     },
@@ -67283,7 +67393,7 @@
       "linkclk": 72,
       "campaign": "260901 / 사과 선물세트 / YH",
       "ad": "0910 e",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/788966061_122257346096128223_3395448752175682702_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=ff4730&_nc_ohc=Bw0zrEVzNs4Q7kNvwHtYbmh&_nc_oc=Adpz56pdhLMrITUtXB4zipzb8HqeOhYtkvbPl29oui3f392NsM0dGTR5Evq2tUZH64Y&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=NvH5rwO--ld23-dO3QhlIQ&_nc_tpa=Q5bMBQINCyrp-7eNY2pP2qEvUGTxray03XeIHIK10x8Xr-_7gzWxcslNdS4_ecBeVBsImxqwnWZwksBmHA&oh=00_AQN_hdlVaEQr9n1zpihC3JOmvLVJ0M17WCkmWmVgzNLJPA&oe=6AD39FA8",
+      "thumb": "https://scontent-lga3-1.xx.fbcdn.net/v/t45.1600-4/788966061_122257346096128223_3395448752175682702_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=ff4730&_nc_ohc=Bw0zrEVzNs4Q7kNvwHo-vze&_nc_oc=Ado86EWdKx2JTFzAulgBrnGAjN2M_r4EPSNt417rS4uqugO0bgkuOgi6PDuQ2lrBPmA&_nc_zt=1&_nc_ht=scontent-lga3-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=sLWotAAYgHfQt1J5cpvAhg&_nc_tpa=Q5bMBQKMMyhTlc0S-rGWZNCLHTA_Xf2VYKflGrJwovXtXIfyCFWJcU6x-7p3dEwPPhMmIjkD59P8kiOkIw&oh=00_AQNoRyy0NMqYIVfxxjtcwN-Bg2bcOktXOC0RSq7i0pDF8g&oe=6AD39FA8",
       "link": "https://www.instagram.com/p/DdFzmPagJ2c/",
       "status": "ACTIVE"
     },
@@ -67302,16 +67412,16 @@
       "linkclk": 29,
       "campaign": "260901 / 사과 선물세트 / YH",
       "ad": "0910 A",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/793405741_122257340228128223_7427478700618357085_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=ff4730&_nc_ohc=HmB-V90kiL8Q7kNvwGZOyS4&_nc_oc=AdryUXVdeMc8A-_m6jDBbkP39FL4lrBDFM3xFZAkUODIdseOJf0YJaH4bE08CsxclIg&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=NvH5rwO--ld23-dO3QhlIQ&_nc_tpa=Q5bMBQKiHakPcOqcSDWwFcT54DvByA0i2O4Qzpi1bV8s_QRYVxU2Ldjy_aQCOf0Srflyg4wZdBenZaoZYA&oh=00_AQPOP9owuAo1_ruXBl9z1e2NEPTAHsWIyKwaMr3nD5CIxw&oe=6AD3BB62",
+      "thumb": "https://scontent-lga3-1.xx.fbcdn.net/v/t45.1600-4/793405741_122257340228128223_7427478700618357085_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=ff4730&_nc_ohc=HmB-V90kiL8Q7kNvwH2bt3B&_nc_oc=Adph2oYvYd-1JAQsUlJUrBKUP1_RltZ7z6dcPrNais7SYa7YqdBId0-fkVvKq4hJhmc&_nc_zt=1&_nc_ht=scontent-lga3-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=sLWotAAYgHfQt1J5cpvAhg&_nc_tpa=Q5bMBQJcDGqj-MBVbMTg2syugSKqo-zF4-DcwFcRtjBM5gvVIok5c0lmwTxwsEMXJlISACOI7SZbVGlA_w&oh=00_AQOc5rwmor0tkvFbX-CUOKBLYhBdibilCSCJXhhFHS2R3w&oe=6AD3BB62",
       "link": "https://www.instagram.com/p/DdFyvB8Az5-/",
       "status": "ACTIVE"
     },
     {
-      "imp": 218,
+      "imp": 220,
       "clk": 5,
-      "cost": 8125,
-      "reach": 124,
-      "freq": 1.76,
+      "cost": 8178,
+      "reach": 126,
+      "freq": 1.75,
       "lpv": 2,
       "atc": 0,
       "conv": 0,
@@ -67321,7 +67431,7 @@
       "linkclk": 2,
       "campaign": "260107_사과_전환 캠페인_(0908 3종 리셋팅) YH",
       "ad": "0910_(9월까지만) A",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/794176537_122257336556128223_3842513978133322106_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=ff4730&_nc_ohc=aKuBZHFBi9kQ7kNvwHRczVx&_nc_oc=AdrPi3MwGruTnoIYT2azcxtmXT4xxRQqphOGsTdNbFq0lRZjmq-ZVUmGelqgfCb78lQ&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=NvH5rwO--ld23-dO3QhlIQ&_nc_tpa=Q5bMBQJp__jXWLTkQogvYIfXL5dh3w8R00k__ITP8-OaQigFD7Izl6xd8A6g1CiZWMLTrZBZ18WCZmaAcA&oh=00_AQNrkpp9-JGUqnra7pxq_2rdrieJGiqu_3UjcZ9TM193bg&oe=6AD3A68E",
+      "thumb": "https://scontent-lga3-3.xx.fbcdn.net/v/t45.1600-4/794176537_122257336556128223_3842513978133322106_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=ff4730&_nc_ohc=aKuBZHFBi9kQ7kNvwEdVquA&_nc_oc=AdpqBVhrnZn4VTKu9kgvKg8jrIsjoWMwGx9d3mDOL8YiIM009fGzxh9KETmScLnDB-I&_nc_zt=1&_nc_ht=scontent-lga3-3.xx&edm=AOgd6ZUEAAAA&_nc_gid=sLWotAAYgHfQt1J5cpvAhg&_nc_tpa=Q5bMBQKlweLow3J-af3ckUZb_sRhnD3_e2CrKxSqpech44bBwJ-j6SUsU_lsiGjdZdoPavtE_fbyTk_u0w&oh=00_AQN3slTQmJ26vU6fTHeLAT2YSOrpvRKEv2eHknFPsJzDAQ&oe=6AD3A68E",
       "link": "https://www.instagram.com/p/DdFyDarAnll/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -67329,7 +67439,7 @@
       "imp": 679,
       "clk": 16,
       "cost": 20666,
-      "reach": 326,
+      "reach": 327,
       "freq": 2.08,
       "lpv": 11,
       "atc": 4,
@@ -67340,14 +67450,14 @@
       "linkclk": 14,
       "campaign": "260107_사과_전환 캠페인_(0908 3종 리셋팅) YH",
       "ad": "0910_(9월까지만) B",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/793519089_122257337066128223_9127553403811565708_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=ff4730&_nc_ohc=dSf0y3XgjY8Q7kNvwGDDJ9k&_nc_oc=AdpnYzRPultT86LWgOn7fWIO3MuIX_100-SB4U-Bfp8YqHcUFiaRbwM5U4vGXn7HfXM&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=NvH5rwO--ld23-dO3QhlIQ&_nc_tpa=Q5bMBQLf4dfMgXYgPeQbtVoLOMZiFMWjyaD7zen9MvyP9e6zpAr1C_ciYhV-8VAGMx6RcDECJsWPgHeSFQ&oh=00_AQPBPP-MAdzzFlAQubvIRL9ELNbjtvzbx0UzqM7M4U5u9g&oe=6AD3A696",
+      "thumb": "https://scontent-lga3-2.xx.fbcdn.net/v/t45.1600-4/793519089_122257337066128223_9127553403811565708_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=ff4730&_nc_ohc=dSf0y3XgjY8Q7kNvwFTMbvw&_nc_oc=Adpx4oR2rjkX55M8zGC-40wRjf6laAq44XuYOPHqkUSv3CFV4R718QsYQ6Q5rVr6GzA&_nc_zt=1&_nc_ht=scontent-lga3-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=sLWotAAYgHfQt1J5cpvAhg&_nc_tpa=Q5bMBQJZlv6lcRR7EE5bAZSU071JQnZr90C7-cRGqkN6oBmsNqp293EmYdNBIFJkzAq6es5WiIyiM7N_Uw&oh=00_AQPwhOH0_Im23Y86m-wcmdEZ32tZSAqK9g51EcOWYQBpSg&oe=6AD3A696",
       "link": "https://www.instagram.com/p/DdFyO6Wgq65/",
       "status": "CAMPAIGN_PAUSED"
     },
     {
-      "imp": 8694,
+      "imp": 8703,
       "clk": 187,
-      "cost": 235050,
+      "cost": 235237,
       "reach": 3440,
       "freq": 2.53,
       "lpv": 167,
@@ -67359,14 +67469,14 @@
       "linkclk": 157,
       "campaign": "260107_사과_전환 캠페인_(0908 3종 리셋팅) YH",
       "ad": "0910_(9월까지만) c",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/797940375_122257338488128223_1970277711335053329_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=ff4730&_nc_ohc=t30H74vZ5cYQ7kNvwGbYFQj&_nc_oc=AdpcwGEwRyIHyH4VD7GAYc9TUAmYa5TAsGPHaVwe_dX2QgBx9DkLVzTAPKFoe0XspBI&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=NvH5rwO--ld23-dO3QhlIQ&_nc_tpa=Q5bMBQItTpzpQtblFzGqDUwzS71FhGzLgvX4nug-ACgYyktM4URapuq2tSHX1mkTm9nR4Ekyr7lzjQJDZg&oh=00_AQMRqlRJ8chYb59Dr5nZDrkBB1YE8EIqP1UyrblAN84tLQ&oe=6AD3BFD5",
+      "thumb": "https://scontent-lga3-1.xx.fbcdn.net/v/t45.1600-4/797940375_122257338488128223_1970277711335053329_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=ff4730&_nc_ohc=t30H74vZ5cYQ7kNvwHKwplP&_nc_oc=AdqJzTyC3AtH0f0T5pasSpfB86dtJ7LoOUNMbfyf7G2Po5FJMTCTmjm0cDxoEYlw24Y&_nc_zt=1&_nc_ht=scontent-lga3-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=sLWotAAYgHfQt1J5cpvAhg&_nc_tpa=Q5bMBQKM5fseTAwzAUZq-i9TQhabGme39mKvZrS95sT4p9AGPqme0lPpk9LsyfnYbsAsRqErZtyp_90u-g&oh=00_AQN-likX5iipBhc12UgS7KmVDzhA6Bbdt9Kf0w_9Q2xleA&oe=6AD3BFD5",
       "link": "https://www.instagram.com/p/DdFybsDgRYY/",
       "status": "CAMPAIGN_PAUSED"
     },
     {
-      "imp": 4502,
+      "imp": 4506,
       "clk": 205,
-      "cost": 176931,
+      "cost": 177005,
       "reach": 2388,
       "freq": 1.89,
       "lpv": 154,
@@ -67378,16 +67488,16 @@
       "linkclk": 161,
       "campaign": "260107_사과_전환 캠페인_(0908 3종 리셋팅) YH",
       "ad": "0107_기존 계정 소재 BBBBB",
-      "thumb": "https://www.facebook.com/ads/image/?d=AQL5UXald0pEmuey85mDr6gvO0m_zgVZulVJISlv7jXM7KCh3ssQeeFFpm67iu5S9EbIolR9PcUoD4pIO5ysyiW58EEzqIk9injIqCbhm2OCDPaAPbHsTqXFtlBssa2D1Wvv5k13GGdi4rNHxxHGEaQS",
+      "thumb": "https://www.facebook.com/ads/image/?d=AQKEU8VCz7BlUiEuoRNHOPFQe2G8sOdHkoMwoFjT-kF1h5Xi-Oltmj_MfFD7ZEIOEc7sRLS6DA6o5JLf4uzR4oz9ExGD4qQl19wUa6Td3GmejpMrUhaviDHVwL6nV9jDZmlEPs56CM8wsmyZJP_vp8Aj",
       "link": "https://www.instagram.com/p/DV9_-pJgOKj/",
       "status": "CAMPAIGN_PAUSED"
     },
     {
-      "imp": 1471,
+      "imp": 1478,
       "clk": 42,
-      "cost": 44010,
-      "reach": 642,
-      "freq": 2.29,
+      "cost": 44099,
+      "reach": 647,
+      "freq": 2.28,
       "lpv": 40,
       "atc": 6,
       "conv": 6,
@@ -67397,7 +67507,7 @@
       "linkclk": 37,
       "campaign": "260107_사과_전환 캠페인_(0908 3종 리셋팅) YH",
       "ad": "0107_기존 계정 소재 A",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/610472374_122231511494128223_2558816747338132544_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=ff4730&_nc_ohc=R_8PkX0eWV4Q7kNvwFBrPDw&_nc_oc=Adq7xY4NwFpSgjpooViPMsYLe_K9L3jGmWRu93GQBkRTb5ZeZI9NzL7nisbAxWWmDXU&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=NvH5rwO--ld23-dO3QhlIQ&_nc_tpa=Q5bMBQKF3GtMdHkyzDZgeH6OUzYll8m67fJ46yaE7yUjwJFsjhoDXinoaV0_hb1mBSwQI_7KZ6tHSArkRw&oh=00_AQPAj1cZnmbx0vGyxjpB7ZIR2icT-ygYSwhcpu4PfHQalg&oe=6AD394F7",
+      "thumb": "https://scontent-lga3-1.xx.fbcdn.net/v/t45.1600-4/610472374_122231511494128223_2558816747338132544_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=ff4730&_nc_ohc=R_8PkX0eWV4Q7kNvwGWLJyK&_nc_oc=Adqgmwlbb0r9OMNijdT6J-D1lOtpmLzyo0TGXXdoFve0KzPd6V8cs-d8YhGBM9ZoPic&_nc_zt=1&_nc_ht=scontent-lga3-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=sLWotAAYgHfQt1J5cpvAhg&_nc_tpa=Q5bMBQIDldB01Jq102sdxio8BXB-ab0kYpMfY3ptABQeaY1RiRTRgtQCgzXThTQZ8L2Xbc7GYtG0WPVKnQ&oh=00_AQNCJu3HnQ5LV3PFZsG_iZ2xI8_XCM3VIJiqVUcWWxZRXg&oe=6AD394F7",
       "link": "https://www.instagram.com/p/DV9_-LmgBNN/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -67416,16 +67526,16 @@
       "linkclk": 6,
       "campaign": "260107_사과_전환 캠페인_(0908 3종 리셋팅) YH",
       "ad": "0107_기존 계정 소재 D",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/611736837_122231511548128223_8022022712691626914_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=ff4730&_nc_ohc=AcqnxmVYuCMQ7kNvwHbp16H&_nc_oc=AdpNGxAI4zA5ga4oJzzns_3ZxRKQhGzTaolen0EhloWn4BaEQAMClnZUt8jAeLvryOc&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=NvH5rwO--ld23-dO3QhlIQ&_nc_tpa=Q5bMBQIMNz8m6bO9pZtp2NntdI_E6ddxkV5PBFdvvpjr97LGEZqTMWNV_iq_LBxmP_fbi5j0HkCZn07MVA&oh=00_AQOotd21NqnPHtLHnEGMFRrXfIE1Kf2MD4KA3gh88QNlcg&oe=6AD3BE26",
+      "thumb": "https://scontent-lga3-1.xx.fbcdn.net/v/t45.1600-4/611736837_122231511548128223_8022022712691626914_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=ff4730&_nc_ohc=AcqnxmVYuCMQ7kNvwE_PVg4&_nc_oc=Adq4haoFBQsl_ME8n_PD6JarNNWgN2P3A9ZJdEeJ3JmsUiG5RI9AvIXGvpC6FhX-xoo&_nc_zt=1&_nc_ht=scontent-lga3-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=sLWotAAYgHfQt1J5cpvAhg&_nc_tpa=Q5bMBQJ59cHHZtbqZxGdn0vQGLetKO6hIFVmKSRQ3dcmFVKaSWao_V2pdXLkpocpSoXNQ9ZKPjFElozRwA&oh=00_AQNG5AYXklqBU2Yaw98Ot6X0BwAyn2zG6OKh1Q_bU4zjmQ&oe=6AD3BE26",
       "link": "https://www.instagram.com/p/DV9_9-IAKf-/",
       "status": "CAMPAIGN_PAUSED"
     },
     {
-      "imp": 393,
+      "imp": 394,
       "clk": 12,
-      "cost": 12834,
-      "reach": 207,
-      "freq": 1.9,
+      "cost": 12862,
+      "reach": 209,
+      "freq": 1.89,
       "lpv": 11,
       "atc": 4,
       "conv": 0,
@@ -67435,16 +67545,16 @@
       "linkclk": 10,
       "campaign": "260107_사과_전환 캠페인_(0908 3종 리셋팅) YH",
       "ad": "0107_기존 계정 소재 C",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/610114675_122231511476128223_1008960296656086977_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=ff4730&_nc_ohc=ZB_NUDelf5UQ7kNvwEVk0vO&_nc_oc=AdqDlTatPJIlorJvCOViqq374o3DROCcHEd48x8Az_5LsXIGZBZfy2L3eXDKKsGRS-I&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=NvH5rwO--ld23-dO3QhlIQ&_nc_tpa=Q5bMBQIJ1PojfywOJjF4yFQGm38uCkYb2mrz2JkCzD-yMyDhytBltPxp-w6I5c1wIJHflQBJZLc7YxnKeQ&oh=00_AQNjn3nThNCd5o8N28VI2bA30VV_0MESeXP3tyICgb2T-g&oe=6AD3961C",
+      "thumb": "https://scontent-lga3-3.xx.fbcdn.net/v/t45.1600-4/610114675_122231511476128223_1008960296656086977_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=ff4730&_nc_ohc=ZB_NUDelf5UQ7kNvwEXq3sv&_nc_oc=Adqh8pmzKxD9ko-MB6yoM-HuSzXG_DZmO4kR3nrWX_APxwi9d4i_0xJIFssbOsKJyco&_nc_zt=1&_nc_ht=scontent-lga3-3.xx&edm=AOgd6ZUEAAAA&_nc_gid=sLWotAAYgHfQt1J5cpvAhg&_nc_tpa=Q5bMBQII6Hh84xHl-HZOqnY3iv7MFFdaTXnCISI7_lDHKUDsy7fm0gKLmBZ3ThVIP6Gp0IqF_Bf-PYMlaA&oh=00_AQNdzckKnJ8S1VP489p2kl6VE7Fyl3Iby1pkJRhrrPzUsQ&oe=6AD3961C",
       "link": "https://www.instagram.com/p/DV9_-QOgNFW/",
       "status": "CAMPAIGN_PAUSED"
     },
     {
-      "imp": 5185,
+      "imp": 5191,
       "clk": 204,
-      "cost": 176772,
-      "reach": 2534,
-      "freq": 2.05,
+      "cost": 176886,
+      "reach": 2543,
+      "freq": 2.04,
       "lpv": 179,
       "atc": 8,
       "conv": 16,
@@ -67454,7 +67564,7 @@
       "linkclk": 170,
       "campaign": "260107_사과_전환 캠페인_(0908 3종 리셋팅) YH",
       "ad": "0107_기존 계정 소재 AA",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/612257602_122231514998128223_7271660506961356836_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=ff4730&_nc_ohc=5Le_MI4HQaoQ7kNvwEaLdr0&_nc_oc=AdqqP-byCJ_Ld4qV_I0A5dayuQZanHsMYxCa9YYZhqFA-0ysR-mbfJ4Xg7Fwa-RJk2s&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=NvH5rwO--ld23-dO3QhlIQ&_nc_tpa=Q5bMBQKgtNJeiPqnlD1iNWNWUI3kW44gOmtQEEn7eayRb48PfC2BiK7P0b4Bxtc_wfLS5XfKUGHn8w0NTw&oh=00_AQNQ44wPuV95TUt65ViQ3NKly6JprBmccFcgwddQLNakbA&oe=6AD3A5EC",
+      "thumb": "https://scontent-lga3-3.xx.fbcdn.net/v/t45.1600-4/612257602_122231514998128223_7271660506961356836_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=ff4730&_nc_ohc=5Le_MI4HQaoQ7kNvwECiPIT&_nc_oc=AdrDxlR_FnlxPxluNeGf6FoCcQCOFW1YXPYZ1oLHBsjvzsqT-H2sIfW95W0NDCEIJCw&_nc_zt=1&_nc_ht=scontent-lga3-3.xx&edm=AOgd6ZUEAAAA&_nc_gid=sLWotAAYgHfQt1J5cpvAhg&_nc_tpa=Q5bMBQLc6trpaORflrrw5EOgTrdBIf24xTGAh1c6Ox6lMYLXKvpS5UHss1k2iGtfEIMoUAxHCIEgvVYlPg&oh=00_AQP8NJZOxBaPXCuNYDifHvmpKLNa5099_nakfdu5jVmnDw&oe=6AD3A5EC",
       "link": "https://www.instagram.com/p/DV9_-HggFrA/",
       "status": "CAMPAIGN_PAUSED"
     },
@@ -67473,14 +67583,14 @@
       "linkclk": 169,
       "campaign": "261002_제철사과_전환 캠페인(CBO)_AMPM",
       "ad": "이미지1_1002",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/828121892_122134094973359585_4596539930183069848_n.png?stp=dst-jpg_tt6&_nc_cat=100&ccb=1-7&_nc_sid=ff4730&_nc_ohc=Q8PLz_MRZo8Q7kNvwGMmfO7&_nc_oc=AdpJTmLkWatNu2jmL1GWHE72dpOAuQFZyBbnefJAMM0L4r43prD0kfFBYAKpREMg2ec&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=NvH5rwO--ld23-dO3QhlIQ&_nc_tpa=Q5bMBQIbXV_Vi_S2baprB1unxVDuRrp6yU2EPNtlYJAOYmsjgcJrXgtjwLsLJi6e3VfKcNcm3OflLHONzw&oh=00_AQNawNAQGiFQkcPDj6rFIaBERoNbcuLZFrmenMDqfIuzOw&oe=6AD3ACC0",
+      "thumb": "https://scontent-lga3-2.xx.fbcdn.net/v/t45.1600-4/828121892_122134094973359585_4596539930183069848_n.png?stp=dst-jpg_tt6&_nc_cat=100&ccb=1-7&_nc_sid=ff4730&_nc_ohc=Q8PLz_MRZo8Q7kNvwHwo40X&_nc_oc=AdqR80K_WSujywLYrmOTx5v7kAqXtX8U-U0y6Vz_OyHqZbIX8ZGA5SgJAloXBY_Q6EE&_nc_zt=1&_nc_ht=scontent-lga3-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=sLWotAAYgHfQt1J5cpvAhg&_nc_tpa=Q5bMBQJOGQS7PugtaMYM8X5oH860nyIoi-0oEzZPPM0t6Yf9kl0fjtWZNqKZ9YkHzFC0Nt7lYquIzHbXfQ&oh=00_AQO_zWjwxcVF2uD5YQyiZlsC8lm-5EvgPl6wg5w9iSU29Q&oe=6AD3ACC0",
       "link": "https://www.instagram.com/p/Dd_CsOmA-M0/",
       "status": "ADSET_PAUSED"
     },
     {
-      "imp": 3475,
+      "imp": 3477,
       "clk": 125,
-      "cost": 110241,
+      "cost": 110280,
       "reach": 1442,
       "freq": 2.41,
       "lpv": 93,
@@ -67492,15 +67602,15 @@
       "linkclk": 103,
       "campaign": "261002_제철사과_전환 캠페인(CBO)_AMPM",
       "ad": "이미지3_1002",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/828121760_122134094955359585_4649574984120535861_n.png?stp=dst-jpg_tt6&_nc_cat=105&ccb=1-7&_nc_sid=ff4730&_nc_ohc=Jq1S6SF3XtoQ7kNvwEiriSW&_nc_oc=Adop9pQGue7wPjt5uMDZlE2_Im12y1oka0GAfw8IuBezfnsmvV3a_0dg0xSmBVZDnCQ&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=NvH5rwO--ld23-dO3QhlIQ&_nc_tpa=Q5bMBQJl2NxgkkdZTY2lCB8g2GJKrpxku1OzKHVkhEH7HxpTil2Rm8jE7AUaeH5jMJf1PU7mhMDJaLrNrA&oh=00_AQOkv99sOpNjqRC2G9pMwxFxwS-P2dAhcJ4DwObhGfhXyw&oe=6AD3B7B0",
+      "thumb": "https://scontent-lga3-2.xx.fbcdn.net/v/t45.1600-4/828121760_122134094955359585_4649574984120535861_n.png?stp=dst-jpg_tt6&_nc_cat=105&ccb=1-7&_nc_sid=ff4730&_nc_ohc=Jq1S6SF3XtoQ7kNvwE3CJ1d&_nc_oc=AdoXqdfHtLJ6iFi7GIQNFCLTCuCwK9fEWgRNGQ_NrJP5i6hbn2Zteb7u1J9bCMhCdLQ&_nc_zt=1&_nc_ht=scontent-lga3-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=sLWotAAYgHfQt1J5cpvAhg&_nc_tpa=Q5bMBQLitMuUq5SN2gVuj-zGd5YVQOpY0uJSBxbRqJH3bu58hIIbaoyVfcQa2wnf1WU6YbsgH7ltFqHVdw&oh=00_AQPmiUlKAzGYH0K5EgIbY9GHMSf2skq3hSzuYuAqeVSRuQ&oe=6AD3B7B0",
       "link": "https://www.instagram.com/p/Dd_CsMQgAmq/",
       "status": "ADSET_PAUSED"
     },
     {
-      "imp": 1515,
+      "imp": 1524,
       "clk": 69,
-      "cost": 55274,
-      "reach": 857,
+      "cost": 55403,
+      "reach": 861,
       "freq": 1.77,
       "lpv": 49,
       "atc": 2,
@@ -67508,10 +67618,10 @@
       "rev": 149950,
       "convClk": 4,
       "revClk": 149950,
-      "linkclk": 52,
+      "linkclk": 53,
       "campaign": "261002_제철사과_전환 캠페인(CBO)_AMPM",
       "ad": "이미지2_1002",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/831183952_122134094991359585_6952113336218116178_n.png?stp=dst-jpg_tt6&_nc_cat=103&ccb=1-7&_nc_sid=ff4730&_nc_ohc=lhxy_SrP5V8Q7kNvwGc3Gmt&_nc_oc=AdqtdG6m_Xk79TGah1-9BGwwUh7weu1jd5IE7by_0-UEoMZRPrb9rR89Gr_T_QF7zus&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=NvH5rwO--ld23-dO3QhlIQ&_nc_tpa=Q5bMBQJvW1j1VpYWWQRzbCQRMWlRfT0iSvrWuE6zUO4sD6dg4OmqZSvcxn7xhDIJ5_tvOD9mYnhl9-aWfw&oh=00_AQP38iRd5ilGDBmLCPBB0K91qHHJrOSW6A3hpmipuGJZUQ&oe=6AD3B3B2",
+      "thumb": "https://scontent-lga3-1.xx.fbcdn.net/v/t45.1600-4/831183952_122134094991359585_6952113336218116178_n.png?stp=dst-jpg_tt6&_nc_cat=103&ccb=1-7&_nc_sid=ff4730&_nc_ohc=lhxy_SrP5V8Q7kNvwEyxqiQ&_nc_oc=AdoFobrLWwBIrG0vF2Rrnd2pcm5iMhZjRE-Ns8Fy9zW4LtUzZhSqfSz96AS_XSihsBs&_nc_zt=1&_nc_ht=scontent-lga3-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=sLWotAAYgHfQt1J5cpvAhg&_nc_tpa=Q5bMBQIeR-XwkmJSWJ0q88MdopbHAahBgKQg6VlKBNT1snY-31mgY4b8Vw93sj8BIjfcjoTeCKC69hhLww&oh=00_AQPH683a-digo7S-zOquBRqPIzYMtu0IV_j4SAPPfd6lNg&oe=6AD3B3B2",
       "link": "https://www.instagram.com/p/Dd_CsWbgiiv/",
       "status": "ADSET_PAUSED"
     },
@@ -67530,7 +67640,7 @@
       "linkclk": 0,
       "campaign": "261012_b2b_잠재고객 캠페인(CBO)_AMPM",
       "ad": "소재1_1012",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/838593400_122136784389359585_4489357058170925849_n.png?stp=dst-jpg_tt6&_nc_cat=100&ccb=1-7&_nc_sid=ff4730&_nc_ohc=KdQYyWIOXa8Q7kNvwFsKwSl&_nc_oc=Adq6rljEQeVwqkcoSksjLpad1HF-AFqBtaIybyXh0v1nWvayKcmxKWtEtYS28FJ-bMo&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=NvH5rwO--ld23-dO3QhlIQ&_nc_tpa=Q5bMBQL82h7X4sRo2xyixCos5bPIDye6MvlDQ-w6bi27jQ9-dDDjbTYe0Tarlo6tOKrTVXFkbnK7zxku4w&oh=00_AQNjIFBCT3soHjF3gL4-xjl21sCYMBolibX22HcX27bC0g&oe=6AD3A688",
+      "thumb": "https://scontent-lga3-2.xx.fbcdn.net/v/t45.1600-4/838593400_122136784389359585_4489357058170925849_n.png?stp=dst-jpg_tt6&_nc_cat=100&ccb=1-7&_nc_sid=ff4730&_nc_ohc=KdQYyWIOXa8Q7kNvwEqDs7z&_nc_oc=AdqCLHMT9N08dUDdfjpp-ALyA8zdPYr7EzwqgEZSNGM2QjA81lPrfYhQgAs_7MZNlx0&_nc_zt=1&_nc_ht=scontent-lga3-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=sLWotAAYgHfQt1J5cpvAhg&_nc_tpa=Q5bMBQIWSfJk4gjj2PwSrB_MXnPFW4-sEfbfxKQjeVQUGYL05KKzwrJn3Arb8BdPd0yeyS5qVIwf4yfscQ&oh=00_AQO0t7f3e5_EXrrkYpGJikvYFwSHueurm5k3n4ZkwxSKEg&oe=6AD3A688",
       "link": "https://www.instagram.com/p/DeYBOXlgoIK/",
       "status": "ACTIVE"
     },
@@ -67549,7 +67659,7 @@
       "linkclk": 4,
       "campaign": "261012_b2b_잠재고객 캠페인(CBO)_AMPM",
       "ad": "소재2_1012",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/839631929_122136784371359585_1487957286285079199_n.png?stp=dst-jpg_tt6&_nc_cat=107&ccb=1-7&_nc_sid=ff4730&_nc_ohc=-KuFFU9BysUQ7kNvwHIm7xp&_nc_oc=Adpf4CA2HXGsI_SpBqBB_zcr0wnJJ10cq4wackG6mQP5m2S8hJR6dvwOMlgS8HSktBs&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=NvH5rwO--ld23-dO3QhlIQ&_nc_tpa=Q5bMBQK-p0JyT_-eRCm13cwDOQhO4WOVlePJkXcvDddri2f5hhR-4icO7tmUn4hoyYmTMmROxuWF1yT9sQ&oh=00_AQMe-dJUAvD5nqdzcceFvC_8XyH2ittE-jeEk9rer2jQsA&oe=6AD3A820",
+      "thumb": "https://scontent-lga3-2.xx.fbcdn.net/v/t45.1600-4/839631929_122136784371359585_1487957286285079199_n.png?stp=dst-jpg_tt6&_nc_cat=107&ccb=1-7&_nc_sid=ff4730&_nc_ohc=QFF4tqGLLw8Q7kNvwHLIxMr&_nc_oc=AdrobHHeWqzILXWndpBzD4RZOkI3BH2Fr0jCVf0WB5HJyj_L4rlZMKQ6D0rrO_225fk&_nc_zt=1&_nc_ht=scontent-lga3-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=sLWotAAYgHfQt1J5cpvAhg&_nc_tpa=Q5bMBQKKkYLpP0x7bdT58eAXH83AyAcPOX5y4JjkbgIzwUA3TYpu9E0StqyyAnpXbfCvH8kGP80OBaGXSQ&oh=00_AQNnk0zVoZbvcsz00AdzaryP0apIsWKzh4L-l5GerrQECQ&oe=6AD3A820",
       "link": "https://www.instagram.com/p/DeYA-_Bg8Hm/",
       "status": "ACTIVE"
     },
@@ -67568,7 +67678,7 @@
       "linkclk": 5,
       "campaign": "261012_b2b_잠재고객 캠페인(CBO)_AMPM",
       "ad": "소재1_1012",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/838593400_122136784389359585_4489357058170925849_n.png?stp=dst-jpg_tt6&_nc_cat=100&ccb=1-7&_nc_sid=ff4730&_nc_ohc=KdQYyWIOXa8Q7kNvwFsKwSl&_nc_oc=Adq6rljEQeVwqkcoSksjLpad1HF-AFqBtaIybyXh0v1nWvayKcmxKWtEtYS28FJ-bMo&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=NvH5rwO--ld23-dO3QhlIQ&_nc_tpa=Q5bMBQL82h7X4sRo2xyixCos5bPIDye6MvlDQ-w6bi27jQ9-dDDjbTYe0Tarlo6tOKrTVXFkbnK7zxku4w&oh=00_AQNjIFBCT3soHjF3gL4-xjl21sCYMBolibX22HcX27bC0g&oe=6AD3A688",
+      "thumb": "https://scontent-lga3-2.xx.fbcdn.net/v/t45.1600-4/838593400_122136784389359585_4489357058170925849_n.png?stp=dst-jpg_tt6&_nc_cat=100&ccb=1-7&_nc_sid=ff4730&_nc_ohc=KdQYyWIOXa8Q7kNvwEqDs7z&_nc_oc=AdqCLHMT9N08dUDdfjpp-ALyA8zdPYr7EzwqgEZSNGM2QjA81lPrfYhQgAs_7MZNlx0&_nc_zt=1&_nc_ht=scontent-lga3-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=sLWotAAYgHfQt1J5cpvAhg&_nc_tpa=Q5bMBQIWSfJk4gjj2PwSrB_MXnPFW4-sEfbfxKQjeVQUGYL05KKzwrJn3Arb8BdPd0yeyS5qVIwf4yfscQ&oh=00_AQO0t7f3e5_EXrrkYpGJikvYFwSHueurm5k3n4ZkwxSKEg&oe=6AD3A688",
       "link": "https://www.instagram.com/p/DeYBOXlgoIK/",
       "status": "ACTIVE"
     },
@@ -67587,15 +67697,15 @@
       "linkclk": 1,
       "campaign": "261012_b2b_잠재고객 캠페인(CBO)_AMPM",
       "ad": "소재2_1012",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/839631929_122136784371359585_1487957286285079199_n.png?stp=dst-jpg_tt6&_nc_cat=107&ccb=1-7&_nc_sid=ff4730&_nc_ohc=-KuFFU9BysUQ7kNvwHIm7xp&_nc_oc=Adpf4CA2HXGsI_SpBqBB_zcr0wnJJ10cq4wackG6mQP5m2S8hJR6dvwOMlgS8HSktBs&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=NvH5rwO--ld23-dO3QhlIQ&_nc_tpa=Q5bMBQK-p0JyT_-eRCm13cwDOQhO4WOVlePJkXcvDddri2f5hhR-4icO7tmUn4hoyYmTMmROxuWF1yT9sQ&oh=00_AQMe-dJUAvD5nqdzcceFvC_8XyH2ittE-jeEk9rer2jQsA&oe=6AD3A820",
+      "thumb": "https://scontent-lga3-2.xx.fbcdn.net/v/t45.1600-4/839631929_122136784371359585_1487957286285079199_n.png?stp=dst-jpg_tt6&_nc_cat=107&ccb=1-7&_nc_sid=ff4730&_nc_ohc=QFF4tqGLLw8Q7kNvwHLIxMr&_nc_oc=AdrobHHeWqzILXWndpBzD4RZOkI3BH2Fr0jCVf0WB5HJyj_L4rlZMKQ6D0rrO_225fk&_nc_zt=1&_nc_ht=scontent-lga3-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=sLWotAAYgHfQt1J5cpvAhg&_nc_tpa=Q5bMBQKKkYLpP0x7bdT58eAXH83AyAcPOX5y4JjkbgIzwUA3TYpu9E0StqyyAnpXbfCvH8kGP80OBaGXSQ&oh=00_AQNnk0zVoZbvcsz00AdzaryP0apIsWKzh4L-l5GerrQECQ&oe=6AD3A820",
       "link": "https://www.instagram.com/p/DeYA-_Bg8Hm/",
       "status": "ACTIVE"
     },
     {
-      "imp": 1305,
+      "imp": 1326,
       "clk": 87,
-      "cost": 37576,
-      "reach": 972,
+      "cost": 38032,
+      "reach": 987,
       "freq": 1.34,
       "lpv": 9,
       "atc": 0,
@@ -67606,15 +67716,15 @@
       "linkclk": 58,
       "campaign": "261012_b2b_잠재고객 캠페인(CBO)_AMPM",
       "ad": "소재2_1012",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/839631929_122136784371359585_1487957286285079199_n.png?stp=dst-jpg_tt6&_nc_cat=107&ccb=1-7&_nc_sid=ff4730&_nc_ohc=-KuFFU9BysUQ7kNvwHIm7xp&_nc_oc=Adpf4CA2HXGsI_SpBqBB_zcr0wnJJ10cq4wackG6mQP5m2S8hJR6dvwOMlgS8HSktBs&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=NvH5rwO--ld23-dO3QhlIQ&_nc_tpa=Q5bMBQK-p0JyT_-eRCm13cwDOQhO4WOVlePJkXcvDddri2f5hhR-4icO7tmUn4hoyYmTMmROxuWF1yT9sQ&oh=00_AQMe-dJUAvD5nqdzcceFvC_8XyH2ittE-jeEk9rer2jQsA&oe=6AD3A820",
+      "thumb": "https://scontent-lga3-2.xx.fbcdn.net/v/t45.1600-4/839631929_122136784371359585_1487957286285079199_n.png?stp=dst-jpg_tt6&_nc_cat=107&ccb=1-7&_nc_sid=ff4730&_nc_ohc=QFF4tqGLLw8Q7kNvwHLIxMr&_nc_oc=AdrobHHeWqzILXWndpBzD4RZOkI3BH2Fr0jCVf0WB5HJyj_L4rlZMKQ6D0rrO_225fk&_nc_zt=1&_nc_ht=scontent-lga3-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=sLWotAAYgHfQt1J5cpvAhg&_nc_tpa=Q5bMBQKKkYLpP0x7bdT58eAXH83AyAcPOX5y4JjkbgIzwUA3TYpu9E0StqyyAnpXbfCvH8kGP80OBaGXSQ&oh=00_AQNnk0zVoZbvcsz00AdzaryP0apIsWKzh4L-l5GerrQECQ&oe=6AD3A820",
       "link": "https://www.instagram.com/p/DeYA-_Bg8Hm/",
       "status": "ACTIVE"
     },
     {
-      "imp": 73,
+      "imp": 74,
       "clk": 2,
-      "cost": 2002,
-      "reach": 65,
+      "cost": 2015,
+      "reach": 66,
       "freq": 1.12,
       "lpv": 1,
       "atc": 0,
@@ -67625,7 +67735,7 @@
       "linkclk": 1,
       "campaign": "261012_b2b_잠재고객 캠페인(CBO)_AMPM",
       "ad": "소재1_1012",
-      "thumb": "https://scontent-sea5-1.xx.fbcdn.net/v/t45.1600-4/838593400_122136784389359585_4489357058170925849_n.png?stp=dst-jpg_tt6&_nc_cat=100&ccb=1-7&_nc_sid=ff4730&_nc_ohc=KdQYyWIOXa8Q7kNvwFsKwSl&_nc_oc=Adq6rljEQeVwqkcoSksjLpad1HF-AFqBtaIybyXh0v1nWvayKcmxKWtEtYS28FJ-bMo&_nc_zt=1&_nc_ht=scontent-sea5-1.xx&edm=AOgd6ZUEAAAA&_nc_gid=NvH5rwO--ld23-dO3QhlIQ&_nc_tpa=Q5bMBQL82h7X4sRo2xyixCos5bPIDye6MvlDQ-w6bi27jQ9-dDDjbTYe0Tarlo6tOKrTVXFkbnK7zxku4w&oh=00_AQNjIFBCT3soHjF3gL4-xjl21sCYMBolibX22HcX27bC0g&oe=6AD3A688",
+      "thumb": "https://scontent-lga3-2.xx.fbcdn.net/v/t45.1600-4/838593400_122136784389359585_4489357058170925849_n.png?stp=dst-jpg_tt6&_nc_cat=100&ccb=1-7&_nc_sid=ff4730&_nc_ohc=KdQYyWIOXa8Q7kNvwEqDs7z&_nc_oc=AdqCLHMT9N08dUDdfjpp-ALyA8zdPYr7EzwqgEZSNGM2QjA81lPrfYhQgAs_7MZNlx0&_nc_zt=1&_nc_ht=scontent-lga3-2.xx&edm=AOgd6ZUEAAAA&_nc_gid=sLWotAAYgHfQt1J5cpvAhg&_nc_tpa=Q5bMBQIWSfJk4gjj2PwSrB_MXnPFW4-sEfbfxKQjeVQUGYL05KKzwrJn3Arb8BdPd0yeyS5qVIwf4yfscQ&oh=00_AQO0t7f3e5_EXrrkYpGJikvYFwSHueurm5k3n4ZkwxSKEg&oe=6AD3A688",
       "link": "https://www.instagram.com/p/DeYBOXlgoIK/",
       "status": "ACTIVE"
     }
@@ -67662,9 +67772,9 @@
       "campaign": "0107_트래픽_사업자_YH"
     },
     {
-      "imp": 315113,
+      "imp": 315121,
       "clk": 5411,
-      "cost": 6724522,
+      "cost": 6724907,
       "reach": 107339,
       "freq": 2.94,
       "lpv": 3989,
@@ -67812,10 +67922,10 @@
       "campaign": "260901 / 사과 선물세트 / YH"
     },
     {
-      "imp": 21426,
+      "imp": 21455,
       "clk": 680,
-      "cost": 684590,
-      "reach": 6243,
+      "cost": 685135,
+      "reach": 6246,
       "freq": 3.43,
       "lpv": 569,
       "atc": 76,
@@ -67827,9 +67937,9 @@
       "campaign": "260107_사과_전환 캠페인_(0908 3종 리셋팅) YH"
     },
     {
-      "imp": 11641,
+      "imp": 11652,
       "clk": 402,
-      "cost": 333848,
+      "cost": 334016,
       "reach": 4933,
       "freq": 2.36,
       "lpv": 290,
@@ -67838,15 +67948,15 @@
       "rev": 1150230,
       "convClk": 24,
       "revClk": 1150230,
-      "linkclk": 324,
+      "linkclk": 325,
       "campaign": "261002_제철사과_전환 캠페인(CBO)_AMPM"
     },
     {
-      "imp": 1771,
+      "imp": 1793,
       "clk": 105,
-      "cost": 49487,
-      "reach": 1173,
-      "freq": 1.51,
+      "cost": 49956,
+      "reach": 1182,
+      "freq": 1.52,
       "lpv": 10,
       "atc": 0,
       "conv": 0,
@@ -67859,11 +67969,11 @@
   ],
   "placements": [
     {
-      "imp": 4990,
+      "imp": 4993,
       "clk": 221,
-      "cost": 28627,
+      "cost": 28628,
       "reach": 392,
-      "freq": 12.73,
+      "freq": 12.74,
       "lpv": 142,
       "atc": 0,
       "conv": 0,
@@ -67923,9 +68033,9 @@
       "position": "facebook_profile_feed"
     },
     {
-      "imp": 28708,
+      "imp": 28709,
       "clk": 1118,
-      "cost": 287381,
+      "cost": 287383,
       "reach": 12279,
       "freq": 2.34,
       "lpv": 988,
@@ -67939,9 +68049,9 @@
       "position": "facebook_reels"
     },
     {
-      "imp": 4909,
+      "imp": 4910,
       "clk": 42,
-      "cost": 16183,
+      "cost": 16192,
       "reach": 3002,
       "freq": 1.64,
       "lpv": 28,
@@ -67971,10 +68081,10 @@
       "position": "facebook_stories"
     },
     {
-      "imp": 30114,
+      "imp": 30117,
       "clk": 1440,
-      "cost": 644879,
-      "reach": 9292,
+      "cost": 645025,
+      "reach": 9306,
       "freq": 3.24,
       "lpv": 790,
       "atc": 35,
@@ -68035,9 +68145,9 @@
       "position": "search"
     },
     {
-      "imp": 644328,
+      "imp": 644368,
       "clk": 27235,
-      "cost": 14621177,
+      "cost": 14622319,
       "reach": 209551,
       "freq": 3.07,
       "lpv": 22529,
@@ -68046,7 +68156,7 @@
       "rev": 69918448,
       "convClk": 1094,
       "revClk": 53654758,
-      "linkclk": 25461,
+      "linkclk": 25462,
       "platform": "instagram",
       "position": "feed"
     },
@@ -68067,11 +68177,11 @@
       "position": "instagram_explore"
     },
     {
-      "imp": 14297,
+      "imp": 14300,
       "clk": 91,
-      "cost": 55785,
+      "cost": 55811,
       "reach": 8289,
-      "freq": 1.72,
+      "freq": 1.73,
       "lpv": 72,
       "atc": 5,
       "conv": 14,
@@ -68083,9 +68193,9 @@
       "position": "instagram_explore_grid_home"
     },
     {
-      "imp": 306368,
+      "imp": 306375,
       "clk": 11830,
-      "cost": 3791549,
+      "cost": 3791582,
       "reach": 140550,
       "freq": 2.18,
       "lpv": 8742,
@@ -68115,9 +68225,9 @@
       "position": "instagram_search"
     },
     {
-      "imp": 101820,
+      "imp": 101828,
       "clk": 3071,
-      "cost": 2631527,
+      "cost": 2631719,
       "reach": 31490,
       "freq": 3.23,
       "lpv": 2305,
@@ -68131,9 +68241,9 @@
       "position": "instagram_stories"
     },
     {
-      "imp": 59974,
+      "imp": 59978,
       "clk": 633,
-      "cost": 343303,
+      "cost": 343319,
       "reach": 27482,
       "freq": 2.18,
       "lpv": 579,
@@ -68164,9 +68274,9 @@
     }
   ],
   "funnel": {
-    "imp": 1198056,
+    "imp": 1198126,
     "clk": 45919,
-    "linkclk": 41842,
+    "linkclk": 41843,
     "lpv": 36375,
     "atc": 1031,
     "conv": 2035,
