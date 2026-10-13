@@ -245,6 +245,49 @@ def main():
             f'<tr style="color:#888"><td style="text-align:left;padding:4px 8px">캠페인</td>'
             f'<td>상태</td><td>일예산</td><td>최근 예산 변경</td></tr>{rows1}</table>')
 
+    # ①-1 UTM 점검 (메타 API에서 광고별 URL 매개변수 설정 전수 검사 — fetch_meta_ads.py utmAudit)
+    au = meta.get('utmAudit') or {}
+    au_miss = au.get('missing') or []
+    if au.get('checked'):
+        if au_miss:
+            miss_txt = '<br>'.join(
+                f'&nbsp;&nbsp;· {m.get("ad","")[:34]} <span style="color:#888">({m.get("campaign","")[:20]})</span>'
+                for m in au_miss[:10])
+            more = f'<br>&nbsp;&nbsp;…외 {len(au_miss)-10}개' if len(au_miss) > 10 else ''
+            sec1 += (f'<div style="border:1px solid #fca5a5;background:#fef2f2;border-radius:8px;'
+                     f'padding:8px 12px;margin-top:8px;font-size:12.5px;color:#7f1d1d">'
+                     f'<b>UTM 미설정 광고 {len(au_miss)}개</b> '
+                     f'<span style="font-size:11px;color:#991b1b">(게재 중 {au.get("checked",0)}개 검사, {au.get("date","")} 기준 — 출처: 메타 광고 설정)</span>'
+                     f'<br>{miss_txt}{more}'
+                     f'<br><span style="font-size:11px;color:#991b1b">이 광고들의 매출은 GA4 실측(캠페인별)에 잡히지 않음</span></div>')
+        else:
+            sec1 += (f'<div style="font-size:11.5px;color:#888;margin-top:6px">'
+                     f'UTM 점검: 게재 중 {au.get("checked",0)}개 광고 전부 utm_campaign 설정됨 '
+                     f'({au.get("date","")} 기준 — 출처: 메타 광고 설정)</div>')
+
+    # ①-2 B2B 리드 (CRM 시트 연동 시에만 — meta.json b2bLeads)
+    bl = (meta.get('b2bLeads') or {}).get('rows') or []
+    if bl:
+        d8_ = str(A - datetime.timedelta(days=7))
+        d13_ = str(A - datetime.timedelta(days=13))
+        w = [r for r in bl if d7 <= r.get('date', '') <= anchor]
+        pw = [r for r in bl if d13_ <= r.get('date', '') <= d8_]
+        ct = sum(1 for r in w if r.get('contact'))
+        by_c = {}
+        for r in w:
+            by_c[r.get('camp', '')] = by_c.get(r.get('camp', ''), 0) + 1
+        cpl_txt = ''
+        parts = []
+        for cn, n in sorted(by_c.items(), key=lambda x: -x[1]):
+            cost_c = next((v['c7']['cost'] for v in verdicts if v['name'] == cn), 0)
+            cpl = won(round(cost_c / n)) if (n and cost_c) else '—'
+            parts.append(f'{cn[:22]} {n}건 (CPL {cpl})')
+        if parts:
+            cpl_txt = '<br>' + ' · '.join(parts)
+        sec1 += (f'<div style="font-size:12.5px;color:#1d4ed8;margin-top:8px">'
+                 f'<b>B2B 리드 {len(w)}건</b> (전주 {len(pw)}건) · 컨택 {ct}건 '
+                 f'<span style="font-size:11px;color:#888">출처: 잠재고객 CRM 시트</span>{cpl_txt}</div>')
+
     # ② 최근 7일 캠페인별 (로데이터 표 — 메타/실측 병기)
     rows2 = ''
     for v in sorted(verdicts, key=lambda x: -x['c7']['cost']):

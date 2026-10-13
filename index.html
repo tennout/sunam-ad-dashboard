@@ -712,10 +712,17 @@
 
   <!-- META REPORT (META 탭 전용) -->
   <div id="metaReport" style="display:none">
+    <!-- UTM 누락 경고 (메타 API에서 광고별 URL 매개변수 설정을 매일 검사) -->
+    <div id="utmAlert" style="display:none;margin-bottom:14px;padding:12px 16px;border:1px solid #fca5a5;border-radius:12px;background:#fef2f2">
+      <div style="font-size:13.5px;font-weight:800;color:#b91c1c;margin-bottom:4px">⚠ UTM 미설정 광고 발견</div>
+      <div id="utmAlertBody" style="font-size:12.5px;color:#7f1d1d;line-height:1.7"></div>
+      <div style="font-size:11.5px;color:#991b1b;margin-top:6px">조치: 메타 광고관리자 → 해당 광고 수정 → 맨 아래 <b>추적 › URL 매개변수</b>에 <code style="background:#fee2e2;padding:1px 4px;border-radius:4px">utm_source=meta&amp;utm_medium=paid_social&amp;utm_campaign={{campaign.name}}&amp;utm_content={{ad.name}}&amp;utm_term={{adset.name}}</code> 입력</div>
+    </div>
     <div id="secCamp">
     <div class="panel" style="margin-bottom:14px">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:10px;flex-wrap:wrap">
         <h2 style="margin:0">캠페인별 성과 <span class="ttp" data-tip="게재중/중지 배지는 메타에 설정된 실제 게재 상태입니다 (매일 새벽 동기화)" style="font-size:11px;color:var(--muted);cursor:help;border-bottom:1px dotted var(--muted);font-weight:400">ⓘ</span> <span class="drill-hint">👆 행을 클릭해 추이 보기</span></h2>
+        <a href="https://docs.google.com/spreadsheets/d/1RuX_QoBABHLLh8m5wtarEYXBMC-CrVSqWCqADK5b8t0/edit?gid=0#gid=0" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:700;color:#1d4ed8;background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:5px 10px;text-decoration:none;margin-left:auto">📋 B2B 리드 CRM <span style="font-size:10px">↗</span></a>
         <select id="metaCampSort" style="font-size:12px;padding:5px 8px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink-2);font-family:inherit;cursor:pointer">
           <option value="cost">지출 많은 순</option>
           <option value="rev">매출 높은 순</option>
@@ -2761,11 +2768,36 @@ function _ctrMed(){
   _w7Cache._med = ctrs.length? ctrs[Math.floor(ctrs.length/2)] : 1;
   return _w7Cache._med;
 }
+/* B2B 리드 집계 (CRM 시트 연동 — meta.json b2bLeads · 개인정보 없음) */
+function _b2bStats(campName){
+  const B=(window.META_ADS_BUNDLE&&window.META_ADS_BUNDLE.b2bLeads)||null;
+  if(!B||!Array.isArray(B.rows)||!B.rows.length) return null;
+  const mine=B.rows.filter(r=>r.camp===campName);
+  if(!mine.length) return null;
+  const anchor=(window.META_ADS_BUNDLE.rangeEnd||new Date().toISOString().slice(0,10));
+  const dstr=off=>{const d=new Date(anchor+'T00:00:00');d.setDate(d.getDate()-off);return d.toISOString().slice(0,10);};
+  const c0=dstr(6), p0=dstr(13), p1=dstr(7);
+  let n7=0, p7=0, ct7=0;
+  for(const r of mine){
+    if(r.date>=c0&&r.date<=anchor){ n7++; if(r.contact) ct7++; }
+    else if(r.date>=p0&&r.date<=p1) p7++;
+  }
+  return {n7, p7, ct7, total:mine.length};
+}
 /* §3 일일 판정: 기여이익(매출×마진−지출) 기반 · 최근7일 vs 직전7일 */
 function _campVerdict(c,kind){
   const name=c.name||'';
-  if(/사업자|트래픽|traffic|B2B|리드|lead|조회|인지|도달|reach|awareness/i.test(name))
+  if(/사업자|트래픽|traffic|B2B|리드|lead|조회|인지|도달|reach|awareness/i.test(name)){
+    const L=_b2bStats(name);
+    if(L){
+      const s7=_w7(kind||'campaign',name);
+      const cpl=L.n7>0&&s7.c7.cost>0?Math.round(s7.c7.cost/L.n7):null;
+      const dir=L.p7!=null?(L.n7>L.p7?'↑':L.n7<L.p7?'↓':'→'):'';
+      return {tag:'리드', col:'#1d4ed8', bg:'#dbeafe',
+        msg:`리드 목적 — ROAS 대신 CPL로 평가 (CRM 시트 연동).<br>최근 7일: 리드 <b>${L.n7}건</b>${dir?` (직전 7일 ${L.p7}건 ${dir})`:''} · 지출 ${fmtWon(s7.c7.cost)} → CPL <b>${cpl!=null?fmtWon(cpl):'—'}</b>${L.ct7?` · 컨택 ${L.ct7}건`:''}<br>누적 리드 ${L.total}건 (상한 CPL 1만원 기준 ${cpl!=null?(cpl<=10000?'정상':'<b style="color:#b91c3c">초과</b>'):'—'})`};
+    }
     return {tag:'리드', col:'#1d4ed8', bg:'#dbeafe', msg:'리드·유입 목적 — <b>ROAS 판정 금지</b>. CPL(임시 상한 1만원)·신청 수로 평가. 신청 수 측정 전엔 판정 불가예요.'};
+  }
   const s=_w7(kind||'campaign',name);
   const mg=_marginOf(name);
   const be=100/mg.m, tgt=be*2;
@@ -3333,7 +3365,7 @@ function renderMetaReport(ctx){
         :`<span style="display:inline-block;padding:1px 7px;border-radius:10px;font-size:10.5px;font-weight:700;color:#b91c3c;background:#ffe4e6;margin-right:6px;vertical-align:1px">중지</span>`):'';
       const _cls=(TREND_DRILL&&TREND_SEL_CAMP.has(c.name))?'trow-sel':'';
       return `<tr data-ci="${i}" data-cname="${_esc(c.name)}"${_cls?` class="${_cls}"`:''}>
-      <td title="${c.name}">${badge}${c.name}${c.dmin?`<br><span style="font-size:11px;color:var(--muted)">게시 ${c.dmin.slice(5)}~${c.dmax.slice(5)}</span>`:''}${(()=>{const _bi=_budInfo(c.name);return _bi?`<br><span style="font-size:11px;color:var(--muted)">${_bi}</span>`:'';})()}</td><td>${fmtInt(c.imp)}</td><td>${fmtInt(c.clk)}</td>
+      <td title="${c.name}">${badge}${c.name}${c.dmin?`<br><span style="font-size:11px;color:var(--muted)">게시 ${c.dmin.slice(5)}~${c.dmax.slice(5)}</span>`:''}${(()=>{const _bi=_budInfo(c.name);return _bi?`<br><span style="font-size:11px;color:var(--muted)">${_bi}</span>`:'';})()}${(()=>{const L=_b2bStats(c.name);if(!L)return '';const _cpl=L.n7>0&&c.cost>0?Math.round(_w7('campaign',c.name).c7.cost/L.n7):null;return `<br><span style="font-size:11px;color:#1d4ed8;font-weight:700">리드 7일 ${L.n7}건${_cpl!=null?` · CPL ${fmtWon(_cpl)}`:''}${L.ct7?` · 컨택 ${L.ct7}`:''}</span>`;})()}</td><td>${fmtInt(c.imp)}</td><td>${fmtInt(c.clk)}</td>
       <td>${fmtPct(c.ctr)}</td><td>${fmtWon(c.cpc)}</td><td>${fmtWon(c.cost)}</td>
       <td>${fmtInt(c.conv)}</td><td>${fmtWon(c.rev)}</td><td><b>${fmtPct(c.roas,0)}</b></td>${_actCells(_ga&&_ga.cm[c.name],c.cost)}</tr>`;
     }).join('')
@@ -3887,6 +3919,20 @@ function loadAccountUploads(){
   }
   const d=ld(_acctKey('sunamfarmers_da_upload'));      DA_UPLOADED_DATA=d.data;   DA_UPLOADED_META=d.meta;
   const a=ld(_acctKey('sunamfarmers_meta_ad_upload')); META_AD_DATA=a.data;       META_AD_META=a.meta;
+  _renderUtmAlert();
+}
+// UTM 미설정 광고 경고 — fetch_meta_ads.py 가 매일 광고별 URL 매개변수 설정을 전수 검사(utmAudit)
+function _renderUtmAlert(){
+  const box=document.getElementById('utmAlert'); if(!box) return;
+  const au=(window.META_ADS_BUNDLE&&window.META_ADS_BUNDLE.utmAudit)||null;
+  const miss=(au&&Array.isArray(au.missing))?au.missing:[];
+  if(!miss.length){ box.style.display='none'; return; }
+  const esc=s=>String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const items=miss.slice(0,20).map(m=>`<li><b>${esc(m.ad)}</b> <span style="color:#b91c1c">(${esc(m.campaign)})</span></li>`).join('');
+  const more=miss.length>20?`<div style="margin-top:2px">…외 ${miss.length-20}개</div>`:'';
+  document.getElementById('utmAlertBody').innerHTML=
+    `게재 중 광고 ${fmtInt(au.checked||0)}개 중 <b>${fmtInt(miss.length)}개</b>에 utm_campaign이 없어요 — 이 광고들의 클릭·매출은 GA 실측(캠페인별)에 잡히지 않습니다. <span style="color:#991b1b">(검사일 ${esc(au.date||'')})</span><ul style="margin:6px 0 0 18px;padding:0">${items}</ul>${more}`;
+  box.style.display='';
 }
 function saveMetaUpload(){
   try{ localStorage.setItem(_acctKey('sunamfarmers_meta_upload'), JSON.stringify({data:META_UPLOADED_DATA, meta:META_UPLOADED_META})); }catch(e){ console.warn('localStorage 저장 실패', e); }

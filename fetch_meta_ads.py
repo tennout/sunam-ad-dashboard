@@ -332,6 +332,126 @@ def fetch_budgets(acct: str, token: str) -> list:
     return list(out.values())
 
 
+def fetch_b2b_leads() -> dict | None:
+    """B2B 잠재고객 CRM 시트에서 리드 집계 (읽기 전용 · 개인정보 제외).
+
+    환경변수 B2B_LEADS_SHEET_ID + GA4_SA_JSON 이 모두 있을 때만 동작.
+    가져가는 것: 날짜·캠페인명·희망 솔루션·컨택 여부·lead_status — 집계용 메타데이터만.
+    회사명·전화번호·이메일·상담내용 등 개인정보는 절대 저장하지 않음 (repo 공개).
+    """
+    sid = os.environ.get("B2B_LEADS_SHEET_ID", "").strip()
+    sa_raw = os.environ.get("GA4_SA_JSON", "").strip()
+    if not sid or not sa_raw:
+        return None
+    try:
+        import base64 as _b64
+        from cryptography.hazmat.primitives import hashes as _h, serialization as _ser
+        from cryptography.hazmat.primitives.asymmetric import padding as _pad
+    except ImportError:
+        print("    ! cryptography 미설치 — B2B 리드 수집 건너뜀 (pip install cryptography)")
+        return None
+    try:
+        sa = json.loads(sa_raw)
+        b64u = lambda b: _b64.urlsafe_b64encode(b).rstrip(b"=").decode()
+        now = int(time.time())
+        si = (b64u(json.dumps({"alg": "RS256", "typ": "JWT"}).encode()) + "." +
+              b64u(json.dumps({"iss": sa["client_email"],
+                               "scope": "https://www.googleapis.com/auth/spreadsheets.readonly",
+                               "aud": "https://oauth2.googleapis.com/token",
+                               "iat": now, "exp": now + 3600}).encode()))
+        pk = _ser.load_pem_private_key(sa["private_key"].encode(), password=None)
+        sig = pk.sign(si.encode(), _pad.PKCS1v15(), _h.SHA256())
+        body = parse.urlencode({"grant_type": "urn:ietf:params:oauth:grant-type:jwt-bearer",
+                                "assertion": si + "." + b64u(sig)}).encode()
+        req = request.Request("https://oauth2.googleapis.com/token", data=body,
+                              headers={"User-Agent": USER_AGENT})
+        tok = json.loads(request.urlopen(req, timeout=30).read())["access_token"]
+        req = request.Request(
+            f"https://sheets.googleapis.com/v4/spreadsheets/{sid}/values/A1:ZZ10000",
+            headers={"Authorization": f"Bearer {tok}", "User-Agent": USER_AGENT})
+        vals = json.loads(request.urlopen(req, timeout=30).read()).get("values", [])
+        if len(vals) < 2:
+            print("    B2B 리드 시트: 데이터 없음")
+            return {"rows": [], "total": 0}
+        hdr = [h.strip().lower() for h in vals[0]]
+
+        def col(*cands):
+            for i, h in enumerate(hdr):
+                if any(c in h for c in cands):
+                    return i
+            return None
+        ci_date = col("created_time", "created", "생성", "날짜", "제출")
+        ci_camp = col("campaign_name")
+        ci_sol = col("솔루션")
+        ci_ct = col("컨택(o/x)", "컨택")
+        ci_st = col("lead_status")
+        if ci_date is None or ci_camp is None:
+            print(f"    ! B2B 리드 시트: 날짜/캠페인 열을 못 찾음 (헤더: {vals[0][:8]}...)")
+            return None
+        import re as _re
+        rows = []
+        for r in vals[1:]:
+            get = lambda i: (r[i].strip() if (i is not None and i < len(r)) else "")
+            raw_d = get(ci_date)
+            m = _re.search(r"(\d{4})[.\-/\s]+(\d{1,2})[.\-/\s]+(\d{1,2})", raw_d)
+            if not m:
+                continue
+            d = f"{m.group(1)}-{int(m.group(2)):02d}-{int(m.group(3)):02d}"
+            rows.append({"date": d, "camp": get(ci_camp), "sol": get(ci_sol),
+                         "contact": get(ci_ct).lower() in ("o", "y", "yes", "true", "1"),
+                         "status": get(ci_st)})
+        print(f"    B2B 리드 {len(rows)}건 수집 (개인정보 제외, 집계 메타데이터만)")
+        return {"rows": rows[-3000:], "total": len(rows)}
+    except Exception as e:
+        print(f"    ! B2B 리드 수집 실패(무시): {e}")
+        return None
+
+
+def fetch_utm_audit(acct: str, token: str) -> dict:
+    """게재 중(ACTIVE) 광고 전수의 UTM 설정 감사.
+
+    각 광고의 creative url_tags(추적 > URL 매개변수)에 utm_campaign이 있는지 확인.
+    url_tags가 비어도 링크 URL 자체에 utm_campaign을 박아둔 경우(object_story_spec /
+    asset_feed_spec)는 정상으로 인정 — 오탐 방지.
+    반환: {date, checked, ok, missing:[{ad, campaign, status}]}
+    """
+    audit = {"date": str(date.today()), "checked": 0, "ok": 0, "missing": []}
+    try:
+        ads = _get_paged(f"{GRAPH}/{acct}/ads", {
+            "access_token": token,
+            "fields": "name,effective_status,campaign{name},"
+                      "creative{url_tags,object_story_spec,asset_feed_spec}",
+            "limit": 200})
+        for a in ads:
+            st = a.get("effective_status", "")
+            if st != "ACTIVE":            # 게재 중인 광고만 (중지 광고는 지출 없음)
+                continue
+            audit["checked"] += 1
+            cr = a.get("creative") or {}
+            tags = (cr.get("url_tags") or "").lower()
+            has_utm = "utm_campaign" in tags
+            if not has_utm:
+                # 링크 URL에 직접 심어둔 경우까지 확인
+                blob = json.dumps({k: cr.get(k) for k in ("object_story_spec", "asset_feed_spec")},
+                                  ensure_ascii=False).lower()
+                has_utm = "utm_campaign" in blob
+            if has_utm:
+                audit["ok"] += 1
+            else:
+                audit["missing"].append({
+                    "ad": a.get("name", ""),
+                    "campaign": (a.get("campaign") or {}).get("name", ""),
+                    "status": st,
+                })
+        n_miss = len(audit["missing"])
+        print(f"    UTM 감사: 게재 중 {audit['checked']}개 중 누락 {n_miss}개"
+              + ("" if not n_miss else " ⚠ " + ", ".join(m["ad"] for m in audit["missing"][:5])))
+    except Exception as e:
+        print(f"    ! UTM 감사 실패(무시): {e}")
+        audit["error"] = str(e)
+    return audit
+
+
 def collect(acct: str, token: str, days: int) -> dict:
     end = date.today()
     start = end - timedelta(days=days - 1)
@@ -455,6 +575,14 @@ def main():
     # 캠페인 일예산 스냅샷 + 어제 대비 변경 이력 (증액/감액 추적)
     print("  · 캠페인 예산 수집...")
     budgets = fetch_budgets(acct, token)
+
+    # 광고별 UTM 설정 감사 (단 하나라도 누락되면 대시보드·주간 리포트에 경고)
+    print("  · UTM 설정 감사...")
+    utm_audit = fetch_utm_audit(acct, token)
+
+    # B2B 잠재고객 리드 (CRM 시트 — Secrets 설정 시에만)
+    print("  · B2B 리드 시트 수집...")
+    b2b_leads = fetch_b2b_leads()
     budget_hist = []
     prev_path = out_dir / "meta.json"
     if prev_path.exists():
@@ -479,6 +607,8 @@ def main():
         "account": {"name": acct_name, "adAccountId": acct},
         "budgets": budgets,
         "budgetHistory": budget_hist,
+        "utmAudit": utm_audit,
+        **({"b2bLeads": b2b_leads} if b2b_leads else {}),
         **data,
     }
     (out_dir / "meta.json").write_text(
