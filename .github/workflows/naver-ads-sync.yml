@@ -50,11 +50,15 @@ jobs:
           META_APP_ID:      ${{ secrets.META_APP_ID }}
           META_APP_SECRET:  ${{ secrets.META_APP_SECRET }}
           META_ACCOUNT_NAME: 선암파머스
+          # B2B 잠재고객 CRM 시트 (리드 수·CPL — Secrets 설정 시에만 수집)
+          B2B_LEADS_SHEET_ID: ${{ secrets.B2B_LEADS_SHEET_ID }}
+          GA4_SA_JSON: ${{ secrets.GA4_SA_JSON }}
         run: |
           if [ -z "$META_TOKEN" ] || [ -z "$META_AD_ACCOUNT" ]; then
             echo "META_TOKEN / META_AD_ACCOUNT 시크릿이 없어 메타 수집을 건너뜁니다."
             exit 0
           fi
+          pip install cryptography
           python fetch_meta_ads.py --days 180
 
       - name: 광고 데이터 구글시트 아카이브
