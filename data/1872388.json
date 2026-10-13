@@ -2,7 +2,7 @@
   "meta": {
     "account": "선암파머스",
     "customerId": "1872388",
-    "fetchedAt": "2026-10-13 01:07:04",
+    "fetchedAt": "2026-10-13 06:34:11",
     "rangeStart": "2026-04-17",
     "rangeEnd": "2026-10-13",
     "campaignCount": 12,
@@ -10,7 +10,7 @@
     "creativeCount": 137,
     "hasKeywordTool": true,
     "hasBidEstimate": true,
-    "acctCvr": 11.43,
+    "acctCvr": 11.42,
     "acctAov": 70091,
     "bidPosition": 3
   },
@@ -3609,9 +3609,9 @@
       "date": "2026-10-13",
       "ad": "powerlink",
       "campaign": "cmp-a001-01-000000010084907",
-      "imp": 192,
-      "clk": 7,
-      "cost": 1289,
+      "imp": 551,
+      "clk": 11,
+      "cost": 2068,
       "conv": 1,
       "rev": 40000
     },
@@ -45311,9 +45311,9 @@
       "date": "2026-10-13",
       "kw": "선암파머스",
       "ad": "powerlink",
-      "imp": 3,
-      "clk": 2,
-      "cost": 440,
+      "imp": 11,
+      "clk": 4,
+      "cost": 873,
       "conv": 1,
       "rev": 40000
     },
@@ -56784,90 +56784,6 @@
       "detail": "소재 수정"
     },
     {
-      "date": "2026-09-22",
-      "type": "creative",
-      "ad": "powerlink",
-      "title": "powerlink 소재 수정",
-      "detail": "소재 수정"
-    },
-    {
-      "date": "2026-09-22",
-      "type": "creative",
-      "ad": "powerlink",
-      "title": "powerlink 소재 수정",
-      "detail": "소재 수정"
-    },
-    {
-      "date": "2026-09-22",
-      "type": "creative",
-      "ad": "powerlink",
-      "title": "powerlink 소재 수정",
-      "detail": "소재 수정"
-    },
-    {
-      "date": "2026-09-22",
-      "type": "creative",
-      "ad": "powerlink",
-      "title": "powerlink 소재 수정",
-      "detail": "소재 수정"
-    },
-    {
-      "date": "2026-09-22",
-      "type": "creative",
-      "ad": "powerlink",
-      "title": "powerlink 소재 수정",
-      "detail": "소재 수정"
-    },
-    {
-      "date": "2026-09-22",
-      "type": "creative",
-      "ad": "powerlink",
-      "title": "powerlink 소재 수정",
-      "detail": "소재 수정"
-    },
-    {
-      "date": "2026-09-22",
-      "type": "creative",
-      "ad": "powerlink",
-      "title": "powerlink 소재 수정",
-      "detail": "소재 수정"
-    },
-    {
-      "date": "2026-09-22",
-      "type": "creative",
-      "ad": "powerlink",
-      "title": "powerlink 소재 수정",
-      "detail": "소재 수정"
-    },
-    {
-      "date": "2026-09-22",
-      "type": "creative",
-      "ad": "powerlink",
-      "title": "powerlink 소재 수정",
-      "detail": "소재 수정"
-    },
-    {
-      "date": "2026-09-22",
-      "type": "creative",
-      "ad": "powerlink",
-      "title": "powerlink 소재 수정",
-      "detail": "소재 수정"
-    },
-    {
-      "date": "2026-09-22",
-      "type": "creative",
-      "ad": "powerlink",
-      "title": "powerlink 소재 수정",
-      "detail": "소재 수정"
-    },
-    {
-      "date": "2026-09-22",
-      "type": "creative",
-      "ad": "powerlink",
-      "title": "powerlink 소재 수정",
-      "detail": "소재 수정"
-    },
-    {
       "date": "2026-09-23",
       "type": "creative",
       "ad": "powerlink",
@@ -57072,6 +56988,90 @@
     },
     {
       "date": "2026-10-07",
+      "type": "creative",
+      "ad": "powerlink",
+      "title": "powerlink 소재 수정",
+      "detail": "소재 수정"
+    },
+    {
+      "date": "2026-10-13",
+      "type": "creative",
+      "ad": "powerlink",
+      "title": "powerlink 소재 수정",
+      "detail": "소재 수정"
+    },
+    {
+      "date": "2026-10-13",
+      "type": "creative",
+      "ad": "powerlink",
+      "title": "powerlink 소재 수정",
+      "detail": "소재 수정"
+    },
+    {
+      "date": "2026-10-13",
+      "type": "creative",
+      "ad": "powerlink",
+      "title": "powerlink 소재 수정",
+      "detail": "소재 수정"
+    },
+    {
+      "date": "2026-10-13",
+      "type": "creative",
+      "ad": "powerlink",
+      "title": "powerlink 소재 수정",
+      "detail": "소재 수정"
+    },
+    {
+      "date": "2026-10-13",
+      "type": "creative",
+      "ad": "powerlink",
+      "title": "powerlink 소재 수정",
+      "detail": "소재 수정"
+    },
+    {
+      "date": "2026-10-13",
+      "type": "creative",
+      "ad": "powerlink",
+      "title": "powerlink 소재 수정",
+      "detail": "소재 수정"
+    },
+    {
+      "date": "2026-10-13",
+      "type": "creative",
+      "ad": "powerlink",
+      "title": "powerlink 소재 수정",
+      "detail": "소재 수정"
+    },
+    {
+      "date": "2026-10-13",
+      "type": "creative",
+      "ad": "powerlink",
+      "title": "powerlink 소재 수정",
+      "detail": "소재 수정"
+    },
+    {
+      "date": "2026-10-13",
+      "type": "creative",
+      "ad": "powerlink",
+      "title": "powerlink 소재 수정",
+      "detail": "소재 수정"
+    },
+    {
+      "date": "2026-10-13",
+      "type": "creative",
+      "ad": "powerlink",
+      "title": "powerlink 소재 수정",
+      "detail": "소재 수정"
+    },
+    {
+      "date": "2026-10-13",
+      "type": "creative",
+      "ad": "powerlink",
+      "title": "powerlink 소재 수정",
+      "detail": "소재 수정"
+    },
+    {
+      "date": "2026-10-13",
       "type": "creative",
       "ad": "powerlink",
       "title": "powerlink 소재 수정",
@@ -57257,7 +57257,7 @@
       "headline": "",
       "description": "",
       "regTm": "2023-11-30T13:00:53",
-      "editTm": "2026-10-13T00:30:56"
+      "editTm": "2026-10-13T01:20:55"
     },
     {
       "id": "nad-a001-02-000000275994814",
@@ -57609,7 +57609,7 @@
       "headline": "",
       "description": "",
       "regTm": "2025-12-04T04:17:52",
-      "editTm": "2026-10-13T00:30:56"
+      "editTm": "2026-10-13T01:23:23"
     },
     {
       "id": "nad-a001-02-000000445289699",
@@ -57620,7 +57620,7 @@
       "headline": "",
       "description": "",
       "regTm": "2025-12-04T04:17:52",
-      "editTm": "2026-09-22T11:19:30"
+      "editTm": "2026-10-13T03:24:16"
     },
     {
       "id": "nad-a001-02-000000445289701",
@@ -58005,7 +58005,7 @@
       "headline": "",
       "description": "",
       "regTm": "2026-09-14T05:41:05",
-      "editTm": "2026-09-22T11:46:35"
+      "editTm": "2026-10-13T03:24:02"
     },
     {
       "id": "nad-a001-02-000000448408929",
@@ -58060,7 +58060,7 @@
       "headline": "",
       "description": "",
       "regTm": "2025-12-12T00:33:52",
-      "editTm": "2026-10-13T00:30:56"
+      "editTm": "2026-10-13T01:24:39"
     },
     {
       "id": "nad-a001-02-000000448408934",
@@ -58071,7 +58071,7 @@
       "headline": "",
       "description": "",
       "regTm": "2025-12-12T00:33:52",
-      "editTm": "2026-09-22T11:19:31"
+      "editTm": "2026-10-13T03:24:16"
     },
     {
       "id": "nad-a001-02-000000448459426",
@@ -58126,7 +58126,7 @@
       "headline": "",
       "description": "",
       "regTm": "2025-12-12T01:07:03",
-      "editTm": "2026-10-13T00:30:56"
+      "editTm": "2026-10-13T01:22:46"
     },
     {
       "id": "nad-a001-02-000000448459434",
@@ -58137,7 +58137,7 @@
       "headline": "",
       "description": "",
       "regTm": "2025-12-12T01:07:03",
-      "editTm": "2026-09-22T11:17:37"
+      "editTm": "2026-10-13T03:24:16"
     },
     {
       "id": "nad-a001-02-000000582062581",
@@ -58148,7 +58148,7 @@
       "headline": "",
       "description": "",
       "regTm": "2026-09-14T05:39:06",
-      "editTm": "2026-09-22T11:35:17"
+      "editTm": "2026-10-13T03:24:02"
     },
     {
       "id": "nad-a001-02-000000582475888",
@@ -58247,7 +58247,7 @@
       "headline": "",
       "description": "",
       "regTm": "2025-12-12T01:07:04",
-      "editTm": "2026-10-13T00:30:56"
+      "editTm": "2026-10-13T01:21:50"
     },
     {
       "id": "nad-a001-02-000000448459528",
@@ -58258,7 +58258,7 @@
       "headline": "",
       "description": "",
       "regTm": "2025-12-12T01:07:04",
-      "editTm": "2026-09-22T11:22:42"
+      "editTm": "2026-10-13T03:24:16"
     },
     {
       "id": "nad-a001-02-000000582480030",
@@ -58280,7 +58280,7 @@
       "headline": "",
       "description": "",
       "regTm": "2026-09-14T05:35:07",
-      "editTm": "2026-09-22T11:46:36"
+      "editTm": "2026-10-13T03:24:02"
     },
     {
       "id": "nad-a001-02-000000551744372",
@@ -58346,7 +58346,7 @@
       "headline": "",
       "description": "",
       "regTm": "2025-12-12T01:07:10",
-      "editTm": "2026-10-13T00:30:56"
+      "editTm": "2026-10-13T01:23:22"
     },
     {
       "id": "nad-a001-02-000000448459862",
@@ -58357,7 +58357,7 @@
       "headline": "",
       "description": "",
       "regTm": "2025-12-12T01:07:10",
-      "editTm": "2026-09-22T11:22:43"
+      "editTm": "2026-10-13T03:24:16"
     },
     {
       "id": "nad-a001-02-000000551742427",
@@ -58445,7 +58445,7 @@
       "headline": "",
       "description": "",
       "regTm": "2025-12-12T01:07:14",
-      "editTm": "2026-10-13T00:30:56"
+      "editTm": "2026-10-13T01:29:23"
     },
     {
       "id": "nad-a001-02-000000448460041",
@@ -58456,7 +58456,7 @@
       "headline": "",
       "description": "",
       "regTm": "2025-12-12T01:07:14",
-      "editTm": "2026-09-22T11:19:30"
+      "editTm": "2026-10-13T03:24:16"
     },
     {
       "id": "nad-a001-02-000000448460417",
@@ -58511,7 +58511,7 @@
       "headline": "",
       "description": "",
       "regTm": "2025-12-12T01:07:21",
-      "editTm": "2026-10-13T00:30:56"
+      "editTm": "2026-10-13T01:21:52"
     },
     {
       "id": "nad-a001-02-000000448460422",
@@ -58522,7 +58522,7 @@
       "headline": "",
       "description": "",
       "regTm": "2025-12-12T01:07:21",
-      "editTm": "2026-09-22T11:14:21"
+      "editTm": "2026-10-13T03:24:16"
     },
     {
       "id": "nad-a001-02-000000582478378",
@@ -58555,7 +58555,7 @@
       "headline": "",
       "description": "",
       "regTm": "2026-09-14T05:43:04",
-      "editTm": "2026-09-22T11:46:37"
+      "editTm": "2026-10-13T03:24:02"
     },
     {
       "id": "nad-a001-02-000000562192289",
@@ -58599,7 +58599,7 @@
       "headline": "",
       "description": "",
       "regTm": "2026-09-14T05:49:27",
-      "editTm": "2026-09-22T11:26:27"
+      "editTm": "2026-10-13T03:24:02"
     },
     {
       "id": "nad-a001-02-000000522721023",
