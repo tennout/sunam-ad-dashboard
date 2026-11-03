@@ -2,7 +2,7 @@
   "meta": {
     "account": "선암파머스",
     "customerId": "1872388",
-    "fetchedAt": "2026-11-03 01:29:19",
+    "fetchedAt": "2026-11-03 23:51:58",
     "rangeStart": "2026-05-08",
     "rangeEnd": "2026-11-03",
     "campaignCount": 13,
@@ -10,8 +10,8 @@
     "creativeCount": 143,
     "hasKeywordTool": true,
     "hasBidEstimate": true,
-    "acctCvr": 10.69,
-    "acctAov": 66529,
+    "acctCvr": 10.84,
+    "acctAov": 66274,
     "bidPosition": 3
   },
   "daily": [
@@ -3609,11 +3609,11 @@
       "date": "2026-11-03",
       "ad": "powerlink",
       "campaign": "cmp-a001-01-000000010084907",
-      "imp": 26,
-      "clk": 2,
-      "cost": 427,
-      "conv": 1,
-      "rev": 33000
+      "imp": 194,
+      "clk": 15,
+      "cost": 3161,
+      "conv": 8,
+      "rev": 413500
     },
     {
       "date": "2026-05-08",
@@ -23409,11 +23409,11 @@
       "date": "2026-11-03",
       "ad": "shop",
       "campaign": "cmp-a001-02-000000011195407",
-      "imp": 1122,
-      "clk": 11,
-      "cost": 3185,
-      "conv": 0,
-      "rev": 0
+      "imp": 1299,
+      "clk": 15,
+      "cost": 3804,
+      "conv": 2,
+      "rev": 84000
     }
   ],
   "kwDaily": [
@@ -47111,11 +47111,11 @@
       "date": "2026-11-03",
       "kw": "선암파머스",
       "ad": "powerlink",
-      "imp": 5,
-      "clk": 2,
-      "cost": 427,
-      "conv": 1,
-      "rev": 33000
+      "imp": 17,
+      "clk": 10,
+      "cost": 2078,
+      "conv": 2,
+      "rev": 66000
     },
     {
       "date": "2026-10-05",
@@ -60594,7 +60594,7 @@
       "monthlyTotal": 8540,
       "compIdx": "중간",
       "plAvgDepth": 8.0,
-      "bidPos": 2020
+      "bidPos": 2000
     },
     {
       "id": "nkw-a001-01-000005927139834",
@@ -60610,7 +60610,7 @@
       "monthlyTotal": 3400,
       "compIdx": "중간",
       "plAvgDepth": 8.0,
-      "bidPos": 1460
+      "bidPos": 1450
     },
     {
       "id": "nkw-a001-01-000005927139835",
@@ -60626,7 +60626,7 @@
       "monthlyTotal": 1460,
       "compIdx": "높음",
       "plAvgDepth": 8.0,
-      "bidPos": 1510
+      "bidPos": 1490
     },
     {
       "id": "nkw-a001-01-000005927139836",
@@ -60738,7 +60738,7 @@
       "monthlyTotal": 500,
       "compIdx": "중간",
       "plAvgDepth": 8.0,
-      "bidPos": 1230
+      "bidPos": 1220
     },
     {
       "id": "nkw-a001-01-000005927139843",
@@ -60866,7 +60866,7 @@
       "monthlyTotal": 2050,
       "compIdx": "높음",
       "plAvgDepth": 8.0,
-      "bidPos": 1330
+      "bidPos": 1320
     },
     {
       "id": "nkw-a001-01-000005927139851",
@@ -60946,7 +60946,7 @@
       "monthlyTotal": 690,
       "compIdx": "중간",
       "plAvgDepth": 8.0,
-      "bidPos": 1750
+      "bidPos": 1730
     },
     {
       "id": "nkw-a001-01-000005927139856",
@@ -61010,7 +61010,7 @@
       "monthlyTotal": 290,
       "compIdx": "중간",
       "plAvgDepth": 8.0,
-      "bidPos": 1170
+      "bidPos": 1160
     },
     {
       "id": "nkw-a001-01-000005927139860",
@@ -61058,7 +61058,7 @@
       "monthlyTotal": 5790,
       "compIdx": "높음",
       "plAvgDepth": 8.0,
-      "bidPos": 1590
+      "bidPos": 1570
     },
     {
       "id": "nkw-a001-01-000005927140624",
@@ -61090,7 +61090,7 @@
       "monthlyTotal": 27680,
       "compIdx": "높음",
       "plAvgDepth": 10.0,
-      "bidPos": 1280
+      "bidPos": 1270
     },
     {
       "id": "nkw-a001-01-000005927140626",
@@ -61154,7 +61154,7 @@
       "monthlyTotal": 3890,
       "compIdx": "높음",
       "plAvgDepth": 10.0,
-      "bidPos": 1390
+      "bidPos": 1380
     },
     {
       "id": "nkw-a001-01-000005927233830",
@@ -61218,7 +61218,7 @@
       "monthlyTotal": 8540,
       "compIdx": "중간",
       "plAvgDepth": 8.0,
-      "bidPos": 2020
+      "bidPos": 2000
     },
     {
       "id": "nkw-a001-01-000005927235665",
@@ -61234,7 +61234,7 @@
       "monthlyTotal": 3400,
       "compIdx": "중간",
       "plAvgDepth": 8.0,
-      "bidPos": 1460
+      "bidPos": 1450
     },
     {
       "id": "nkw-a001-01-000005927235666",
@@ -61250,7 +61250,7 @@
       "monthlyTotal": 1460,
       "compIdx": "높음",
       "plAvgDepth": 8.0,
-      "bidPos": 1510
+      "bidPos": 1490
     },
     {
       "id": "nkw-a001-01-000005927235667",
@@ -61362,7 +61362,7 @@
       "monthlyTotal": 500,
       "compIdx": "중간",
       "plAvgDepth": 8.0,
-      "bidPos": 1230
+      "bidPos": 1220
     },
     {
       "id": "nkw-a001-01-000005927235674",
@@ -61490,7 +61490,7 @@
       "monthlyTotal": 2050,
       "compIdx": "높음",
       "plAvgDepth": 8.0,
-      "bidPos": 1330
+      "bidPos": 1320
     },
     {
       "id": "nkw-a001-01-000005927235682",
@@ -61570,7 +61570,7 @@
       "monthlyTotal": 690,
       "compIdx": "중간",
       "plAvgDepth": 8.0,
-      "bidPos": 1750
+      "bidPos": 1730
     },
     {
       "id": "nkw-a001-01-000005927235687",
@@ -61634,7 +61634,7 @@
       "monthlyTotal": 290,
       "compIdx": "중간",
       "plAvgDepth": 8.0,
-      "bidPos": 1170
+      "bidPos": 1160
     },
     {
       "id": "nkw-a001-01-000005927235691",
@@ -61682,7 +61682,7 @@
       "monthlyTotal": 5790,
       "compIdx": "높음",
       "plAvgDepth": 8.0,
-      "bidPos": 1590
+      "bidPos": 1570
     },
     {
       "id": "nkw-a001-01-000005927235694",
@@ -61714,7 +61714,7 @@
       "monthlyTotal": 27680,
       "compIdx": "높음",
       "plAvgDepth": 10.0,
-      "bidPos": 1280
+      "bidPos": 1270
     },
     {
       "id": "nkw-a001-01-000005927235696",
@@ -61778,7 +61778,7 @@
       "monthlyTotal": 3890,
       "compIdx": "높음",
       "plAvgDepth": 10.0,
-      "bidPos": 1390
+      "bidPos": 1380
     },
     {
       "id": "nkw-a001-01-000005927235700",
@@ -62019,7 +62019,7 @@
       "monthlyTotal": 130,
       "compIdx": "높음",
       "plAvgDepth": 10.0,
-      "bidPos": 4020
+      "bidPos": 3980
     },
     {
       "id": "nkw-a001-01-000008544241176",
@@ -62067,7 +62067,7 @@
       "monthlyTotal": 15,
       "compIdx": "높음",
       "plAvgDepth": 7.0,
-      "bidPos": 2410
+      "bidPos": 2390
     },
     {
       "id": "nkw-a001-01-000008544241179",
@@ -62083,7 +62083,7 @@
       "monthlyTotal": 10,
       "compIdx": "낮음",
       "plAvgDepth": 0.0,
-      "bidPos": 1860
+      "bidPos": 1840
     },
     {
       "id": "nkw-a001-01-000008544241180",
@@ -62099,7 +62099,7 @@
       "monthlyTotal": 10,
       "compIdx": "높음",
       "plAvgDepth": 7.0,
-      "bidPos": 2120
+      "bidPos": 2090
     },
     {
       "id": "nkw-a001-01-000008544241181",
@@ -62115,7 +62115,7 @@
       "monthlyTotal": 10,
       "compIdx": "높음",
       "plAvgDepth": 7.0,
-      "bidPos": 3060
+      "bidPos": 3030
     },
     {
       "id": "nkw-a001-01-000008544241182",
@@ -62131,7 +62131,7 @@
       "monthlyTotal": 10,
       "compIdx": "높음",
       "plAvgDepth": 7.0,
-      "bidPos": 1970
+      "bidPos": 1960
     },
     {
       "id": "nkw-a001-01-000008544241183",
@@ -62147,7 +62147,7 @@
       "monthlyTotal": 10,
       "compIdx": "낮음",
       "plAvgDepth": 0.0,
-      "bidPos": 1320
+      "bidPos": 1300
     },
     {
       "id": "nkw-a001-01-000008544241184",
@@ -62163,7 +62163,7 @@
       "monthlyTotal": 10,
       "compIdx": "높음",
       "plAvgDepth": 7.0,
-      "bidPos": 1940
+      "bidPos": 1920
     },
     {
       "id": "nkw-a001-01-000008544241185",
@@ -62179,7 +62179,7 @@
       "monthlyTotal": 220,
       "compIdx": "높음",
       "plAvgDepth": 10.0,
-      "bidPos": 5310
+      "bidPos": 5260
     },
     {
       "id": "nkw-a001-01-000008544241186",
@@ -62195,7 +62195,7 @@
       "monthlyTotal": 590,
       "compIdx": "높음",
       "plAvgDepth": 7.0,
-      "bidPos": 1110
+      "bidPos": 1100
     },
     {
       "id": "nkw-a001-01-000008544241187",
@@ -62211,7 +62211,7 @@
       "monthlyTotal": 10,
       "compIdx": "낮음",
       "plAvgDepth": 0.0,
-      "bidPos": 2350
+      "bidPos": 2330
     },
     {
       "id": "nkw-a001-01-000008544241188",
@@ -62227,7 +62227,7 @@
       "monthlyTotal": 10,
       "compIdx": "낮음",
       "plAvgDepth": 0.0,
-      "bidPos": 1590
+      "bidPos": 1580
     },
     {
       "id": "nkw-a001-01-000008544241189",
@@ -62243,7 +62243,7 @@
       "monthlyTotal": 10,
       "compIdx": "높음",
       "plAvgDepth": 7.0,
-      "bidPos": 2140
+      "bidPos": 2120
     },
     {
       "id": "nkw-a001-01-000008544241190",
@@ -62259,7 +62259,7 @@
       "monthlyTotal": 10,
       "compIdx": "높음",
       "plAvgDepth": 7.0,
-      "bidPos": 2350
+      "bidPos": 2330
     },
     {
       "id": "nkw-a001-01-000008544241191",
@@ -62275,7 +62275,7 @@
       "monthlyTotal": 700,
       "compIdx": "높음",
       "plAvgDepth": 10.0,
-      "bidPos": 2090
+      "bidPos": 2070
     },
     {
       "id": "nkw-a001-01-000008544241192",
@@ -62291,7 +62291,7 @@
       "monthlyTotal": 10,
       "compIdx": "낮음",
       "plAvgDepth": 0.0,
-      "bidPos": 1620
+      "bidPos": 1610
     },
     {
       "id": "nkw-a001-01-000008544241193",
@@ -62307,7 +62307,7 @@
       "monthlyTotal": 10,
       "compIdx": "높음",
       "plAvgDepth": 7.0,
-      "bidPos": 1520
+      "bidPos": 1500
     },
     {
       "id": "nkw-a001-01-000008544241194",
@@ -62323,7 +62323,7 @@
       "monthlyTotal": 10,
       "compIdx": "높음",
       "plAvgDepth": 7.0,
-      "bidPos": 1270
+      "bidPos": 1260
     },
     {
       "id": "nkw-a001-01-000008544241195",
@@ -62339,7 +62339,7 @@
       "monthlyTotal": 10,
       "compIdx": "높음",
       "plAvgDepth": 7.0,
-      "bidPos": 2640
+      "bidPos": 2610
     },
     {
       "id": "nkw-a001-01-000008544241196",
@@ -62355,7 +62355,7 @@
       "monthlyTotal": 10,
       "compIdx": "높음",
       "plAvgDepth": 7.0,
-      "bidPos": 3140
+      "bidPos": 3110
     },
     {
       "id": "nkw-a001-01-000008544241197",
@@ -62387,7 +62387,7 @@
       "monthlyTotal": 10,
       "compIdx": "높음",
       "plAvgDepth": 7.0,
-      "bidPos": 1140
+      "bidPos": 1120
     },
     {
       "id": "nkw-a001-01-000008544241199",
@@ -62403,7 +62403,7 @@
       "monthlyTotal": 670,
       "compIdx": "높음",
       "plAvgDepth": 10.0,
-      "bidPos": 4300
+      "bidPos": 4260
     },
     {
       "id": "nkw-a001-01-000008544241200",
@@ -62419,7 +62419,7 @@
       "monthlyTotal": 10,
       "compIdx": "높음",
       "plAvgDepth": 7.0,
-      "bidPos": 1380
+      "bidPos": 1370
     },
     {
       "id": "nkw-a001-01-000008544241201",
@@ -62435,7 +62435,7 @@
       "monthlyTotal": 10,
       "compIdx": "높음",
       "plAvgDepth": 7.0,
-      "bidPos": 2440
+      "bidPos": 2410
     }
   ],
   "kwOpportunities": [
@@ -62449,7 +62449,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "집들이선물",
-          "bidPos": 2010
+          "bidPos": 1990
         },
         {
           "pc": 6780,
@@ -62458,7 +62458,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "상견례선물",
-          "bidPos": 1250
+          "bidPos": 1240
         },
         {
           "pc": 4190,
@@ -62467,7 +62467,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "집들이선물추천",
-          "bidPos": 1960
+          "bidPos": 1940
         },
         {
           "pc": 2720,
@@ -62476,7 +62476,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "생일선물",
-          "bidPos": 2100
+          "bidPos": 2070
         },
         {
           "pc": 2270,
@@ -62494,7 +62494,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "수능선물추천",
-          "bidPos": 1370
+          "bidPos": 1360
         },
         {
           "pc": 1850,
@@ -62503,7 +62503,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "남자친구생일선물",
-          "bidPos": 1270
+          "bidPos": 1260
         },
         {
           "pc": 7500,
@@ -62512,7 +62512,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "추석선물세트",
-          "bidPos": 3670
+          "bidPos": 3630
         },
         {
           "pc": 1400,
@@ -62521,7 +62521,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "결혼선물",
-          "bidPos": 2430
+          "bidPos": 2410
         },
         {
           "pc": 7390,
@@ -62530,7 +62530,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "추석선물",
-          "bidPos": 3500
+          "bidPos": 3460
         },
         {
           "pc": 1870,
@@ -62539,7 +62539,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "퇴사선물",
-          "bidPos": 1590
+          "bidPos": 1570
         },
         {
           "pc": 1630,
@@ -62557,7 +62557,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "선물세트",
-          "bidPos": 2430
+          "bidPos": 2410
         },
         {
           "pc": 1800,
@@ -62566,7 +62566,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "돌선물",
-          "bidPos": 1970
+          "bidPos": 1950
         },
         {
           "pc": 1100,
@@ -62575,7 +62575,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "칠순선물",
-          "bidPos": 3200
+          "bidPos": 3170
         },
         {
           "pc": 1140,
@@ -62584,7 +62584,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "신혼부부선물",
-          "bidPos": 2660
+          "bidPos": 2640
         },
         {
           "pc": 890,
@@ -62593,7 +62593,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "이사선물",
-          "bidPos": 1800
+          "bidPos": 1780
         },
         {
           "pc": 450,
@@ -62602,7 +62602,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "아빠생일선물",
-          "bidPos": 2250
+          "bidPos": 2230
         },
         {
           "pc": 2140,
@@ -62611,7 +62611,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "크리스마스선물",
-          "bidPos": 1740
+          "bidPos": 1720
         },
         {
           "pc": 1290,
@@ -62620,7 +62620,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "생일선물추천",
-          "bidPos": 1680
+          "bidPos": 1660
         },
         {
           "pc": 1000,
@@ -62629,7 +62629,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "돌잔치선물",
-          "bidPos": 1290
+          "bidPos": 1280
         },
         {
           "pc": 1030,
@@ -62638,7 +62638,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "엄마생일선물",
-          "bidPos": 3310
+          "bidPos": 3280
         },
         {
           "pc": 1150,
@@ -62647,7 +62647,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "남편생일선물",
-          "bidPos": 1840
+          "bidPos": 1830
         },
         {
           "pc": 1010,
@@ -62665,7 +62665,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "친구결혼선물",
-          "bidPos": 1090
+          "bidPos": 1080
         }
       ]
     },
@@ -62909,7 +62909,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "선물박스제작",
-          "bidPos": 2880
+          "bidPos": 2850
         },
         {
           "pc": 80,
@@ -62945,7 +62945,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "고급선물박스",
-          "bidPos": 1180
+          "bidPos": 1170
         },
         {
           "pc": 30,
@@ -63071,7 +63071,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "선물박스소량제작",
-          "bidPos": 1390
+          "bidPos": 1380
         },
         {
           "pc": 10,
@@ -63125,7 +63125,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "포장선물박스",
-          "bidPos": 1110
+          "bidPos": 1100
         }
       ]
     },
@@ -63283,7 +63283,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "양배추브로콜리사과즙",
-          "bidPos": 1350
+          "bidPos": 1340
         },
         {
           "pc": 10,
@@ -63369,7 +63369,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "ABC주스",
-          "bidPos": 1980
+          "bidPos": 1960
         },
         {
           "pc": 920,
@@ -63378,7 +63378,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "해독주스",
-          "bidPos": 3000
+          "bidPos": 2970
         },
         {
           "pc": 950,
@@ -63396,7 +63396,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "ABC주스효능",
-          "bidPos": 1270
+          "bidPos": 1260
         },
         {
           "pc": 330,
@@ -63414,7 +63414,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "해독주스효과",
-          "bidPos": 1150
+          "bidPos": 1140
         },
         {
           "pc": 140,
@@ -63468,7 +63468,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "아침해독주스",
-          "bidPos": 1200
+          "bidPos": 1190
         },
         {
           "pc": 5,
@@ -63477,7 +63477,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "ABC주스다이어트",
-          "bidPos": 1670
+          "bidPos": 1650
         },
         {
           "pc": 5,
@@ -63486,7 +63486,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "ABC주스만드는법",
-          "bidPos": 1110
+          "bidPos": 1100
         },
         {
           "pc": 5,
@@ -63504,7 +63504,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "피부해독주스",
-          "bidPos": 1440
+          "bidPos": 1420
         },
         {
           "pc": 5,
@@ -63531,7 +63531,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "서울가볼만한곳",
-          "bidPos": 1270
+          "bidPos": 1260
         },
         {
           "pc": 10300,
@@ -63617,7 +63617,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "ABC착즙주스",
-          "bidPos": 1160
+          "bidPos": 1150
         },
         {
           "pc": 20,
@@ -63635,7 +63635,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "CCA착즙주스",
-          "bidPos": 2110
+          "bidPos": 2090
         },
         {
           "pc": 5,
@@ -63662,7 +63662,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "유기농착즙주스",
-          "bidPos": 1760
+          "bidPos": 1740
         },
         {
           "pc": 5,
@@ -63689,7 +63689,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "다이어트식단",
-          "bidPos": 3560
+          "bidPos": 3520
         },
         {
           "pc": 3970,
@@ -63716,7 +63716,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "양배추즙",
-          "bidPos": 3230
+          "bidPos": 3200
         },
         {
           "pc": 1120,
@@ -63734,7 +63734,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "토마토주스",
-          "bidPos": 1500
+          "bidPos": 1480
         },
         {
           "pc": 2720,
@@ -63743,7 +63743,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "ABC주스",
-          "bidPos": 1980
+          "bidPos": 1960
         },
         {
           "pc": 1400,
@@ -63752,7 +63752,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "토마토효능",
-          "bidPos": 1130
+          "bidPos": 1120
         },
         {
           "pc": 1820,
@@ -63770,7 +63770,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "양배추즙효능",
-          "bidPos": 1160
+          "bidPos": 1150
         },
         {
           "pc": 1670,
@@ -63779,7 +63779,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "면역력",
-          "bidPos": 7210
+          "bidPos": 7140
         },
         {
           "pc": 580,
@@ -63797,7 +63797,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "흑염소엑기스",
-          "bidPos": 4170
+          "bidPos": 4130
         },
         {
           "pc": 270,
@@ -63829,7 +63829,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "클렌즈주스효과",
-          "bidPos": 1670
+          "bidPos": 1660
         },
         {
           "pc": 20,
@@ -63847,7 +63847,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "클렌즈주스추천",
-          "bidPos": 1960
+          "bidPos": 1940
         },
         {
           "pc": 30,
@@ -63865,7 +63865,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "클렌즈주스다이어트",
-          "bidPos": 1990
+          "bidPos": 1970
         },
         {
           "pc": 5,
@@ -63901,7 +63901,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "다이어트클렌즈주스",
-          "bidPos": 1850
+          "bidPos": 1830
         },
         {
           "pc": 5,
@@ -63919,7 +63919,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "다이어트식단",
-          "bidPos": 3560
+          "bidPos": 3520
         },
         {
           "pc": 5320,
@@ -63928,7 +63928,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "양배추즙",
-          "bidPos": 3230
+          "bidPos": 3200
         },
         {
           "pc": 1120,
@@ -63946,7 +63946,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "ABC주스",
-          "bidPos": 1980
+          "bidPos": 1960
         },
         {
           "pc": 1030,
@@ -63964,7 +63964,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "해독주스",
-          "bidPos": 3000
+          "bidPos": 2970
         },
         {
           "pc": 340,
@@ -63982,7 +63982,7 @@
           "comp": "중간",
           "depth": 7.0,
           "keyword": "CCA주스",
-          "bidPos": 1740
+          "bidPos": 1720
         },
         {
           "pc": 1020,
@@ -64000,7 +64000,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "디톡스주스",
-          "bidPos": 2590
+          "bidPos": 2570
         },
         {
           "pc": 710,
@@ -64009,7 +64009,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "스무디",
-          "bidPos": 1130
+          "bidPos": 1110
         },
         {
           "pc": 450,
@@ -64036,7 +64036,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "케일주스",
-          "bidPos": 1910
+          "bidPos": 1890
         },
         {
           "pc": 110,
@@ -64289,7 +64289,7 @@
           "comp": "중간",
           "depth": 5.0,
           "keyword": "양배추사과주스",
-          "bidPos": 1180
+          "bidPos": 1170
         },
         {
           "pc": 10,
@@ -64352,7 +64352,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "해독주스",
-          "bidPos": 3000
+          "bidPos": 2970
         },
         {
           "pc": 410,
@@ -64370,7 +64370,7 @@
           "comp": "중간",
           "depth": 7.0,
           "keyword": "CCA주스",
-          "bidPos": 1740
+          "bidPos": 1720
         },
         {
           "pc": 960,
@@ -64406,7 +64406,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "디톡스주스",
-          "bidPos": 2590
+          "bidPos": 2570
         },
         {
           "pc": 270,
@@ -64415,7 +64415,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "아기보리차",
-          "bidPos": 1160
+          "bidPos": 1150
         },
         {
           "pc": 240,
@@ -64424,7 +64424,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "섬유질많은음식",
-          "bidPos": 1150
+          "bidPos": 1140
         },
         {
           "pc": 520,
@@ -64433,7 +64433,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "마시는샐러드",
-          "bidPos": 1770
+          "bidPos": 1750
         },
         {
           "pc": 420,
@@ -64460,7 +64460,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "야채주스",
-          "bidPos": 1350
+          "bidPos": 1340
         },
         {
           "pc": 190,
@@ -64469,7 +64469,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "사과당근주스",
-          "bidPos": 1140
+          "bidPos": 1130
         },
         {
           "pc": 100,
@@ -64487,7 +64487,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "해독쥬스",
-          "bidPos": 1890
+          "bidPos": 1870
         },
         {
           "pc": 90,
@@ -64505,7 +64505,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "유아간식",
-          "bidPos": 1920
+          "bidPos": 1900
         }
       ]
     },
@@ -64600,7 +64600,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "양배추즙",
-          "bidPos": 3230
+          "bidPos": 3200
         },
         {
           "pc": 5050,
@@ -64627,7 +64627,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "단백질음료",
-          "bidPos": 3300
+          "bidPos": 3260
         },
         {
           "pc": 4420,
@@ -64654,7 +64654,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "토마토주스",
-          "bidPos": 1500
+          "bidPos": 1480
         },
         {
           "pc": 2720,
@@ -64663,7 +64663,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "ABC주스",
-          "bidPos": 1980
+          "bidPos": 1960
         },
         {
           "pc": 1400,
@@ -64672,7 +64672,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "토마토효능",
-          "bidPos": 1130
+          "bidPos": 1120
         },
         {
           "pc": 3140,
@@ -64681,7 +64681,7 @@
           "comp": "높음",
           "depth": 9.0,
           "keyword": "보리차",
-          "bidPos": 1480
+          "bidPos": 1470
         },
         {
           "pc": 490,
@@ -64690,7 +64690,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "양배추즙효능",
-          "bidPos": 1160
+          "bidPos": 1150
         },
         {
           "pc": 930,
@@ -64717,7 +64717,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "해독주스",
-          "bidPos": 3000
+          "bidPos": 2970
         },
         {
           "pc": 2060,
@@ -64749,7 +64749,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "기업선물세트",
-          "bidPos": 2940
+          "bidPos": 2910
         },
         {
           "pc": 5,
@@ -64758,7 +64758,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "기업선물추천",
-          "bidPos": 1090
+          "bidPos": 1080
         },
         {
           "pc": 5,
@@ -64767,7 +64767,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "기업선물제작",
-          "bidPos": 1150
+          "bidPos": 1140
         },
         {
           "pc": 5,
@@ -64785,7 +64785,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "소고기",
-          "bidPos": 1890
+          "bidPos": 1880
         },
         {
           "pc": 9160,
@@ -64794,7 +64794,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "한우",
-          "bidPos": 2190
+          "bidPos": 2170
         },
         {
           "pc": 11300,
@@ -64803,7 +64803,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "집들이선물",
-          "bidPos": 2010
+          "bidPos": 1990
         },
         {
           "pc": 15500,
@@ -64812,7 +64812,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "디퓨저",
-          "bidPos": 2600
+          "bidPos": 2580
         },
         {
           "pc": 4190,
@@ -64821,7 +64821,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "집들이선물추천",
-          "bidPos": 1960
+          "bidPos": 1940
         },
         {
           "pc": 11300,
@@ -64830,7 +64830,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "맞춤형복지",
-          "bidPos": 1150
+          "bidPos": 1140
         },
         {
           "pc": 2720,
@@ -64839,7 +64839,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "생일선물",
-          "bidPos": 2100
+          "bidPos": 2070
         },
         {
           "pc": 3590,
@@ -64848,7 +64848,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "한우선물세트",
-          "bidPos": 2440
+          "bidPos": 2410
         },
         {
           "pc": 1500,
@@ -64857,7 +64857,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "실내방향제",
-          "bidPos": 4060
+          "bidPos": 4010
         },
         {
           "pc": 850,
@@ -64875,7 +64875,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "추석선물세트",
-          "bidPos": 3670
+          "bidPos": 3630
         },
         {
           "pc": 1400,
@@ -64884,7 +64884,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "결혼선물",
-          "bidPos": 2430
+          "bidPos": 2410
         },
         {
           "pc": 7390,
@@ -64893,7 +64893,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "추석선물",
-          "bidPos": 3500
+          "bidPos": 3460
         },
         {
           "pc": 1870,
@@ -64902,7 +64902,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "퇴사선물",
-          "bidPos": 1590
+          "bidPos": 1570
         },
         {
           "pc": 1980,
@@ -64911,7 +64911,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "TCI검사",
-          "bidPos": 1510
+          "bidPos": 1500
         },
         {
           "pc": 4750,
@@ -64920,7 +64920,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "사무실간식",
-          "bidPos": 7770
+          "bidPos": 7700
         },
         {
           "pc": 2670,
@@ -64929,7 +64929,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "선물세트",
-          "bidPos": 2430
+          "bidPos": 2410
         },
         {
           "pc": 890,
@@ -64938,7 +64938,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "이사선물",
-          "bidPos": 1800
+          "bidPos": 1780
         },
         {
           "pc": 450,
@@ -64947,7 +64947,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "아빠생일선물",
-          "bidPos": 2250
+          "bidPos": 2230
         },
         {
           "pc": 1370,
@@ -64956,7 +64956,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "기념품제작",
-          "bidPos": 5230
+          "bidPos": 5180
         },
         {
           "pc": 1380,
@@ -64965,7 +64965,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "복지",
-          "bidPos": 2330
+          "bidPos": 2310
         }
       ]
     },
@@ -64979,7 +64979,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "아침건강주스",
-          "bidPos": 1280
+          "bidPos": 1260
         },
         {
           "pc": 5,
@@ -64988,7 +64988,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "건강주스추천",
-          "bidPos": 1910
+          "bidPos": 1890
         },
         {
           "pc": 5,
@@ -64997,7 +64997,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "건강주스배달",
-          "bidPos": 1100
+          "bidPos": 1090
         },
         {
           "pc": 10400,
@@ -65006,7 +65006,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "다이어트식단",
-          "bidPos": 3560
+          "bidPos": 3520
         },
         {
           "pc": 3970,
@@ -65033,7 +65033,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "양배추즙",
-          "bidPos": 3230
+          "bidPos": 3200
         },
         {
           "pc": 1660,
@@ -65042,7 +65042,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "변비에좋은음식",
-          "bidPos": 1290
+          "bidPos": 1280
         },
         {
           "pc": 1120,
@@ -65060,7 +65060,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "토마토주스",
-          "bidPos": 1500
+          "bidPos": 1480
         },
         {
           "pc": 2720,
@@ -65069,7 +65069,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "ABC주스",
-          "bidPos": 1980
+          "bidPos": 1960
         },
         {
           "pc": 1400,
@@ -65078,7 +65078,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "토마토효능",
-          "bidPos": 1130
+          "bidPos": 1120
         },
         {
           "pc": 750,
@@ -65096,7 +65096,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "변비직빵",
-          "bidPos": 1620
+          "bidPos": 1600
         },
         {
           "pc": 1820,
@@ -65114,7 +65114,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "양배추즙효능",
-          "bidPos": 1160
+          "bidPos": 1150
         },
         {
           "pc": 1670,
@@ -65123,7 +65123,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "면역력",
-          "bidPos": 7210
+          "bidPos": 7140
         },
         {
           "pc": 580,
@@ -65141,7 +65141,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "해독주스",
-          "bidPos": 3000
+          "bidPos": 2970
         },
         {
           "pc": 1260,
@@ -65150,7 +65150,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "진저샷",
-          "bidPos": 2770
+          "bidPos": 2740
         },
         {
           "pc": 340,
@@ -65168,7 +65168,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "유기농양배추즙",
-          "bidPos": 1780
+          "bidPos": 1760
         },
         {
           "pc": 2040,
@@ -65177,7 +65177,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "토마토즙",
-          "bidPos": 1700
+          "bidPos": 1680
         },
         {
           "pc": 1350,
@@ -65186,7 +65186,7 @@
           "comp": "중간",
           "depth": 7.0,
           "keyword": "CCA주스",
-          "bidPos": 1740
+          "bidPos": 1720
         },
         {
           "pc": 800,
@@ -65281,7 +65281,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "과일선물세트",
-          "bidPos": 1440
+          "bidPos": 1430
         },
         {
           "pc": 1900,
@@ -65326,7 +65326,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "못난이사과",
-          "bidPos": 1370
+          "bidPos": 1350
         },
         {
           "pc": 1310,
@@ -65439,7 +65439,7 @@
           "comp": "낮음",
           "depth": 0.0,
           "keyword": "회사명절선물세트",
-          "bidPos": 1310
+          "bidPos": 1300
         },
         {
           "pc": 5,
@@ -65448,7 +65448,7 @@
           "comp": "낮음",
           "depth": 0.0,
           "keyword": "회사명절선물추천",
-          "bidPos": 1220
+          "bidPos": 1200
         },
         {
           "pc": 18700,
@@ -65466,7 +65466,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "상견례선물",
-          "bidPos": 1250
+          "bidPos": 1240
         },
         {
           "pc": 4190,
@@ -65475,7 +65475,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "집들이선물추천",
-          "bidPos": 1960
+          "bidPos": 1940
         },
         {
           "pc": 10700,
@@ -65484,7 +65484,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "홍삼스틱",
-          "bidPos": 3470
+          "bidPos": 3440
         },
         {
           "pc": 11300,
@@ -65493,7 +65493,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "맞춤형복지",
-          "bidPos": 1150
+          "bidPos": 1140
         },
         {
           "pc": 3590,
@@ -65502,7 +65502,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "한우선물세트",
-          "bidPos": 2440
+          "bidPos": 2410
         },
         {
           "pc": 7500,
@@ -65511,7 +65511,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "추석선물세트",
-          "bidPos": 3670
+          "bidPos": 3630
         },
         {
           "pc": 7390,
@@ -65520,7 +65520,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "추석선물",
-          "bidPos": 3500
+          "bidPos": 3460
         },
         {
           "pc": 1980,
@@ -65529,7 +65529,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "TCI검사",
-          "bidPos": 1510
+          "bidPos": 1500
         },
         {
           "pc": 2670,
@@ -65538,7 +65538,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "선물세트",
-          "bidPos": 2430
+          "bidPos": 2410
         },
         {
           "pc": 3250,
@@ -65547,7 +65547,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "복지몰",
-          "bidPos": 3570
+          "bidPos": 3540
         },
         {
           "pc": 1960,
@@ -65556,7 +65556,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "복지포인트",
-          "bidPos": 2310
+          "bidPos": 2290
         },
         {
           "pc": 1380,
@@ -65565,7 +65565,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "복지",
-          "bidPos": 2330
+          "bidPos": 2310
         },
         {
           "pc": 1290,
@@ -65574,7 +65574,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "서울원데이클래스",
-          "bidPos": 6220
+          "bidPos": 6160
         },
         {
           "pc": 1100,
@@ -65610,7 +65610,7 @@
           "comp": "중간",
           "depth": 4.0,
           "keyword": "복지멤버십",
-          "bidPos": 1100
+          "bidPos": 1090
         },
         {
           "pc": 790,
@@ -65619,7 +65619,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "백화점상품권",
-          "bidPos": 1190
+          "bidPos": 1180
         },
         {
           "pc": 290,
@@ -65669,7 +65669,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "거래처선물세트",
-          "bidPos": 2750
+          "bidPos": 2720
         },
         {
           "pc": 5,
@@ -65678,7 +65678,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "추석거래처선물",
-          "bidPos": 2020
+          "bidPos": 2000
         },
         {
           "pc": 9160,
@@ -65687,7 +65687,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "한우",
-          "bidPos": 2190
+          "bidPos": 2170
         },
         {
           "pc": 6780,
@@ -65696,7 +65696,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "상견례선물",
-          "bidPos": 1250
+          "bidPos": 1240
         },
         {
           "pc": 11300,
@@ -65705,7 +65705,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "맞춤형복지",
-          "bidPos": 1150
+          "bidPos": 1140
         },
         {
           "pc": 2650,
@@ -65723,7 +65723,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "생일선물",
-          "bidPos": 2100
+          "bidPos": 2070
         },
         {
           "pc": 4920,
@@ -65732,7 +65732,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "굿즈제작",
-          "bidPos": 4390
+          "bidPos": 4350
         },
         {
           "pc": 3590,
@@ -65741,7 +65741,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "한우선물세트",
-          "bidPos": 2440
+          "bidPos": 2410
         },
         {
           "pc": 7500,
@@ -65750,7 +65750,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "추석선물세트",
-          "bidPos": 3670
+          "bidPos": 3630
         },
         {
           "pc": 7390,
@@ -65759,7 +65759,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "추석선물",
-          "bidPos": 3500
+          "bidPos": 3460
         },
         {
           "pc": 2670,
@@ -65768,7 +65768,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "선물세트",
-          "bidPos": 2430
+          "bidPos": 2410
         },
         {
           "pc": 2200,
@@ -65777,7 +65777,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "판촉",
-          "bidPos": 3180
+          "bidPos": 3150
         },
         {
           "pc": 2540,
@@ -65786,7 +65786,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "판촉물제작",
-          "bidPos": 6690
+          "bidPos": 6620
         },
         {
           "pc": 920,
@@ -65795,7 +65795,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "수험생선물",
-          "bidPos": 1590
+          "bidPos": 1580
         },
         {
           "pc": 470,
@@ -65813,7 +65813,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "소고기선물세트",
-          "bidPos": 3070
+          "bidPos": 3040
         },
         {
           "pc": 1340,
@@ -65822,7 +65822,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "도매사이트",
-          "bidPos": 3180
+          "bidPos": 3150
         },
         {
           "pc": 870,
@@ -65831,7 +65831,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "한우세트",
-          "bidPos": 1650
+          "bidPos": 1640
         },
         {
           "pc": 2120,
@@ -65840,7 +65840,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "홍보물품",
-          "bidPos": 5390
+          "bidPos": 5340
         },
         {
           "pc": 1110,
@@ -65849,7 +65849,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "사은품",
-          "bidPos": 3230
+          "bidPos": 3200
         },
         {
           "pc": 920,
@@ -65858,7 +65858,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "승진선물",
-          "bidPos": 2700
+          "bidPos": 2670
         },
         {
           "pc": 750,
@@ -65867,7 +65867,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "기념품샵",
-          "bidPos": 2230
+          "bidPos": 2210
         },
         {
           "pc": 930,
@@ -65876,7 +65876,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "선물하기",
-          "bidPos": 1360
+          "bidPos": 1350
         },
         {
           "pc": 680,
@@ -65885,7 +65885,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "단체선물",
-          "bidPos": 5770
+          "bidPos": 5710
         }
       ]
     },
@@ -65899,7 +65899,7 @@
           "comp": "낮음",
           "depth": 0.0,
           "keyword": "기업추석선물세트",
-          "bidPos": 1760
+          "bidPos": 1750
         },
         {
           "pc": 5,
@@ -65917,7 +65917,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "결혼식답례품",
-          "bidPos": 1620
+          "bidPos": 1600
         },
         {
           "pc": 7130,
@@ -65926,7 +65926,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "기프티콘",
-          "bidPos": 1680
+          "bidPos": 1670
         },
         {
           "pc": 7500,
@@ -65935,7 +65935,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "추석선물세트",
-          "bidPos": 3670
+          "bidPos": 3630
         },
         {
           "pc": 7390,
@@ -65944,7 +65944,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "추석선물",
-          "bidPos": 3500
+          "bidPos": 3460
         },
         {
           "pc": 1250,
@@ -65953,7 +65953,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "기프트카드",
-          "bidPos": 1360
+          "bidPos": 1350
         },
         {
           "pc": 2670,
@@ -65962,7 +65962,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "선물세트",
-          "bidPos": 2430
+          "bidPos": 2410
         },
         {
           "pc": 430,
@@ -65980,7 +65980,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "모바일상품권",
-          "bidPos": 3180
+          "bidPos": 3150
         },
         {
           "pc": 790,
@@ -65989,7 +65989,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "백화점상품권",
-          "bidPos": 1190
+          "bidPos": 1180
         },
         {
           "pc": 560,
@@ -66007,7 +66007,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "승진선물",
-          "bidPos": 2700
+          "bidPos": 2670
         },
         {
           "pc": 540,
@@ -66016,7 +66016,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "기프티콘구매",
-          "bidPos": 1420
+          "bidPos": 1410
         },
         {
           "pc": 680,
@@ -66025,7 +66025,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "단체선물",
-          "bidPos": 5770
+          "bidPos": 5710
         },
         {
           "pc": 1690,
@@ -66034,7 +66034,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "명절선물",
-          "bidPos": 6960
+          "bidPos": 6890
         },
         {
           "pc": 800,
@@ -66043,7 +66043,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "홍삼선물세트",
-          "bidPos": 2710
+          "bidPos": 2680
         },
         {
           "pc": 220,
@@ -66061,7 +66061,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "출산축하선물",
-          "bidPos": 2170
+          "bidPos": 2150
         },
         {
           "pc": 350,
@@ -66070,7 +66070,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "소금답례품",
-          "bidPos": 1430
+          "bidPos": 1410
         },
         {
           "pc": 210,
@@ -66088,7 +66088,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "5만원대선물",
-          "bidPos": 1280
+          "bidPos": 1270
         },
         {
           "pc": 520,
@@ -66097,7 +66097,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "명절선물세트",
-          "bidPos": 3250
+          "bidPos": 3220
         },
         {
           "pc": 340,
@@ -66106,7 +66106,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "특판",
-          "bidPos": 1170
+          "bidPos": 1160
         },
         {
           "pc": 540,
@@ -66115,7 +66115,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "기프트몰",
-          "bidPos": 2690
+          "bidPos": 2670
         }
       ]
     },
@@ -66138,7 +66138,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "기업명절선물세트",
-          "bidPos": 2070
+          "bidPos": 2050
         },
         {
           "pc": 6780,
@@ -66147,7 +66147,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "상견례선물",
-          "bidPos": 1250
+          "bidPos": 1240
         },
         {
           "pc": 10700,
@@ -66156,7 +66156,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "홍삼스틱",
-          "bidPos": 3470
+          "bidPos": 3440
         },
         {
           "pc": 7500,
@@ -66165,7 +66165,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "추석선물세트",
-          "bidPos": 3670
+          "bidPos": 3630
         },
         {
           "pc": 7390,
@@ -66174,7 +66174,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "추석선물",
-          "bidPos": 3500
+          "bidPos": 3460
         },
         {
           "pc": 2920,
@@ -66183,7 +66183,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "온열방석",
-          "bidPos": 1170
+          "bidPos": 1160
         },
         {
           "pc": 2670,
@@ -66192,7 +66192,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "선물세트",
-          "bidPos": 2430
+          "bidPos": 2410
         },
         {
           "pc": 1090,
@@ -66210,7 +66210,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "백화점상품권",
-          "bidPos": 1190
+          "bidPos": 1180
         },
         {
           "pc": 560,
@@ -66228,7 +66228,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "견과류선물세트",
-          "bidPos": 1340
+          "bidPos": 1330
         },
         {
           "pc": 920,
@@ -66237,7 +66237,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "승진선물",
-          "bidPos": 2700
+          "bidPos": 2670
         },
         {
           "pc": 680,
@@ -66246,7 +66246,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "단체선물",
-          "bidPos": 5770
+          "bidPos": 5710
         },
         {
           "pc": 1690,
@@ -66255,7 +66255,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "명절선물",
-          "bidPos": 6960
+          "bidPos": 6890
         },
         {
           "pc": 800,
@@ -66264,7 +66264,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "홍삼선물세트",
-          "bidPos": 2710
+          "bidPos": 2680
         },
         {
           "pc": 290,
@@ -66273,7 +66273,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "초등학교입학선물",
-          "bidPos": 6090
+          "bidPos": 6030
         },
         {
           "pc": 290,
@@ -66300,7 +66300,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "홍삼세트",
-          "bidPos": 2510
+          "bidPos": 2490
         },
         {
           "pc": 290,
@@ -66309,7 +66309,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "출산축하선물",
-          "bidPos": 2170
+          "bidPos": 2150
         },
         {
           "pc": 380,
@@ -66318,7 +66318,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "5만원대선물",
-          "bidPos": 1280
+          "bidPos": 1270
         },
         {
           "pc": 520,
@@ -66327,7 +66327,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "명절선물세트",
-          "bidPos": 3250
+          "bidPos": 3220
         },
         {
           "pc": 130,
@@ -66345,7 +66345,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "기프트몰",
-          "bidPos": 2690
+          "bidPos": 2670
         }
       ]
     },
@@ -66413,7 +66413,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "ABC주스",
-          "bidPos": 1980
+          "bidPos": 1960
         },
         {
           "pc": 490,
@@ -66440,7 +66440,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "해독주스",
-          "bidPos": 3000
+          "bidPos": 2970
         },
         {
           "pc": 1030,
@@ -66476,7 +66476,7 @@
           "comp": "중간",
           "depth": 7.0,
           "keyword": "CCA주스",
-          "bidPos": 1740
+          "bidPos": 1720
         },
         {
           "pc": 610,
@@ -66485,7 +66485,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "디톡스주스",
-          "bidPos": 2590
+          "bidPos": 2570
         },
         {
           "pc": 950,
@@ -66503,7 +66503,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "스무디",
-          "bidPos": 1130
+          "bidPos": 1110
         },
         {
           "pc": 630,
@@ -66521,7 +66521,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "블루베리퓨레",
-          "bidPos": 1190
+          "bidPos": 1180
         },
         {
           "pc": 510,
@@ -66530,7 +66530,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "케일주스",
-          "bidPos": 1910
+          "bidPos": 1890
         },
         {
           "pc": 310,
@@ -66539,7 +66539,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "만성염증",
-          "bidPos": 1640
+          "bidPos": 1630
         },
         {
           "pc": 410,
@@ -66548,7 +66548,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "ABC주스효능",
-          "bidPos": 1270
+          "bidPos": 1260
         },
         {
           "pc": 480,
@@ -66652,7 +66652,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "과일선물세트",
-          "bidPos": 1440
+          "bidPos": 1430
         },
         {
           "pc": 1900,
@@ -66733,7 +66733,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "10만원대선물",
-          "bidPos": 1350
+          "bidPos": 1340
         },
         {
           "pc": 130,
@@ -66751,7 +66751,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "5만원대선물",
-          "bidPos": 1280
+          "bidPos": 1270
         },
         {
           "pc": 70,
@@ -66837,7 +66837,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "식자재마트",
-          "bidPos": 1200
+          "bidPos": 1190
         },
         {
           "pc": 5500,
@@ -66855,7 +66855,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "밀키트",
-          "bidPos": 1440
+          "bidPos": 1430
         },
         {
           "pc": 1130,
@@ -66918,7 +66918,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "포차",
-          "bidPos": 1370
+          "bidPos": 1360
         },
         {
           "pc": 300,
@@ -66927,7 +66927,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "호프집",
-          "bidPos": 4370
+          "bidPos": 4320
         },
         {
           "pc": 2430,
@@ -66990,7 +66990,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "식혜",
-          "bidPos": 1300
+          "bidPos": 1290
         },
         {
           "pc": 1570,
@@ -67049,7 +67049,7 @@
           "comp": "낮음",
           "depth": 0.0,
           "keyword": "회사설선물세트",
-          "bidPos": 2340
+          "bidPos": 2310
         },
         {
           "pc": 9160,
@@ -67058,7 +67058,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "한우",
-          "bidPos": 2190
+          "bidPos": 2170
         },
         {
           "pc": 3590,
@@ -67067,7 +67067,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "한우선물세트",
-          "bidPos": 2440
+          "bidPos": 2410
         },
         {
           "pc": 7500,
@@ -67076,7 +67076,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "추석선물세트",
-          "bidPos": 3670
+          "bidPos": 3630
         },
         {
           "pc": 7390,
@@ -67085,7 +67085,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "추석선물",
-          "bidPos": 3500
+          "bidPos": 3460
         },
         {
           "pc": 2670,
@@ -67094,7 +67094,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "선물세트",
-          "bidPos": 2430
+          "bidPos": 2410
         },
         {
           "pc": 630,
@@ -67103,7 +67103,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "소고기선물세트",
-          "bidPos": 3070
+          "bidPos": 3040
         },
         {
           "pc": 290,
@@ -67121,7 +67121,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "명절선물",
-          "bidPos": 6960
+          "bidPos": 6890
         },
         {
           "pc": 290,
@@ -67130,7 +67130,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "초등학교입학선물",
-          "bidPos": 6090
+          "bidPos": 6030
         },
         {
           "pc": 520,
@@ -67139,7 +67139,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "명절선물세트",
-          "bidPos": 3250
+          "bidPos": 3220
         },
         {
           "pc": 620,
@@ -67148,7 +67148,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "설날선물",
-          "bidPos": 1800
+          "bidPos": 1780
         },
         {
           "pc": 230,
@@ -67157,7 +67157,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "소금선물세트",
-          "bidPos": 1230
+          "bidPos": 1220
         },
         {
           "pc": 400,
@@ -67166,7 +67166,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "창립기념일선물",
-          "bidPos": 6390
+          "bidPos": 6320
         },
         {
           "pc": 460,
@@ -67202,7 +67202,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "명절선물추천",
-          "bidPos": 1780
+          "bidPos": 1760
         },
         {
           "pc": 110,
@@ -67220,7 +67220,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "설선물세트",
-          "bidPos": 1880
+          "bidPos": 1860
         },
         {
           "pc": 50,
@@ -67229,7 +67229,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "설선물",
-          "bidPos": 2110
+          "bidPos": 2090
         },
         {
           "pc": 90,
@@ -67238,7 +67238,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "VIP선물",
-          "bidPos": 1560
+          "bidPos": 1550
         },
         {
           "pc": 40,
@@ -67247,7 +67247,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "입학선물",
-          "bidPos": 3040
+          "bidPos": 3010
         },
         {
           "pc": 70,
@@ -67256,7 +67256,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "창립기념선물",
-          "bidPos": 3380
+          "bidPos": 3340
         },
         {
           "pc": 40,
@@ -67265,7 +67265,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "회사창립기념일",
-          "bidPos": 3050
+          "bidPos": 3020
         }
       ]
     },
@@ -67297,7 +67297,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "양배추즙",
-          "bidPos": 3230
+          "bidPos": 3200
         },
         {
           "pc": 2720,
@@ -67306,7 +67306,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "ABC주스",
-          "bidPos": 1980
+          "bidPos": 1960
         },
         {
           "pc": 490,
@@ -67315,7 +67315,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "양배추즙효능",
-          "bidPos": 1160
+          "bidPos": 1150
         },
         {
           "pc": 950,
@@ -67342,7 +67342,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "해독주스",
-          "bidPos": 3000
+          "bidPos": 2970
         },
         {
           "pc": 240,
@@ -67351,7 +67351,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "유기농양배추즙",
-          "bidPos": 1780
+          "bidPos": 1760
         },
         {
           "pc": 1350,
@@ -67360,7 +67360,7 @@
           "comp": "중간",
           "depth": 7.0,
           "keyword": "CCA주스",
-          "bidPos": 1740
+          "bidPos": 1720
         },
         {
           "pc": 960,
@@ -67414,7 +67414,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "딸기청",
-          "bidPos": 1240
+          "bidPos": 1220
         },
         {
           "pc": 610,
@@ -67423,7 +67423,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "디톡스주스",
-          "bidPos": 2590
+          "bidPos": 2570
         },
         {
           "pc": 1520,
@@ -67441,7 +67441,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "스무디",
-          "bidPos": 1130
+          "bidPos": 1110
         },
         {
           "pc": 490,
@@ -67459,7 +67459,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "해독주스레시피",
-          "bidPos": 1130
+          "bidPos": 1120
         },
         {
           "pc": 1400,
@@ -67495,7 +67495,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "디톡스다이어트",
-          "bidPos": 5700
+          "bidPos": 5650
         }
       ]
     },
@@ -67527,7 +67527,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "양배추즙",
-          "bidPos": 3230
+          "bidPos": 3200
         },
         {
           "pc": 2720,
@@ -67536,7 +67536,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "ABC주스",
-          "bidPos": 1980
+          "bidPos": 1960
         },
         {
           "pc": 490,
@@ -67545,7 +67545,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "양배추즙효능",
-          "bidPos": 1160
+          "bidPos": 1150
         },
         {
           "pc": 920,
@@ -67554,7 +67554,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "해독주스",
-          "bidPos": 3000
+          "bidPos": 2970
         },
         {
           "pc": 1260,
@@ -67563,7 +67563,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "진저샷",
-          "bidPos": 2770
+          "bidPos": 2740
         },
         {
           "pc": 240,
@@ -67572,7 +67572,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "유기농양배추즙",
-          "bidPos": 1780
+          "bidPos": 1760
         },
         {
           "pc": 1350,
@@ -67581,7 +67581,7 @@
           "comp": "중간",
           "depth": 7.0,
           "keyword": "CCA주스",
-          "bidPos": 1740
+          "bidPos": 1720
         },
         {
           "pc": 960,
@@ -67608,7 +67608,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "디톡스주스",
-          "bidPos": 2590
+          "bidPos": 2570
         },
         {
           "pc": 240,
@@ -67617,7 +67617,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "섬유질많은음식",
-          "bidPos": 1150
+          "bidPos": 1140
         },
         {
           "pc": 280,
@@ -67626,7 +67626,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "해독주스레시피",
-          "bidPos": 1130
+          "bidPos": 1120
         },
         {
           "pc": 1400,
@@ -67653,7 +67653,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "아기퓨레",
-          "bidPos": 2080
+          "bidPos": 2060
         },
         {
           "pc": 240,
@@ -67662,7 +67662,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "디톡스다이어트",
-          "bidPos": 5700
+          "bidPos": 5650
         },
         {
           "pc": 210,
@@ -67680,7 +67680,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "야채주스",
-          "bidPos": 1350
+          "bidPos": 1340
         },
         {
           "pc": 190,
@@ -67689,7 +67689,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "사과당근주스",
-          "bidPos": 1140
+          "bidPos": 1130
         },
         {
           "pc": 210,
@@ -67698,7 +67698,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "스테아린산마그네슘",
-          "bidPos": 2260
+          "bidPos": 2240
         },
         {
           "pc": 150,
@@ -67707,7 +67707,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "해독쥬스",
-          "bidPos": 1890
+          "bidPos": 1870
         },
         {
           "pc": 90,
@@ -67766,7 +67766,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "양배추즙",
-          "bidPos": 3230
+          "bidPos": 3200
         },
         {
           "pc": 1660,
@@ -67775,7 +67775,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "변비에좋은음식",
-          "bidPos": 1290
+          "bidPos": 1280
         },
         {
           "pc": 1120,
@@ -67793,7 +67793,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "토마토주스",
-          "bidPos": 1500
+          "bidPos": 1480
         },
         {
           "pc": 2720,
@@ -67802,7 +67802,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "ABC주스",
-          "bidPos": 1980
+          "bidPos": 1960
         },
         {
           "pc": 1400,
@@ -67811,7 +67811,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "토마토효능",
-          "bidPos": 1130
+          "bidPos": 1120
         },
         {
           "pc": 750,
@@ -67829,7 +67829,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "양배추즙효능",
-          "bidPos": 1160
+          "bidPos": 1150
         },
         {
           "pc": 1670,
@@ -67838,7 +67838,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "면역력",
-          "bidPos": 7210
+          "bidPos": 7140
         },
         {
           "pc": 2080,
@@ -67865,7 +67865,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "해독주스",
-          "bidPos": 3000
+          "bidPos": 2970
         },
         {
           "pc": 1260,
@@ -67874,7 +67874,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "진저샷",
-          "bidPos": 2770
+          "bidPos": 2740
         },
         {
           "pc": 340,
@@ -67892,7 +67892,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "유기농양배추즙",
-          "bidPos": 1780
+          "bidPos": 1760
         },
         {
           "pc": 2040,
@@ -67901,7 +67901,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "토마토즙",
-          "bidPos": 1700
+          "bidPos": 1680
         },
         {
           "pc": 1350,
@@ -67910,7 +67910,7 @@
           "comp": "중간",
           "depth": 7.0,
           "keyword": "CCA주스",
-          "bidPos": 1740
+          "bidPos": 1720
         },
         {
           "pc": 800,
@@ -67928,7 +67928,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "라이코펜",
-          "bidPos": 1230
+          "bidPos": 1220
         },
         {
           "pc": 1020,
@@ -67946,7 +67946,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "토마토쥬스",
-          "bidPos": 1280
+          "bidPos": 1270
         },
         {
           "pc": 610,
@@ -67955,7 +67955,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "디톡스주스",
-          "bidPos": 2590
+          "bidPos": 2570
         }
       ]
     },
@@ -68095,7 +68095,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "레몬물",
-          "bidPos": 1530
+          "bidPos": 1510
         },
         {
           "pc": 110,
@@ -68226,7 +68226,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "변비에좋은음식",
-          "bidPos": 1290
+          "bidPos": 1280
         },
         {
           "pc": 1730,
@@ -68235,7 +68235,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "토마토주스",
-          "bidPos": 1500
+          "bidPos": 1480
         },
         {
           "pc": 2720,
@@ -68244,7 +68244,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "ABC주스",
-          "bidPos": 1980
+          "bidPos": 1960
         },
         {
           "pc": 1400,
@@ -68253,7 +68253,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "토마토효능",
-          "bidPos": 1130
+          "bidPos": 1120
         },
         {
           "pc": 930,
@@ -68316,7 +68316,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "해독주스",
-          "bidPos": 3000
+          "bidPos": 2970
         },
         {
           "pc": 880,
@@ -68343,7 +68343,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "토마토즙",
-          "bidPos": 1700
+          "bidPos": 1680
         },
         {
           "pc": 940,
@@ -68361,7 +68361,7 @@
           "comp": "중간",
           "depth": 7.0,
           "keyword": "CCA주스",
-          "bidPos": 1740
+          "bidPos": 1720
         },
         {
           "pc": 850,
@@ -68388,7 +68388,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "라이코펜",
-          "bidPos": 1230
+          "bidPos": 1220
         },
         {
           "pc": 550,
@@ -68406,7 +68406,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "토마토쥬스",
-          "bidPos": 1280
+          "bidPos": 1270
         },
         {
           "pc": 610,
@@ -68415,7 +68415,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "디톡스주스",
-          "bidPos": 2590
+          "bidPos": 2570
         }
       ]
     },
@@ -68492,7 +68492,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "과일선물세트",
-          "bidPos": 1440
+          "bidPos": 1430
         },
         {
           "pc": 1900,
@@ -68519,7 +68519,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "못난이사과",
-          "bidPos": 1370
+          "bidPos": 1350
         },
         {
           "pc": 290,
@@ -68794,7 +68794,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "못난이사과",
-          "bidPos": 1370
+          "bidPos": 1350
         },
         {
           "pc": 290,
@@ -68961,7 +68961,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "못난이사과",
-          "bidPos": 1370
+          "bidPos": 1350
         },
         {
           "pc": 420,
@@ -68979,7 +68979,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "야채주스",
-          "bidPos": 1350
+          "bidPos": 1340
         },
         {
           "pc": 190,
@@ -68988,7 +68988,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "사과당근주스",
-          "bidPos": 1140
+          "bidPos": 1130
         },
         {
           "pc": 150,
@@ -69015,7 +69015,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "독소배출주스",
-          "bidPos": 1120
+          "bidPos": 1110
         },
         {
           "pc": 160,
@@ -69024,7 +69024,7 @@
           "comp": "높음",
           "depth": 9.0,
           "keyword": "즙",
-          "bidPos": 1220
+          "bidPos": 1200
         },
         {
           "pc": 120,
@@ -69033,7 +69033,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "커피대체",
-          "bidPos": 1300
+          "bidPos": 1290
         },
         {
           "pc": 80,
@@ -69069,7 +69069,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "석류농축액",
-          "bidPos": 1630
+          "bidPos": 1610
         },
         {
           "pc": 40,
@@ -69087,7 +69087,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "패션후르츠퓨레",
-          "bidPos": 1550
+          "bidPos": 1540
         },
         {
           "pc": 70,
@@ -69191,7 +69191,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "못난이사과",
-          "bidPos": 1370
+          "bidPos": 1350
         },
         {
           "pc": 290,
@@ -69385,7 +69385,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "못난이사과",
-          "bidPos": 1370
+          "bidPos": 1350
         },
         {
           "pc": 1310,
@@ -69412,7 +69412,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "사과당근주스",
-          "bidPos": 1140
+          "bidPos": 1130
         },
         {
           "pc": 210,
@@ -69484,7 +69484,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "패션후르츠퓨레",
-          "bidPos": 1550
+          "bidPos": 1540
         },
         {
           "pc": 80,
@@ -69552,7 +69552,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "상견례선물",
-          "bidPos": 1250
+          "bidPos": 1240
         },
         {
           "pc": 4350,
@@ -69633,7 +69633,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "한우선물세트",
-          "bidPos": 2440
+          "bidPos": 2410
         },
         {
           "pc": 1310,
@@ -69660,7 +69660,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "과일선물세트",
-          "bidPos": 1440
+          "bidPos": 1430
         },
         {
           "pc": 800,
@@ -69696,7 +69696,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "병문안선물",
-          "bidPos": 1180
+          "bidPos": 1170
         },
         {
           "pc": 1090,
@@ -69732,7 +69732,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "못난이사과",
-          "bidPos": 1370
+          "bidPos": 1350
         },
         {
           "pc": 330,
@@ -69741,7 +69741,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "신부이바지음식",
-          "bidPos": 1310
+          "bidPos": 1290
         },
         {
           "pc": 500,
@@ -69827,7 +69827,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "과일선물세트",
-          "bidPos": 1440
+          "bidPos": 1430
         },
         {
           "pc": 1900,
@@ -69854,7 +69854,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "견과류선물세트",
-          "bidPos": 1340
+          "bidPos": 1330
         },
         {
           "pc": 570,
@@ -69863,7 +69863,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "한과선물세트",
-          "bidPos": 1110
+          "bidPos": 1100
         },
         {
           "pc": 410,
@@ -70039,7 +70039,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "과일선물세트",
-          "bidPos": 1440
+          "bidPos": 1430
         },
         {
           "pc": 1900,
@@ -70251,7 +70251,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "과일선물세트",
-          "bidPos": 1440
+          "bidPos": 1430
         },
         {
           "pc": 410,
@@ -70472,7 +70472,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "신세계상품권",
-          "bidPos": 1520
+          "bidPos": 1510
         },
         {
           "pc": 2080,
@@ -70490,7 +70490,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "배민상품권",
-          "bidPos": 1100
+          "bidPos": 1090
         },
         {
           "pc": 3590,
@@ -70499,7 +70499,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "한우선물세트",
-          "bidPos": 2440
+          "bidPos": 2410
         },
         {
           "pc": 7500,
@@ -70508,7 +70508,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "추석선물세트",
-          "bidPos": 3670
+          "bidPos": 3630
         },
         {
           "pc": 7390,
@@ -70517,7 +70517,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "추석선물",
-          "bidPos": 3500
+          "bidPos": 3460
         },
         {
           "pc": 2670,
@@ -70526,7 +70526,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "선물세트",
-          "bidPos": 2430
+          "bidPos": 2410
         },
         {
           "pc": 3250,
@@ -70535,7 +70535,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "복지몰",
-          "bidPos": 3570
+          "bidPos": 3540
         },
         {
           "pc": 1960,
@@ -70544,7 +70544,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "복지포인트",
-          "bidPos": 2310
+          "bidPos": 2290
         },
         {
           "pc": 1100,
@@ -70562,7 +70562,7 @@
           "comp": "중간",
           "depth": 4.0,
           "keyword": "복지멤버십",
-          "bidPos": 1100
+          "bidPos": 1090
         },
         {
           "pc": 220,
@@ -70580,7 +70580,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "명절선물",
-          "bidPos": 6960
+          "bidPos": 6890
         },
         {
           "pc": 380,
@@ -70598,7 +70598,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "명절선물세트",
-          "bidPos": 3250
+          "bidPos": 3220
         },
         {
           "pc": 620,
@@ -70616,7 +70616,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "추석선물추천",
-          "bidPos": 1770
+          "bidPos": 1750
         },
         {
           "pc": 90,
@@ -70625,7 +70625,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "복지카드사용처",
-          "bidPos": 1110
+          "bidPos": 1100
         },
         {
           "pc": 680,
@@ -70634,7 +70634,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "부모님명절선물",
-          "bidPos": 1410
+          "bidPos": 1390
         },
         {
           "pc": 620,
@@ -70643,7 +70643,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "설날선물",
-          "bidPos": 1800
+          "bidPos": 1780
         },
         {
           "pc": 80,
@@ -70661,7 +70661,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "부모님추석선물",
-          "bidPos": 1800
+          "bidPos": 1780
         },
         {
           "pc": 120,
@@ -70670,7 +70670,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "복지서비스",
-          "bidPos": 5150
+          "bidPos": 5100
         },
         {
           "pc": 300,
@@ -70679,7 +70679,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "명절선물추천",
-          "bidPos": 1780
+          "bidPos": 1760
         }
       ]
     },
@@ -70693,7 +70693,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "소고기",
-          "bidPos": 1890
+          "bidPos": 1880
         },
         {
           "pc": 9160,
@@ -70702,7 +70702,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "한우",
-          "bidPos": 2190
+          "bidPos": 2170
         },
         {
           "pc": 8870,
@@ -70711,7 +70711,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "결혼식답례품",
-          "bidPos": 1620
+          "bidPos": 1600
         },
         {
           "pc": 3590,
@@ -70720,7 +70720,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "한우선물세트",
-          "bidPos": 2440
+          "bidPos": 2410
         },
         {
           "pc": 7500,
@@ -70729,7 +70729,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "추석선물세트",
-          "bidPos": 3670
+          "bidPos": 3630
         },
         {
           "pc": 7390,
@@ -70738,7 +70738,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "추석선물",
-          "bidPos": 3500
+          "bidPos": 3460
         },
         {
           "pc": 2670,
@@ -70747,7 +70747,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "선물세트",
-          "bidPos": 2430
+          "bidPos": 2410
         },
         {
           "pc": 1580,
@@ -70756,7 +70756,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "한우등심",
-          "bidPos": 1280
+          "bidPos": 1270
         },
         {
           "pc": 630,
@@ -70765,7 +70765,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "소고기선물세트",
-          "bidPos": 3070
+          "bidPos": 3040
         },
         {
           "pc": 790,
@@ -70774,7 +70774,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "백화점상품권",
-          "bidPos": 1190
+          "bidPos": 1180
         },
         {
           "pc": 560,
@@ -70792,7 +70792,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "한우세트",
-          "bidPos": 1650
+          "bidPos": 1640
         },
         {
           "pc": 920,
@@ -70801,7 +70801,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "승진선물",
-          "bidPos": 2700
+          "bidPos": 2670
         },
         {
           "pc": 610,
@@ -70810,7 +70810,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "1등급한우",
-          "bidPos": 1280
+          "bidPos": 1270
         },
         {
           "pc": 680,
@@ -70819,7 +70819,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "단체선물",
-          "bidPos": 5770
+          "bidPos": 5710
         },
         {
           "pc": 1690,
@@ -70828,7 +70828,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "명절선물",
-          "bidPos": 6960
+          "bidPos": 6890
         },
         {
           "pc": 800,
@@ -70837,7 +70837,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "홍삼선물세트",
-          "bidPos": 2710
+          "bidPos": 2680
         },
         {
           "pc": 240,
@@ -70846,7 +70846,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "마장동한우선물세트",
-          "bidPos": 1340
+          "bidPos": 1330
         },
         {
           "pc": 220,
@@ -70864,7 +70864,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "한우구이용",
-          "bidPos": 1200
+          "bidPos": 1190
         },
         {
           "pc": 290,
@@ -70873,7 +70873,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "출산축하선물",
-          "bidPos": 2170
+          "bidPos": 2150
         },
         {
           "pc": 350,
@@ -70882,7 +70882,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "소금답례품",
-          "bidPos": 1430
+          "bidPos": 1410
         },
         {
           "pc": 380,
@@ -70891,7 +70891,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "5만원대선물",
-          "bidPos": 1280
+          "bidPos": 1270
         },
         {
           "pc": 520,
@@ -70900,7 +70900,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "명절선물세트",
-          "bidPos": 3250
+          "bidPos": 3220
         },
         {
           "pc": 340,
@@ -70909,7 +70909,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "특판",
-          "bidPos": 1170
+          "bidPos": 1160
         }
       ]
     },
@@ -70923,7 +70923,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "소고기",
-          "bidPos": 1890
+          "bidPos": 1880
         },
         {
           "pc": 9160,
@@ -70932,7 +70932,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "한우",
-          "bidPos": 2190
+          "bidPos": 2170
         },
         {
           "pc": 6780,
@@ -70941,7 +70941,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "상견례선물",
-          "bidPos": 1250
+          "bidPos": 1240
         },
         {
           "pc": 11300,
@@ -70950,7 +70950,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "맞춤형복지",
-          "bidPos": 1150
+          "bidPos": 1140
         },
         {
           "pc": 2650,
@@ -70968,7 +70968,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "생일선물",
-          "bidPos": 2100
+          "bidPos": 2070
         },
         {
           "pc": 2460,
@@ -70977,7 +70977,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "개업선물",
-          "bidPos": 1920
+          "bidPos": 1900
         },
         {
           "pc": 4920,
@@ -70986,7 +70986,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "굿즈제작",
-          "bidPos": 4390
+          "bidPos": 4350
         },
         {
           "pc": 3590,
@@ -70995,7 +70995,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "한우선물세트",
-          "bidPos": 2440
+          "bidPos": 2410
         },
         {
           "pc": 850,
@@ -71013,7 +71013,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "추석선물세트",
-          "bidPos": 3670
+          "bidPos": 3630
         },
         {
           "pc": 7390,
@@ -71022,7 +71022,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "추석선물",
-          "bidPos": 3500
+          "bidPos": 3460
         },
         {
           "pc": 1980,
@@ -71031,7 +71031,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "TCI검사",
-          "bidPos": 1510
+          "bidPos": 1500
         },
         {
           "pc": 2670,
@@ -71040,7 +71040,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "선물세트",
-          "bidPos": 2430
+          "bidPos": 2410
         },
         {
           "pc": 1370,
@@ -71049,7 +71049,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "기념품제작",
-          "bidPos": 5230
+          "bidPos": 5180
         },
         {
           "pc": 1380,
@@ -71058,7 +71058,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "복지",
-          "bidPos": 2330
+          "bidPos": 2310
         },
         {
           "pc": 1290,
@@ -71067,7 +71067,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "서울원데이클래스",
-          "bidPos": 6220
+          "bidPos": 6160
         },
         {
           "pc": 2200,
@@ -71076,7 +71076,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "판촉",
-          "bidPos": 3180
+          "bidPos": 3150
         },
         {
           "pc": 2540,
@@ -71085,7 +71085,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "판촉물제작",
-          "bidPos": 6690
+          "bidPos": 6620
         },
         {
           "pc": 470,
@@ -71103,7 +71103,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "소고기선물세트",
-          "bidPos": 3070
+          "bidPos": 3040
         },
         {
           "pc": 1160,
@@ -71121,7 +71121,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "기업판촉물",
-          "bidPos": 6450
+          "bidPos": 6390
         },
         {
           "pc": 870,
@@ -71130,7 +71130,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "한우세트",
-          "bidPos": 1650
+          "bidPos": 1640
         },
         {
           "pc": 2120,
@@ -71139,7 +71139,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "홍보물품",
-          "bidPos": 5390
+          "bidPos": 5340
         }
       ]
     },
@@ -71153,7 +71153,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "한우",
-          "bidPos": 2190
+          "bidPos": 2170
         },
         {
           "pc": 3590,
@@ -71162,7 +71162,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "한우선물세트",
-          "bidPos": 2440
+          "bidPos": 2410
         },
         {
           "pc": 7500,
@@ -71171,7 +71171,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "추석선물세트",
-          "bidPos": 3670
+          "bidPos": 3630
         },
         {
           "pc": 7390,
@@ -71180,7 +71180,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "추석선물",
-          "bidPos": 3500
+          "bidPos": 3460
         },
         {
           "pc": 2670,
@@ -71189,7 +71189,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "선물세트",
-          "bidPos": 2430
+          "bidPos": 2410
         },
         {
           "pc": 560,
@@ -71207,7 +71207,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "소고기선물세트",
-          "bidPos": 3070
+          "bidPos": 3040
         },
         {
           "pc": 990,
@@ -71216,7 +71216,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "견과류선물세트",
-          "bidPos": 1340
+          "bidPos": 1330
         },
         {
           "pc": 920,
@@ -71225,7 +71225,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "승진선물",
-          "bidPos": 2700
+          "bidPos": 2670
         },
         {
           "pc": 680,
@@ -71234,7 +71234,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "단체선물",
-          "bidPos": 5770
+          "bidPos": 5710
         },
         {
           "pc": 1690,
@@ -71243,7 +71243,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "명절선물",
-          "bidPos": 6960
+          "bidPos": 6890
         },
         {
           "pc": 800,
@@ -71252,7 +71252,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "홍삼선물세트",
-          "bidPos": 2710
+          "bidPos": 2680
         },
         {
           "pc": 480,
@@ -71261,7 +71261,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "김선물세트",
-          "bidPos": 1610
+          "bidPos": 1590
         },
         {
           "pc": 600,
@@ -71270,7 +71270,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "스승의날선물",
-          "bidPos": 1340
+          "bidPos": 1330
         },
         {
           "pc": 270,
@@ -71279,7 +71279,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "한우선물",
-          "bidPos": 2360
+          "bidPos": 2340
         },
         {
           "pc": 380,
@@ -71288,7 +71288,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "5만원대선물",
-          "bidPos": 1280
+          "bidPos": 1270
         },
         {
           "pc": 520,
@@ -71297,7 +71297,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "명절선물세트",
-          "bidPos": 3250
+          "bidPos": 3220
         },
         {
           "pc": 540,
@@ -71306,7 +71306,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "기프트몰",
-          "bidPos": 2690
+          "bidPos": 2670
         },
         {
           "pc": 610,
@@ -71324,7 +71324,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "초등입학선물",
-          "bidPos": 7160
+          "bidPos": 7090
         },
         {
           "pc": 110,
@@ -71333,7 +71333,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "고기선물세트",
-          "bidPos": 1530
+          "bidPos": 1510
         },
         {
           "pc": 230,
@@ -71342,7 +71342,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "소금선물세트",
-          "bidPos": 1230
+          "bidPos": 1220
         },
         {
           "pc": 330,
@@ -71351,7 +71351,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "한우선물세트추천",
-          "bidPos": 1930
+          "bidPos": 1910
         },
         {
           "pc": 130,
@@ -71383,7 +71383,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "다이어트식단",
-          "bidPos": 3560
+          "bidPos": 3520
         },
         {
           "pc": 2720,
@@ -71392,7 +71392,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "ABC주스",
-          "bidPos": 1980
+          "bidPos": 1960
         },
         {
           "pc": 760,
@@ -71410,7 +71410,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "해독주스",
-          "bidPos": 3000
+          "bidPos": 2970
         },
         {
           "pc": 1350,
@@ -71419,7 +71419,7 @@
           "comp": "중간",
           "depth": 7.0,
           "keyword": "CCA주스",
-          "bidPos": 1740
+          "bidPos": 1720
         },
         {
           "pc": 610,
@@ -71428,7 +71428,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "디톡스주스",
-          "bidPos": 2590
+          "bidPos": 2570
         },
         {
           "pc": 300,
@@ -71446,7 +71446,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "스무디",
-          "bidPos": 1130
+          "bidPos": 1110
         },
         {
           "pc": 510,
@@ -71455,7 +71455,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "케일주스",
-          "bidPos": 1910
+          "bidPos": 1890
         },
         {
           "pc": 1440,
@@ -71464,7 +71464,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "클렌즈다이어트",
-          "bidPos": 3180
+          "bidPos": 3150
         },
         {
           "pc": 300,
@@ -71482,7 +71482,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "샐러리주스",
-          "bidPos": 1300
+          "bidPos": 1290
         },
         {
           "pc": 150,
@@ -71491,7 +71491,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "해독쥬스",
-          "bidPos": 1890
+          "bidPos": 1870
         },
         {
           "pc": 150,
@@ -71509,7 +71509,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "클렌즈",
-          "bidPos": 1100
+          "bidPos": 1090
         },
         {
           "pc": 100,
@@ -71536,7 +71536,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "클렌징주스",
-          "bidPos": 2100
+          "bidPos": 2080
         },
         {
           "pc": 80,
@@ -71572,7 +71572,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "ABC착즙주스",
-          "bidPos": 1160
+          "bidPos": 1150
         },
         {
           "pc": 80,
@@ -71613,7 +71613,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "다이어트식단",
-          "bidPos": 3560
+          "bidPos": 3520
         },
         {
           "pc": 3970,
@@ -71640,7 +71640,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "양배추즙",
-          "bidPos": 3230
+          "bidPos": 3200
         },
         {
           "pc": 1120,
@@ -71658,7 +71658,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "토마토주스",
-          "bidPos": 1500
+          "bidPos": 1480
         },
         {
           "pc": 2720,
@@ -71667,7 +71667,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "ABC주스",
-          "bidPos": 1980
+          "bidPos": 1960
         },
         {
           "pc": 750,
@@ -71703,7 +71703,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "양배추즙효능",
-          "bidPos": 1160
+          "bidPos": 1150
         },
         {
           "pc": 580,
@@ -71721,7 +71721,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "해독주스",
-          "bidPos": 3000
+          "bidPos": 2970
         },
         {
           "pc": 1260,
@@ -71730,7 +71730,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "진저샷",
-          "bidPos": 2770
+          "bidPos": 2740
         },
         {
           "pc": 2040,
@@ -71739,7 +71739,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "토마토즙",
-          "bidPos": 1700
+          "bidPos": 1680
         },
         {
           "pc": 240,
@@ -71748,7 +71748,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "유기농양배추즙",
-          "bidPos": 1780
+          "bidPos": 1760
         },
         {
           "pc": 1350,
@@ -71757,7 +71757,7 @@
           "comp": "중간",
           "depth": 7.0,
           "keyword": "CCA주스",
-          "bidPos": 1740
+          "bidPos": 1720
         },
         {
           "pc": 1020,
@@ -71775,7 +71775,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "말토덱스트린",
-          "bidPos": 2270
+          "bidPos": 2250
         },
         {
           "pc": 470,
@@ -71784,7 +71784,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "토마토쥬스",
-          "bidPos": 1280
+          "bidPos": 1270
         },
         {
           "pc": 610,
@@ -71793,7 +71793,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "디톡스주스",
-          "bidPos": 2590
+          "bidPos": 2570
         },
         {
           "pc": 710,
@@ -71802,7 +71802,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "스무디",
-          "bidPos": 1130
+          "bidPos": 1110
         },
         {
           "pc": 510,
@@ -71811,7 +71811,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "케일주스",
-          "bidPos": 1910
+          "bidPos": 1890
         },
         {
           "pc": 110,
@@ -71829,7 +71829,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "해독주스레시피",
-          "bidPos": 1130
+          "bidPos": 1120
         }
       ]
     },
@@ -71852,7 +71852,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "양배추즙",
-          "bidPos": 3230
+          "bidPos": 3200
         },
         {
           "pc": 2720,
@@ -71861,7 +71861,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "ABC주스",
-          "bidPos": 1980
+          "bidPos": 1960
         },
         {
           "pc": 490,
@@ -71870,7 +71870,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "양배추즙효능",
-          "bidPos": 1160
+          "bidPos": 1150
         },
         {
           "pc": 950,
@@ -71888,7 +71888,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "면역력",
-          "bidPos": 7210
+          "bidPos": 7140
         },
         {
           "pc": 1900,
@@ -71906,7 +71906,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "해독주스",
-          "bidPos": 3000
+          "bidPos": 2970
         },
         {
           "pc": 2070,
@@ -71915,7 +71915,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "석류즙",
-          "bidPos": 1820
+          "bidPos": 1810
         },
         {
           "pc": 1260,
@@ -71924,7 +71924,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "진저샷",
-          "bidPos": 2770
+          "bidPos": 2740
         },
         {
           "pc": 240,
@@ -71933,7 +71933,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "유기농양배추즙",
-          "bidPos": 1780
+          "bidPos": 1760
         },
         {
           "pc": 1350,
@@ -71942,7 +71942,7 @@
           "comp": "중간",
           "depth": 7.0,
           "keyword": "CCA주스",
-          "bidPos": 1740
+          "bidPos": 1720
         },
         {
           "pc": 960,
@@ -71969,7 +71969,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "라이코펜",
-          "bidPos": 1230
+          "bidPos": 1220
         },
         {
           "pc": 1020,
@@ -71996,7 +71996,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "토마토쥬스",
-          "bidPos": 1280
+          "bidPos": 1270
         },
         {
           "pc": 650,
@@ -72032,7 +72032,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "딸기청",
-          "bidPos": 1240
+          "bidPos": 1220
         },
         {
           "pc": 610,
@@ -72041,7 +72041,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "디톡스주스",
-          "bidPos": 2590
+          "bidPos": 2570
         },
         {
           "pc": 1520,
@@ -72091,7 +72091,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "양배추즙",
-          "bidPos": 3230
+          "bidPos": 3200
         },
         {
           "pc": 4260,
@@ -72100,7 +72100,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "단백질음료",
-          "bidPos": 3300
+          "bidPos": 3260
         },
         {
           "pc": 1660,
@@ -72109,7 +72109,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "변비에좋은음식",
-          "bidPos": 1290
+          "bidPos": 1280
         },
         {
           "pc": 1730,
@@ -72118,7 +72118,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "토마토주스",
-          "bidPos": 1500
+          "bidPos": 1480
         },
         {
           "pc": 2720,
@@ -72127,7 +72127,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "ABC주스",
-          "bidPos": 1980
+          "bidPos": 1960
         },
         {
           "pc": 1400,
@@ -72136,7 +72136,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "토마토효능",
-          "bidPos": 1130
+          "bidPos": 1120
         },
         {
           "pc": 490,
@@ -72145,7 +72145,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "양배추즙효능",
-          "bidPos": 1160
+          "bidPos": 1150
         },
         {
           "pc": 580,
@@ -72163,7 +72163,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "해독주스",
-          "bidPos": 3000
+          "bidPos": 2970
         },
         {
           "pc": 2040,
@@ -72172,7 +72172,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "토마토즙",
-          "bidPos": 1700
+          "bidPos": 1680
         },
         {
           "pc": 240,
@@ -72181,7 +72181,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "유기농양배추즙",
-          "bidPos": 1780
+          "bidPos": 1760
         },
         {
           "pc": 1350,
@@ -72190,7 +72190,7 @@
           "comp": "중간",
           "depth": 7.0,
           "keyword": "CCA주스",
-          "bidPos": 1740
+          "bidPos": 1720
         },
         {
           "pc": 800,
@@ -72208,7 +72208,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "라이코펜",
-          "bidPos": 1230
+          "bidPos": 1220
         },
         {
           "pc": 1020,
@@ -72226,7 +72226,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "토마토쥬스",
-          "bidPos": 1280
+          "bidPos": 1270
         },
         {
           "pc": 610,
@@ -72235,7 +72235,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "디톡스주스",
-          "bidPos": 2590
+          "bidPos": 2570
         },
         {
           "pc": 510,
@@ -72244,7 +72244,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "케일주스",
-          "bidPos": 1910
+          "bidPos": 1890
         },
         {
           "pc": 280,
@@ -72253,7 +72253,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "해독주스레시피",
-          "bidPos": 1130
+          "bidPos": 1120
         },
         {
           "pc": 1070,
@@ -72262,7 +72262,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "당근즙",
-          "bidPos": 1230
+          "bidPos": 1220
         },
         {
           "pc": 290,
@@ -72280,7 +72280,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "마시는샐러드",
-          "bidPos": 1770
+          "bidPos": 1750
         },
         {
           "pc": 390,
@@ -72303,7 +72303,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "상견례선물",
-          "bidPos": 1250
+          "bidPos": 1240
         },
         {
           "pc": 7500,
@@ -72312,7 +72312,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "추석선물세트",
-          "bidPos": 3670
+          "bidPos": 3630
         },
         {
           "pc": 7390,
@@ -72321,7 +72321,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "추석선물",
-          "bidPos": 3500
+          "bidPos": 3460
         },
         {
           "pc": 1800,
@@ -72330,7 +72330,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "과일선물세트",
-          "bidPos": 1440
+          "bidPos": 1430
         },
         {
           "pc": 410,
@@ -72357,7 +72357,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "명절선물세트",
-          "bidPos": 3250
+          "bidPos": 3220
         },
         {
           "pc": 20,
@@ -72375,7 +72375,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "설선물세트",
-          "bidPos": 1880
+          "bidPos": 1860
         },
         {
           "pc": 20,
@@ -72402,7 +72402,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "설선물",
-          "bidPos": 2110
+          "bidPos": 2090
         },
         {
           "pc": 20,
@@ -72465,7 +72465,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "설명절선물",
-          "bidPos": 1310
+          "bidPos": 1290
         },
         {
           "pc": 10,
@@ -72533,7 +72533,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "상견례선물",
-          "bidPos": 1250
+          "bidPos": 1240
         },
         {
           "pc": 7500,
@@ -72542,7 +72542,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "추석선물세트",
-          "bidPos": 3670
+          "bidPos": 3630
         },
         {
           "pc": 7390,
@@ -72551,7 +72551,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "추석선물",
-          "bidPos": 3500
+          "bidPos": 3460
         },
         {
           "pc": 2670,
@@ -72560,7 +72560,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "선물세트",
-          "bidPos": 2430
+          "bidPos": 2410
         },
         {
           "pc": 990,
@@ -72569,7 +72569,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "견과류선물세트",
-          "bidPos": 1340
+          "bidPos": 1330
         },
         {
           "pc": 1690,
@@ -72578,7 +72578,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "명절선물",
-          "bidPos": 6960
+          "bidPos": 6890
         },
         {
           "pc": 120,
@@ -72587,7 +72587,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "홍삼세트",
-          "bidPos": 2510
+          "bidPos": 2490
         },
         {
           "pc": 340,
@@ -72596,7 +72596,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "특판",
-          "bidPos": 1170
+          "bidPos": 1160
         },
         {
           "pc": 520,
@@ -72605,7 +72605,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "명절선물세트",
-          "bidPos": 3250
+          "bidPos": 3220
         },
         {
           "pc": 190,
@@ -72614,7 +72614,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "단체선물추천",
-          "bidPos": 2820
+          "bidPos": 2790
         },
         {
           "pc": 200,
@@ -72632,7 +72632,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "추석선물추천",
-          "bidPos": 1770
+          "bidPos": 1750
         },
         {
           "pc": 230,
@@ -72641,7 +72641,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "소금선물세트",
-          "bidPos": 1230
+          "bidPos": 1220
         },
         {
           "pc": 150,
@@ -72650,7 +72650,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "바디워시선물세트",
-          "bidPos": 1260
+          "bidPos": 1250
         },
         {
           "pc": 210,
@@ -72659,7 +72659,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "비타민선물세트",
-          "bidPos": 2190
+          "bidPos": 2170
         },
         {
           "pc": 250,
@@ -72668,7 +72668,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "회사기념품",
-          "bidPos": 6840
+          "bidPos": 6770
         },
         {
           "pc": 130,
@@ -72713,7 +72713,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "설선물세트",
-          "bidPos": 1880
+          "bidPos": 1860
         },
         {
           "pc": 30,
@@ -72740,7 +72740,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "기업기프티콘",
-          "bidPos": 3230
+          "bidPos": 3190
         },
         {
           "pc": 50,
@@ -72749,7 +72749,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "설선물",
-          "bidPos": 2110
+          "bidPos": 2090
         }
       ]
     },
@@ -72763,7 +72763,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "상견례선물",
-          "bidPos": 1250
+          "bidPos": 1240
         },
         {
           "pc": 7500,
@@ -72772,7 +72772,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "추석선물세트",
-          "bidPos": 3670
+          "bidPos": 3630
         },
         {
           "pc": 7390,
@@ -72781,7 +72781,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "추석선물",
-          "bidPos": 3500
+          "bidPos": 3460
         },
         {
           "pc": 2670,
@@ -72790,7 +72790,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "선물세트",
-          "bidPos": 2430
+          "bidPos": 2410
         },
         {
           "pc": 620,
@@ -72808,7 +72808,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "견과류선물세트",
-          "bidPos": 1340
+          "bidPos": 1330
         },
         {
           "pc": 920,
@@ -72817,7 +72817,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "승진선물",
-          "bidPos": 2700
+          "bidPos": 2670
         },
         {
           "pc": 680,
@@ -72826,7 +72826,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "단체선물",
-          "bidPos": 5770
+          "bidPos": 5710
         },
         {
           "pc": 1690,
@@ -72835,7 +72835,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "명절선물",
-          "bidPos": 6960
+          "bidPos": 6890
         },
         {
           "pc": 360,
@@ -72853,7 +72853,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "커피선물세트",
-          "bidPos": 1100
+          "bidPos": 1090
         },
         {
           "pc": 520,
@@ -72862,7 +72862,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "명절선물세트",
-          "bidPos": 3250
+          "bidPos": 3220
         },
         {
           "pc": 130,
@@ -72880,7 +72880,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "기프트몰",
-          "bidPos": 2690
+          "bidPos": 2670
         },
         {
           "pc": 110,
@@ -72907,7 +72907,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "추석선물추천",
-          "bidPos": 1770
+          "bidPos": 1750
         },
         {
           "pc": 240,
@@ -72916,7 +72916,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "운동회선물",
-          "bidPos": 1120
+          "bidPos": 1110
         },
         {
           "pc": 430,
@@ -72934,7 +72934,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "부모님명절선물",
-          "bidPos": 1410
+          "bidPos": 1390
         },
         {
           "pc": 140,
@@ -72943,7 +72943,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "올리브유선물세트",
-          "bidPos": 1220
+          "bidPos": 1210
         },
         {
           "pc": 90,
@@ -72993,7 +72993,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "상견례선물",
-          "bidPos": 1250
+          "bidPos": 1240
         },
         {
           "pc": 7500,
@@ -73002,7 +73002,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "추석선물세트",
-          "bidPos": 3670
+          "bidPos": 3630
         },
         {
           "pc": 7390,
@@ -73011,7 +73011,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "추석선물",
-          "bidPos": 3500
+          "bidPos": 3460
         },
         {
           "pc": 2670,
@@ -73020,7 +73020,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "선물세트",
-          "bidPos": 2430
+          "bidPos": 2410
         },
         {
           "pc": 1690,
@@ -73029,7 +73029,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "명절선물",
-          "bidPos": 6960
+          "bidPos": 6890
         },
         {
           "pc": 320,
@@ -73047,7 +73047,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "봉제",
-          "bidPos": 1540
+          "bidPos": 1520
         },
         {
           "pc": 520,
@@ -73056,7 +73056,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "명절선물세트",
-          "bidPos": 3250
+          "bidPos": 3220
         },
         {
           "pc": 130,
@@ -73128,7 +73128,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "김치박스",
-          "bidPos": 1170
+          "bidPos": 1160
         },
         {
           "pc": 30,
@@ -73164,7 +73164,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "설선물세트",
-          "bidPos": 1880
+          "bidPos": 1860
         },
         {
           "pc": 30,
@@ -73209,7 +73209,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "설선물",
-          "bidPos": 2110
+          "bidPos": 2090
         }
       ]
     },
@@ -73232,7 +73232,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "해독주스",
-          "bidPos": 3000
+          "bidPos": 2970
         },
         {
           "pc": 960,
@@ -73259,7 +73259,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "섬유질많은음식",
-          "bidPos": 1150
+          "bidPos": 1140
         },
         {
           "pc": 420,
@@ -73277,7 +73277,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "야채주스",
-          "bidPos": 1350
+          "bidPos": 1340
         },
         {
           "pc": 190,
@@ -73286,7 +73286,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "사과당근주스",
-          "bidPos": 1140
+          "bidPos": 1130
         },
         {
           "pc": 90,
@@ -73322,7 +73322,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "독소배출주스",
-          "bidPos": 1120
+          "bidPos": 1110
         },
         {
           "pc": 160,
@@ -73331,7 +73331,7 @@
           "comp": "높음",
           "depth": 9.0,
           "keyword": "즙",
-          "bidPos": 1220
+          "bidPos": 1200
         },
         {
           "pc": 120,
@@ -73340,7 +73340,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "커피대체",
-          "bidPos": 1300
+          "bidPos": 1290
         },
         {
           "pc": 80,
@@ -73453,7 +73453,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "기프티콘",
-          "bidPos": 1680
+          "bidPos": 1670
         },
         {
           "pc": 7500,
@@ -73462,7 +73462,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "추석선물세트",
-          "bidPos": 3670
+          "bidPos": 3630
         },
         {
           "pc": 7390,
@@ -73471,7 +73471,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "추석선물",
-          "bidPos": 3500
+          "bidPos": 3460
         },
         {
           "pc": 1250,
@@ -73480,7 +73480,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "기프트카드",
-          "bidPos": 1360
+          "bidPos": 1350
         },
         {
           "pc": 2670,
@@ -73489,7 +73489,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "선물세트",
-          "bidPos": 2430
+          "bidPos": 2410
         },
         {
           "pc": 430,
@@ -73507,7 +73507,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "모바일상품권",
-          "bidPos": 3180
+          "bidPos": 3150
         },
         {
           "pc": 540,
@@ -73516,7 +73516,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "기프티콘구매",
-          "bidPos": 1420
+          "bidPos": 1410
         },
         {
           "pc": 1690,
@@ -73525,7 +73525,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "명절선물",
-          "bidPos": 6960
+          "bidPos": 6890
         },
         {
           "pc": 210,
@@ -73543,7 +73543,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "명절선물세트",
-          "bidPos": 3250
+          "bidPos": 3220
         },
         {
           "pc": 300,
@@ -73552,7 +73552,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "모바일쿠폰",
-          "bidPos": 3250
+          "bidPos": 3220
         },
         {
           "pc": 320,
@@ -73561,7 +73561,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "추석선물추천",
-          "bidPos": 1770
+          "bidPos": 1750
         },
         {
           "pc": 500,
@@ -73579,7 +73579,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "E쿠폰",
-          "bidPos": 1860
+          "bidPos": 1840
         },
         {
           "pc": 230,
@@ -73588,7 +73588,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "소금선물세트",
-          "bidPos": 1230
+          "bidPos": 1220
         },
         {
           "pc": 430,
@@ -73597,7 +73597,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "선물세트추천",
-          "bidPos": 1480
+          "bidPos": 1470
         },
         {
           "pc": 60,
@@ -73624,7 +73624,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "기프티콘발송",
-          "bidPos": 1190
+          "bidPos": 1180
         },
         {
           "pc": 200,
@@ -73642,7 +73642,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "기프티콘대량발송",
-          "bidPos": 2810
+          "bidPos": 2790
         },
         {
           "pc": 70,
@@ -73660,7 +73660,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "설선물세트",
-          "bidPos": 1880
+          "bidPos": 1860
         },
         {
           "pc": 120,
@@ -73669,7 +73669,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "기프티콘대량구매",
-          "bidPos": 1670
+          "bidPos": 1660
         }
       ]
     },
@@ -73683,7 +73683,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "생일선물",
-          "bidPos": 2100
+          "bidPos": 2070
         },
         {
           "pc": 7500,
@@ -73692,7 +73692,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "추석선물세트",
-          "bidPos": 3670
+          "bidPos": 3630
         },
         {
           "pc": 7390,
@@ -73701,7 +73701,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "추석선물",
-          "bidPos": 3500
+          "bidPos": 3460
         },
         {
           "pc": 4750,
@@ -73710,7 +73710,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "사무실간식",
-          "bidPos": 7770
+          "bidPos": 7700
         },
         {
           "pc": 2670,
@@ -73719,7 +73719,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "선물세트",
-          "bidPos": 2430
+          "bidPos": 2410
         },
         {
           "pc": 920,
@@ -73728,7 +73728,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "승진선물",
-          "bidPos": 2700
+          "bidPos": 2670
         },
         {
           "pc": 930,
@@ -73737,7 +73737,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "선물하기",
-          "bidPos": 1360
+          "bidPos": 1350
         },
         {
           "pc": 680,
@@ -73746,7 +73746,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "단체선물",
-          "bidPos": 5770
+          "bidPos": 5710
         },
         {
           "pc": 1690,
@@ -73755,7 +73755,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "명절선물",
-          "bidPos": 6960
+          "bidPos": 6890
         },
         {
           "pc": 760,
@@ -73764,7 +73764,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "회사간식",
-          "bidPos": 6830
+          "bidPos": 6760
         },
         {
           "pc": 120,
@@ -73773,7 +73773,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "홍삼세트",
-          "bidPos": 2510
+          "bidPos": 2490
         },
         {
           "pc": 210,
@@ -73791,7 +73791,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "명절선물세트",
-          "bidPos": 3250
+          "bidPos": 3220
         },
         {
           "pc": 540,
@@ -73800,7 +73800,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "기프트몰",
-          "bidPos": 2690
+          "bidPos": 2670
         },
         {
           "pc": 190,
@@ -73809,7 +73809,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "단체선물추천",
-          "bidPos": 2820
+          "bidPos": 2790
         },
         {
           "pc": 180,
@@ -73818,7 +73818,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "스낵바",
-          "bidPos": 1290
+          "bidPos": 1280
         },
         {
           "pc": 190,
@@ -73827,7 +73827,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "승진축하선물",
-          "bidPos": 2490
+          "bidPos": 2470
         },
         {
           "pc": 320,
@@ -73836,7 +73836,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "추석선물추천",
-          "bidPos": 1770
+          "bidPos": 1750
         },
         {
           "pc": 620,
@@ -73845,7 +73845,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "설날선물",
-          "bidPos": 1800
+          "bidPos": 1780
         },
         {
           "pc": 230,
@@ -73854,7 +73854,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "소금선물세트",
-          "bidPos": 1230
+          "bidPos": 1220
         },
         {
           "pc": 400,
@@ -73863,7 +73863,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "창립기념일선물",
-          "bidPos": 6390
+          "bidPos": 6320
         },
         {
           "pc": 430,
@@ -73872,7 +73872,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "선물세트추천",
-          "bidPos": 1480
+          "bidPos": 1470
         },
         {
           "pc": 210,
@@ -73881,7 +73881,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "비타민선물세트",
-          "bidPos": 2190
+          "bidPos": 2170
         },
         {
           "pc": 90,
@@ -73899,7 +73899,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "회사기념품",
-          "bidPos": 6840
+          "bidPos": 6770
         }
       ]
     },
@@ -73913,7 +73913,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "생일선물",
-          "bidPos": 2100
+          "bidPos": 2070
         },
         {
           "pc": 7500,
@@ -73922,7 +73922,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "추석선물세트",
-          "bidPos": 3670
+          "bidPos": 3630
         },
         {
           "pc": 7390,
@@ -73931,7 +73931,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "추석선물",
-          "bidPos": 3500
+          "bidPos": 3460
         },
         {
           "pc": 2670,
@@ -73940,7 +73940,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "선물세트",
-          "bidPos": 2430
+          "bidPos": 2410
         },
         {
           "pc": 930,
@@ -73949,7 +73949,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "선물하기",
-          "bidPos": 1360
+          "bidPos": 1350
         },
         {
           "pc": 680,
@@ -73958,7 +73958,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "단체선물",
-          "bidPos": 5770
+          "bidPos": 5710
         },
         {
           "pc": 1690,
@@ -73967,7 +73967,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "명절선물",
-          "bidPos": 6960
+          "bidPos": 6890
         },
         {
           "pc": 210,
@@ -73985,7 +73985,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "명절선물세트",
-          "bidPos": 3250
+          "bidPos": 3220
         },
         {
           "pc": 190,
@@ -73994,7 +73994,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "단체선물추천",
-          "bidPos": 2820
+          "bidPos": 2790
         },
         {
           "pc": 320,
@@ -74003,7 +74003,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "추석선물추천",
-          "bidPos": 1770
+          "bidPos": 1750
         },
         {
           "pc": 400,
@@ -74012,7 +74012,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "창립기념일선물",
-          "bidPos": 6390
+          "bidPos": 6320
         },
         {
           "pc": 100,
@@ -74021,7 +74021,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "사은품추천",
-          "bidPos": 2790
+          "bidPos": 2770
         },
         {
           "pc": 190,
@@ -74030,7 +74030,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "설선물세트",
-          "bidPos": 1880
+          "bidPos": 1860
         },
         {
           "pc": 50,
@@ -74039,7 +74039,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "설선물",
-          "bidPos": 2110
+          "bidPos": 2090
         },
         {
           "pc": 70,
@@ -74048,7 +74048,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "창립기념선물",
-          "bidPos": 3380
+          "bidPos": 3340
         },
         {
           "pc": 20,
@@ -74057,7 +74057,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "기프티콘선물하기",
-          "bidPos": 1260
+          "bidPos": 1250
         },
         {
           "pc": 20,
@@ -74066,7 +74066,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "설날선물세트",
-          "bidPos": 1530
+          "bidPos": 1510
         },
         {
           "pc": 10,
@@ -74093,7 +74093,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "기업선물세트",
-          "bidPos": 2940
+          "bidPos": 2910
         },
         {
           "pc": 20,
@@ -74102,7 +74102,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "직원명절선물",
-          "bidPos": 1760
+          "bidPos": 1740
         },
         {
           "pc": 5,
@@ -74120,7 +74120,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "거래처선물세트",
-          "bidPos": 2750
+          "bidPos": 2720
         },
         {
           "pc": 5,
@@ -74143,7 +74143,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "굿즈제작",
-          "bidPos": 4390
+          "bidPos": 4350
         },
         {
           "pc": 7500,
@@ -74152,7 +74152,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "추석선물세트",
-          "bidPos": 3670
+          "bidPos": 3630
         },
         {
           "pc": 7390,
@@ -74161,7 +74161,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "추석선물",
-          "bidPos": 3500
+          "bidPos": 3460
         },
         {
           "pc": 2670,
@@ -74170,7 +74170,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "선물세트",
-          "bidPos": 2430
+          "bidPos": 2410
         },
         {
           "pc": 2200,
@@ -74179,7 +74179,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "판촉",
-          "bidPos": 3180
+          "bidPos": 3150
         },
         {
           "pc": 1340,
@@ -74188,7 +74188,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "도매사이트",
-          "bidPos": 3180
+          "bidPos": 3150
         },
         {
           "pc": 2120,
@@ -74197,7 +74197,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "홍보물품",
-          "bidPos": 5390
+          "bidPos": 5340
         },
         {
           "pc": 750,
@@ -74206,7 +74206,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "기념품샵",
-          "bidPos": 2230
+          "bidPos": 2210
         },
         {
           "pc": 240,
@@ -74215,7 +74215,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "카페개업선물",
-          "bidPos": 1120
+          "bidPos": 1110
         },
         {
           "pc": 390,
@@ -74224,7 +74224,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "10만원대선물",
-          "bidPos": 1350
+          "bidPos": 1340
         },
         {
           "pc": 560,
@@ -74233,7 +74233,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "홍보물제작",
-          "bidPos": 7440
+          "bidPos": 7370
         },
         {
           "pc": 520,
@@ -74242,7 +74242,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "명절선물세트",
-          "bidPos": 3250
+          "bidPos": 3220
         },
         {
           "pc": 190,
@@ -74251,7 +74251,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "단체선물추천",
-          "bidPos": 2820
+          "bidPos": 2790
         },
         {
           "pc": 490,
@@ -74260,7 +74260,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "홍보물품제작",
-          "bidPos": 5030
+          "bidPos": 4980
         },
         {
           "pc": 300,
@@ -74269,7 +74269,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "단체기념품",
-          "bidPos": 4050
+          "bidPos": 4010
         },
         {
           "pc": 160,
@@ -74296,7 +74296,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "카페오픈선물",
-          "bidPos": 1160
+          "bidPos": 1150
         },
         {
           "pc": 40,
@@ -74314,7 +74314,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "설선물세트",
-          "bidPos": 1880
+          "bidPos": 1860
         },
         {
           "pc": 50,
@@ -74341,7 +74341,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "7만원대선물",
-          "bidPos": 1300
+          "bidPos": 1290
         },
         {
           "pc": 50,
@@ -74350,7 +74350,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "설선물",
-          "bidPos": 2110
+          "bidPos": 2090
         },
         {
           "pc": 30,
@@ -74373,7 +74373,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "추석선물세트",
-          "bidPos": 3670
+          "bidPos": 3630
         },
         {
           "pc": 2670,
@@ -74382,7 +74382,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "선물세트",
-          "bidPos": 2430
+          "bidPos": 2410
         },
         {
           "pc": 1380,
@@ -74391,7 +74391,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "올리브오일추천",
-          "bidPos": 1360
+          "bidPos": 1350
         },
         {
           "pc": 420,
@@ -74400,7 +74400,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "올리브유추천",
-          "bidPos": 1180
+          "bidPos": 1160
         },
         {
           "pc": 990,
@@ -74409,7 +74409,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "견과류선물세트",
-          "bidPos": 1340
+          "bidPos": 1330
         },
         {
           "pc": 1690,
@@ -74418,7 +74418,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "명절선물",
-          "bidPos": 6960
+          "bidPos": 6890
         },
         {
           "pc": 610,
@@ -74427,7 +74427,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "엑스트라버진올리브오일추천",
-          "bidPos": 1190
+          "bidPos": 1180
         },
         {
           "pc": 520,
@@ -74436,7 +74436,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "명절선물세트",
-          "bidPos": 3250
+          "bidPos": 3220
         },
         {
           "pc": 200,
@@ -74445,7 +74445,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "올리브오일선물세트",
-          "bidPos": 1110
+          "bidPos": 1100
         },
         {
           "pc": 140,
@@ -74454,7 +74454,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "올리브유선물세트",
-          "bidPos": 1220
+          "bidPos": 1210
         },
         {
           "pc": 120,
@@ -74508,7 +74508,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "추석선물세트추천",
-          "bidPos": 1490
+          "bidPos": 1470
         },
         {
           "pc": 30,
@@ -74526,7 +74526,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "설날선물세트",
-          "bidPos": 1530
+          "bidPos": 1510
         },
         {
           "pc": 20,
@@ -74580,7 +74580,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "추석선물세트대량",
-          "bidPos": 1670
+          "bidPos": 1650
         },
         {
           "pc": 5,
@@ -74603,7 +74603,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "추석선물세트",
-          "bidPos": 3670
+          "bidPos": 3630
         },
         {
           "pc": 7390,
@@ -74612,7 +74612,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "추석선물",
-          "bidPos": 3500
+          "bidPos": 3460
         },
         {
           "pc": 2670,
@@ -74621,7 +74621,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "선물세트",
-          "bidPos": 2430
+          "bidPos": 2410
         },
         {
           "pc": 1690,
@@ -74630,7 +74630,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "명절선물",
-          "bidPos": 6960
+          "bidPos": 6890
         },
         {
           "pc": 520,
@@ -74639,7 +74639,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "명절선물세트",
-          "bidPos": 3250
+          "bidPos": 3220
         },
         {
           "pc": 620,
@@ -74648,7 +74648,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "설날선물",
-          "bidPos": 1800
+          "bidPos": 1780
         },
         {
           "pc": 230,
@@ -74657,7 +74657,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "소금선물세트",
-          "bidPos": 1230
+          "bidPos": 1220
         },
         {
           "pc": 130,
@@ -74675,7 +74675,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "설선물세트",
-          "bidPos": 1880
+          "bidPos": 1860
         },
         {
           "pc": 50,
@@ -74684,7 +74684,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "설선물",
-          "bidPos": 2110
+          "bidPos": 2090
         },
         {
           "pc": 20,
@@ -74693,7 +74693,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "추석선물세트추천",
-          "bidPos": 1490
+          "bidPos": 1470
         },
         {
           "pc": 20,
@@ -74702,7 +74702,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "설날선물세트",
-          "bidPos": 1530
+          "bidPos": 1510
         },
         {
           "pc": 5,
@@ -74720,7 +74720,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "설명절선물",
-          "bidPos": 1310
+          "bidPos": 1290
         },
         {
           "pc": 20,
@@ -74729,7 +74729,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "기업선물세트",
-          "bidPos": 2940
+          "bidPos": 2910
         },
         {
           "pc": 20,
@@ -74738,7 +74738,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "직원명절선물",
-          "bidPos": 1760
+          "bidPos": 1740
         },
         {
           "pc": 5,
@@ -74765,7 +74765,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "거래처선물세트",
-          "bidPos": 2750
+          "bidPos": 2720
         },
         {
           "pc": 5,
@@ -74792,7 +74792,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "거래처명절선물",
-          "bidPos": 1810
+          "bidPos": 1790
         },
         {
           "pc": 5,
@@ -74801,7 +74801,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "회사추석선물",
-          "bidPos": 1740
+          "bidPos": 1720
         },
         {
           "pc": 5,
@@ -74810,7 +74810,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "선물세트대량구매",
-          "bidPos": 2320
+          "bidPos": 2300
         },
         {
           "pc": 5,
@@ -74819,7 +74819,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "기업설선물",
-          "bidPos": 3250
+          "bidPos": 3220
         }
       ]
     },
@@ -74833,7 +74833,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "추석선물세트",
-          "bidPos": 3670
+          "bidPos": 3630
         },
         {
           "pc": 7390,
@@ -74842,7 +74842,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "추석선물",
-          "bidPos": 3500
+          "bidPos": 3460
         },
         {
           "pc": 2670,
@@ -74851,7 +74851,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "선물세트",
-          "bidPos": 2430
+          "bidPos": 2410
         },
         {
           "pc": 1380,
@@ -74860,7 +74860,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "올리브오일추천",
-          "bidPos": 1360
+          "bidPos": 1350
         },
         {
           "pc": 420,
@@ -74869,7 +74869,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "올리브유추천",
-          "bidPos": 1180
+          "bidPos": 1160
         },
         {
           "pc": 620,
@@ -74887,7 +74887,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "견과류선물세트",
-          "bidPos": 1340
+          "bidPos": 1330
         },
         {
           "pc": 1690,
@@ -74896,7 +74896,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "명절선물",
-          "bidPos": 6960
+          "bidPos": 6890
         },
         {
           "pc": 120,
@@ -74905,7 +74905,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "홍삼세트",
-          "bidPos": 2510
+          "bidPos": 2490
         },
         {
           "pc": 610,
@@ -74914,7 +74914,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "엑스트라버진올리브오일추천",
-          "bidPos": 1190
+          "bidPos": 1180
         },
         {
           "pc": 520,
@@ -74923,7 +74923,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "명절선물세트",
-          "bidPos": 3250
+          "bidPos": 3220
         },
         {
           "pc": 200,
@@ -74932,7 +74932,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "올리브오일선물세트",
-          "bidPos": 1110
+          "bidPos": 1100
         },
         {
           "pc": 320,
@@ -74941,7 +74941,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "추석선물추천",
-          "bidPos": 1770
+          "bidPos": 1750
         },
         {
           "pc": 620,
@@ -74950,7 +74950,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "설날선물",
-          "bidPos": 1800
+          "bidPos": 1780
         },
         {
           "pc": 140,
@@ -74959,7 +74959,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "올리브유선물세트",
-          "bidPos": 1220
+          "bidPos": 1210
         },
         {
           "pc": 230,
@@ -74968,7 +74968,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "소금선물세트",
-          "bidPos": 1230
+          "bidPos": 1220
         },
         {
           "pc": 130,
@@ -75013,7 +75013,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "설선물세트",
-          "bidPos": 1880
+          "bidPos": 1860
         },
         {
           "pc": 50,
@@ -75040,7 +75040,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "설선물",
-          "bidPos": 2110
+          "bidPos": 2090
         },
         {
           "pc": 40,
@@ -75063,7 +75063,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "추석선물세트",
-          "bidPos": 3670
+          "bidPos": 3630
         },
         {
           "pc": 7390,
@@ -75072,7 +75072,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "추석선물",
-          "bidPos": 3500
+          "bidPos": 3460
         },
         {
           "pc": 2670,
@@ -75081,7 +75081,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "선물세트",
-          "bidPos": 2430
+          "bidPos": 2410
         },
         {
           "pc": 560,
@@ -75099,7 +75099,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "명절선물",
-          "bidPos": 6960
+          "bidPos": 6890
         },
         {
           "pc": 520,
@@ -75108,7 +75108,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "명절선물세트",
-          "bidPos": 3250
+          "bidPos": 3220
         },
         {
           "pc": 190,
@@ -75117,7 +75117,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "설선물세트",
-          "bidPos": 1880
+          "bidPos": 1860
         },
         {
           "pc": 50,
@@ -75126,7 +75126,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "설선물",
-          "bidPos": 2110
+          "bidPos": 2090
         },
         {
           "pc": 50,
@@ -75153,7 +75153,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "추석선물세트추천",
-          "bidPos": 1490
+          "bidPos": 1470
         },
         {
           "pc": 5,
@@ -75189,7 +75189,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "체육대회물품",
-          "bidPos": 1370
+          "bidPos": 1350
         },
         {
           "pc": 5,
@@ -75225,7 +75225,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "기업선물세트",
-          "bidPos": 2940
+          "bidPos": 2910
         },
         {
           "pc": 20,
@@ -75234,7 +75234,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "직원명절선물",
-          "bidPos": 1760
+          "bidPos": 1740
         },
         {
           "pc": 5,
@@ -75261,7 +75261,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "거래처선물세트",
-          "bidPos": 2750
+          "bidPos": 2720
         },
         {
           "pc": 5,
@@ -75293,7 +75293,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "추석선물세트",
-          "bidPos": 3670
+          "bidPos": 3630
         },
         {
           "pc": 7390,
@@ -75302,7 +75302,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "추석선물",
-          "bidPos": 3500
+          "bidPos": 3460
         },
         {
           "pc": 2670,
@@ -75311,7 +75311,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "선물세트",
-          "bidPos": 2430
+          "bidPos": 2410
         },
         {
           "pc": 1690,
@@ -75320,7 +75320,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "명절선물",
-          "bidPos": 6960
+          "bidPos": 6890
         },
         {
           "pc": 520,
@@ -75329,7 +75329,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "명절선물세트",
-          "bidPos": 3250
+          "bidPos": 3220
         },
         {
           "pc": 230,
@@ -75338,7 +75338,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "소금선물세트",
-          "bidPos": 1230
+          "bidPos": 1220
         },
         {
           "pc": 430,
@@ -75347,7 +75347,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "선물세트추천",
-          "bidPos": 1480
+          "bidPos": 1470
         },
         {
           "pc": 130,
@@ -75374,7 +75374,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "설선물세트",
-          "bidPos": 1880
+          "bidPos": 1860
         },
         {
           "pc": 70,
@@ -75383,7 +75383,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "샴푸선물세트",
-          "bidPos": 1390
+          "bidPos": 1380
         },
         {
           "pc": 50,
@@ -75392,7 +75392,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "설선물",
-          "bidPos": 2110
+          "bidPos": 2090
         },
         {
           "pc": 20,
@@ -75401,7 +75401,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "추석선물세트추천",
-          "bidPos": 1490
+          "bidPos": 1470
         },
         {
           "pc": 10,
@@ -75437,7 +75437,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "기업선물세트",
-          "bidPos": 2940
+          "bidPos": 2910
         },
         {
           "pc": 20,
@@ -75446,7 +75446,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "직원명절선물",
-          "bidPos": 1760
+          "bidPos": 1740
         },
         {
           "pc": 20,
@@ -75473,7 +75473,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "거래처선물세트",
-          "bidPos": 2750
+          "bidPos": 2720
         },
         {
           "pc": 5,
@@ -75491,7 +75491,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "거래처명절선물",
-          "bidPos": 1810
+          "bidPos": 1790
         },
         {
           "pc": 5,
@@ -75500,7 +75500,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "회사추석선물",
-          "bidPos": 1740
+          "bidPos": 1720
         },
         {
           "pc": 5,
@@ -75509,7 +75509,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "선물세트대량구매",
-          "bidPos": 2320
+          "bidPos": 2300
         }
       ]
     },
@@ -75523,7 +75523,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "추석선물세트",
-          "bidPos": 3670
+          "bidPos": 3630
         },
         {
           "pc": 7390,
@@ -75532,7 +75532,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "추석선물",
-          "bidPos": 3500
+          "bidPos": 3460
         },
         {
           "pc": 2670,
@@ -75541,7 +75541,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "선물세트",
-          "bidPos": 2430
+          "bidPos": 2410
         },
         {
           "pc": 520,
@@ -75550,7 +75550,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "명절선물세트",
-          "bidPos": 3250
+          "bidPos": 3220
         },
         {
           "pc": 190,
@@ -75559,7 +75559,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "설선물세트",
-          "bidPos": 1880
+          "bidPos": 1860
         },
         {
           "pc": 50,
@@ -75568,7 +75568,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "설선물",
-          "bidPos": 2110
+          "bidPos": 2090
         },
         {
           "pc": 5,
@@ -75586,7 +75586,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "기업선물세트",
-          "bidPos": 2940
+          "bidPos": 2910
         },
         {
           "pc": 20,
@@ -75595,7 +75595,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "직원명절선물",
-          "bidPos": 1760
+          "bidPos": 1740
         },
         {
           "pc": 5,
@@ -75613,7 +75613,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "거래처선물세트",
-          "bidPos": 2750
+          "bidPos": 2720
         },
         {
           "pc": 5,
@@ -75631,7 +75631,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "거래처명절선물",
-          "bidPos": 1810
+          "bidPos": 1790
         },
         {
           "pc": 5,
@@ -75640,7 +75640,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "회사추석선물",
-          "bidPos": 1740
+          "bidPos": 1720
         },
         {
           "pc": 5,
@@ -75649,7 +75649,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "선물세트대량구매",
-          "bidPos": 2320
+          "bidPos": 2300
         },
         {
           "pc": 5,
@@ -75658,7 +75658,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "기업설선물",
-          "bidPos": 3250
+          "bidPos": 3220
         },
         {
           "pc": 5,
@@ -75667,7 +75667,7 @@
           "comp": "낮음",
           "depth": 0.0,
           "keyword": "회사명절선물세트",
-          "bidPos": 1310
+          "bidPos": 1300
         },
         {
           "pc": 5,
@@ -75676,7 +75676,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "선물세트대량",
-          "bidPos": 1190
+          "bidPos": 1170
         },
         {
           "pc": 5,
@@ -75694,7 +75694,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "단체추석선물",
-          "bidPos": 1970
+          "bidPos": 1950
         },
         {
           "pc": 5,
@@ -75703,7 +75703,7 @@
           "comp": "낮음",
           "depth": 0.0,
           "keyword": "추석단체선물",
-          "bidPos": 2440
+          "bidPos": 2420
         },
         {
           "pc": 5,
@@ -75712,7 +75712,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "추석거래처선물",
-          "bidPos": 2020
+          "bidPos": 2000
         },
         {
           "pc": 5,
@@ -75721,7 +75721,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "기업명절선물세트",
-          "bidPos": 2070
+          "bidPos": 2050
         },
         {
           "pc": 5,
@@ -75730,7 +75730,7 @@
           "comp": "낮음",
           "depth": 0.0,
           "keyword": "회사설선물세트",
-          "bidPos": 2340
+          "bidPos": 2310
         },
         {
           "pc": 5,
@@ -75739,7 +75739,7 @@
           "comp": "낮음",
           "depth": 0.0,
           "keyword": "직원명절선물세트",
-          "bidPos": 2310
+          "bidPos": 2280
         }
       ]
     },
@@ -75753,7 +75753,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "추석선물세트",
-          "bidPos": 3670
+          "bidPos": 3630
         },
         {
           "pc": 7390,
@@ -75762,7 +75762,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "추석선물",
-          "bidPos": 3500
+          "bidPos": 3460
         },
         {
           "pc": 2670,
@@ -75771,7 +75771,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "선물세트",
-          "bidPos": 2430
+          "bidPos": 2410
         },
         {
           "pc": 520,
@@ -75780,7 +75780,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "명절선물세트",
-          "bidPos": 3250
+          "bidPos": 3220
         },
         {
           "pc": 190,
@@ -75789,7 +75789,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "설선물세트",
-          "bidPos": 1880
+          "bidPos": 1860
         },
         {
           "pc": 50,
@@ -75798,7 +75798,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "설선물",
-          "bidPos": 2110
+          "bidPos": 2090
         },
         {
           "pc": 5,
@@ -75816,7 +75816,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "기업선물세트",
-          "bidPos": 2940
+          "bidPos": 2910
         },
         {
           "pc": 20,
@@ -75825,7 +75825,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "직원명절선물",
-          "bidPos": 1760
+          "bidPos": 1740
         },
         {
           "pc": 5,
@@ -75843,7 +75843,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "거래처선물세트",
-          "bidPos": 2750
+          "bidPos": 2720
         },
         {
           "pc": 5,
@@ -75861,7 +75861,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "거래처명절선물",
-          "bidPos": 1810
+          "bidPos": 1790
         },
         {
           "pc": 5,
@@ -75870,7 +75870,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "회사추석선물",
-          "bidPos": 1740
+          "bidPos": 1720
         },
         {
           "pc": 5,
@@ -75879,7 +75879,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "선물세트대량구매",
-          "bidPos": 2320
+          "bidPos": 2300
         },
         {
           "pc": 5,
@@ -75888,7 +75888,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "기업설선물",
-          "bidPos": 3250
+          "bidPos": 3220
         },
         {
           "pc": 5,
@@ -75897,7 +75897,7 @@
           "comp": "낮음",
           "depth": 0.0,
           "keyword": "회사명절선물세트",
-          "bidPos": 1310
+          "bidPos": 1300
         },
         {
           "pc": 5,
@@ -75906,7 +75906,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "선물세트대량",
-          "bidPos": 1190
+          "bidPos": 1170
         },
         {
           "pc": 5,
@@ -75924,7 +75924,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "단체추석선물",
-          "bidPos": 1970
+          "bidPos": 1950
         },
         {
           "pc": 5,
@@ -75933,7 +75933,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "기업명절선물세트",
-          "bidPos": 2070
+          "bidPos": 2050
         },
         {
           "pc": 5,
@@ -75942,7 +75942,7 @@
           "comp": "낮음",
           "depth": 0.0,
           "keyword": "추석단체선물",
-          "bidPos": 2440
+          "bidPos": 2420
         },
         {
           "pc": 5,
@@ -75951,7 +75951,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "추석거래처선물",
-          "bidPos": 2020
+          "bidPos": 2000
         },
         {
           "pc": 5,
@@ -75960,7 +75960,7 @@
           "comp": "낮음",
           "depth": 0.0,
           "keyword": "회사설선물세트",
-          "bidPos": 2340
+          "bidPos": 2310
         },
         {
           "pc": 5,
@@ -75969,7 +75969,7 @@
           "comp": "낮음",
           "depth": 0.0,
           "keyword": "직원명절선물세트",
-          "bidPos": 2310
+          "bidPos": 2280
         }
       ]
     },
@@ -75983,7 +75983,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "추석선물세트",
-          "bidPos": 3670
+          "bidPos": 3630
         },
         {
           "pc": 7390,
@@ -75992,7 +75992,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "추석선물",
-          "bidPos": 3500
+          "bidPos": 3460
         },
         {
           "pc": 2670,
@@ -76001,7 +76001,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "선물세트",
-          "bidPos": 2430
+          "bidPos": 2410
         },
         {
           "pc": 520,
@@ -76010,7 +76010,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "명절선물세트",
-          "bidPos": 3250
+          "bidPos": 3220
         },
         {
           "pc": 190,
@@ -76019,7 +76019,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "설선물세트",
-          "bidPos": 1880
+          "bidPos": 1860
         },
         {
           "pc": 50,
@@ -76028,7 +76028,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "설선물",
-          "bidPos": 2110
+          "bidPos": 2090
         },
         {
           "pc": 5,
@@ -76046,7 +76046,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "기업선물세트",
-          "bidPos": 2940
+          "bidPos": 2910
         },
         {
           "pc": 20,
@@ -76055,7 +76055,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "직원명절선물",
-          "bidPos": 1760
+          "bidPos": 1740
         },
         {
           "pc": 5,
@@ -76073,7 +76073,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "거래처선물세트",
-          "bidPos": 2750
+          "bidPos": 2720
         },
         {
           "pc": 5,
@@ -76091,7 +76091,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "거래처명절선물",
-          "bidPos": 1810
+          "bidPos": 1790
         },
         {
           "pc": 5,
@@ -76100,7 +76100,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "회사추석선물",
-          "bidPos": 1740
+          "bidPos": 1720
         },
         {
           "pc": 5,
@@ -76109,7 +76109,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "선물세트대량구매",
-          "bidPos": 2320
+          "bidPos": 2300
         },
         {
           "pc": 5,
@@ -76118,7 +76118,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "기업설선물",
-          "bidPos": 3250
+          "bidPos": 3220
         },
         {
           "pc": 5,
@@ -76127,7 +76127,7 @@
           "comp": "낮음",
           "depth": 0.0,
           "keyword": "회사명절선물세트",
-          "bidPos": 1310
+          "bidPos": 1300
         },
         {
           "pc": 5,
@@ -76136,7 +76136,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "선물세트대량",
-          "bidPos": 1190
+          "bidPos": 1170
         },
         {
           "pc": 5,
@@ -76154,7 +76154,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "단체추석선물",
-          "bidPos": 1970
+          "bidPos": 1950
         },
         {
           "pc": 5,
@@ -76163,7 +76163,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "기업명절선물세트",
-          "bidPos": 2070
+          "bidPos": 2050
         },
         {
           "pc": 5,
@@ -76172,7 +76172,7 @@
           "comp": "낮음",
           "depth": 0.0,
           "keyword": "추석단체선물",
-          "bidPos": 2440
+          "bidPos": 2420
         },
         {
           "pc": 5,
@@ -76181,7 +76181,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "추석거래처선물",
-          "bidPos": 2020
+          "bidPos": 2000
         },
         {
           "pc": 5,
@@ -76190,7 +76190,7 @@
           "comp": "낮음",
           "depth": 0.0,
           "keyword": "회사설선물세트",
-          "bidPos": 2340
+          "bidPos": 2310
         },
         {
           "pc": 5,
@@ -76199,7 +76199,7 @@
           "comp": "낮음",
           "depth": 0.0,
           "keyword": "직원명절선물세트",
-          "bidPos": 2310
+          "bidPos": 2280
         }
       ]
     },
@@ -76240,7 +76240,7 @@
           "comp": "높음",
           "depth": 9.0,
           "keyword": "즙",
-          "bidPos": 1220
+          "bidPos": 1200
         },
         {
           "pc": 120,
@@ -76249,7 +76249,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "커피대체",
-          "bidPos": 1300
+          "bidPos": 1290
         },
         {
           "pc": 30,
@@ -76276,7 +76276,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "석류농축액",
-          "bidPos": 1630
+          "bidPos": 1610
         },
         {
           "pc": 40,
@@ -76294,7 +76294,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "패션후르츠퓨레",
-          "bidPos": 1550
+          "bidPos": 1540
         },
         {
           "pc": 70,
@@ -76393,7 +76393,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "음료베이스",
-          "bidPos": 1840
+          "bidPos": 1820
         },
         {
           "pc": 10,
@@ -76420,7 +76420,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "사과농축액",
-          "bidPos": 1320
+          "bidPos": 1310
         },
         {
           "pc": 10,
@@ -76461,7 +76461,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "사과당근주스",
-          "bidPos": 1140
+          "bidPos": 1130
         },
         {
           "pc": 120,
@@ -76605,7 +76605,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "사과농축액",
-          "bidPos": 1320
+          "bidPos": 1310
         },
         {
           "pc": 10,
@@ -76691,7 +76691,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "사과당근주스",
-          "bidPos": 1140
+          "bidPos": 1130
         },
         {
           "pc": 120,
@@ -76709,7 +76709,7 @@
           "comp": "높음",
           "depth": 9.0,
           "keyword": "즙",
-          "bidPos": 1220
+          "bidPos": 1200
         },
         {
           "pc": 80,
@@ -76853,7 +76853,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "사과농축액",
-          "bidPos": 1320
+          "bidPos": 1310
         },
         {
           "pc": 10,
@@ -77016,7 +77016,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "석영",
-          "bidPos": 7370
+          "bidPos": 7300
         },
         {
           "pc": 630,
@@ -77025,7 +77025,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "알곤용접",
-          "bidPos": 4590
+          "bidPos": 4550
         },
         {
           "pc": 1010,
@@ -77034,7 +77034,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "MCT가공",
-          "bidPos": 2760
+          "bidPos": 2730
         },
         {
           "pc": 510,
@@ -77043,7 +77043,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "QUARTZ",
-          "bidPos": 6320
+          "bidPos": 6260
         },
         {
           "pc": 580,
@@ -77052,7 +77052,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "CNC선반",
-          "bidPos": 3440
+          "bidPos": 3410
         },
         {
           "pc": 300,
@@ -77061,7 +77061,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "알루미늄용접",
-          "bidPos": 6700
+          "bidPos": 6640
         },
         {
           "pc": 720,
@@ -77070,7 +77070,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "임가공",
-          "bidPos": 1980
+          "bidPos": 1960
         },
         {
           "pc": 570,
@@ -77079,7 +77079,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "아크릴가공",
-          "bidPos": 2210
+          "bidPos": 2190
         },
         {
           "pc": 390,
@@ -77088,7 +77088,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "철골",
-          "bidPos": 1940
+          "bidPos": 1920
         },
         {
           "pc": 290,
@@ -77097,7 +77097,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "선반가공",
-          "bidPos": 4320
+          "bidPos": 4280
         },
         {
           "pc": 260,
@@ -77106,7 +77106,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "알루미늄가공",
-          "bidPos": 6370
+          "bidPos": 6300
         },
         {
           "pc": 120,
@@ -77124,7 +77124,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "석영관",
-          "bidPos": 7170
+          "bidPos": 7100
         },
         {
           "pc": 140,
@@ -77133,7 +77133,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "유리관",
-          "bidPos": 2560
+          "bidPos": 2530
         },
         {
           "pc": 140,
@@ -77142,7 +77142,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "금속가공",
-          "bidPos": 3410
+          "bidPos": 3380
         },
         {
           "pc": 130,
@@ -77178,7 +77178,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "CNC선반가공",
-          "bidPos": 4360
+          "bidPos": 4310
         },
         {
           "pc": 60,
@@ -77187,7 +77187,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "자동선반",
-          "bidPos": 1500
+          "bidPos": 1480
         },
         {
           "pc": 110,
@@ -77196,7 +77196,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "밀링가공",
-          "bidPos": 1870
+          "bidPos": 1850
         },
         {
           "pc": 100,
@@ -77205,7 +77205,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "알루미늄CNC가공",
-          "bidPos": 1970
+          "bidPos": 1950
         },
         {
           "pc": 100,
@@ -77214,7 +77214,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "NC가공",
-          "bidPos": 2180
+          "bidPos": 2160
         },
         {
           "pc": 90,
@@ -77223,7 +77223,7 @@
           "comp": "높음",
           "depth": 7.0,
           "keyword": "절삭가공",
-          "bidPos": 1300
+          "bidPos": 1290
         },
         {
           "pc": 50,
@@ -77282,7 +77282,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "석류농축액",
-          "bidPos": 1630
+          "bidPos": 1610
         },
         {
           "pc": 40,
@@ -77300,7 +77300,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "패션후르츠퓨레",
-          "bidPos": 1550
+          "bidPos": 1540
         },
         {
           "pc": 80,
@@ -77399,7 +77399,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "음료베이스",
-          "bidPos": 1840
+          "bidPos": 1820
         },
         {
           "pc": 10,
@@ -77426,7 +77426,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "사과농축액",
-          "bidPos": 1320
+          "bidPos": 1310
         },
         {
           "pc": 10,
@@ -77494,7 +77494,7 @@
           "comp": "높음",
           "depth": 9.0,
           "keyword": "즙",
-          "bidPos": 1220
+          "bidPos": 1200
         },
         {
           "pc": 30,
@@ -77715,7 +77715,7 @@
           "comp": "높음",
           "depth": 10.0,
           "keyword": "사과당근주스",
-          "bidPos": 1140
+          "bidPos": 1130
         },
         {
           "pc": 120,
@@ -77733,7 +77733,7 @@
           "comp": "높음",
           "depth": 9.0,
           "keyword": "즙",
-          "bidPos": 1220
+          "bidPos": 1200
         },
         {
           "pc": 80,
@@ -77877,7 +77877,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "사과농축액",
-          "bidPos": 1320
+          "bidPos": 1310
         },
         {
           "pc": 10,
@@ -77972,7 +77972,7 @@
           "comp": "중간",
           "depth": 8.0,
           "keyword": "석류농축액",
-          "bidPos": 1630
+          "bidPos": 1610
         },
         {
           "pc": 40,
@@ -77990,7 +77990,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "패션후르츠퓨레",
-          "bidPos": 1550
+          "bidPos": 1540
         },
         {
           "pc": 80,
@@ -78080,7 +78080,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "음료베이스",
-          "bidPos": 1840
+          "bidPos": 1820
         },
         {
           "pc": 10,
@@ -78107,7 +78107,7 @@
           "comp": "높음",
           "depth": 8.0,
           "keyword": "사과농축액",
-          "bidPos": 1320
+          "bidPos": 1310
         },
         {
           "pc": 10,
@@ -78193,7 +78193,7 @@
           "comp": "높음",
           "depth": 9.0,
           "keyword": "즙",
-          "bidPos": 1220
+          "bidPos": 1200
         },
         {
           "pc": 140,
@@ -78414,7 +78414,7 @@
           "comp": "높음",
           "depth": 9.0,
           "keyword": "즙",
-          "bidPos": 1220
+          "bidPos": 1200
         },
         {
           "pc": 30,
