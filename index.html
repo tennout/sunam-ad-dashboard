@@ -1416,7 +1416,9 @@ function seedRand(seed){let s=seed;return()=>{s=(s*1664525+1013904223)%429496729
 const rnd = seedRand(20260416);
 
 // 오늘 = 2026-04-16
-const TODAY = (function(){ const d=new Date(); d.setHours(0,0,0,0); return d; })();
+// 로컬(한국) 오늘 날짜를 UTC 자정 Date로 — dateStr(toISOString)·데이터 날짜(new Date('YYYY-MM-DD'))와
+// 같은 기준이 되어 시간대 밀림(어제가 그제로 표시되는 버그)이 없음
+const TODAY = (function(){ const d=new Date(); return new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate())); })();
 const DAYS = 90;
 
 function dateStr(d){return d.toISOString().slice(0,10)}
@@ -1853,8 +1855,13 @@ function renderKPIs(){
 
   bindEvidenceTooltip();
   // 현재 범위 표기
-  document.getElementById('currentRange').textContent =
-    `선택 기간 ${dateStr(currentStart)} ~ ${dateStr(currentEnd)} (${len}일) · 비교 기간 ${dateStr(prevStart)} ~ ${dateStr(prevEnd)}`;
+  // 프리셋인데 끝점이 실제 어제보다 이전이면 = 최근 데이터 누락 → 이유를 명시
+  const _yestStr=dateStr(addDays(TODAY,-1));
+  const _lag=(RANGE_STATE.mode==='preset' && dateStr(currentEnd)<_yestStr)
+    ? ` · ⚠ ${_yestStr}(어제) 데이터 없음 → 데이터가 있는 마지막 날 기준` : '';
+  document.getElementById('currentRange').innerHTML =
+    `선택 기간 ${dateStr(currentStart)} ~ ${dateStr(currentEnd)} (${len}일) · 비교 기간 ${dateStr(prevStart)} ~ ${dateStr(prevEnd)}`
+    + (_lag?`<span style="color:#b45309;font-weight:700">${_lag}</span>`:'');
 
   return {cur,prev,base,len,prevStart,prevEnd};
 }
