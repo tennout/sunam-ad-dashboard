@@ -407,6 +407,75 @@ def fetch_b2b_leads() -> dict | None:
         return None
 
 
+def fetch_delivery_health(acct: str, token: str) -> dict:
+    """게재 상태 점검 — 광고 관리자의 '머신러닝 제한' 등 경고를 수집.
+
+    - 광고세트 learning_stage_info.status:
+        LEARNING = 머신러닝 진행 중(세팅 변경 자제), FAIL = 머신러닝 제한(전환 부족),
+        SUCCESS = 정상(수집 안 함)
+    - 캠페인/광고세트/광고 issues_info: 비승인·게재 제한 등 메타가 띄우는 이슈 상세
+    반환: {date, items:[{level, name, campaign, kind(learning|learning_limited|issue), msg}]}
+    """
+    out = {"date": str(date.today()), "items": []}
+    # ── 광고 계정 상태 (결제 실패·비활성화 = 광고 전체 중단) ──
+    ACCT_STATUS = {1: ("활성", True), 2: ("비활성화됨", False), 3: ("미결제 — 결제 실패", False),
+                   7: ("위험 심사 중", False), 8: ("정산 대기", False),
+                   9: ("유예 기간 (결제 문제)", False), 100: ("폐쇄 예정", False), 101: ("폐쇄됨", False)}
+    try:
+        a = _get(f"{GRAPH}/{acct}", {
+            "access_token": token,
+            "fields": "account_status,disable_reason,spend_cap,amount_spent,currency"})
+        code = a.get("account_status")
+        label, ok = ACCT_STATUS.get(code, (f"알 수 없음({code})", False))
+        cap = int(a.get("spend_cap") or 0)
+        spent = int(a.get("amount_spent") or 0)
+        out["account"] = {"code": code, "label": label, "ok": ok,
+                          "spendCap": cap, "amountSpent": spent,
+                          "disableReason": a.get("disable_reason")}
+        print(f"    계정 상태: {label}" + (f" · 지출한도 {spent:,}/{cap:,}" if cap else ""))
+    except Exception as e:
+        print(f"    ! 계정 상태 조회 실패(무시): {e}")
+    try:
+        for a in _get_paged(f"{GRAPH}/{acct}/adsets", {
+                "access_token": token,
+                "fields": "name,effective_status,campaign{name},learning_stage_info,issues_info",
+                "limit": 200}):
+            if a.get("effective_status") not in ("ACTIVE", "WITH_ISSUES"):
+                continue
+            camp = (a.get("campaign") or {}).get("name", "")
+            ls = (a.get("learning_stage_info") or {}).get("status", "")
+            if ls == "FAIL":
+                out["items"].append({"level": "adset", "name": a.get("name", ""), "campaign": camp,
+                                     "kind": "learning_limited",
+                                     "msg": "머신러닝 제한 — 전환 수가 부족해 최적화가 멈춘 상태"})
+            elif ls == "LEARNING":
+                out["items"].append({"level": "adset", "name": a.get("name", ""), "campaign": camp,
+                                     "kind": "learning", "msg": "머신러닝 진행 중 — 세팅 변경 자제"})
+            for iss in (a.get("issues_info") or []):
+                out["items"].append({"level": "adset", "name": a.get("name", ""), "campaign": camp,
+                                     "kind": "issue",
+                                     "msg": iss.get("error_summary") or iss.get("error_message", "")})
+        for ad in _get_paged(f"{GRAPH}/{acct}/ads", {
+                "access_token": token,
+                "fields": "name,effective_status,campaign{name},issues_info", "limit": 200}):
+            if ad.get("effective_status") not in ("WITH_ISSUES", "DISAPPROVED"):
+                continue
+            camp = (ad.get("campaign") or {}).get("name", "")
+            msgs = [i.get("error_summary") or i.get("error_message", "")
+                    for i in (ad.get("issues_info") or [])] or ["게재 이슈 (비승인 가능성)"]
+            for m in msgs:
+                out["items"].append({"level": "ad", "name": ad.get("name", ""), "campaign": camp,
+                                     "kind": "issue", "msg": m})
+        n_lim = sum(1 for i in out["items"] if i["kind"] == "learning_limited")
+        n_iss = sum(1 for i in out["items"] if i["kind"] == "issue")
+        print(f"    게재 상태: 머신러닝 제한 {n_lim} · 이슈 {n_iss} · 학습 중 "
+              f"{sum(1 for i in out['items'] if i['kind'] == 'learning')}")
+    except Exception as e:
+        print(f"    ! 게재 상태 수집 실패(무시): {e}")
+        out["error"] = str(e)
+    return out
+
+
 def fetch_utm_audit(acct: str, token: str) -> dict:
     """게재 중(ACTIVE) 광고 전수의 UTM 설정 감사.
 
@@ -583,6 +652,10 @@ def main():
     # B2B 잠재고객 리드 (CRM 시트 — Secrets 설정 시에만)
     print("  · B2B 리드 시트 수집...")
     b2b_leads = fetch_b2b_leads()
+
+    # 게재 상태 점검 (머신러닝 제한·이슈)
+    print("  · 게재 상태 점검...")
+    health = fetch_delivery_health(acct, token)
     budget_hist = []
     prev_path = out_dir / "meta.json"
     if prev_path.exists():
@@ -609,6 +682,7 @@ def main():
         "budgetHistory": budget_hist,
         "utmAudit": utm_audit,
         **({"b2bLeads": b2b_leads} if b2b_leads else {}),
+        "health": health,
         **data,
     }
     (out_dir / "meta.json").write_text(

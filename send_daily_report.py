@@ -265,6 +265,48 @@ def main():
                      f'UTM 점검: 게재 중 {au.get("checked",0)}개 광고 전부 utm_campaign 설정됨 '
                      f'({au.get("date","")} 기준 — 출처: 메타 광고 설정)</div>')
 
+    # ①-1a 시스템 경고 (계정 상태·토큰 만료·수집 중단)
+    sys_warn = []
+    acc = (meta.get('health') or {}).get('account') or {}
+    if acc and acc.get('ok') is False:
+        sys_warn.append(f'광고 계정 문제: <b>{acc.get("label","")}</b> — 광고 전체 중단 가능, 결제 수단 확인 필요')
+    try:
+        exp = datetime.datetime.strptime(meta.get('tokenExpiresAt', ''), '%Y-%m-%d %H:%M:%S')
+        dleft = (exp - datetime.datetime.now()).days
+        if dleft < 0:
+            sys_warn.append(f'메타 토큰 만료됨 ({meta.get("tokenExpiresAt","")[:10]}) — META_TOKEN 교체 필요')
+        elif dleft <= 7:
+            sys_warn.append(f'메타 토큰 만료 D-{dleft} ({meta.get("tokenExpiresAt","")[:10]}) — 미리 교체 권장')
+    except Exception:
+        pass
+    try:
+        gen = datetime.datetime.strptime(meta.get('generatedAt', ''), '%Y-%m-%d %H:%M:%S')
+        hrs = (datetime.datetime.now() - gen).total_seconds() / 3600
+        if hrs > 36:
+            sys_warn.append(f'메타 수집 중단 의심 — 마지막 수집 {meta.get("generatedAt","")} ({int(hrs//24)}일 경과), 이 리포트 수치는 그 시점 기준')
+    except Exception:
+        pass
+    if sys_warn:
+        sec1 += (f'<div style="border:1px solid #fca5a5;background:#fef2f2;border-radius:8px;'
+                 f'padding:8px 12px;margin-top:8px;font-size:12.5px;color:#7f1d1d">'
+                 f'<b>시스템 경고</b><br>' + '<br>'.join('&nbsp;&nbsp;· ' + w for w in sys_warn) + '</div>')
+
+    # ①-1b 게재 상태 (머신러닝 제한·이슈 — meta.json health)
+    hitems = (meta.get('health') or {}).get('items') or []
+    h_lim = [i for i in hitems if i.get('kind') == 'learning_limited']
+    h_iss = [i for i in hitems if i.get('kind') == 'issue']
+    if h_lim or h_iss:
+        lines = []
+        for i in h_lim[:5]:
+            lines.append(f'&nbsp;&nbsp;· 머신러닝 제한: {i.get("name","")[:28]} <span style="color:#888">({i.get("campaign","")[:20]})</span>')
+        for i in h_iss[:5]:
+            lines.append(f'&nbsp;&nbsp;· 게재 이슈: {i.get("name","")[:28]} — {i.get("msg","")[:40]}')
+        sec1 += (f'<div style="border:1px solid #fcd34d;background:#fffbeb;border-radius:8px;'
+                 f'padding:8px 12px;margin-top:8px;font-size:12.5px;color:#92400e">'
+                 f'<b>게재 상태 경고 {len(h_lim) + len(h_iss)}건</b> '
+                 f'<span style="font-size:11px;color:#a16207">(출처: 메타 광고 설정)</span><br>'
+                 + '<br>'.join(lines) + '</div>')
+
     # ①-2 B2B 리드 (CRM 시트 연동 시에만 — meta.json b2bLeads)
     bl = (meta.get('b2bLeads') or {}).get('rows') or []
     if bl:

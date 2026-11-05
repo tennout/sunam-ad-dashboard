@@ -1,0 +1,45 @@
+<!-- 에러 상태 미리보기 (실제 대시보드 아님 — 경고가 떴을 때 모습 시연용) -->
+<div style="font-family:-apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;background:#f4f6f5;padding:18px;max-width:900px">
+  <div style="font-size:12px;color:#888;margin-bottom:10px">▼ 광고 운영 탭 최상단 — 문제가 있을 때만 나타남 (평소엔 아무것도 안 보임)</div>
+
+  <!-- 시스템 경고 3종 -->
+  <div style="border:1px solid #fca5a5;background:#fef2f2;border-radius:12px;padding:11px 15px;margin-bottom:8px">
+    <div style="font-size:13.5px;font-weight:800;color:#7f1d1d">🔴 데이터 수집 중단</div>
+    <div style="font-size:12.5px;color:#7f1d1d;opacity:.85;line-height:1.6;margin-top:2px">마지막 메타 수집이 <b>2일 7시간 전</b>(2026-11-03 04:12:33)입니다. 아래 수치는 그 시점 기준이에요. GitHub Actions의 「광고 데이터 자동 동기화」 실행 기록과 토큰을 확인하세요.</div>
+  </div>
+  <div style="border:1px solid #fca5a5;background:#fef2f2;border-radius:12px;padding:11px 15px;margin-bottom:8px">
+    <div style="font-size:13.5px;font-weight:800;color:#7f1d1d">🔴 광고 계정 문제: 미결제 — 결제 실패</div>
+    <div style="font-size:12.5px;color:#7f1d1d;opacity:.85;line-height:1.6;margin-top:2px">메타 광고 계정이 정상 게재 상태가 아닙니다 — <b>광고 전체가 중단</b>됐을 수 있어요. 광고 관리자에서 결제 수단·계정 상태를 바로 확인하세요.</div>
+  </div>
+  <div style="border:1px solid #fcd34d;background:#fffbeb;border-radius:12px;padding:11px 15px;margin-bottom:8px">
+    <div style="font-size:13.5px;font-weight:800;color:#92400e">🟠 메타 토큰 만료 D-5</div>
+    <div style="font-size:12.5px;color:#92400e;opacity:.85;line-height:1.6;margin-top:2px">2026-11-10 09:00:00 만료 예정. 미리 새 토큰을 발급해 GitHub Secrets의 META_TOKEN을 교체해두세요 — 만료되면 수집이 조용히 멈춥니다.</div>
+  </div>
+
+  <!-- UTM 경고 (기존) -->
+  <div style="border:1px solid #fca5a5;background:#fef2f2;border-radius:12px;padding:12px 16px;margin-bottom:14px">
+    <div style="font-size:13.5px;font-weight:800;color:#b91c1c;margin-bottom:4px">⚠ UTM 미설정 광고 발견</div>
+    <div style="font-size:12.5px;color:#7f1d1d;line-height:1.7">게재 중 광고 24개 중 <b>1개</b>에 utm_campaign이 없어요 — 이 광고의 클릭·매출은 GA 실측(캠페인별)에 잡히지 않습니다.
+    <ul style="margin:6px 0 0 18px;padding:0"><li><b>1104_신규_릴스_사과즙A</b> <span style="color:#b91c1c">(260109_사과즙_전환 캠페인_YH)</span></li></ul></div>
+  </div>
+
+  <div style="font-size:12px;color:#888;margin:14px 0 8px">▼ 캠페인별 성과 표 — 캠페인 이름 밑에 상태 경고가 붙음</div>
+  <div style="background:#fff;border:1px solid #e3e8e5;border-radius:14px;padding:14px 18px">
+    <table style="border-collapse:collapse;width:100%;font-size:13px;color:#222">
+      <tr style="color:#889;font-size:12px;border-bottom:1px solid #e3e8e5"><td style="padding:6px">캠페인</td><td style="text-align:right">지출</td><td style="text-align:right">메타 매출</td><td style="text-align:right">메타 ROAS</td></tr>
+      <tr style="border-bottom:1px solid #f0f2f1">
+        <td style="padding:10px 6px"><span style="background:#e6f6ec;color:#027a38;border-radius:10px;padding:1px 7px;font-size:10.5px;font-weight:700;margin-right:6px">게재중</span><b>260109_사과즙_전환 캠페인_YH</b>
+          <br><span style="font-size:11px;color:#889">일예산 ₩30,000 · 어제 51% 소진</span>
+          <br><span style="font-size:11px"><span style="color:#b45309;font-weight:700">⚠ 머신러닝 제한</span> · <span style="color:#6b7280">🎓 머신러닝 중</span></span></td>
+        <td style="text-align:right">₩190,088</td><td style="text-align:right">₩963,100</td><td style="text-align:right"><b>507%</b></td>
+      </tr>
+      <tr>
+        <td style="padding:10px 6px"><span style="background:#e6f6ec;color:#027a38;border-radius:10px;padding:1px 7px;font-size:10.5px;font-weight:700;margin-right:6px">게재중</span><b>261012_b2b_잠재고객 캠페인(CBO)_AMPM</b>
+          <br><span style="font-size:11px;color:#889">일예산 ₩30,000 · 어제 74% 소진</span>
+          <br><span style="font-size:11px;color:#1d4ed8;font-weight:700">리드 7일 15건 · CPL ₩3,330</span>
+          <br><span style="font-size:11px"><span style="color:#b91c3c;font-weight:700">⚠ 게재 이슈</span></span></td>
+        <td style="text-align:right">₩49,956</td><td style="text-align:right">₩0</td><td style="text-align:right"><b>0%</b></td>
+      </tr>
+    </table>
+  </div>
+</div>
