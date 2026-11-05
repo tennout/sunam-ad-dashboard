@@ -685,6 +685,28 @@ def main():
         "health": health,
         **data,
     }
+
+      # ── 소재 썸네일 로컬 저장 (메일 리포트 인라인 첨부용) ──
+    import hashlib as _hl
+    _thumb_dir = out_dir / "thumbs"
+    _thumb_dir.mkdir(exist_ok=True)
+    _saved = 0
+    for _c in bundle.get("creatives", []):
+        _url = _c.get("thumb", "")
+        if not _url.startswith("http"):
+            continue
+        _fn = _hl.md5(_c.get("ad", "").encode("utf-8")).hexdigest()[:16] + ".jpg"
+        _fp = _thumb_dir / _fn
+        try:
+            _req = request.Request(_url, headers={"User-Agent": "Mozilla/5.0"})
+            _img = request.urlopen(_req, timeout=30).read()
+            if _img and len(_img) > 500:
+                _fp.write_bytes(_img)
+                _c["thumbLocal"] = f"data/thumbs/{_fn}"
+                _saved += 1
+        except Exception as _e:
+            print(f"    ! 썸네일 저장 실패({_c.get('ad','')[:20]}): {_e}")
+    print(f"    썸네일 로컬 저장 {_saved}개 → data/thumbs/")
     (out_dir / "meta.json").write_text(
         json.dumps(bundle, ensure_ascii=False, indent=2), encoding="utf-8"
     )
