@@ -713,6 +713,8 @@
 
   <!-- META REPORT (META 탭 전용) -->
   <div id="metaReport" style="display:none">
+    <!-- 시스템 경고: 계정 상태(결제)·토큰 만료·데이터 신선도 -->
+    <div id="sysAlert" style="display:none;margin-bottom:14px"></div>
     <!-- UTM 누락 경고 (메타 API에서 광고별 URL 매개변수 설정을 매일 검사) -->
     <div id="utmAlert" style="display:none;margin-bottom:14px;padding:12px 16px;border:1px solid #fca5a5;border-radius:12px;background:#fef2f2">
       <div style="font-size:13.5px;font-weight:800;color:#b91c1c;margin-bottom:4px">⚠ UTM 미설정 광고 발견</div>
@@ -1607,8 +1609,12 @@ function setRangeByDays(days){
   let end, start;
   if(range){
     const maxD=new Date(range.max), minD=new Date(range.min);
-    end = maxD;
-    start = (days===1) ? maxD : addDays(maxD, -(days-1));
+    // 오늘(진행 중) 데이터는 프리셋에서 제외 — 낮에 수동 수집하면 오늘 반쪽 데이터가
+    // 끝점이 되어 '어제'가 오늘로 밀리는 문제 방지. 끝점은 어제까지로 캡.
+    const yest=addDays(TODAY,-1);
+    end = (maxD > yest) ? yest : maxD;
+    if(end < minD) end = maxD;   // 데이터가 오늘치뿐인 극단적 경우엔 그대로
+    start = (days===1) ? end : addDays(end, -(days-1));
     if(start < minD) start = minD;
   } else {
     end = addDays(TODAY,-1);
@@ -2769,6 +2775,21 @@ function _ctrMed(){
   _w7Cache._med = ctrs.length? ctrs[Math.floor(ctrs.length/2)] : 1;
   return _w7Cache._med;
 }
+/* 메타 게재 상태 (머신러닝 제한·이슈 — meta.json health, 매일 새벽 수집) */
+function _healthInfo(campName){
+  const H=(window.META_ADS_BUNDLE&&window.META_ADS_BUNDLE.health&&window.META_ADS_BUNDLE.health.items)||[];
+  const mine=H.filter(i=>i.campaign===campName);
+  if(!mine.length) return '';
+  const esc=s=>String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const parts=[];
+  const lim=mine.filter(i=>i.kind==='learning_limited');
+  if(lim.length) parts.push(`<span class="ttp" data-tip="${esc(lim.map(i=>i.name).join(', '))} — 전환이 부족해 메타 최적화가 멈춘 상태. 예산 통합·타겟 확대·전환 이벤트 상향(구매→장바구니) 검토" style="color:#b45309;font-weight:700;cursor:help">⚠ 머신러닝 제한${lim.length>1?` ×${lim.length}`:''}</span>`);
+  const iss=mine.filter(i=>i.kind==='issue');
+  if(iss.length) parts.push(`<span class="ttp" data-tip="${esc(iss.map(i=>`${i.name}: ${i.msg}`).join(' / '))}" style="color:#b91c3c;font-weight:700;cursor:help">⚠ 게재 이슈${iss.length>1?` ×${iss.length}`:''}</span>`);
+  const lrn=mine.filter(i=>i.kind==='learning');
+  if(lrn.length) parts.push(`<span class="ttp" data-tip="${esc(lrn.map(i=>i.name).join(', '))} — 학습 중엔 예산·타겟·소재 변경을 자제하세요 (학습 리셋됨)" style="color:#6b7280;cursor:help">🎓 머신러닝 중${lrn.length>1?` ×${lrn.length}`:''}</span>`);
+  return parts.join(' · ');
+}
 /* B2B 리드 집계 (CRM 시트 연동 — meta.json b2bLeads · 개인정보 없음) */
 function _b2bStats(campName){
   const B=(window.META_ADS_BUNDLE&&window.META_ADS_BUNDLE.b2bLeads)||null;
@@ -3366,7 +3387,7 @@ function renderMetaReport(ctx){
         :`<span style="display:inline-block;padding:1px 7px;border-radius:10px;font-size:10.5px;font-weight:700;color:#b91c3c;background:#ffe4e6;margin-right:6px;vertical-align:1px">중지</span>`):'';
       const _cls=(TREND_DRILL&&TREND_SEL_CAMP.has(c.name))?'trow-sel':'';
       return `<tr data-ci="${i}" data-cname="${_esc(c.name)}"${_cls?` class="${_cls}"`:''}>
-      <td title="${c.name}">${badge}${c.name}${c.dmin?`<br><span style="font-size:11px;color:var(--muted)">게시 ${c.dmin.slice(5)}~${c.dmax.slice(5)}</span>`:''}${(()=>{const _bi=_budInfo(c.name);return _bi?`<br><span style="font-size:11px;color:var(--muted)">${_bi}</span>`:'';})()}${(()=>{const L=_b2bStats(c.name);if(!L)return '';const _cpl=L.n7>0&&c.cost>0?Math.round(_w7('campaign',c.name).c7.cost/L.n7):null;return `<br><span style="font-size:11px;color:#1d4ed8;font-weight:700">리드 7일 ${L.n7}건${_cpl!=null?` · CPL ${fmtWon(_cpl)}`:''}${L.ct7?` · 컨택 ${L.ct7}`:''}</span>`;})()}</td><td>${fmtInt(c.imp)}</td><td>${fmtInt(c.clk)}</td>
+      <td title="${c.name}">${badge}${c.name}${c.dmin?`<br><span style="font-size:11px;color:var(--muted)">게시 ${c.dmin.slice(5)}~${c.dmax.slice(5)}</span>`:''}${(()=>{const _bi=_budInfo(c.name);return _bi?`<br><span style="font-size:11px;color:var(--muted)">${_bi}</span>`:'';})()}${(()=>{const L=_b2bStats(c.name);if(!L)return '';const _cpl=L.n7>0&&c.cost>0?Math.round(_w7('campaign',c.name).c7.cost/L.n7):null;return `<br><span style="font-size:11px;color:#1d4ed8;font-weight:700">리드 7일 ${L.n7}건${_cpl!=null?` · CPL ${fmtWon(_cpl)}`:''}${L.ct7?` · 컨택 ${L.ct7}`:''}</span>`;})()}${(()=>{const _hi=_healthInfo(c.name);return _hi?`<br><span style="font-size:11px">${_hi}</span>`:'';})()}</td><td>${fmtInt(c.imp)}</td><td>${fmtInt(c.clk)}</td>
       <td>${fmtPct(c.ctr)}</td><td>${fmtWon(c.cpc)}</td><td>${fmtWon(c.cost)}</td>
       <td>${fmtInt(c.conv)}</td><td>${fmtWon(c.rev)}</td><td><b>${fmtPct(c.roas,0)}</b></td>${_actCells(_ga&&_ga.cm[c.name],c.cost)}</tr>`;
     }).join('')
@@ -3921,6 +3942,53 @@ function loadAccountUploads(){
   const d=ld(_acctKey('sunamfarmers_da_upload'));      DA_UPLOADED_DATA=d.data;   DA_UPLOADED_META=d.meta;
   const a=ld(_acctKey('sunamfarmers_meta_ad_upload')); META_AD_DATA=a.data;       META_AD_META=a.meta;
   _renderUtmAlert();
+  _renderSysAlert();
+}
+// 시스템 경고: ① 광고 계정 상태(결제 실패 등) ② 토큰 만료 임박 ③ 데이터 수집 중단(신선도)
+function _renderSysAlert(){
+  const box=document.getElementById('sysAlert'); if(!box) return;
+  const B=window.META_ADS_BUNDLE||null; if(!B){ box.style.display='none'; return; }
+  const items=[];
+  const row=(icon,title,body,col,bg,bd)=>`<div style="border:1px solid ${bd};background:${bg};border-radius:12px;padding:11px 15px;margin-bottom:8px">
+    <div style="font-size:13.5px;font-weight:800;color:${col}">${icon} ${title}</div>
+    <div style="font-size:12.5px;color:${col};opacity:.85;line-height:1.6;margin-top:2px">${body}</div></div>`;
+  // ③ 신선도 — 마지막 수집 36시간 초과 (원인 불문: 토큰·워크플로우·API 장애 전부 포착)
+  try{
+    const gen=new Date((B.generatedAt||'').replace(' ','T')+'+09:00');
+    const hrs=(Date.now()-gen.getTime())/36e5;
+    if(isFinite(hrs)&&hrs>36)
+      items.push(row('🔴','데이터 수집 중단',
+        `마지막 메타 수집이 <b>${Math.floor(hrs/24)}일 ${Math.floor(hrs%24)}시간 전</b>(${B.generatedAt})입니다. 아래 수치는 그 시점 기준이에요. GitHub Actions의 「광고 데이터 자동 동기화」 실행 기록과 토큰을 확인하세요.`,
+        '#7f1d1d','#fef2f2','#fca5a5'));
+  }catch(e){}
+  // ① 계정 상태
+  const acc=(B.health&&B.health.account)||null;
+  if(acc&&acc.ok===false)
+    items.push(row('🔴','광고 계정 문제: '+acc.label,
+      `메타 광고 계정이 정상 게재 상태가 아닙니다 — <b>광고 전체가 중단</b>됐을 수 있어요. 광고 관리자에서 결제 수단·계정 상태를 바로 확인하세요.`,
+      '#7f1d1d','#fef2f2','#fca5a5'));
+  if(acc&&acc.ok&&acc.spendCap>0&&acc.amountSpent>=acc.spendCap*0.9)
+    items.push(row('🟠','계정 지출 한도 임박',
+      `설정된 지출 한도 ${fmtWon(acc.spendCap)} 중 ${fmtWon(acc.amountSpent)} 사용 (${Math.round(acc.amountSpent/acc.spendCap*100)}%). 한도에 닿으면 광고가 멈춰요.`,
+      '#92400e','#fffbeb','#fcd34d'));
+  // ② 토큰 만료
+  try{
+    if(B.tokenExpiresAt){
+      const exp=new Date(B.tokenExpiresAt.replace(' ','T')+'+09:00');
+      const dLeft=Math.floor((exp.getTime()-Date.now())/864e5);
+      if(dLeft<0)
+        items.push(row('🔴','메타 토큰 만료됨',
+          `액세스 토큰이 ${B.tokenExpiresAt}에 만료됐습니다. 새 토큰 발급 후 GitHub Secrets의 META_TOKEN을 교체해야 수집이 재개돼요.`,
+          '#7f1d1d','#fef2f2','#fca5a5'));
+      else if(dLeft<=7)
+        items.push(row('🟠',`메타 토큰 만료 D-${dLeft}`,
+          `${B.tokenExpiresAt} 만료 예정. 미리 새 토큰을 발급해 GitHub Secrets의 META_TOKEN을 교체해두세요 — 만료되면 수집이 조용히 멈춥니다.`,
+          '#92400e','#fffbeb','#fcd34d'));
+    }
+  }catch(e){}
+  if(!items.length){ box.style.display='none'; return; }
+  box.innerHTML=items.join('');
+  box.style.display='';
 }
 // UTM 미설정 광고 경고 — fetch_meta_ads.py 가 매일 광고별 URL 매개변수 설정을 전수 검사(utmAudit)
 function _renderUtmAlert(){
